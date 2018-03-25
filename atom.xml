@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iosmosis.github.io/"/>
-  <updated>2018-03-21T07:47:48.084Z</updated>
+  <updated>2018-03-24T12:22:55.998Z</updated>
   <id>http://iosmosis.github.io/</id>
   
   <author>
@@ -14,6 +14,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>第二届强网杯部分Writeup</title>
+    <link href="http://iosmosis.github.io/2018/03/24/%E7%AC%AC%E4%BA%8C%E5%B1%8A%E5%BC%BA%E7%BD%91%E6%9D%AF%E9%83%A8%E5%88%86Writeup/"/>
+    <id>http://iosmosis.github.io/2018/03/24/第二届强网杯部分Writeup/</id>
+    <published>2018-03-24T11:31:37.000Z</published>
+    <updated>2018-03-24T12:22:55.998Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Web签到"><a href="#Web签到" class="headerlink" title="Web签到"></a>Web签到</h2><h4 id="进入web签到给的地址-http-39-107-33-96-10000"><a href="#进入web签到给的地址-http-39-107-33-96-10000" class="headerlink" title="进入web签到给的地址 http://39.107.33.96:10000/"></a>进入web签到给的地址 <a href="http://39.107.33.96:10000/" target="_blank" rel="external">http://39.107.33.96:10000/</a></h4><p><img src="/2018/03/24/第二届强网杯部分Writeup/1.jpg" alt="网站入口"></p>
+<h4 id="查看下网站源码-发现hint"><a href="#查看下网站源码-发现hint" class="headerlink" title="查看下网站源码 发现hint"></a>查看下网站源码 发现hint</h4><p><img src="/2018/03/24/第二届强网杯部分Writeup/2.jpg" alt="网站源码"></p>
+<h4 id="需要post-“param1”-“param2”-两个值-不能相等但必须md5值相等-，根据了解-这算是一种php弱类型"><a href="#需要post-“param1”-“param2”-两个值-不能相等但必须md5值相等-，根据了解-这算是一种php弱类型" class="headerlink" title="需要post “param1” “param2” 两个值 不能相等但必须md5值相等 ，根据了解 这算是一种php弱类型"></a>需要post “param1” “param2” 两个值 不能相等但必须md5值相等 ，根据了解 这算是一种php弱类型</h4><h3 id="根据了解找到一组值"><a href="#根据了解找到一组值" class="headerlink" title="根据了解找到一组值"></a>根据了解找到一组值</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">md5(240610708,32) = 0e462097431906509019562988736854</div><div class="line">md5(240610708,16) = 4319065090195629</div><div class="line"></div><div class="line">md5(QNKCDZO,32) = 0e830400451993494058024219903391</div><div class="line">md5(QNKCDZO,16) = 4519934940580242</div></pre></td></tr></table></figure>
+<h4 id="上文提到过，0e在比较的时候会将其视作为科学计数法，所以无论0e后面是什么，0的多少次方还是0。md5-‘240610708’-md5-‘QNKCDZO’-成功绕过"><a href="#上文提到过，0e在比较的时候会将其视作为科学计数法，所以无论0e后面是什么，0的多少次方还是0。md5-‘240610708’-md5-‘QNKCDZO’-成功绕过" class="headerlink" title="上文提到过，0e在比较的时候会将其视作为科学计数法，所以无论0e后面是什么，0的多少次方还是0。md5(‘240610708’) == md5(‘QNKCDZO’)成功绕过!"></a>上文提到过，0e在比较的时候会将其视作为科学计数法，所以无论0e后面是什么，0的多少次方还是0。md5(‘240610708’) == md5(‘QNKCDZO’)成功绕过!</h4><h3 id="来到第二关"><a href="#来到第二关" class="headerlink" title="来到第二关"></a>来到第二关</h3><p><img src="/2018/03/24/第二届强网杯部分Writeup/3.jpg" alt="网站2"></p>
+<h4 id="查看网站源码"><a href="#查看网站源码" class="headerlink" title="查看网站源码"></a>查看网站源码</h4><p><img src="/2018/03/24/第二届强网杯部分Writeup/4.jpg" alt="源码2"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Web签到&quot;&gt;&lt;a href=&quot;#Web签到&quot; class=&quot;headerlink&quot; title=&quot;Web签到&quot;&gt;&lt;/a&gt;Web签到&lt;/h2&gt;&lt;h4 id=&quot;进入web签到给的地址-http-39-107-33-96-10000&quot;&gt;&lt;a href=&quot;#进入web签
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Jarvis OJ Pwn writeup</title>

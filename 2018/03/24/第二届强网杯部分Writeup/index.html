@@ -6,14 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://iosmosis.github.io">
-  <title>Tag: phpmyadmin | iosmosis&#39;s blog</title>
+  <title>第二届强网杯部分Writeup | iosmosis&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="iosmosis's blog">
-<meta property="og:url" content="http://iosmosis.github.io/tags/phpmyadmin/index.html">
+  <meta name="description" content="Web签到进入web签到给的地址 http://39.107.33.96:10000/ 查看下网站源码 发现hint 需要post “param1” “param2” 两个值 不能相等但必须md5值相等 ，根据了解 这算是一种php弱类型根据了解找到一组值12345md5(240610708,32) = 0e462097431906509019562988736854md5(240610708,1">
+<meta name="keywords">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第二届强网杯部分Writeup">
+<meta property="og:url" content="http://iosmosis.github.io/2018/03/24/第二届强网杯部分Writeup/index.html">
 <meta property="og:site_name" content="iosmosis's blog">
+<meta property="og:description" content="Web签到进入web签到给的地址 http://39.107.33.96:10000/ 查看下网站源码 发现hint 需要post “param1” “param2” 两个值 不能相等但必须md5值相等 ，根据了解 这算是一种php弱类型根据了解找到一组值12345md5(240610708,32) = 0e462097431906509019562988736854md5(240610708,1">
+<meta property="og:image" content="http://iosmosis.github.io/2018/03/24/第二届强网杯部分Writeup/1.jpg">
+<meta property="og:image" content="http://iosmosis.github.io/2018/03/24/第二届强网杯部分Writeup/2.jpg">
+<meta property="og:image" content="http://iosmosis.github.io/2018/03/24/第二届强网杯部分Writeup/3.jpg">
+<meta property="og:image" content="http://iosmosis.github.io/2018/03/24/第二届强网杯部分Writeup/4.jpg">
+<meta property="og:updated_time" content="2018-03-24T12:22:55.998Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iosmosis's blog">
+<meta name="twitter:title" content="第二届强网杯部分Writeup">
+<meta name="twitter:description" content="Web签到进入web签到给的地址 http://39.107.33.96:10000/ 查看下网站源码 发现hint 需要post “param1” “param2” 两个值 不能相等但必须md5值相等 ，根据了解 这算是一种php弱类型根据了解找到一组值12345md5(240610708,32) = 0e462097431906509019562988736854md5(240610708,1">
+<meta name="twitter:image" content="http://iosmosis.github.io/2018/03/24/第二届强网杯部分Writeup/1.jpg">
   
     <link rel="alternative" href="/atom.xml" title="iosmosis&#39;s blog" type="application/atom+xml">
   
@@ -153,68 +163,146 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-第二届强网杯部分Writeup" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/04/09/mysql/" class="archive-article-date">
-  	<time datetime="2017-04-08T16:08:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-09</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/04/09/mysql/">关于phpmyadmin GetShell思路总结</a>
+    <h1 class="article-title" itemprop="name">
+      第二届强网杯部分Writeup
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">phpmyadmin</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Getshell</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+        <a href="/2018/03/24/第二届强网杯部分Writeup/" class="archive-article-date">
+  	<time datetime="2018-03-24T11:31:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Web签到"><a href="#Web签到" class="headerlink" title="Web签到"></a>Web签到</h2><h4 id="进入web签到给的地址-http-39-107-33-96-10000"><a href="#进入web签到给的地址-http-39-107-33-96-10000" class="headerlink" title="进入web签到给的地址 http://39.107.33.96:10000/"></a>进入web签到给的地址 <a href="http://39.107.33.96:10000/" target="_blank" rel="external">http://39.107.33.96:10000/</a></h4><p><img src="/2018/03/24/第二届强网杯部分Writeup/1.jpg" alt="网站入口"></p>
+<h4 id="查看下网站源码-发现hint"><a href="#查看下网站源码-发现hint" class="headerlink" title="查看下网站源码 发现hint"></a>查看下网站源码 发现hint</h4><p><img src="/2018/03/24/第二届强网杯部分Writeup/2.jpg" alt="网站源码"></p>
+<h4 id="需要post-“param1”-“param2”-两个值-不能相等但必须md5值相等-，根据了解-这算是一种php弱类型"><a href="#需要post-“param1”-“param2”-两个值-不能相等但必须md5值相等-，根据了解-这算是一种php弱类型" class="headerlink" title="需要post “param1” “param2” 两个值 不能相等但必须md5值相等 ，根据了解 这算是一种php弱类型"></a>需要post “param1” “param2” 两个值 不能相等但必须md5值相等 ，根据了解 这算是一种php弱类型</h4><h3 id="根据了解找到一组值"><a href="#根据了解找到一组值" class="headerlink" title="根据了解找到一组值"></a>根据了解找到一组值</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">md5(240610708,32) = 0e462097431906509019562988736854</div><div class="line">md5(240610708,16) = 4319065090195629</div><div class="line"></div><div class="line">md5(QNKCDZO,32) = 0e830400451993494058024219903391</div><div class="line">md5(QNKCDZO,16) = 4519934940580242</div></pre></td></tr></table></figure>
+<h4 id="上文提到过，0e在比较的时候会将其视作为科学计数法，所以无论0e后面是什么，0的多少次方还是0。md5-‘240610708’-md5-‘QNKCDZO’-成功绕过"><a href="#上文提到过，0e在比较的时候会将其视作为科学计数法，所以无论0e后面是什么，0的多少次方还是0。md5-‘240610708’-md5-‘QNKCDZO’-成功绕过" class="headerlink" title="上文提到过，0e在比较的时候会将其视作为科学计数法，所以无论0e后面是什么，0的多少次方还是0。md5(‘240610708’) == md5(‘QNKCDZO’)成功绕过!"></a>上文提到过，0e在比较的时候会将其视作为科学计数法，所以无论0e后面是什么，0的多少次方还是0。md5(‘240610708’) == md5(‘QNKCDZO’)成功绕过!</h4><h3 id="来到第二关"><a href="#来到第二关" class="headerlink" title="来到第二关"></a>来到第二关</h3><p><img src="/2018/03/24/第二届强网杯部分Writeup/3.jpg" alt="网站2"></p>
+<h4 id="查看网站源码"><a href="#查看网站源码" class="headerlink" title="查看网站源码"></a>查看网站源码</h4><p><img src="/2018/03/24/第二届强网杯部分Writeup/4.jpg" alt="源码2"></p>
 
-          
+      
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>感谢支持哦~<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACt0lEQVR42u3aQW7DMAwEwPz/0+21QGtnl5ICFxifgiaQNTqILMnXK36+Lp6rb3/+/fc6+bf3v9/24OHh4W3a+v3L7mH3mPX1kz3j4eHhneZd3agrn9+8eBR48j3j4eHhPY13HwZWEvQ8MODh4eH9F97V6+9LDCvhBA8PD++ZvHa55HLftU57EHh4eHineXkS/JzPR/p7eHh4eMtd9ZULNw8zbTGi2C0eHh7eAV5+4eapc964SgYCkiO4T+Lx8PDwTvDyZLq91mfF2bzM0Rad8fDw8Hbxkqu5LRPMVpgx3hwxHh4e3gFe2/LPU9uW0Sbl0egAHh4e3lZeO9KUn9as/T9ryBXjVnh4eHibeO3nWRGhTaDb3/zxLjw8PLxjvPYSb0cHdg0T1FQ8PDy8j/DyDa0UC/IDXWrC4eHh4R3jzYqteUEhDwkrv99cS8bDw8Mrm17rw1J52JgVQaI2GB4eHt4BXtIMyy/rJDC0q83acq8kOuHh4eGNeOtJ80rpoS15JKn/H0NXeHh4eId5s6JqO5I1K2TkQ12X/zHg4eHhLfPyhdYT7l1tsHYgDA8PD+8EbyVdXml3bauj3K+Gh4eHt5U3Gxdoi63rKw+Tbzw8PLxjvORSbtPcvM2/q/12ORmBh4eHt5U3K5jO0uI8yW5T7ehA8fDw8Lby2kJtvuk2ZZ8l6G/CDx4eHt5hXlKubUu0KweR7yqKG3h4eHgHeEliPQsDbVm2Tanx8PDwPsP7Kp82nLTXepJeFyvj4eHhHeC1I005Nd9cG5DyA8LDw8M7x0uCQV5cmBU+2vZYsR88PDy8Y7x80CpnJAMBw0iVHx8eHh7eA3h5OtsOUSUjX/Xe8PDw8B7AWx9B2FW2iHaIh4eHd4yXN5/allWblK+0uC4DAx4eHt5WXltc2NXIbwewNpPw8PDwJrxvZEGccaCkjY8AAAAASUVORK5CYII=" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2018/03/21/Jarvis-OJ-Pwn-writeup/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Jarvis OJ Pwn writeup
+        
+      </div>
+    </a>
   
   
-    </div></section>
+</nav>
+
+
+
+
+
+
+  
+    <div class="duoshuo"></div>
   
 
-    
+
 
 
           </div>
@@ -237,9 +325,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
