@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iosmosis.github.io/"/>
-  <updated>2018-04-03T16:06:59.766Z</updated>
+  <updated>2018-04-03T16:09:33.108Z</updated>
   <id>http://iosmosis.github.io/</id>
   
   <author>
@@ -17,53 +17,60 @@
   
   <entry>
     <title>北邮网安杯Writeup</title>
-    <link href="http://iosmosis.github.io/2018/04/03/%E5%8C%97%E9%82%AE%E7%BD%91%E5%AE%89%E6%9D%AF/"/>
-    <id>http://iosmosis.github.io/2018/04/03/北邮网安杯/</id>
+    <link href="http://iosmosis.github.io/2018/04/03/%E5%8C%97%E9%82%AE%E7%BD%91%E5%AE%89%E6%9D%AFWriteup/"/>
+    <id>http://iosmosis.github.io/2018/04/03/北邮网安杯Writeup/</id>
     <published>2018-04-02T16:44:19.000Z</published>
-    <updated>2018-04-03T16:06:59.766Z</updated>
+    <updated>2018-04-03T16:09:33.108Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h2><h3 id="WEB1-交易中心，你能买到FLAG吗？"><a href="#WEB1-交易中心，你能买到FLAG吗？" class="headerlink" title="WEB1 交易中心，你能买到FLAG吗？"></a>WEB1 交易中心，你能买到FLAG吗？</h3><p><img src="/2018/04/03/北邮网安杯/北邮网安杯Writeup/1.jpg" alt="网站入口"></p>
+    <content type="html"><![CDATA[<h2 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h2><h3 id="WEB1-交易中心，你能买到FLAG吗？"><a href="#WEB1-交易中心，你能买到FLAG吗？" class="headerlink" title="WEB1 交易中心，你能买到FLAG吗？"></a>WEB1 交易中心，你能买到FLAG吗？</h3><p><img src="/2018/04/03/北邮网安杯Writeup/1.jpg" alt="网站入口"></p>
 <p>提供了源码下载</p>
-<p><img src="/2018/04/03/北邮网安杯/北邮网安杯Writeup/3.jpg" alt="源码"></p>
-<p>分析源码<br><img src="/2018/04/03/北邮网安杯/北邮网安杯Writeup/2.jpg" alt="源码分析"></p>
-<p>POST三个参数 并且通过||进行拼接 这样最后的payment应该为goods||message||goods<br><img src="/2018/04/03/北邮网安杯/北邮网安杯Writeup/4.jpg" alt="源码分析2"></p>
+<p><img src="/2018/04/03/北邮网安杯Writeup/3.jpg" alt="源码"></p>
+<ul>
+<li><a id="more"></a>
+分析源码<br><img src="/2018/04/03/北邮网安杯Writeup/2.jpg" alt="源码分析"></li>
+</ul>
+<p>POST三个参数 并且通过||进行拼接 这样最后的payment应该为goods||message||goods<br><img src="/2018/04/03/北邮网安杯Writeup/4.jpg" alt="源码分析2"></p>
 <h4 id="了解到intval-函数功能1、参数一定是数字否则会报错，2、如果是数字那一定是整数，如果有小点，那会省略掉，3，强调参数可以有“-”值。4、参数第一位不应为0开头，不然会自动转换十进制。"><a href="#了解到intval-函数功能1、参数一定是数字否则会报错，2、如果是数字那一定是整数，如果有小点，那会省略掉，3，强调参数可以有“-”值。4、参数第一位不应为0开头，不然会自动转换十进制。" class="headerlink" title="了解到intval()函数功能1、参数一定是数字否则会报错，2、如果是数字那一定是整数，如果有小点，那会省略掉，3，强调参数可以有“-”值。4、参数第一位不应为0开头，不然会自动转换十进制。"></a>了解到intval()函数功能1、参数一定是数字否则会报错，2、如果是数字那一定是整数，如果有小点，那会省略掉，3，强调参数可以有“-”值。4、参数第一位不应为0开头，不然会自动转换十进制。</h4><p>而参数message可控 所以可以想出让intval转换停在message所传值后面利用既然是利用||分割进行转换 所以这里传值时打乱原有的||分割使payment再次被分割时出现非数字使之停止</p>
 <p>构造 直接在POST写入<br>所以构造payload：goods=4&amp;message=40|(此处为当时测试所用值)&amp;goods=1000<br>所得之后的数据为4||40|||1000 分割后会导致第三数据的1000变为|1000<br>提交得到flag</p>
-<h2 id="RE"><a href="#RE" class="headerlink" title="RE"></a>RE</h2><h3 id="Re1"><a href="#Re1" class="headerlink" title="Re1"></a>Re1</h3><p>运行程序了解程序流程<br><img src="/2018/04/03/北邮网安杯/北邮网安杯Writeup/5.jpg" alt="程序测试"></p>
-<p>进行了长度判断<br>不是很会RE 发现没有定位到main入口 就IDA+OD分析<br>定位到相关汇编代码<br><img src="/2018/04/03/北邮网安杯/北邮网安杯Writeup/6.jpg" alt="IDA1"></p>
-<p>进行判断长度需要大于0Ah小于23h<br><img src="/2018/04/03/北邮网安杯/北邮网安杯Writeup/7.jpg" alt="IDA2"></p>
+<h2 id="RE"><a href="#RE" class="headerlink" title="RE"></a>RE</h2><h3 id="Re1"><a href="#Re1" class="headerlink" title="Re1"></a>Re1</h3><p>运行程序了解程序流程<br><img src="/2018/04/03/北邮网安杯Writeup/5.jpg" alt="程序测试"></p>
+<p>进行了长度判断<br>不是很会RE 发现没有定位到main入口 就IDA+OD分析<br>定位到相关汇编代码<br><img src="/2018/04/03/北邮网安杯Writeup/6.jpg" alt="IDA1"></p>
+<p>进行判断长度需要大于0Ah小于23h<br><img src="/2018/04/03/北邮网安杯Writeup/7.jpg" alt="IDA2"></p>
 <p>###</p>
 <p>###<br>发现每次 xor 23h 并进行了27次</p>
-<p><img src="/2018/04/03/北邮网安杯/北邮网安杯Writeup/8.jpg" alt="IDA3"><br>进行字符串比较</p>
-<p><img src="/2018/04/03/北邮网安杯/北邮网安杯Writeup/9.jpg" alt="IDA4"></p>
+<p><img src="/2018/04/03/北邮网安杯Writeup/8.jpg" alt="IDA3"><br>进行字符串比较</p>
+<p><img src="/2018/04/03/北邮网安杯Writeup/9.jpg" alt="IDA4"></p>
 <p>得到密文之后可以进行 还原<br>Payload<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">list=[<span class="number">119</span>, <span class="number">17</span>, <span class="number">77</span>,<span class="number">82</span>,<span class="number">110</span>,<span class="number">23</span>,<span class="number">67</span>, <span class="number">103</span>,<span class="number">18</span>,<span class="number">77</span>,<span class="number">82</span>,<span class="number">97</span>,<span class="number">80</span>,<span class="number">69</span>,<span class="number">67</span>,<span class="number">73</span>,<span class="number">87</span>,<span class="number">67</span>,<span class="number">119</span>,<span class="number">83</span>,<span class="number">101</span>,<span class="number">65</span>,<span class="number">87</span>,<span class="number">121</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>]</div><div class="line">str=<span class="string">""</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> list:</div><div class="line">    str+=chr((i^<span class="number">0x23</span>)<span class="number">-1</span>)</div><div class="line"><span class="keyword">print</span> str</div><div class="line"><span class="comment">#  BUPT&#123;S1mpL3_C0mpAre_is_SoEasY!!!&#125;</span></div></pre></td></tr></table></figure></p>
-<p><img src="/2018/04/03/北邮网安杯/北邮网安杯Writeup/10.jpg" alt="测试"></p>
-<h3 id="Re2"><a href="#Re2" class="headerlink" title="Re2"></a>Re2</h3><p><img src="/2018/04/03/北邮网安杯/北邮网安杯Writeup/11.jpg" alt="流程"></p>
+<p><img src="/2018/04/03/北邮网安杯Writeup/10.jpg" alt="测试"></p>
+<h3 id="Re2"><a href="#Re2" class="headerlink" title="Re2"></a>Re2</h3><p><img src="/2018/04/03/北邮网安杯Writeup/11.jpg" alt="流程"></p>
 <p>简单走流程 猜测应该和RE1思路相似 需要解密某加密</p>
 <p>载入分析</p>
-<p><img src="/2018/04/03/北邮网安杯/北邮网安杯Writeup/12.jpg" alt="流程1"></p>
-<p><img src="/2018/04/03/北邮网安杯/北邮网安杯Writeup/13.jpg" alt="流程2"></p>
-<p><img src="/2018/04/03/北邮网安杯/北邮网安杯Writeup/14.jpg" alt="流程3"></p>
+<p><img src="/2018/04/03/北邮网安杯Writeup/12.jpg" alt="流程1"></p>
+<p><img src="/2018/04/03/北邮网安杯Writeup/13.jpg" alt="流程2"></p>
+<p><img src="/2018/04/03/北邮网安杯Writeup/14.jpg" alt="流程3"></p>
 <p>分析可以得出 加密方式为RC4加密<br>解密流程与加密流程相同<br>可以写的脚本跑出密文并走过第二个函数进行解密</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># /usr/bin/python</span></div><div class="line"><span class="comment"># coding=utf-8</span></div><div class="line"></div><div class="line"><span class="comment">#dump初始化后的密钥流，做xor运算,拿到密钥流直接跑函数2出结果</span></div><div class="line">data=[<span class="number">0x7C</span>,<span class="number">0x55</span>,<span class="number">0x3E</span>,<span class="number">0x5F</span>,<span class="number">0x0E</span>,<span class="number">0xB4</span>,<span class="number">0xCC</span>,<span class="number">0xB9</span>,<span class="number">0x77</span>,<span class="number">0xBF</span>,<span class="number">0x6B</span>,<span class="number">0xD9</span>,<span class="number">0x60</span>,<span class="number">0xE0</span>,<span class="number">0xB9</span>,<span class="number">0x68</span>,<span class="number">0xFB</span>,<span class="number">0x11</span>,<span class="number">0xCE</span>,<span class="number">0xD2</span>,<span class="number">0x15</span>,<span class="number">0x4B</span>,<span class="number">0x0E</span>,<span class="number">0xB5</span>,<span class="number">0xF7</span>,<span class="number">0x3E</span>,<span class="number">0x51</span>,<span class="number">0xEE</span>,<span class="number">0x51</span>,<span class="number">0x4D</span>,<span class="number">0x5A</span>,<span class="number">0x9C</span>,<span class="number">0x01</span>,<span class="number">0xA0</span>,<span class="number">0xC5</span>,<span class="number">0x3A</span>,<span class="number">0xD0</span>,<span class="number">0x38</span>]</div><div class="line">s=[<span class="number">0x53</span>,<span class="number">0x63</span>,<span class="number">0x04</span>,<span class="number">0xD5</span>,<span class="number">0x11</span>,<span class="number">0xFD</span>,<span class="number">0xC2</span>,<span class="number">0x3C</span>,<span class="number">0x83</span>,<span class="number">0x1D</span>,<span class="number">0xB3</span>,<span class="number">0x01</span>,<span class="number">0xA0</span>,<span class="number">0x0D</span>,<span class="number">0x8E</span>,<span class="number">0x95</span></div><div class="line">,<span class="number">0xD3</span>,<span class="number">0xF8</span>,<span class="number">0x6F</span>,<span class="number">0xE5</span>,<span class="number">0xF1</span>,<span class="number">0x94</span>,<span class="number">0x6D</span>,<span class="number">0xAA</span>,<span class="number">0x05</span>,<span class="number">0xCF</span>,<span class="number">0x32</span>,<span class="number">0x02</span>,<span class="number">0xB1</span>,<span class="number">0x35</span>,<span class="number">0x0E</span>,<span class="number">0x21</span></div><div class="line">,<span class="number">0x8A</span>,<span class="number">0x1F</span>,<span class="number">0xA9</span>,<span class="number">0x45</span>,<span class="number">0xCB</span>,<span class="number">0x4A</span>,<span class="number">0xDD</span>,<span class="number">0x1C</span>,<span class="number">0x71</span>,<span class="number">0x96</span>,<span class="number">0x58</span>,<span class="number">0x65</span>,<span class="number">0xED</span>,<span class="number">0x29</span>,<span class="number">0x38</span>,<span class="number">0xD6</span></div><div class="line">,<span class="number">0x16</span>,<span class="number">0xD9</span>,<span class="number">0xAB</span>,<span class="number">0xCC</span>,<span class="number">0xE2</span>,<span class="number">0x13</span>,<span class="number">0x91</span>,<span class="number">0x55</span>,<span class="number">0xBC</span>,<span class="number">0x43</span>,<span class="number">0x4B</span>,<span class="number">0x48</span>,<span class="number">0xF3</span>,<span class="number">0x3E</span>,<span class="number">0xC8</span>,<span class="number">0x6C</span></div><div class="line">,<span class="number">0x0C</span>,<span class="number">0x10</span>,<span class="number">0x15</span>,<span class="number">0xD1</span>,<span class="number">0xB4</span>,<span class="number">0x23</span>,<span class="number">0x52</span>,<span class="number">0x59</span>,<span class="number">0x68</span>,<span class="number">0xC5</span>,<span class="number">0x7F</span>,<span class="number">0x77</span>,<span class="number">0xF2</span>,<span class="number">0xA4</span>,<span class="number">0x5D</span>,<span class="number">0xF6</span></div><div class="line">,<span class="number">0xFB</span>,<span class="number">0x67</span>,<span class="number">0xAC</span>,<span class="number">0x24</span>,<span class="number">0x72</span>,<span class="number">0x8D</span>,<span class="number">0x18</span>,<span class="number">0x09</span>,<span class="number">0x7C</span>,<span class="number">0x8F</span>,<span class="number">0xF4</span>,<span class="number">0xB8</span>,<span class="number">0x81</span>,<span class="number">0xB0</span>,<span class="number">0x44</span>,<span class="number">0xDC</span></div><div class="line">,<span class="number">0xA8</span>,<span class="number">0xE0</span>,<span class="number">0xC6</span>,<span class="number">0xDA</span>,<span class="number">0x00</span>,<span class="number">0x8B</span>,<span class="number">0x97</span>,<span class="number">0x60</span>,<span class="number">0xE3</span>,<span class="number">0x14</span>,<span class="number">0x9C</span>,<span class="number">0x34</span>,<span class="number">0xD7</span>,<span class="number">0xD8</span>,<span class="number">0x5B</span>,<span class="number">0x3F</span></div><div class="line">,<span class="number">0xFE</span>,<span class="number">0x2E</span>,<span class="number">0x33</span>,<span class="number">0x06</span>,<span class="number">0x7B</span>,<span class="number">0xDE</span>,<span class="number">0xC9</span>,<span class="number">0xE7</span>,<span class="number">0x9D</span>,<span class="number">0x5E</span>,<span class="number">0xF9</span>,<span class="number">0x3B</span>,<span class="number">0x75</span>,<span class="number">0x5F</span>,<span class="number">0x30</span>,<span class="number">0xA2</span></div><div class="line">,<span class="number">0xB6</span>,<span class="number">0xA3</span>,<span class="number">0x42</span>,<span class="number">0xAE</span>,<span class="number">0x85</span>,<span class="number">0x37</span>,<span class="number">0x28</span>,<span class="number">0x89</span>,<span class="number">0x66</span>,<span class="number">0xBA</span>,<span class="number">0x78</span>,<span class="number">0x07</span>,<span class="number">0xB9</span>,<span class="number">0x1E</span>,<span class="number">0x9A</span>,<span class="number">0x2B</span></div><div class="line">,<span class="number">0x1A</span>,<span class="number">0x1B</span>,<span class="number">0x39</span>,<span class="number">0xEB</span>,<span class="number">0x93</span>,<span class="number">0x2C</span>,<span class="number">0x64</span>,<span class="number">0x6B</span>,<span class="number">0x9B</span>,<span class="number">0x47</span>,<span class="number">0x80</span>,<span class="number">0xEC</span>,<span class="number">0xC0</span>,<span class="number">0xA1</span>,<span class="number">0x98</span>,<span class="number">0xFC</span></div><div class="line">,<span class="number">0xA6</span>,<span class="number">0xE6</span>,<span class="number">0xC3</span>,<span class="number">0x62</span>,<span class="number">0xAF</span>,<span class="number">0x17</span>,<span class="number">0x6A</span>,<span class="number">0xB7</span>,<span class="number">0x25</span>,<span class="number">0x5A</span>,<span class="number">0xE9</span>,<span class="number">0x5C</span>,<span class="number">0x54</span>,<span class="number">0x0A</span>,<span class="number">0x86</span>,<span class="number">0xD4</span></div><div class="line">,<span class="number">0xE4</span>,<span class="number">0xF0</span>,<span class="number">0x41</span>,<span class="number">0x0F</span>,<span class="number">0xB2</span>,<span class="number">0x0B</span>,<span class="number">0x7E</span>,<span class="number">0x9F</span>,<span class="number">0x4F</span>,<span class="number">0xCE</span>,<span class="number">0xF5</span>,<span class="number">0x99</span>,<span class="number">0xB5</span>,<span class="number">0xC4</span>,<span class="number">0x4D</span>,<span class="number">0xA7</span></div><div class="line">,<span class="number">0xCA</span>,<span class="number">0x19</span>,<span class="number">0x12</span>,<span class="number">0xE1</span>,<span class="number">0x8C</span>,<span class="number">0x36</span>,<span class="number">0xDF</span>,<span class="number">0xE8</span>,<span class="number">0x6E</span>,<span class="number">0x88</span>,<span class="number">0x22</span>,<span class="number">0xD2</span>,<span class="number">0x46</span>,<span class="number">0x26</span>,<span class="number">0xD0</span>,<span class="number">0x03</span></div><div class="line">,<span class="number">0xC1</span>,<span class="number">0xC7</span>,<span class="number">0x08</span>,<span class="number">0x31</span>,<span class="number">0xBB</span>,<span class="number">0x2A</span>,<span class="number">0x7D</span>,<span class="number">0x3A</span>,<span class="number">0xEF</span>,<span class="number">0x4C</span>,<span class="number">0xBD</span>,<span class="number">0xEE</span>,<span class="number">0xFA</span>,<span class="number">0x70</span>,<span class="number">0x50</span>,<span class="number">0xFF</span></div><div class="line">,<span class="number">0xCD</span>,<span class="number">0x20</span>,<span class="number">0x51</span>,<span class="number">0x40</span>,<span class="number">0x57</span>,<span class="number">0xA5</span>,<span class="number">0x82</span>,<span class="number">0x9E</span>,<span class="number">0x69</span>,<span class="number">0x56</span>,<span class="number">0x2D</span>,<span class="number">0x84</span>,<span class="number">0x73</span>,<span class="number">0x74</span>,<span class="number">0x4E</span>,<span class="number">0xBE</span></div><div class="line">,<span class="number">0x2F</span>,<span class="number">0x76</span>,<span class="number">0x7A</span>,<span class="number">0x90</span>,<span class="number">0x92</span>,<span class="number">0xDB</span>,<span class="number">0xF7</span>,<span class="number">0xAD</span>,<span class="number">0x3D</span>,<span class="number">0x87</span>,<span class="number">0x49</span>,<span class="number">0xBF</span>,<span class="number">0xEA</span>,<span class="number">0x79</span>,<span class="number">0x61</span>,<span class="number">0x27</span>]</div><div class="line"></div><div class="line">a1 = <span class="number">0</span></div><div class="line">a2 = <span class="number">0</span></div><div class="line">temp = <span class="number">0</span></div><div class="line">str=<span class="string">""</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">38</span>):</div><div class="line">    a1=(a1+<span class="number">1</span>)%<span class="number">256</span></div><div class="line">    a2=(a2+s[a1])%<span class="number">256</span></div><div class="line">    temp=s[a1]</div><div class="line">    s[a1]=s[a2]</div><div class="line">    s[a2]=temp</div><div class="line">    temp=(s[a1]+s[a2])%<span class="number">256</span></div><div class="line">    data[i]^=s[temp]</div><div class="line">    str+=chr(data[i])</div><div class="line"></div><div class="line"><span class="keyword">print</span> str</div><div class="line"></div><div class="line">运行即可跑出flag</div><div class="line"><span class="comment">#BUPT&#123;rc4_Cryptography_1sSOEa5y!-_-!!!&#125;</span></div></pre></td></tr></table></figure>
-<p><img src="/2018/04/03/北邮网安杯/北邮网安杯Writeup/15.jpg" alt="流程4"></p>
+<p><img src="/2018/04/03/北邮网安杯Writeup/15.jpg" alt="流程4"></p>
 <h3 id="Re3"><a href="#Re3" class="headerlink" title="Re3"></a>Re3</h3><p>2333太菜了比赛时间内没做出来0.0</p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;WEB&quot;&gt;&lt;a href=&quot;#WEB&quot; class=&quot;headerlink&quot; title=&quot;WEB&quot;&gt;&lt;/a&gt;WEB&lt;/h2&gt;&lt;h3 id=&quot;WEB1-交易中心，你能买到FLAG吗？&quot;&gt;&lt;a href=&quot;#WEB1-交易中心，你能买到FLAG吗？&quot; class=&quot;
+      &lt;h2 id=&quot;WEB&quot;&gt;&lt;a href=&quot;#WEB&quot; class=&quot;headerlink&quot; title=&quot;WEB&quot;&gt;&lt;/a&gt;WEB&lt;/h2&gt;&lt;h3 id=&quot;WEB1-交易中心，你能买到FLAG吗？&quot;&gt;&lt;a href=&quot;#WEB1-交易中心，你能买到FLAG吗？&quot; class=&quot;headerlink&quot; title=&quot;WEB1 交易中心，你能买到FLAG吗？&quot;&gt;&lt;/a&gt;WEB1 交易中心，你能买到FLAG吗？&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;/2018/04/03/北邮网安杯Writeup/1.jpg&quot; alt=&quot;网站入口&quot;&gt;&lt;/p&gt;
+&lt;p&gt;提供了源码下载&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/2018/04/03/北邮网安杯Writeup/3.jpg&quot; alt=&quot;源码&quot;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;/li&gt;&lt;/ul&gt;
     
     </summary>
     
     
-      <category term="Writeup" scheme="http://iosmosis.github.io/tags/Writeup/"/>
-    
-      <category term="Web" scheme="http://iosmosis.github.io/tags/Web/"/>
-    
       <category term="北邮网安杯" scheme="http://iosmosis.github.io/tags/%E5%8C%97%E9%82%AE%E7%BD%91%E5%AE%89%E6%9D%AF/"/>
     
+      <category term="Writeup" scheme="http://iosmosis.github.io/tags/Writeup/"/>
+    
       <category term="RE" scheme="http://iosmosis.github.io/tags/RE/"/>
+    
+      <category term="Web" scheme="http://iosmosis.github.io/tags/Web/"/>
     
   </entry>
   
@@ -72,27 +79,32 @@
     <link href="http://iosmosis.github.io/2018/03/24/%E7%AC%AC%E4%BA%8C%E5%B1%8A%E5%BC%BA%E7%BD%91%E6%9D%AF%E9%83%A8%E5%88%86Writeup/"/>
     <id>http://iosmosis.github.io/2018/03/24/第二届强网杯部分Writeup/</id>
     <published>2018-03-24T11:31:37.000Z</published>
-    <updated>2018-04-02T17:04:36.230Z</updated>
+    <updated>2018-04-03T16:09:39.258Z</updated>
     
     <content type="html"><![CDATA[<h2 id="Web签到"><a href="#Web签到" class="headerlink" title="Web签到"></a>Web签到</h2><h4 id="进入web签到给的地址-http-39-107-33-96-10000"><a href="#进入web签到给的地址-http-39-107-33-96-10000" class="headerlink" title="进入web签到给的地址 http://39.107.33.96:10000/"></a>进入web签到给的地址 <a href="http://39.107.33.96:10000/" target="_blank" rel="external">http://39.107.33.96:10000/</a></h4><p><img src="/2018/03/24/第二届强网杯部分Writeup/1.jpg" alt="网站入口"></p>
-<h4 id="查看下网站源码-发现hint"><a href="#查看下网站源码-发现hint" class="headerlink" title="查看下网站源码 发现hint"></a>查看下网站源码 发现hint</h4><p><img src="/2018/03/24/第二届强网杯部分Writeup/2.jpg" alt="网站源码"></p>
-<h4 id="需要post-“param1”-“param2”-两个值-不能相等但必须md5值相等-，根据了解-这算是一种php弱类型"><a href="#需要post-“param1”-“param2”-两个值-不能相等但必须md5值相等-，根据了解-这算是一种php弱类型" class="headerlink" title="需要post “param1” “param2” 两个值 不能相等但必须md5值相等 ，根据了解 这算是一种php弱类型"></a>需要post “param1” “param2” 两个值 不能相等但必须md5值相等 ，根据了解 这算是一种php弱类型</h4><h3 id="根据了解找到一组值"><a href="#根据了解找到一组值" class="headerlink" title="根据了解找到一组值"></a>根据了解找到一组值</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">md5(240610708,32) = 0e462097431906509019562988736854</div><div class="line">md5(240610708,16) = 4319065090195629</div><div class="line"></div><div class="line">md5(QNKCDZO,32) = 0e830400451993494058024219903391</div><div class="line">md5(QNKCDZO,16) = 4519934940580242</div></pre></td></tr></table></figure>
+<h4 id="查看下网站源码-发现hint"><a href="#查看下网站源码-发现hint" class="headerlink" title="查看下网站源码 发现hint"></a>查看下网站源码 发现hint</h4><ul>
+<li><a id="more"></a>
+<img src="/2018/03/24/第二届强网杯部分Writeup/2.jpg" alt="网站源码"><h4 id="需要post-“param1”-“param2”-两个值-不能相等但必须md5值相等-，根据了解-这算是一种php弱类型"><a href="#需要post-“param1”-“param2”-两个值-不能相等但必须md5值相等-，根据了解-这算是一种php弱类型" class="headerlink" title="需要post “param1” “param2” 两个值 不能相等但必须md5值相等 ，根据了解 这算是一种php弱类型"></a>需要post “param1” “param2” 两个值 不能相等但必须md5值相等 ，根据了解 这算是一种php弱类型</h4><h3 id="根据了解找到一组值"><a href="#根据了解找到一组值" class="headerlink" title="根据了解找到一组值"></a>根据了解找到一组值</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">md5(240610708,32) = 0e462097431906509019562988736854</div><div class="line">md5(240610708,16) = 4319065090195629</div><div class="line"></div><div class="line">md5(QNKCDZO,32) = 0e830400451993494058024219903391</div><div class="line">md5(QNKCDZO,16) = 4519934940580242</div></pre></td></tr></table></figure>
+</li>
+</ul>
 <h4 id="上文提到过，0e在比较的时候会将其视作为科学计数法，所以无论0e后面是什么，0的多少次方还是0。md5-‘240610708’-md5-‘QNKCDZO’-成功绕过"><a href="#上文提到过，0e在比较的时候会将其视作为科学计数法，所以无论0e后面是什么，0的多少次方还是0。md5-‘240610708’-md5-‘QNKCDZO’-成功绕过" class="headerlink" title="上文提到过，0e在比较的时候会将其视作为科学计数法，所以无论0e后面是什么，0的多少次方还是0。md5(‘240610708’) == md5(‘QNKCDZO’)成功绕过!"></a>上文提到过，0e在比较的时候会将其视作为科学计数法，所以无论0e后面是什么，0的多少次方还是0。md5(‘240610708’) == md5(‘QNKCDZO’)成功绕过!</h4><h3 id="来到第二关"><a href="#来到第二关" class="headerlink" title="来到第二关"></a>来到第二关</h3><p><img src="/2018/03/24/第二届强网杯部分Writeup/3.jpg" alt="网站2"></p>
 <h4 id="查看网站源码"><a href="#查看网站源码" class="headerlink" title="查看网站源码"></a>查看网站源码</h4><p><img src="/2018/03/24/第二届强网杯部分Writeup/4.jpg" alt="源码2"></p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;Web签到&quot;&gt;&lt;a href=&quot;#Web签到&quot; class=&quot;headerlink&quot; title=&quot;Web签到&quot;&gt;&lt;/a&gt;Web签到&lt;/h2&gt;&lt;h4 id=&quot;进入web签到给的地址-http-39-107-33-96-10000&quot;&gt;&lt;a href=&quot;#进入web签
+      &lt;h2 id=&quot;Web签到&quot;&gt;&lt;a href=&quot;#Web签到&quot; class=&quot;headerlink&quot; title=&quot;Web签到&quot;&gt;&lt;/a&gt;Web签到&lt;/h2&gt;&lt;h4 id=&quot;进入web签到给的地址-http-39-107-33-96-10000&quot;&gt;&lt;a href=&quot;#进入web签到给的地址-http-39-107-33-96-10000&quot; class=&quot;headerlink&quot; title=&quot;进入web签到给的地址 http://39.107.33.96:10000/&quot;&gt;&lt;/a&gt;进入web签到给的地址 &lt;a href=&quot;http://39.107.33.96:10000/&quot;&gt;http://39.107.33.96:10000/&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;&lt;img src=&quot;/2018/03/24/第二届强网杯部分Writeup/1.jpg&quot; alt=&quot;网站入口&quot;&gt;&lt;/p&gt;
+&lt;h4 id=&quot;查看下网站源码-发现hint&quot;&gt;&lt;a href=&quot;#查看下网站源码-发现hint&quot; class=&quot;headerlink&quot; title=&quot;查看下网站源码 发现hint&quot;&gt;&lt;/a&gt;查看下网站源码 发现hint&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;/li&gt;&lt;/ul&gt;
     
     </summary>
     
     
-      <category term="强网杯" scheme="http://iosmosis.github.io/tags/%E5%BC%BA%E7%BD%91%E6%9D%AF/"/>
-    
       <category term="Writeup" scheme="http://iosmosis.github.io/tags/Writeup/"/>
     
       <category term="Web" scheme="http://iosmosis.github.io/tags/Web/"/>
+    
+      <category term="强网杯" scheme="http://iosmosis.github.io/tags/%E5%BC%BA%E7%BD%91%E6%9D%AF/"/>
     
   </entry>
   
@@ -133,9 +145,9 @@
     
       <category term="Pwn" scheme="http://iosmosis.github.io/tags/Pwn/"/>
     
-      <category term="栈溢出" scheme="http://iosmosis.github.io/tags/%E6%A0%88%E6%BA%A2%E5%87%BA/"/>
-    
       <category term="Jarvis OJ" scheme="http://iosmosis.github.io/tags/Jarvis-OJ/"/>
+    
+      <category term="栈溢出" scheme="http://iosmosis.github.io/tags/%E6%A0%88%E6%BA%A2%E5%87%BA/"/>
     
       <category term="writeup" scheme="http://iosmosis.github.io/tags/writeup/"/>
     
@@ -173,9 +185,9 @@
     
       <category term="Pwn" scheme="http://iosmosis.github.io/tags/Pwn/"/>
     
-      <category term="南邮CTF" scheme="http://iosmosis.github.io/tags/%E5%8D%97%E9%82%AECTF/"/>
-    
       <category term="栈溢出" scheme="http://iosmosis.github.io/tags/%E6%A0%88%E6%BA%A2%E5%87%BA/"/>
+    
+      <category term="南邮CTF" scheme="http://iosmosis.github.io/tags/%E5%8D%97%E9%82%AECTF/"/>
     
   </entry>
   
