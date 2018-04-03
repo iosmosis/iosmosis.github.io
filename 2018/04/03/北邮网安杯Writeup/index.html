@@ -9,7 +9,7 @@
   <title>北邮网安杯Writeup | iosmosis&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="WEBWEB1 交易中心，你能买到FLAG吗？ 提供了源码下载">
-<meta name="keywords" content="北邮网安杯,Writeup,RE,Web">
+<meta name="keywords" content="Writeup,Web,北邮网安杯,RE">
 <meta property="og:type" content="article">
 <meta property="og:title" content="北邮网安杯Writeup">
 <meta property="og:url" content="http://iosmosis.github.io/2018/04/03/北邮网安杯Writeup/index.html">
@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://iosmosis.github.io/2018/04/03/北邮网安杯Writeup/13.jpg">
 <meta property="og:image" content="http://iosmosis.github.io/2018/04/03/北邮网安杯Writeup/14.jpg">
 <meta property="og:image" content="http://iosmosis.github.io/2018/04/03/北邮网安杯Writeup/15.jpg">
-<meta property="og:updated_time" content="2018-04-03T16:09:33.108Z">
+<meta property="og:updated_time" content="2018-04-03T16:12:47.703Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="北邮网安杯Writeup">
 <meta name="twitter:description" content="WEBWEB1 交易中心，你能买到FLAG吗？ 提供了源码下载">
@@ -199,7 +199,7 @@
 <p><img src="/2018/04/03/北邮网安杯Writeup/3.jpg" alt="源码"></p>
 <ul>
 <li><a id="more"></a>
-分析源码<br><img src="/2018/04/03/北邮网安杯Writeup/2.jpg" alt="源码分析"></li>
+<the rest="" of="" contents="" |="" 余下全文=""><br>分析源码<br><img src="/2018/04/03/北邮网安杯Writeup/2.jpg" alt="源码分析"></the></li>
 </ul>
 <p>POST三个参数 并且通过||进行拼接 这样最后的payment应该为goods||message||goods<br><img src="/2018/04/03/北邮网安杯Writeup/4.jpg" alt="源码分析2"></p>
 <h4 id="了解到intval-函数功能1、参数一定是数字否则会报错，2、如果是数字那一定是整数，如果有小点，那会省略掉，3，强调参数可以有“-”值。4、参数第一位不应为0开头，不然会自动转换十进制。"><a href="#了解到intval-函数功能1、参数一定是数字否则会报错，2、如果是数字那一定是整数，如果有小点，那会省略掉，3，强调参数可以有“-”值。4、参数第一位不应为0开头，不然会自动转换十进制。" class="headerlink" title="了解到intval()函数功能1、参数一定是数字否则会报错，2、如果是数字那一定是整数，如果有小点，那会省略掉，3，强调参数可以有“-”值。4、参数第一位不应为0开头，不然会自动转换十进制。"></a>了解到intval()函数功能1、参数一定是数字否则会报错，2、如果是数字那一定是整数，如果有小点，那会省略掉，3，强调参数可以有“-”值。4、参数第一位不应为0开头，不然会自动转换十进制。</h4><p>而参数message可控 所以可以想出让intval转换停在message所传值后面利用既然是利用||分割进行转换 所以这里传值时打乱原有的||分割使payment再次被分割时出现非数字使之停止</p>
@@ -257,19 +257,19 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">北邮网安杯</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Writeup</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">RE</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Web</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Web</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">北邮网安杯</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">RE</a>
         		</li>
       		
 		</ul>
@@ -449,14 +449,6 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">About Me</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Pwn</a>
               </li>
              
@@ -470,6 +462,22 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">writeup</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">二进制漏洞利用</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">缓冲区溢出</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">About Me</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -497,14 +505,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">二进制漏洞利用</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">缓冲区溢出</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">WeChat</a>
               </li>
              
@@ -525,19 +525,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">北邮网安杯</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Writeup</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">RE</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Web</a>
+                <a href="javascript:void(0)" class="js-tag color4">waf</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -545,11 +537,19 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+                <a href="javascript:void(0)" class="js-tag color3">Writeup</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">waf</a>
+                <a href="javascript:void(0)" class="js-tag color4">Web</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">北邮网安杯</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">RE</a>
               </li>
             
             <div class="clearfix"></div>
