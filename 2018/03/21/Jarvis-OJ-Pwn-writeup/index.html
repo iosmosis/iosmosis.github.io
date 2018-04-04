@@ -187,21 +187,9 @@
 <li><a id="more"></a>
 <the rest="" of="" contents="" |="" 余下全文=""><br>NX开启 栈溢出保护关闭 <h4 id="附件拖入ida"><a href="#附件拖入ida" class="headerlink" title="附件拖入ida"></a>附件拖入ida</h4></the></li>
 </ul>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2018/03/21/Jarvis-OJ-Pwn-writeup/1.jpg" alt="ida" title="">
-                </div>
-                <div class="image-caption">ida</div>
-            </figure>
+<p><img src="/2018/03/21/Jarvis-OJ-Pwn-writeup/1.jpg" alt="ida"></p>
 <p>main函数里跳转到了vulnerable_function()</p>
-<h4 id="跟进"><a href="#跟进" class="headerlink" title="跟进"></a>跟进</h4><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/2018/03/21/Jarvis-OJ-Pwn-writeup/2.jpg" alt="ida1" title="">
-                </div>
-                <div class="image-caption">ida1</div>
-            </figure>
+<h4 id="跟进"><a href="#跟进" class="headerlink" title="跟进"></a>跟进</h4><p><img src="/2018/03/21/Jarvis-OJ-Pwn-writeup/2.jpg" alt="ida1"></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">可以看到<span class="built_in">read</span>可读的大小为0x200 512字节</div><div class="line">buf大小为0x80字节</div></pre></td></tr></table></figure>
 <h4 id="查看函数窗口-找到callsystem-查看代码发现已经写好了shell"><a href="#查看函数窗口-找到callsystem-查看代码发现已经写好了shell" class="headerlink" title="查看函数窗口 找到callsystem() 查看代码发现已经写好了shell"></a>查看函数窗口 找到callsystem() 查看代码发现已经写好了shell</h4><p>屡一下流程 main函数跳转到了vulnerable_function()然后 read一个大小不超过512的字节 然后返回函数</p>
 <p>思路很清晰了 我们需要将vulnerable_function()函数的返回地址覆盖为callsystem()函数的地址即可成功getshell</p>
@@ -477,19 +465,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">二进制漏洞利用</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">缓冲区溢出</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">About Me</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color1">南邮CTF</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -501,35 +477,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">WeChat</a>
+                <a href="javascript:void(0)" class="js-tag color4">About Me</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">AI外挂</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">南邮CTF</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">S2-045</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">poc</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">exp</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">waf</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -545,6 +497,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">二进制漏洞利用</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">缓冲区溢出</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">强网杯</a>
               </li>
              
@@ -554,6 +514,34 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Web</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">waf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">WeChat</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">AI外挂</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">S2-045</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">poc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">exp</a>
               </li>
              
               <li class="article-tag-list-item">
