@@ -3,14 +3,37 @@
 <head>
   <meta charset="utf-8">
   
-  <title>iosmosis&#39;s blog</title>
+  <title>NPUCTF部分Writeup | iosmosis&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="iosmosis's blog">
-<meta property="og:url" content="http://iosmosis.github.io/index.html">
+  <meta name="description" content="WEB签到 查看源码得到Flag : flag{begin_to_npuctf} 代码猜测应该是js算法题目 查看源码发现主要算法 分析可以看到1234var b = &amp;quot;56ab34c15b73a457069c58a43fcfc640&amp;quot;;var d = 0x0;var e = a.substr(0x8, 0x5);if ($.md5(e) == b.replace(/3/ig,">
+<meta name="keywords">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NPUCTF部分Writeup">
+<meta property="og:url" content="http://iosmosis.github.io/2018/05/13/NPUCTF部分Writeup/index.html">
 <meta property="og:site_name" content="iosmosis's blog">
+<meta property="og:description" content="WEB签到 查看源码得到Flag : flag{begin_to_npuctf} 代码猜测应该是js算法题目 查看源码发现主要算法 分析可以看到1234var b = &amp;quot;56ab34c15b73a457069c58a43fcfc640&amp;quot;;var d = 0x0;var e = a.substr(0x8, 0x5);if ($.md5(e) == b.replace(/3/ig,">
+<meta property="og:image" content="http://iosmosis.github.io/2018/05/13/NPUCTF部分Writeup/1.jpg">
+<meta property="og:image" content="http://iosmosis.github.io/2018/05/13/NPUCTF部分Writeup/2.jpg">
+<meta property="og:image" content="http://iosmosis.github.io/2018/05/13/NPUCTF部分Writeup/3.jpg">
+<meta property="og:image" content="http://iosmosis.github.io/2018/05/13/NPUCTF部分Writeup/4.jpg">
+<meta property="og:image" content="http://iosmosis.github.io/2018/05/13/NPUCTF部分Writeup/5.jpg">
+<meta property="og:image" content="http://iosmosis.github.io/2018/05/13/NPUCTF部分Writeup/6.jpg">
+<meta property="og:image" content="http://iosmosis.github.io/2018/05/13/NPUCTF部分Writeup/7.jpg">
+<meta property="og:image" content="http://iosmosis.github.io/2018/05/13/NPUCTF部分Writeup/8.jpg">
+<meta property="og:image" content="http://iosmosis.github.io/2018/05/13/NPUCTF部分Writeup/9.jpg">
+<meta property="og:image" content="http://iosmosis.github.io/2018/05/13/NPUCTF部分Writeup/10.jpg">
+<meta property="og:image" content="http://iosmosis.github.io/2018/05/13/NPUCTF部分Writeup/11.jpg">
+<meta property="og:image" content="http://iosmosis.github.io/2018/05/13/NPUCTF部分Writeup/12.jpg">
+<meta property="og:image" content="http://iosmosis.github.io/2018/05/13/NPUCTF部分Writeup/13.jpg">
+<meta property="og:image" content="http://iosmosis.github.io/2018/05/13/NPUCTF部分Writeup/14.jpg">
+<meta property="og:image" content="http://iosmosis.github.io/2018/05/13/NPUCTF部分Writeup/15.jpg">
+<meta property="og:image" content="http://iosmosis.github.io/2018/05/13/NPUCTF部分Writeup/16.jpg">
+<meta property="og:image" content="http://iosmosis.github.io/2018/05/13/NPUCTF部分Writeup/17.jpg">
+<meta property="og:updated_time" content="2018-05-13T08:42:27.077Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iosmosis's blog">
+<meta name="twitter:title" content="NPUCTF部分Writeup">
+<meta name="twitter:description" content="WEB签到 查看源码得到Flag : flag{begin_to_npuctf} 代码猜测应该是js算法题目 查看源码发现主要算法 分析可以看到1234var b = &amp;quot;56ab34c15b73a457069c58a43fcfc640&amp;quot;;var d = 0x0;var e = a.substr(0x8, 0x5);if ($.md5(e) == b.replace(/3/ig,">
+<meta name="twitter:image" content="http://iosmosis.github.io/2018/05/13/NPUCTF部分Writeup/1.jpg">
   
     <link rel="alternative" href="/atom.xml" title="iosmosis&#39;s blog" type="application/atom+xml">
   
@@ -24,9 +47,6 @@
   <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   
-    
-    
-  
   
       <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
   
@@ -38,8 +58,8 @@
           rootUrl: '/',
           fancybox: true,
           animate: true,
-          isHome: true,
-          isPost: false,
+          isHome: false,
+          isPost: true,
           isArchive: false,
           isTag: false,
           isCategory: false,
@@ -215,9 +235,7 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap">
-  
-    <article id="post-NPUCTF部分Writeup" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-NPUCTF部分Writeup" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2018/05/13/NPUCTF部分Writeup/" class="article-date">
@@ -233,12 +251,19 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/13/NPUCTF部分Writeup/">NPUCTF部分Writeup</a>
+    <h1 class="article-title" itemprop="name">
+      NPUCTF部分Writeup
     </h1>
   
 
       </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
       
     
     <div class="article-entry" itemprop="articleBody">
@@ -286,618 +311,194 @@
 
       
       
-    </div>
-    
-    <div class="article-info article-info-index">
+        <div class="page-reward">
+          <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang">赏</a></p>
+          <div class="hide_box"></div>
+          <div class="shang_box">
+            <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+            <div class="shang_tit">
+              <p>纯属好玩</p>
+            </div>
+            <div class="shang_payimg">
+              <img src="/img/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+            </div>
+              <div class="pay_explain">扫码打赏，你说多少就多少</div>
+            <div class="shang_payselect">
+              
+                <div class="pay_item checked" data-id="alipay">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/alipay.png" alt="支付宝" /></span>
+                </div>
+              
+              
+                <div class="pay_item" data-id="wechat">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/weixin.png" alt="微信" /></span>
+                </div>
+              
+            </div>
+            <div class="shang_info">
+              <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+        <script type="text/javascript">
+          $(".pay_item").click(function(){
+            $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
+            var dataid=$(this).attr('data-id');
+            $(".shang_payimg img").attr("src","/img/"+dataid+"img.jpg");
+            $("#shang_pay_txt").text(dataid=="alipay"?"支付宝":"微信");
+          });
+          function dashangToggle(){
+            
+            $(".hide_box").fadeToggle();
+            $(".shang_box").fadeToggle();
+          }
+        </script>
       
-      
-
-      
-      
-      <div class="clearfix"></div>
     </div>
     
   </div>
   
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-北邮网安杯Writeup" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/04/03/北邮网安杯Writeup/" class="article-date">
-      <time datetime="2018-04-02T16:44:19.000Z" itemprop="datePublished">2018-04-03</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/北邮网安杯Writeup/">北邮网安杯Writeup</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h2 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h2><h3 id="WEB1-交易中心，你能买到FLAG吗？"><a href="#WEB1-交易中心，你能买到FLAG吗？" class="headerlink" title="WEB1 交易中心，你能买到FLAG吗？"></a>WEB1 交易中心，你能买到FLAG吗？</h3><p>提供了源码下载<br><img src="/2018/04/03/北邮网安杯Writeup/3.jpg" alt="源码"></p>
-<ul>
-<li></li></ul>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RE/">RE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Writeup/">Writeup</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/北邮网安杯/">北邮网安杯</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2018/04/03/北邮网安杯Writeup/#more">阅读全文 >></a>
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/05/13/NPUCTF部分Writeup/">NPUCTF部分Writeup</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 iosmosis 的个人博客">iosmosis</a></p>
+        <p><span>发布时间:</span>2018年05月13日 - 15时39分</p>
+        <p><span>最后更新:</span>2018年05月13日 - 16时42分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/05/13/NPUCTF部分Writeup/" title="NPUCTF部分Writeup">http://iosmosis.github.io/2018/05/13/NPUCTF部分Writeup/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://iosmosis.github.io/2018/05/13/NPUCTF部分Writeup/　　作者: iosmosis" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-第二届强网杯部分Writeup" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/03/24/第二届强网杯部分Writeup/" class="article-date">
-      <time datetime="2018-03-24T11:31:37.000Z" itemprop="datePublished">2018-03-24</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/24/第二届强网杯部分Writeup/">第二届强网杯部分Writeup</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h2 id="Welcome"><a href="#Welcome" class="headerlink" title="Welcome"></a>Welcome</h2><p>  Stegsolve–&gt;<br>  <img src="/2018/03/24/第二届强网杯部分Writeup/7.jpg" alt="网站入口"></p>
-<ul>
-<li></li></ul>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Writeup/">Writeup</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/强网杯/">强网杯</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2018/03/24/第二届强网杯部分Writeup/#more">阅读全文 >></a>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
         </p>
-      
-      <div class="clearfix"></div>
     </div>
-    
-  </div>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/2018/04/03/北邮网安杯Writeup/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          北邮网安杯Writeup
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
   
 </article>
 
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#WEB"><span class="toc-number">1.</span> <span class="toc-text">WEB</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#签到"><span class="toc-number">1.1.</span> <span class="toc-text">签到</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码"><span class="toc-number">1.2.</span> <span class="toc-text">代码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#分析"><span class="toc-number">1.2.1.</span> <span class="toc-text">分析</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令"><span class="toc-number">1.3.</span> <span class="toc-text">命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#login"><span class="toc-number">1.4.</span> <span class="toc-text">login</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#第二关"><span class="toc-number">1.4.1.</span> <span class="toc-text">第二关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第三关"><span class="toc-number">1.4.2.</span> <span class="toc-text">第三关</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PWN"><span class="toc-number">2.</span> <span class="toc-text">PWN</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pwn-checkin"><span class="toc-number">2.1.</span> <span class="toc-text">pwn_checkin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#baby-bashjail"><span class="toc-number">2.2.</span> <span class="toc-text">baby_bashjail</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Warrior-Tales"><span class="toc-number">2.3.</span> <span class="toc-text">Warrior_Tales</span></a></li></ol></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
 
 
 
 
 
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
 
 
 
-  
-    <article id="post-Jarvis-OJ-Pwn-writeup" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/03/21/Jarvis-OJ-Pwn-writeup/" class="article-date">
-      <time datetime="2018-03-21T07:16:36.000Z" itemprop="datePublished">2018-03-21</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
+
     
-      <input type="hidden" class="isFancy" />
+        <div id="gitments"></div>
+<script src="/js/gitment.browser.js"></script>
+<script>
+    var gitment = new Gitment({
+      id: window.location.pathname,
+      owner: 'iosmosis',
+      repo: 'iosmosis.github.io',
+      oauth: {
+        client_id: 'null',
+        client_secret: 'null',
+      },
+    })
+    gitment.render('gitments')
+</script>
     
-    
-      <header class="article-header">
+
+
+
+    <div class="scroll" id="post-nav-button">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/21/Jarvis-OJ-Pwn-writeup/">Jarvis OJ Pwn writeup</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>此篇记录关于Jarvis OJ Pwn所有题目的writeup</p>
-<h2 id="XMAN-level0"><a href="#XMAN-level0" class="headerlink" title="[XMAN]level0"></a>[XMAN]level0</h2><h4 id="进行chack"><a href="#进行chack" class="headerlink" title="进行chack"></a>进行chack</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[*] <span class="string">'/home/ios/Desktop/pwn0'</span></div><div class="line">    Arch:     amd64-64-little</div><div class="line">    RELRO:    No RELRO</div><div class="line">    Stack:    No canary found</div><div class="line">    NX:       NX enabled</div><div class="line">    PIE:      No PIE (0x400000)</div></pre></td></tr></table></figure>
-<ul>
-<li></li></ul>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jarvis-OJ/">Jarvis OJ</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Pwn/">Pwn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/writeup/">writeup</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/栈溢出/">栈溢出</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2018/03/21/Jarvis-OJ-Pwn-writeup/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-When-Did-You-Born" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/03/21/When-Did-You-Born/" class="article-date">
-      <time datetime="2018-03-21T02:49:50.000Z" itemprop="datePublished">2018-03-21</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+            <a href="/2018/04/03/北邮网安杯Writeup/" title="上一篇: 北邮网安杯Writeup">
+                <i class="fa fa-angle-left"></i>
+            </a>
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/21/When-Did-You-Born/">When Did You Born</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>南邮CTF的一道简单pwn100题目</p>
-<p><img src="/2018/03/21/When-Did-You-Born/1.jpg" alt="题目信息"></p>
-<ul>
-<li></li></ul>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Pwn/">Pwn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/南邮CTF/">南邮CTF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/栈溢出/">栈溢出</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2018/03/21/When-Did-You-Born/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hexofix" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/03/20/hexofix/" class="article-date">
-      <time datetime="2018-03-20T15:37:28.000Z" itemprop="datePublished">2018-03-20</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/20/hexofix/">关于hexo添加图片的问题</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>解决了关于hexo文章内部引用图片的问题</p>
-<h4 id="找到你建立的hexo网站的主页配置文件-“-config-yml”"><a href="#找到你建立的hexo网站的主页配置文件-“-config-yml”" class="headerlink" title="找到你建立的hexo网站的主页配置文件 “_config.yml”"></a>找到你建立的hexo网站的主页配置文件 “_config.yml”</h4><p><img src="/2018/03/20/hexofix/2.jpg" alt="主页配置文件"></p>
-<ul>
-<li></li></ul>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/修复问题/">修复问题</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2018/03/20/hexofix/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-jump" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/12/31/jump/" class="article-date">
-      <time datetime="2017-12-31T13:59:46.000Z" itemprop="datePublished">2017-12-31</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/31/jump/">微信游戏跳一跳之简单配置使用waigua</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>为啥写这篇文章0.0  因为总有人在问adb是什么啊？怎么用啊？为什么我运行不了？之类的问题<br>就来写一篇指导文章</p>
-<h3 id="准备环境"><a href="#准备环境" class="headerlink" title="准备环境"></a>准备环境</h3><p>1.逍遥模拟器并启动Android5.1系统<br>2.jump文件</p>
-<ul>
-<li></li></ul>
-          
-      
-      
     </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI外挂/">AI外挂</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WeChat/">WeChat</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/12/31/jump/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/13/NPUCTF部分Writeup/">NPUCTF部分Writeup</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/03/北邮网安杯Writeup/">北邮网安杯Writeup</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/24/第二届强网杯部分Writeup/">第二届强网杯部分Writeup</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/21/Jarvis-OJ-Pwn-writeup/">Jarvis OJ Pwn writeup</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/21/When-Did-You-Born/">When Did You Born</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/hexofix/">关于hexo添加图片的问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/31/jump/">微信游戏跳一跳之简单配置使用waigua</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/30/Rop3/">post</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/23/bof/">Pwnable-Bof writeup</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/09/mysql/">关于phpmyadmin GetShell思路总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/07/Time/">不如慢慢走下去</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/07/str2-045/">Struts 2 S2-045 Jakarta插件远程代码执行漏洞加固方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/05/oneshell/">一句话Shell编写思路</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
 
 
 
-
-
-
-
-
-
-  
-    <article id="post-Rop3" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/12/30/Rop3/" class="article-date">
-      <time datetime="2017-12-30T07:52:23.000Z" itemprop="datePublished">2017-12-30</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+    <script>
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/30/Rop3/">post</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-bof" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/12/23/bof/" class="article-date">
-      <time datetime="2017-12-23T11:55:02.000Z" itemprop="datePublished">2017-12-23</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/23/bof/">Pwnable-Bof writeup</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>个人比较菜 就想分享下自己的思路和过程 如果有问题欢迎大家批评指点</p>
-<h3 id="题目网站：http-pwnable-kr"><a href="#题目网站：http-pwnable-kr" class="headerlink" title="题目网站：http://pwnable.kr"></a>题目网站：<a href="http://pwnable.kr">http://pwnable.kr</a></h3><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>Bof      32位经典缓冲区溢出题目</p>
-<h2 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h2><p>因为题目提供了源码所以先看看代码</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span> key)</span></span>&#123;</div><div class="line">	<span class="keyword">char</span> overflowme[<span class="number">32</span>];</div><div class="line">	<span class="built_in">printf</span>(<span class="string">"overflow me : "</span>);</div><div class="line">	gets(overflowme);	<span class="comment">// smash me!</span></div><div class="line">	<span class="keyword">if</span>(key == <span class="number">0xcafebabe</span>)&#123;</div><div class="line">		system(<span class="string">"/bin/sh"</span>);</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">else</span>&#123;</div><div class="line">		<span class="built_in">printf</span>(<span class="string">"Nah..\n"</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span>&#123;</div><div class="line">	func(<span class="number">0xdeadbeef</span>);</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li></li></ul>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/二进制漏洞利用/">二进制漏洞利用</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/缓冲区溢出/">缓冲区溢出</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/12/23/bof/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-mysql" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/04/09/mysql/" class="article-date">
-      <time datetime="2017-04-08T16:08:16.000Z" itemprop="datePublished">2017-04-09</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/09/mysql/">关于phpmyadmin GetShell思路总结</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h3 id="看了网上的许多文章-总结的不是很到位-这里在根据自己的经验总结一些-如有漏缺-请联系我"><a href="#看了网上的许多文章-总结的不是很到位-这里在根据自己的经验总结一些-如有漏缺-请联系我" class="headerlink" title="看了网上的许多文章 总结的不是很到位 这里在根据自己的经验总结一些 如有漏缺 请联系我~"></a>看了网上的许多文章 总结的不是很到位 这里在根据自己的经验总结一些 如有漏缺 请联系我~</h3><h1 id="低权限读文件"><a href="#低权限读文件" class="headerlink" title="低权限读文件"></a>低权限读文件</h1><h3 id="用到的mysql语句"><a href="#用到的mysql语句" class="headerlink" title="用到的mysql语句"></a>用到的mysql语句</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">LOAD</span> <span class="keyword">DATA</span> <span class="keyword">LOCAL</span> <span class="keyword">INFILE</span> <span class="string">'C:/mysql/data/mysql/user.MYD'</span> <span class="keyword">INTO</span> <span class="keyword">TABLE</span> <span class="keyword">test</span> <span class="keyword">fields</span> <span class="keyword">terminated</span> <span class="keyword">by</span> <span class="string">''</span> <span class="keyword">LINES</span> <span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">'\0'</span>;</div></pre></td></tr></table></figure>
-<h3 id="LOAD-DATA-LOCAL-INFILE-继承的是-执行客户端-用户权限-且只能读-mysql客户端-本地-文件"><a href="#LOAD-DATA-LOCAL-INFILE-继承的是-执行客户端-用户权限-且只能读-mysql客户端-本地-文件" class="headerlink" title="LOAD DATA LOCAL INFILE 继承的是 执行客户端 用户权限 且只能读 mysql客户端 本地 文件"></a>LOAD DATA LOCAL INFILE 继承的是 执行客户端 用户权限 且只能读 mysql客户端 本地 文件</h3><pre><code>webshell 中如果能读取 user.MYD 文件 ，LOAD DATA LOCAL INFILE 就能读该文件
-若webshell 中不能读取 user.MYD文件，LOAD DATA LOCAL INFILE  就不能读该文件
-</code></pre><h3 id="使用方法-利用场景-phpmyadmin-或其它可执行sql-命令的-地方并且站库同服务-情况下读取相关配置文件-，或在权限配置不当情况下-读-user-MYD"><a href="#使用方法-利用场景-phpmyadmin-或其它可执行sql-命令的-地方并且站库同服务-情况下读取相关配置文件-，或在权限配置不当情况下-读-user-MYD" class="headerlink" title="使用方法: 利用场景 phpmyadmin 或其它可执行sql 命令的 地方并且站库同服务  情况下读取相关配置文件 ，或在权限配置不当情况下 读 user.MYD"></a>使用方法: 利用场景 phpmyadmin 或其它可执行sql 命令的 地方并且站库同服务  情况下读取相关配置文件 ，或在权限配置不当情况下 读 user.MYD</h3><ul>
-<li></li></ul>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Getshell/">Getshell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/phpmyadmin/">phpmyadmin</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/04/09/mysql/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-  
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
-  
+    </script>
 </div>
       <footer id="footer">
     <div class="outer">
