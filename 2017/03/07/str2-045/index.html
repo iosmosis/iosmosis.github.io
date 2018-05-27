@@ -114,7 +114,7 @@
             "@type": "ImageObject",
             "url": "/img/favicon.png"
         },
-        "description": "一个期待大学生活的PWN菜鸡"
+        "description": "期待大学生活的二进制菜鸡"
     },
     "headline": "Struts 2 S2-045 Jakarta插件远程代码执行漏洞加固方法",
     "url": "http://iosmosis.github.io/2017/03/07/str2-045/index.html",
@@ -255,12 +255,12 @@
 <!-- Theme Background Related-->
 
     <style>
-      body{
+      body {
         background-color: #F5F5F5;
       }
 
       /* blog_info bottom background */
-      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text {
         background-color: #fff;
       }
     </style>
@@ -303,7 +303,7 @@
 
     <!-- Custom Head -->
     
-</head>
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
 
 
     
@@ -422,6 +422,17 @@
     -->
 
     <!-- Qrcode -->
+    
+        <button id="article-functions-qrcode-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">devices other</i>
+    <span class="visuallyhidden">devices other</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-qrcode-button">
+    <li class="mdl-menu__item">在其它设备中阅读本文章</li>
+    
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACZ0lEQVR42u3aUW7jMAwE0Nz/0rsHCOrMUJbiFs9fgeGkei4gEkO9/v3p64WHh4eHh4eHh/cw3iu+3p//6c77779/zr+brw0PDw/vJO/DVvsD5vrPXH83WUO7Njw8PLzzvOti0C7xuoTkJSdfGx4eHt4zeUmjHG3fC0UFDw8P73fxElj+C3l4gYeHh/dMXrutJ41yHjokS9+eteDh4eHFvHYAdvLzF+Z7eHh4eJe82446XZaE9UFXsRI8PDy8zbwkYP2wEQcjsbZdbpt4PDw8vJO8fCjVttqzwwHJqj68Gjw8PLzNvDZ0aF9Eu9End+oBGB4eHt6tvNnhgPbVJBt6214XLTUeHh7erbxk2H+9rc/a39mxgGhteHh4eA/gtU12WzzaOLgegOHh4eHdyrtr+LQjmMgLEh4eHt5JXnI8dNZkz7b4lWOyeHh4eOd5bbObt9qz5nsWAePh4eHt5rUh6fpgbBb13nBcFQ8PD28bb9/mPnumHbDh4eHh7ea14UK7lJXXN2u18fDw8L7Fux5frRw1WDkiED2Dh4eHd5zXjqnacrLeXn+IQvDw8PCO8FYigHbpeflpYw48PDy8b/HygCCPHvK4YRZ84OHh4Z3ntRt6vrj1Ywd1TIyHh4e3mddes+LRhhezABcPDw/vDO8VXy1g1mSvjNDw8PDwTvLaYtBGvfly88KAh4eH9wReXgzqcf7CAYIbshY8PDy8B/NaZBtJJIUEDw8P72m8JFzIj09tuY+Hh4d3kJeEEXlouzL0mhUnPDw8vJO8dgA2275nbXfyD8DDw8M7yft7Fx4eHh4eHh4e3gOu/4ozDDd8uE4YAAAAAElFTkSuQmCC">
+    
+</ul>
     
 
     <!-- Tags (bookmark) -->
@@ -896,6 +907,12 @@ It will not impact the appearance and can give developers a lot of support :)
 </script>
 
 <!-- Bing Background -->
+
+<script type="text/ls-javascript" id="Bing-Background-script">
+    queue.offer(function(){
+        $('body').attr('data-original', 'https://api.i-meto.com/bing?null');
+    });
+</script>
 
 
 <script>

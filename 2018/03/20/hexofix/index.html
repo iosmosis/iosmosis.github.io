@@ -117,7 +117,7 @@
             "@type": "ImageObject",
             "url": "/img/favicon.png"
         },
-        "description": "一个期待大学生活的PWN菜鸡"
+        "description": "期待大学生活的二进制菜鸡"
     },
     "headline": "关于hexo添加图片的问题",
     "url": "http://iosmosis.github.io/2018/03/20/hexofix/index.html",
@@ -259,12 +259,12 @@
 <!-- Theme Background Related-->
 
     <style>
-      body{
+      body {
         background-color: #F5F5F5;
       }
 
       /* blog_info bottom background */
-      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text {
         background-color: #fff;
       }
     </style>
@@ -307,7 +307,7 @@
 
     <!-- Custom Head -->
     
-</head>
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
 
 
     
@@ -426,6 +426,17 @@
     -->
 
     <!-- Qrcode -->
+    
+        <button id="article-functions-qrcode-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">devices other</i>
+    <span class="visuallyhidden">devices other</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-qrcode-button">
+    <li class="mdl-menu__item">在其它设备中阅读本文章</li>
+    
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACWklEQVR42u3aSXLDMAwEQP//08kHYmUAiPBSrZPLC6XmgaCHePx89fXAw8PDw8PDw8N7M94jvv4YqPX+szGfvVN9Njw8PLwd3j9LbfCda8z1mNVp+mdS8PDw8BZ5zxbcyXfye83vi4eHh/fOvGRx732Kh4eH9628anCQhxF4eHh4n8VL/vAnj5UHE9VycjxrwcPDw4t5+SHT/uvV8z08PDy8gNc71jpXVHqHbXh4eHibvOqh1PV2eR5SVH+Lh4eHt89LhkuW9aTFqserFhI8PDy8HV71D38Oroaw83gXDw8P7zQvWaDzY61eVDEpQs3OCDw8PLwBLw8mqtvc+QjNYoOHh4e3yKvGsvlE9JoSko11uXUADw8Pb8zrHVAln1YX9Lu27Hh4eHg7vMLxUoy5q42g2piFh4eHt8mrBqy9ZqzeHQvtBXh4eHiHeb0wItn+JiUhb0QojIOHh4e3wisPUdwWz1uvbugpw8PDwzvM65WBZJM9mYLkV3h4eHineXkTQK85oBd83NZ0hYeHh/ciXu+wPz8Yuw4j8jKGh4eH9ypevlj3wtxqFFLG4+Hh4S3yqgVg0iiQT261gOHh4eHt86pb4d6DVgtSoTjh4eHhHeZNSkI+EdVv9rbdeHh4eDu8XvCaH1ZNwDc0XeHh4eEd4/WKQQ9cHfl41oKHh4c34N27QCdhxzyMwMPDw/sUXr7Q37WBXi0MeHh4eCu8vGFr0uw1CiPw8PDwDvCq2+K8OeDZmNWQFw8PD+99eL1Wp+vItRrR9g7h8PDw8PZ533fh4eHh4eHh4eG9wfULL1H3E9GGPF4AAAAASUVORK5CYII=">
+    
+</ul>
     
 
     <!-- Tags (bookmark) -->
@@ -897,6 +908,12 @@ It will not impact the appearance and can give developers a lot of support :)
 </script>
 
 <!-- Bing Background -->
+
+<script type="text/ls-javascript" id="Bing-Background-script">
+    queue.offer(function(){
+        $('body').attr('data-original', 'https://api.i-meto.com/bing?null');
+    });
+</script>
 
 
 <script>

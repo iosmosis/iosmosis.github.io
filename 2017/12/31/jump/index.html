@@ -117,7 +117,7 @@
             "@type": "ImageObject",
             "url": "/img/favicon.png"
         },
-        "description": "一个期待大学生活的PWN菜鸡"
+        "description": "期待大学生活的二进制菜鸡"
     },
     "headline": "微信游戏跳一跳之简单配置使用waigua",
     "url": "http://iosmosis.github.io/2017/12/31/jump/index.html",
@@ -259,12 +259,12 @@
 <!-- Theme Background Related-->
 
     <style>
-      body{
+      body {
         background-color: #F5F5F5;
       }
 
       /* blog_info bottom background */
-      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text {
         background-color: #fff;
       }
     </style>
@@ -307,7 +307,7 @@
 
     <!-- Custom Head -->
     
-</head>
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
 
 
     
@@ -426,6 +426,17 @@
     -->
 
     <!-- Qrcode -->
+    
+        <button id="article-functions-qrcode-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">devices other</i>
+    <span class="visuallyhidden">devices other</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-qrcode-button">
+    <li class="mdl-menu__item">在其它设备中阅读本文章</li>
+    
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACX0lEQVR42u3aUZKrMAwEwNz/0u+dAHZGtgmVan9tbSC4+bAUSZ9/P70+eHh4eHh4eHh4L+N94nV1/eVjLu5Krp/tDQ8PD+9J3h9Hbbmtqy3eM9pvvvw2PDw8vAd598Hg/q42GCQBZrg3PDw8vJfxZrCVlBoPDw/vt3ltMGjDDx4eHt7beCsF2ZaUp9GP1lrw8PDwYl7bAHvy7y/09/Dw8PBuee1KQkK0iTLAFDvEw8PDO8ybNZ9m41bJi2gT8eEvBjw8PLwDvBafY+4LFhuKxXh4eHiHebM0Nw8P62NVddEZDw8P7xFe3qTPS73DhDh4cUVKjYeHh/cgr22SJZtrX8HsWXh4eHinefc3rDeu2uQ7HyyoG2B4eHh4W3kJqXjA8nBV8iqLKjUeHh7eVt49MqHuKjocCQx4eHh4h1PqtjyRA3JeEjz+2DkeHh7eg7w2MMxCSJt816UNPDw8vMO8Nr3elTS3rbWlXwx4eHh4B3jteOh62beFFXvDw8PDO8zLB55myW5epJgVI6KhKzw8PLwHebuO8rYYMSt/4OHh4T3Dy4sRbeF1NqqVvDI8PDy8d/LapHb903zgYEOVGg8PD2+Bt2sT+SGeD7wOG294eHh4h3ntWhmcmv2nTdDx8PDwTvPa4zgfrmqpbUKPh4eH911eGwx2FV5XRhOK0QE8PDy8Y7wkGCSMNoFuyxPDwICHh4f3JV5y0Odt/l1lDjw8PLz38/KUutjWqMGGh4eH911ee2QXBYIYv2HsFQ8PD+8R3qwBNhvSyq/MgxMeHh7ek7zfW3h4eHh4eHh4eC9Y/wH3FgdK0HIkMwAAAABJRU5ErkJggg==">
+    
+</ul>
     
 
     <!-- Tags (bookmark) -->
@@ -906,6 +917,12 @@ It will not impact the appearance and can give developers a lot of support :)
 </script>
 
 <!-- Bing Background -->
+
+<script type="text/ls-javascript" id="Bing-Background-script">
+    queue.offer(function(){
+        $('body').attr('data-original', 'https://api.i-meto.com/bing?null');
+    });
+</script>
 
 
 <script>

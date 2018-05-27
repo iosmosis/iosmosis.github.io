@@ -111,7 +111,7 @@
             "@type": "ImageObject",
             "url": "/img/favicon.png"
         },
-        "description": "一个期待大学生活的PWN菜鸡"
+        "description": "期待大学生活的二进制菜鸡"
     },
     "headline": "一句话Shell编写思路",
     "url": "http://iosmosis.github.io/2017/03/05/oneshell/index.html",
@@ -251,12 +251,12 @@
 <!-- Theme Background Related-->
 
     <style>
-      body{
+      body {
         background-color: #F5F5F5;
       }
 
       /* blog_info bottom background */
-      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text {
         background-color: #fff;
       }
     </style>
@@ -299,7 +299,7 @@
 
     <!-- Custom Head -->
     
-</head>
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
 
 
     
@@ -418,6 +418,17 @@
     -->
 
     <!-- Qrcode -->
+    
+        <button id="article-functions-qrcode-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">devices other</i>
+    <span class="visuallyhidden">devices other</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-qrcode-button">
+    <li class="mdl-menu__item">在其它设备中阅读本文章</li>
+    
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACaElEQVR42u3aQXbDIAwFQN//0u0B8uJ8SUDdvGHVhWMzLED96Pr56nHh4eHh4eHh4eE9jHfF492v3r0n+crrMwvmhoeHh3eE92GrHXz4dQmS5RjNDQ8PD+8gbzKt+1/dvyd5QzI3PDw8vOfzqsdGFCXg4eHhfSkvKXnvC+U8jMDDw8N7Mq+3Wc/j4ORbh7IWPDw8vJg3iWJ3/330fg8PDw8v4JVbmoJwodpAkEcV23vK8PDw8AJevhHfM5I2rPzybLIceHh4eLt5hX/yW6Ht/XR7wW4hxsXDw8PbwMs3/ZwxfzIPQQrnHh4eHt4iXoKsTrG30VdbBwoxLh4eHt5SXvUiKt+m8+erocYoxsXDw8Pbxqtu95MAN48/ovng4eHhbeblL8pbByaleY55eyDh4eHhbeZVr7WSYrdXTPeWGw8PD+9veXlx3HtDvqB5GFH+jwEPDw9vKS8vmlc1nvYaCJoXYHh4eHgbeFc85gtUbVlYXFLj4eHhDXjJdp882Qt2V7Vn4eHh4Z3kVQvZaqAwaUWtwvDw8PD+ile97M+vwSZxcF5e4+Hh4Z3k5UfC2ubUXjtCuekKDw8P7yAvv+bPj5b8qmxLSo2Hh4e3jVfduHvNUldxfAhT8PDw8DbzquNDEDBousrDkULTFR4eHt4G3r5Gq2oU2wsvopIaDw8PbwOvehjksUVykKxaDjw8PLzzvN7l0zz2nVyn4eHh4f0XXt6AtaqxoFDu4+Hh4T2Y1yusq+VyXnbj4eHhnecln69Gt8lvq4U4Hh4e3hN4vQhgMsUdl3B4eHh4Z3jfN/Dw8PDw8PDw8B4wfgGGcu05k8CXIwAAAABJRU5ErkJggg==">
+    
+</ul>
     
 
     <!-- Tags (bookmark) -->
@@ -884,6 +895,12 @@ It will not impact the appearance and can give developers a lot of support :)
 </script>
 
 <!-- Bing Background -->
+
+<script type="text/ls-javascript" id="Bing-Background-script">
+    queue.offer(function(){
+        $('body').attr('data-original', 'https://api.i-meto.com/bing?null');
+    });
+</script>
 
 
 <script>

@@ -117,7 +117,7 @@
             "@type": "ImageObject",
             "url": "/img/favicon.png"
         },
-        "description": "一个期待大学生活的PWN菜鸡"
+        "description": "期待大学生活的二进制菜鸡"
     },
     "headline": "Jarvis OJ Pwn writeup",
     "url": "http://iosmosis.github.io/2018/03/21/Jarvis-OJ-Pwn-writeup/index.html",
@@ -259,12 +259,12 @@
 <!-- Theme Background Related-->
 
     <style>
-      body{
+      body {
         background-color: #F5F5F5;
       }
 
       /* blog_info bottom background */
-      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text {
         background-color: #fff;
       }
     </style>
@@ -307,7 +307,7 @@
 
     <!-- Custom Head -->
     
-</head>
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
 
 
     
@@ -426,6 +426,17 @@
     -->
 
     <!-- Qrcode -->
+    
+        <button id="article-functions-qrcode-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">devices other</i>
+    <span class="visuallyhidden">devices other</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-qrcode-button">
+    <li class="mdl-menu__item">在其它设备中阅读本文章</li>
+    
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAAC2UlEQVR42u3aQW7jQAwEQP//07vXAAbibo68K82UTkEiW1M6hCCbrz9HXi9sbGxsbGxsbGzsW7Jf8fV+/8/fvH/n7095v/P3T62cGRsbG/sE9od//TFj/Rtm3xY9ERsbG/sAdn6U5MF5ycnL1dKZsbGxsbEDcFLYclh+HmxsbGzslj0rRXlZSkoaNjY2NvZsQNMWkpbRnuEfzdKwsbGxb89ug947/Pwf8m1sbGzsW7LbK3/MbDy0UrQ+nBwbGxt7U3YyxP9QGEZLk3kDkxetCzowbGxs7Aey2/F9u8ozW7tseVEpxcbGxt6UPRvQrLyIvPHIC+GwFcHGxsbegt0WsLaFaBuetqXJV4WwsbGxd2W3B5q9jrb9aGOG6GVhY2NjH8OerTkmI6GW0d6zlIpgY2NjP5Z9bfHIy1X+itsouhgqYWNjY2/Ezh+Tk743usrXN7GxsbGx8wHTN1Yzkyg6jyuwsbGxT2DPylJRQoKGpy2ZF+Tb2NjY2A9nzyLYWTzclrT1z2JjY2Ofxs7HQLPxU95UrDQndQHDxsbG3o49G9kn35aMq2YRch0PYGNjY2/EbodHbdvQRgsrjUrRimBjY2Nvx85HNu1iZRsAz0ZdFwS92NjY2I9lz1Yb18PaWZw8G05hY2Njn8NOykP+17xtmC39tFE0NjY29t7sdolnNtD/Snwb3IONjY29Nzth5JFq29jkwcBssIWNjY19GrstS20c20YIswEWNjY29mnsfHjUHmilLM3igQ+vGBsbG3tTdnt9I0JoP5ucp67b2NjY2I9lz1Zh2k/lUcRseSha+sHGxsbemp0XrfWh/7D8fDvfxsbGxt6CPWsb2iF+/rrzQjuMB7CxsbGPZLdHaQODWSQQFV1sbGxs7IvKyXrr0i4MYWNjY5/DbodKbZCwsrLTRsvY2NjYp7HboDf/eX20lI+0PjQ82NjY2Juyz7mwsbGxsbGxsbGxb3P9BXvw4pWTaBZQAAAAAElFTkSuQmCC">
+    
+</ul>
     
 
     <!-- Tags (bookmark) -->
@@ -915,6 +926,12 @@ It will not impact the appearance and can give developers a lot of support :)
 </script>
 
 <!-- Bing Background -->
+
+<script type="text/ls-javascript" id="Bing-Background-script">
+    queue.offer(function(){
+        $('body').attr('data-original', 'https://api.i-meto.com/bing?null');
+    });
+</script>
 
 
 <script>

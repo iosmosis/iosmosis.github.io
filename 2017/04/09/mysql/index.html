@@ -120,7 +120,7 @@ LOAD DATA LOCAL INFILE 继承的是 执行客户端 用户权限 且只能读 my
             "@type": "ImageObject",
             "url": "/img/favicon.png"
         },
-        "description": "一个期待大学生活的PWN菜鸡"
+        "description": "期待大学生活的二进制菜鸡"
     },
     "headline": "关于phpmyadmin GetShell思路总结",
     "url": "http://iosmosis.github.io/2017/04/09/mysql/index.html",
@@ -263,12 +263,12 @@ LOAD DATA LOCAL INFILE 继承的是 执行客户端 用户权限 且只能读 my
 <!-- Theme Background Related-->
 
     <style>
-      body{
+      body {
         background-color: #F5F5F5;
       }
 
       /* blog_info bottom background */
-      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text {
         background-color: #fff;
       }
     </style>
@@ -311,7 +311,7 @@ LOAD DATA LOCAL INFILE 继承的是 执行客户端 用户权限 且只能读 my
 
     <!-- Custom Head -->
     
-</head>
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
 
 
     
@@ -430,6 +430,17 @@ LOAD DATA LOCAL INFILE 继承的是 执行客户端 用户权限 且只能读 my
     -->
 
     <!-- Qrcode -->
+    
+        <button id="article-functions-qrcode-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">devices other</i>
+    <span class="visuallyhidden">devices other</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-qrcode-button">
+    <li class="mdl-menu__item">在其它设备中阅读本文章</li>
+    
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACXUlEQVR42u3aQW7DMAwEwPz/0+21QBF7SVqyE4xPQesqGh1EluTr56ufFx4eHh4eHh4e3sN4r/j5+/7/FZKfvFuz+lcn6+Dh4eFt4Z1ctW94+edjUn6Ux3vDw8PD28+rfs3xdqvvHIeKQqDCw8PDexhvjp8EHjw8PLxP5PWQCQAPDw/vE3n5P/yTom0OvqHWgoeHhxfzeg2wPZ9v6+/h4eHhXTR0dbz0/M2Lh67w8PDwFvCSZDffYlJWyNtgeUsMDw8Pbz+v2tDKm16j5Lg3moCHh4e3mFctyPaOptfcyn+Lh4eHt583bzvlhYYJIApOeHh4eBt582Z/8yqP02s8PDy85/N613S14DsJJHh4eHh38a4NFfkYQdJySw4dDw8P715evpVeWpwfX69cgoeHh7eaF40xxeOkedkiPyw8PDy8J/NOyqPxmzkgL4U0Rwfw8PDwlvHyrSRFhPw4qiGnGRjw8PDwFvDywm51CGBeyCgfPR4eHt5iXu+6z6/46hH0Ssx4eHh4O3mFMdDW5T4fF6im13h4eHiredXAkFzQ1ZHTpN1V2BseHh7eFl611ZQHgGranZchojIuHh4e3gJeL7WthoRJSl0tXuDh4eGt5lWfnF0tJeTFDjw8PLx7eb3reN64yssN+eACHh4e3k5ePm6VBIZqIKkOV52siYeHh7eRNxmH6g0TVEsS0UHg4eHhPYyXp7aTdlo1UOHh4eE9n9e73Hspe3WYAA8PD28nL/n6avo7aZtVR8Hw8PDwdvImo069bSXJcX7ceHh4eDt53/fg4eHh4eHh4eE94PkFvXl8uBCpjwEAAAAASUVORK5CYII=">
+    
+</ul>
     
 
     <!-- Tags (bookmark) -->
@@ -907,6 +918,12 @@ It will not impact the appearance and can give developers a lot of support :)
 </script>
 
 <!-- Bing Background -->
+
+<script type="text/ls-javascript" id="Bing-Background-script">
+    queue.offer(function(){
+        $('body').attr('data-original', 'https://api.i-meto.com/bing?null');
+    });
+</script>
 
 
 <script>
