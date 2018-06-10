@@ -304,6 +304,70 @@
     
 
         <!-- Post Title -->
+        <p class="article-headline-p"><a href="/2017/12/23/bof/">Pwnable-Bof writeup</a></p>
+    </div>
+
+    <!-- Post Excerpt -->
+    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
+        
+            个人比较菜 就想分享下自己的思路和过程 如果有问题欢迎大家批评指点
+题目网站：http://pwnable.kr题目Bof      32位经典缓冲区溢出题目
+解题过程因为题目提供了源码所以先看看代码
+123456789101112131415161718#include &lt;stdio.h&gt;#include &lt;string.h&gt;#include &lt;stdlib.h&gt;void func(int key)&#123;	char overflowme[32];	printf("overflow me : ");	gets(overflowme);	// smash me!	if(key == 0xcafebabe)&#123;		system("/bin/sh");	&#125;	else&#123;		printf("Nah..\n");	&#125;&#125;int main(int argc, char* argv[])&#123;	func(0xdeadbeef);	return 0;&#125;
+
+
+        
+        &nbsp;&nbsp;&nbsp;
+        <span>
+            <a href="/2017/12/23/bof/" target="_self">阅读全文</a>
+        </span>
+    </div>
+    <!-- Post_entry Info-->
+    <div id="post_entry-info">
+        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
+            <!-- Author Avatar -->
+            <div id="author-avatar">
+                <img src="/img/avatar.png" width="44px" height="44px" alt="iosmosis's avatar">
+            </div>
+            <div>
+                <strong>iosmosis</strong>
+                <span>12月 23, 2017</span>
+            </div>
+        </div>
+        <div id="post_entry-right-info">
+            <!-- Category -->
+            <span class="post_entry-category">
+                
+            </span>
+
+            
+
+            
+
+            <!-- Post Views -->
+            <span class="post_entry-views">
+            </span>
+        </div>
+    </div>
+</div>
+
+            
+            
+        
+    
+        
+            
+                <!-- Paradox Thumbnail -->
+                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
+    <!-- Post Thumbnail -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+        
+    
+
+        <!-- Post Title -->
         <p class="article-headline-p"><a href="/2017/04/09/mysql/">关于phpmyadmin GetShell思路总结</a></p>
     </div>
 
@@ -640,7 +704,7 @@ LOAD DATA LOCAL INFILE 继承的是 执行客户端 用户权限 且只能读 my
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">2</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">2</span></a>
             </ul>
         </li>
         
