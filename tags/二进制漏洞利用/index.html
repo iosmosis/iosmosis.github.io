@@ -315,7 +315,26 @@
             个人比较菜 就想分享下自己的思路和过程 如果有问题欢迎大家批评指点
 题目网站：http://pwnable.kr题目Bof      32位经典缓冲区溢出题目
 解题过程因为题目提供了源码所以先看看代码
-123456789101112131415161718#include &lt;stdio.h&gt;#include &lt;string.h&gt;#include &lt;stdlib.h&gt;void func(int key)&#123;	char overflowme[32];	printf("overflow me : ");	gets(overflowme);	// smash me!	if(key == 0xcafebabe)&#123;		system("/bin/sh");	&#125;	else&#123;		printf("Nah..\n");	&#125;&#125;int main(int argc, char* argv[])&#123;	func(0xdeadbeef);	return 0;&#125;
+
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;stdlib.h&gt;
+void func(int key){
+    char overflowme[32];
+    printf(&quot;overflow me : &quot;);
+    gets(overflowme);    // smash me!
+    if(key == 0xcafebabe){
+        system(&quot;/bin/sh&quot;);
+    }
+    else{
+        printf(&quot;Nah..\n&quot;);
+    }
+}
+int main(int argc, char* argv[]){
+    func(0xdeadbeef);
+    return 0;
+}
+
 
 
         

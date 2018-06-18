@@ -509,18 +509,35 @@
 </li>
 </ul>
 <h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>启动模拟器并下载好最新版微信<br>打开跳一跳 并点击开始游戏<br><a href="http://imglf5.nosdn.127.net/img/L241Y0htMkgzZUF3a0x0eDhTU2tvalRqSzRyM2R1b01WdElwQUcwMWFmVWdTU29lNTYvd0dBPT0.png?imageView&amp;thumbnail=1680x0&amp;quality=96&amp;stripmeta=0" target="_blank" rel="external">wechat.png</a></p>
-<p>接着打开找到逍遥模拟器安装路径并找到附带的adb路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">D:\Program Files\Microvirt\MEmu</div></pre></td></tr></table></figure></p>
-<p><a href="http://imglf5.nosdn.127.net/img/L241Y0htMkgzZUF3a0x0eDhTU2tvdVE0czFZMVcvT0VoWGkyd0JJTEZ4K0xNeloyb2hVK1dBPT0.png?imageView&amp;thumbnail=1680x0&amp;quality=96&amp;stripmeta=0" target="_blank" rel="external">dir.png</a></p>
+<p>接着打开找到逍遥模拟器安装路径并找到附带的adb路径</p>
+<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>D:\Program Files\Microvirt\MEmu
+</code></pre><p><a href="http://imglf5.nosdn.127.net/img/L241Y0htMkgzZUF3a0x0eDhTU2tvdVE0czFZMVcvT0VoWGkyd0JJTEZ4K0xNeloyb2hVK1dBPT0.png?imageView&amp;thumbnail=1680x0&amp;quality=96&amp;stripmeta=0" target="_blank" rel="external">dir.png</a></p>
 <p>在此目录启动cmd 查看监听端口<br>并且启动adb服务</p>
 <p><a href="http://imglf5.nosdn.127.net/img/L241Y0htMkgzZUF3a0x0eDhTU2tvamVweDlEeXVIS3QvTXJIcUE0NFhjWG5obHY1eC8wMmNBPT0.png?imageView&amp;thumbnail=1680x0&amp;quality=96&amp;stripmeta=0" target="_blank" rel="external">start.png</a></p>
-<p>接着把准备好的jump文件放在adb所在目录<br>接下来就可以push了<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">adb push ./youjumpijump /data/<span class="built_in">local</span>/tmp/youjumpijump</div></pre></td></tr></table></figure></p>
+<p>接着把准备好的jump文件放在adb所在目录<br>接下来就可以push了</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">adb push ./youjumpijump /data/local/tmp/youjumpijump
+</code></pre>
 <p><a href="http://imglf3.nosdn.127.net/img/L241Y0htMkgzZUF3a0x0eDhTU2tvdjNWRE56YzJOdnVVMUlNM1lDTE5iYkFCbVFZWG5JTG53PT0.png?imageView&amp;thumbnail=1680x0&amp;quality=96&amp;stripmeta=0" target="_blank" rel="external">push.png</a></p>
 <p>接着运行shell </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">adb shell</div></pre></td></tr></table></figure>
-<p>转到目录/data/local/tmp<br>查看当前目录<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ls</div></pre></td></tr></table></figure></p>
-<p>修改waigua文件的权限<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod 777 youjumpijump</div></pre></td></tr></table></figure></p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">adb shell
+</code></pre>
+<p>转到目录/data/local/tmp<br>查看当前目录 </p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">ls</span>
+</code></pre>
+<p>修改waigua文件的权限</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">chmod</span> 777 youjumpijump
+</code></pre>
 <p><a href="http://imglf5.nosdn.127.net/img/L241Y0htMkgzZUI1d05VS3ZGNnJtZE5tazVhVmRLa1lZSVdmdGg0emgzZVFOYnlOMTRzMkpBPT0.png?imageView&amp;thumbnail=1680x0&amp;quality=96&amp;stripmeta=0" target="_blank" rel="external">shell.png</a></p>
-<p>最后就是启动waigua输入参数即可~<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">./youjumpijump</div><div class="line">2.04</div></pre></td></tr></table></figure></p>
+<p>最后就是启动waigua输入参数即可~</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">./youjumpijump
+2.04
+</code></pre>
 <p><a href="http://imglf3.nosdn.127.net/img/L241Y0htMkgzZUI1d05VS3ZGNnJtZFlzVkRjVHNzcERoMTdTdmttVlBCVWNFVysyYjA3SmlBPT0.png?imageView&amp;thumbnail=1680x0&amp;quality=96&amp;stripmeta=0" target="_blank" rel="external">result.png</a></p>
 
     
