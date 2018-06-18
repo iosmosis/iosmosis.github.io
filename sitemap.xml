@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://iosmosis.github.io/2018/06/18/bamboofox-ret2syscall/</loc>
+    
+    <lastmod>2018-06-18T06:42:58.805Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://iosmosis.github.io/2018/06/10/%E5%8C%97%E9%82%AE%E8%87%AA%E6%8B%9B%E5%A4%8D%E8%AF%95-CTF-Writeup/</loc>
     
     <lastmod>2018-06-12T15:30:20.996Z</lastmod>

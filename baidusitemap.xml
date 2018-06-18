@@ -4,6 +4,29 @@
 
     
   <url>
+    <loc>http://iosmosis.github.io/2018/06/18/bamboofox-ret2syscall/</loc>
+    <lastmod>2018-06-18T06:42:58.805Z</lastmod>
+    <data>
+        <display>
+        <title>bamboofox-ret2syscall</title>
+        <pubTime>2018-06-18T05:51:01.000Z</pubTime>
+        
+        <tag>Pwn</tag>
+         
+        <tag>writeup</tag>
+         
+        <tag>CTFwiki</tag>
+         
+        <tag>ROP</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://iosmosis.github.io/2018/06/10/%E5%8C%97%E9%82%AE%E8%87%AA%E6%8B%9B%E5%A4%8D%E8%AF%95-CTF-Writeup/</loc>
     <lastmod>2018-06-12T15:30:20.996Z</lastmod>
     <data>
@@ -11,13 +34,13 @@
         <title>2018北邮自招复试-CTF-Writeup</title>
         <pubTime>2018-06-10T13:41:48.000Z</pubTime>
         
-        <tag>writeup</tag>
-         
         <tag>WEB</tag>
          
-        <tag>RE</tag>
+        <tag>writeup</tag>
          
         <tag>BUPT</tag>
+         
+        <tag>RE</tag>
          
          
            
@@ -34,9 +57,9 @@
         <title>全国中学生网络安全技术大赛-Writeup</title>
         <pubTime>2018-06-12T03:10:55.000Z</pubTime>
         
-        <tag>writeup</tag>
-         
         <tag>WEB</tag>
+         
+        <tag>writeup</tag>
          
         <tag>msscstc</tag>
          
@@ -63,9 +86,9 @@
         
         <tag>Pwn</tag>
          
-        <tag>栈溢出</tag>
-         
         <tag>writeup</tag>
+         
+        <tag>栈溢出</tag>
          
         <tag>Syclover</tag>
          
@@ -86,11 +109,11 @@
         
         <tag>Pwn</tag>
          
+        <tag>writeup</tag>
+         
         <tag>Jarvis OJ</tag>
          
         <tag>栈溢出</tag>
-         
-        <tag>writeup</tag>
          
          
            
@@ -107,11 +130,11 @@
         <title>北邮网安杯Writeup</title>
         <pubTime>2018-04-02T16:44:19.000Z</pubTime>
         
+        <tag>RE</tag>
+         
         <tag>北邮网安杯</tag>
          
         <tag>Writeup</tag>
-         
-        <tag>RE</tag>
          
         <tag>Web</tag>
          
@@ -132,11 +155,11 @@
         
         <tag>Pwn</tag>
          
-        <tag>writeup</tag>
-         
         <tag>NPUCTF</tag>
          
         <tag>WEB</tag>
+         
+        <tag>writeup</tag>
          
          
            
