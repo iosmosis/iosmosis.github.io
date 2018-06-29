@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://iosmosis.github.io/2018/06/29/police-academy-Writeup/</loc>
+    
+    <lastmod>2018-06-29T17:42:08.015Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://iosmosis.github.io/2018/06/18/bamboofox-ret2syscall/</loc>
     
     <lastmod>2018-06-18T06:42:58.805Z</lastmod>
