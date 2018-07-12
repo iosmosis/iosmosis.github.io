@@ -12,7 +12,7 @@
     
     <title>
         
-            标签: mysql | 
+            归档 | 
         
         iosmosis&#39;s blog
     </title>
@@ -65,7 +65,7 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://iosmosis.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="标签: mysql | iosmosis&#39;s blog">
+    <meta property="og:title" content="归档 | iosmosis&#39;s blog">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="">
     
@@ -73,7 +73,7 @@
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="标签: mysql | iosmosis&#39;s blog">
+    <meta name="twitter:title" content="归档 | iosmosis&#39;s blog">
     <meta name="twitter:description" content="">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -81,7 +81,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://iosmosis.github.io/tags/mysql/index.html" />
+        <link rel="canonical" href="http://iosmosis.github.io/archives/page/3/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -306,23 +306,18 @@
     
 
         <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/04/09/mysql/">关于phpmyadmin GetShell思路总结</a></p>
+        <p class="article-headline-p"><a href="/2017/03/05/oneshell/">一句话Shell编写思路</a></p>
     </div>
 
     <!-- Post Excerpt -->
     <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
         
-            看了网上的许多文章 总结的不是很到位 这里在根据自己的经验总结一些 如有漏缺 请联系我~低权限读文件用到的mysql语句
-LOAD DATA LOCAL INFILE &#39;C:/mysql/data/mysql/user.MYD&#39; INTO TABLE test fields terminated by &#39;&#39; LINES TERMINATED BY &#39;\0&#39;;
-
-LOAD DATA LOCAL INFILE 继承的是 执行客户端 用户权限 且只能读 mysql客户端 本地 文件webshell 中如果能读取 user.MYD 文件 ，LOAD DATA LOCAL INFILE 就能读该文件
-若webshell 中不能读取 user.MYD文件，LOAD DATA LOCAL INFILE  就不能读该文件
-使用方法: 利用场景 phpmyadmin 或其它可执行sql 命令的 地方并且站库同服务  情况下读取相关配置文件 ，或在权限配置不当情况下 读 user.MYD
+            很多人都头痛 好不容易找到上传点拿shell了 却发现有狗 = = 其实过狗并不是很难 所以我在这里总结一下思路
 
         
         &nbsp;&nbsp;&nbsp;
         <span>
-            <a href="/2017/04/09/mysql/" target="_self">阅读全文</a>
+            <a href="/2017/03/05/oneshell/" target="_self">阅读全文</a>
         </span>
     </div>
     <!-- Post_entry Info-->
@@ -334,7 +329,7 @@ LOAD DATA LOCAL INFILE 继承的是 执行客户端 用户权限 且只能读 my
             </div>
             <div>
                 <strong>iosmosis</strong>
-                <span>4月 09, 2017</span>
+                <span>3月 05, 2017</span>
             </div>
         </div>
         <div id="post_entry-right-info">
@@ -359,6 +354,11 @@ LOAD DATA LOCAL INFILE 继承的是 执行客户端 用户权限 且只能读 my
         
     
 
+    
+    <!-- Index nav -->
+        <nav class="material-nav mdl-cell mdl-cell--12-col">
+            <a class="extend prev" rel="prev" href="/archives/page/2/"><button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"><i class="material-icons" role="presentation">arrow_back</i></button></a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span>
+        </nav>
     
 
     
@@ -537,6 +537,14 @@ It will not impact the appearance and can give developers a lot of support :)
 </aside>
 
                     
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
 
                     
 

