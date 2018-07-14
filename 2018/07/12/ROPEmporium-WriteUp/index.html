@@ -808,7 +808,7 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
 <span class="token punctuation">.</span>text<span class="token punctuation">:</span>0804886C                 jmp     <span class="token keyword">short</span> loc_8048878
 </code></pre>
 <p>这里循环对输入的字符又进行了比较 如果出现上述字符串就会替换该字符串为0xEB </p>
-<h3 id="利用思路"><a href="#利用思路" class="headerlink" title="利用思路"></a>利用思路</h3><p>因为题目和之前write4题目类似 就想直接rop绕过 </p>
+<h3 id="利用思路"><a href="#利用思路" class="headerlink" title="利用思路"></a>利用思路</h3><p>因为题目和之前write4题目类似 所以这里从rop构造开始讲起</p>
 <p>可是题目又对输入的字符进行检查了 我们现在想要的是/bin/sh 可是check函数中过滤了 b i n / s所以不能直接传入/bin/sh  不过题目中给了这样的提示</p>
 <p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-c"><code class="language-c">text<span class="token punctuation">:</span><span class="token number">08048890</span>                 public usefulGadgets
@@ -827,7 +827,7 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
 <span class="token punctuation">.</span>text<span class="token punctuation">:</span>0804889A                 pop     edi
 <span class="token punctuation">.</span>text<span class="token punctuation">:</span>0804889B                 retn
 </code></pre>
-<p>usefulGadgets 这里给了你xor提示 既然有了这个gadget我们可以利用先对/bin/sh进行xor加密 来通过check 然后通过usefulGadgets 来进行解密 接着调用即可</p>
+<p>usefulGadgets 这里给了你xor提示， 既然有了这个gadget，我们可以利用先对/bin/sh进行xor加密来通过check ，然后通过usefulGadgets 来进行解密 接着调用即可</p>
 <h4 id="ROP构造"><a href="#ROP构造" class="headerlink" title="ROP构造"></a>ROP构造</h4><p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-python"><code class="language-python">mov_ret <span class="token operator">=</span> <span class="token number">0x08048893</span> <span class="token comment" spellcheck="true"># mov dword ptr [edi], esi ; ret</span>
 

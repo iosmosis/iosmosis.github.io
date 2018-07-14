@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iosmosis.github.io/"/>
-  <updated>2018-07-13T16:58:48.051Z</updated>
+  <updated>2018-07-13T17:53:10.590Z</updated>
   <id>http://iosmosis.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://iosmosis.github.io/2018/07/12/ROPEmporium-WriteUp/"/>
     <id>http://iosmosis.github.io/2018/07/12/ROPEmporium-WriteUp/</id>
     <published>2018-07-12T09:35:36.000Z</published>
-    <updated>2018-07-13T16:58:48.051Z</updated>
+    <updated>2018-07-13T17:53:10.590Z</updated>
     
     <content type="html"><![CDATA[<p>最近在看堆系列 最近的wp都是大家有疑惑 我自己也有点不明白的题目 所以再次记录</p>
 <h2 id="write432"><a href="#write432" class="headerlink" title="write432"></a>write432</h2><p>检查保护</p>
@@ -340,7 +340,7 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
 <span class="token punctuation">.</span>text<span class="token punctuation">:</span>0804886C                 jmp     <span class="token keyword">short</span> loc_8048878
 </code></pre>
 <p>这里循环对输入的字符又进行了比较 如果出现上述字符串就会替换该字符串为0xEB </p>
-<h3 id="利用思路"><a href="#利用思路" class="headerlink" title="利用思路"></a>利用思路</h3><p>因为题目和之前write4题目类似 就想直接rop绕过 </p>
+<h3 id="利用思路"><a href="#利用思路" class="headerlink" title="利用思路"></a>利用思路</h3><p>因为题目和之前write4题目类似 所以这里从rop构造开始讲起</p>
 <p>可是题目又对输入的字符进行检查了 我们现在想要的是/bin/sh 可是check函数中过滤了 b i n / s所以不能直接传入/bin/sh  不过题目中给了这样的提示</p>
 <p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-c"><code class="language-c">text<span class="token punctuation">:</span><span class="token number">08048890</span>                 public usefulGadgets
@@ -359,7 +359,7 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
 <span class="token punctuation">.</span>text<span class="token punctuation">:</span>0804889A                 pop     edi
 <span class="token punctuation">.</span>text<span class="token punctuation">:</span>0804889B                 retn
 </code></pre>
-<p>usefulGadgets 这里给了你xor提示 既然有了这个gadget我们可以利用先对/bin/sh进行xor加密 来通过check 然后通过usefulGadgets 来进行解密 接着调用即可</p>
+<p>usefulGadgets 这里给了你xor提示， 既然有了这个gadget，我们可以利用先对/bin/sh进行xor加密来通过check ，然后通过usefulGadgets 来进行解密 接着调用即可</p>
 <h4 id="ROP构造"><a href="#ROP构造" class="headerlink" title="ROP构造"></a>ROP构造</h4><p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-python"><code class="language-python">mov_ret <span class="token operator">=</span> <span class="token number">0x08048893</span> <span class="token comment" spellcheck="true"># mov dword ptr [edi], esi ; ret</span>
 
@@ -1320,9 +1320,9 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
     </summary>
     
     
-      <category term="writeup" scheme="http://iosmosis.github.io/tags/writeup/"/>
-    
       <category term="WEB" scheme="http://iosmosis.github.io/tags/WEB/"/>
+    
+      <category term="writeup" scheme="http://iosmosis.github.io/tags/writeup/"/>
     
       <category term="msscstc" scheme="http://iosmosis.github.io/tags/msscstc/"/>
     
@@ -1680,9 +1680,9 @@ S <span class="token operator">=</span> Solver<span class="token punctuation">(<
     </summary>
     
     
-      <category term="writeup" scheme="http://iosmosis.github.io/tags/writeup/"/>
-    
       <category term="WEB" scheme="http://iosmosis.github.io/tags/WEB/"/>
+    
+      <category term="writeup" scheme="http://iosmosis.github.io/tags/writeup/"/>
     
       <category term="BUPT" scheme="http://iosmosis.github.io/tags/BUPT/"/>
     
@@ -1755,9 +1755,9 @@ ios@ubuntu:~$
     
       <category term="Pwn" scheme="http://iosmosis.github.io/tags/Pwn/"/>
     
-      <category term="栈溢出" scheme="http://iosmosis.github.io/tags/%E6%A0%88%E6%BA%A2%E5%87%BA/"/>
-    
       <category term="writeup" scheme="http://iosmosis.github.io/tags/writeup/"/>
+    
+      <category term="栈溢出" scheme="http://iosmosis.github.io/tags/%E6%A0%88%E6%BA%A2%E5%87%BA/"/>
     
       <category term="Syclover" scheme="http://iosmosis.github.io/tags/Syclover/"/>
     
@@ -2104,11 +2104,11 @@ $
     
       <category term="Pwn" scheme="http://iosmosis.github.io/tags/Pwn/"/>
     
-      <category term="writeup" scheme="http://iosmosis.github.io/tags/writeup/"/>
-    
       <category term="NPUCTF" scheme="http://iosmosis.github.io/tags/NPUCTF/"/>
     
       <category term="WEB" scheme="http://iosmosis.github.io/tags/WEB/"/>
+    
+      <category term="writeup" scheme="http://iosmosis.github.io/tags/writeup/"/>
     
   </entry>
   
@@ -3260,11 +3260,11 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
     
       <category term="Pwn" scheme="http://iosmosis.github.io/tags/Pwn/"/>
     
+      <category term="writeup" scheme="http://iosmosis.github.io/tags/writeup/"/>
+    
       <category term="Jarvis OJ" scheme="http://iosmosis.github.io/tags/Jarvis-OJ/"/>
     
       <category term="栈溢出" scheme="http://iosmosis.github.io/tags/%E6%A0%88%E6%BA%A2%E5%87%BA/"/>
-    
-      <category term="writeup" scheme="http://iosmosis.github.io/tags/writeup/"/>
     
   </entry>
   
