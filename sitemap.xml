@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://iosmosis.github.io/2018/07/16/QCTF-writeup/</loc>
+    
+    <lastmod>2018-07-16T03:30:53.998Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://iosmosis.github.io/2018/07/12/ROPEmporium-WriteUp/</loc>
     
     <lastmod>2018-07-13T17:53:10.590Z</lastmod>
