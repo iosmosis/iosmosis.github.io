@@ -540,7 +540,7 @@
   <span class="token keyword">return</span> result<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>漏洞很明显在read函数处  32位下的话应该是有两解变量覆盖及rop 具体可以参考我iscc的WP <a href="http://www.lovei.org/archives/ISCC2018.html#pwn1" target="_blank" rel="external">ISCC-login</a> 所以此题利用方式类似 就不在赘述了  （大晚上写wp有点累 偷个懒0.0）</p>
+<p>漏洞很明显在read函数处  32位下的话应该是有两解变量覆盖及rop 具体可以参考iscc的WP <a href="http://www.lovei.org/archives/ISCC2018.html#pwn1" target="_blank" rel="external">ISCC-login</a> (ORZ)所以此题利用方式类似 就不在赘述了  （大晚上写wp有点累 偷个懒0.0）</p>
 <h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
 <span class="token comment" spellcheck="true">#p = process('ez')本地测试...</span>
