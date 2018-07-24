@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iosmosis.github.io/"/>
-  <updated>2018-07-22T19:46:39.107Z</updated>
+  <updated>2018-07-24T16:08:16.030Z</updated>
   <id>http://iosmosis.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://iosmosis.github.io/2018/07/23/%E8%A5%BF%E7%94%B5%E7%BA%BF%E4%B8%8B%E8%B5%9BPWN-writeup/"/>
     <id>http://iosmosis.github.io/2018/07/23/西电线下赛PWN-writeup/</id>
     <published>2018-07-22T18:25:32.000Z</published>
-    <updated>2018-07-22T19:46:39.107Z</updated>
+    <updated>2018-07-24T16:08:16.030Z</updated>
     
     <content type="html"><![CDATA[<p>比赛结束了…垃圾的我拿了第六 菜归菜 但是也要继续学习orz</p>
 <p>感谢每一位西电的学长</p>
@@ -87,7 +87,7 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
 </code></pre>
 <p>尝试运行</p>
 <p><img src="/2018/07/23/西电线下赛PWN-writeup/1.jpg" alt="1"></p>
-<h2 id="PWN2-stack-relro"><a href="#PWN2-stack-relro" class="headerlink" title="PWN2  stack-relro"></a>PWN2  stack-relro</h2><p>感谢因幡师傅 感谢lakerskobes  </p>
+<h2 id="PWN2-stack-relro"><a href="#PWN2-stack-relro" class="headerlink" title="PWN2  stack-relro"></a>PWN2  stack-relro</h2><p>感谢因幡师傅 感谢去去去师傅~</p>
 <p>顺便推一下如果你也喜欢CTF真的很推荐来西电 学长们很友好也很愿意耐心解答问题</p>
 <p>那我们继续看题</p>
 <p>检查保护</p>
@@ -2254,9 +2254,9 @@ S <span class="token operator">=</span> Solver<span class="token punctuation">(<
     
       <category term="WEB" scheme="http://iosmosis.github.io/tags/WEB/"/>
     
-      <category term="RE" scheme="http://iosmosis.github.io/tags/RE/"/>
-    
       <category term="BUPT" scheme="http://iosmosis.github.io/tags/BUPT/"/>
+    
+      <category term="RE" scheme="http://iosmosis.github.io/tags/RE/"/>
     
   </entry>
   
@@ -2988,11 +2988,11 @@ str<span class="token operator">=</span><span class="token string">""</span>
     </summary>
     
     
+      <category term="RE" scheme="http://iosmosis.github.io/tags/RE/"/>
+    
       <category term="北邮网安杯" scheme="http://iosmosis.github.io/tags/%E5%8C%97%E9%82%AE%E7%BD%91%E5%AE%89%E6%9D%AF/"/>
     
       <category term="Writeup" scheme="http://iosmosis.github.io/tags/Writeup/"/>
-    
-      <category term="RE" scheme="http://iosmosis.github.io/tags/RE/"/>
     
       <category term="Web" scheme="http://iosmosis.github.io/tags/Web/"/>
     
