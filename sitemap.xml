@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://iosmosis.github.io/2018/10/04/XJNUCTF-Writeup/</loc>
+    
+    <lastmod>2018-10-04T12:00:14.186Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://iosmosis.github.io/2018/10/02/picoctf-Writeup/</loc>
     
-    <lastmod>2018-10-04T09:08:58.536Z</lastmod>
+    <lastmod>2018-10-04T09:55:22.426Z</lastmod>
     
   </url>
   
