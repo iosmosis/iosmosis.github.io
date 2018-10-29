@@ -3443,9 +3443,9 @@ S <span class="token operator">=</span> Solver<span class="token punctuation">(<
     
       <category term="WEB" scheme="http://iosmosis.github.io/tags/WEB/"/>
     
-      <category term="RE" scheme="http://iosmosis.github.io/tags/RE/"/>
-    
       <category term="BUPT" scheme="http://iosmosis.github.io/tags/BUPT/"/>
+    
+      <category term="RE" scheme="http://iosmosis.github.io/tags/RE/"/>
     
   </entry>
   
@@ -4181,9 +4181,9 @@ str<span class="token operator">=</span><span class="token string">""</span>
     
       <category term="Web" scheme="http://iosmosis.github.io/tags/Web/"/>
     
-      <category term="北邮网安杯" scheme="http://iosmosis.github.io/tags/%E5%8C%97%E9%82%AE%E7%BD%91%E5%AE%89%E6%9D%AF/"/>
-    
       <category term="RE" scheme="http://iosmosis.github.io/tags/RE/"/>
+    
+      <category term="北邮网安杯" scheme="http://iosmosis.github.io/tags/%E5%8C%97%E9%82%AE%E7%BD%91%E5%AE%89%E6%9D%AF/"/>
     
   </entry>
   
