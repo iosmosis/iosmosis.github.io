@@ -4,6 +4,21 @@
 
     
   <url>
+    <loc>http://iosmosis.github.io/2018/11/29/Use-after-free/</loc>
+    <lastmod>2018-11-29T08:02:08.223Z</lastmod>
+    <data>
+        <display>
+        <title>Use after free</title>
+        <pubTime>2018-11-29T08:02:08.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://iosmosis.github.io/2018/11/18/kernel-core/</loc>
     <lastmod>2018-11-29T08:00:33.367Z</lastmod>
     <data>
@@ -271,9 +286,9 @@
          
         <tag>WEB</tag>
          
-        <tag>RE</tag>
-         
         <tag>BUPT</tag>
+         
+        <tag>RE</tag>
          
          
            
@@ -344,9 +359,9 @@
          
         <tag>Web</tag>
          
-        <tag>北邮网安杯</tag>
-         
         <tag>RE</tag>
+         
+        <tag>北邮网安杯</tag>
          
          
            

