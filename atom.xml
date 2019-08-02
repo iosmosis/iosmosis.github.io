@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iosmosis.github.io/"/>
-  <updated>2019-07-25T03:16:28.349Z</updated>
+  <updated>2019-08-02T06:43:21.183Z</updated>
   <id>http://iosmosis.github.io/</id>
   
   <author>
@@ -16,111 +16,94 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>wasm逆向-真的是web</title>
+    <title></title>
     <link href="http://iosmosis.github.io/2019/07/25/wasm%E9%80%86%E5%90%91-%E7%9C%9F%E7%9A%84%E6%98%AFweb/"/>
     <id>http://iosmosis.github.io/2019/07/25/wasm逆向-真的是web/</id>
-    <published>2019-07-25T02:52:55.000Z</published>
-    <updated>2019-07-25T03:16:28.349Z</updated>
+    <published>2019-07-25T02:52:55.964Z</published>
+    <updated>2019-08-02T06:43:21.183Z</updated>
     
-    <content type="html"><![CDATA[<p>拿到题目</p>
-<p><img src="/2019/07/25/wasm逆向-真的是web/Users/ios/ios/source/_posts/wasm逆向-真的是web/QQ20190725-105500@2x.png" alt=""></p>
+    <content type="html"><![CDATA[<p>title: wasm逆向-真的是web<br>date: 2019-07-25 10:52:55<br>tags:<br>    Revers</p>
+<p>拿到题目<br><img src="https://s2.ax1x.com/2019/08/02/ewMcTA.png" alt="ewMcTA.png"></p>
 <p>给出三个文件</p>
 <p>先进行简单运行测试</p>
-<p><img src="/2019/07/25/wasm逆向-真的是web/Users/ios/ios/source/_posts/wasm逆向-真的是web/BA0D2C6F38CB94A5479EDE8BA8621FB0.png" alt=""></p>
+<p><img src="https://s2.ax1x.com/2019/08/02/ewMyeH.png" alt="ewMyeH.png"></p>
 <p>随意输入</p>
-<p><img src="/2019/07/25/wasm逆向-真的是web/Users/ios/ios/source/_posts/wasm逆向-真的是web/94E9661172602C7FD5627926CB6C1055.png" alt=""></p>
+<p><img src="https://s2.ax1x.com/2019/08/02/ewM2FI.png" alt="ewM2FI.png"></p>
 <p>逻辑很清晰</p>
 <p>输入flag、 验证、返回是否正确</p>
 <p>当然核心逻辑一定在test.wasm文件中</p>
 <p>先利用wabt中的wasm2c 将wasm文件反编译成c文件</p>
-<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-bash"><code class="language-bash">┌─<span class="token punctuation">[</span>ios@iosdeMacBook<span class="token punctuation">]</span> - <span class="token punctuation">[</span>~/wabt/out/clang/Debug<span class="token punctuation">]</span> - <span class="token punctuation">[</span>四  7 25, 11:01<span class="token punctuation">]</span>
-└─<span class="token punctuation">[</span>$<span class="token punctuation">]</span> <span class="token operator">&lt;</span>git:<span class="token punctuation">(</span>master*<span class="token punctuation">)</span><span class="token operator">></span> ./wasm2c test.wasm -o test.c
-</code></pre>
-<p>执行完成命令后可以看到文件夹下面生成了一个test.c和一个test.h</p>
-<p><img src="/2019/07/25/wasm逆向-真的是web/Users/ios/ios/source/_posts/wasm逆向-真的是web/QQ20190725-110236@2x.png" alt=""></p>
-<p>接着放在wasm2c目录里进行编译</p>
-<p><img src="/2019/07/25/wasm逆向-真的是web/Users/ios/ios/source/_posts/wasm逆向-真的是web/QQ20190725-110442@2x.png" alt=""></p>
+<pre><code>┌─[ios@iosdeMacBook] - [~/wabt/out/clang/Debug] - [四  7 25, 11:01]
+└─[$] &lt;git:(master*)&gt; ./wasm2c test.wasm -o test.c
+</code></pre><p>执行完成命令后可以看到文件夹下面生成了一个test.c和一个test.h</p>
+<p><img src="https://s2.ax1x.com/2019/08/02/ewMrOe.png" alt="ewMrOe.png"><br>接着放在wasm2c目录里进行编译</p>
+<p><img src="https://s2.ax1x.com/2019/08/02/ewM6wd.png" alt="ewM6wd.png"></p>
 <p>进行gcc编译</p>
-<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-c"><code class="language-c">gcc <span class="token operator">-</span>g test<span class="token punctuation">.</span>c <span class="token operator">-</span>o test
-</code></pre>
-<p>发现会报错</p>
+<pre><code>gcc -g test.c -o test
+</code></pre><p>发现会报错</p>
 <p>因为很多wasm的函数并没有具体实现  因为我们主要目的是为了方便逆向，方便观察逻辑 所以我们只需要编译不做链接</p>
-<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre><code>gcc -c test.c -o test
 </code></pre><p>生成了test文件 接着我们拖进ida</p>
-<p><img src="/2019/07/25/wasm逆向-真的是web/Users/ios/ios/source/_posts/wasm逆向-真的是web/QQ20190725-110828@2x.png" alt=""></p>
-<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-c"><code class="language-c"><span class="token keyword">for</span> <span class="token punctuation">(</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">int</span><span class="token punctuation">)</span><span class="token function">f81</span><span class="token punctuation">(</span>v14<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token operator">++</span>i <span class="token punctuation">)</span>
- <span class="token punctuation">{</span>
-   v13 <span class="token operator">=</span> v14 <span class="token operator">+</span> i<span class="token punctuation">;</span>
-   v12 <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">char</span><span class="token punctuation">)</span><span class="token function">i32_load8_s</span><span class="token punctuation">(</span><span class="token operator">*</span>Z_envZ_memory<span class="token punctuation">,</span> v14 <span class="token operator">+</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
-   <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token punctuation">(</span><span class="token keyword">signed</span> <span class="token keyword">int</span><span class="token punctuation">)</span>i <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">)</span>
-     <span class="token function">i32_store8</span><span class="token punctuation">(</span><span class="token punctuation">(</span>_QWORD <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">*</span>Z_envZ_memory<span class="token punctuation">,</span> v13<span class="token punctuation">,</span> <span class="token punctuation">(</span>v12 <span class="token operator">^</span> <span class="token number">0x30</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token number">0xFF</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   <span class="token keyword">else</span>
-     <span class="token function">i32_store8</span><span class="token punctuation">(</span><span class="token punctuation">(</span>_QWORD <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">*</span>Z_envZ_memory<span class="token punctuation">,</span> v13<span class="token punctuation">,</span> <span class="token punctuation">(</span>v12 <span class="token operator">^</span> <span class="token number">0x25</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token number">0xFF</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
- <span class="token punctuation">}</span>
-</code></pre>
-<p>注意这段代码  </p>
+<p><img src="https://s2.ax1x.com/2019/08/02/ewMSII.png" alt="ewMSII.png"></p>
+<pre><code> for ( i = 0; i &lt; (unsigned int)f81(v14); ++i )
+  {
+    v13 = v14 + i;
+    v12 = (char)i32_load8_s(*Z_envZ_memory, v14 + i);
+    if ( (signed int)i % 2 == 0 )
+      i32_store8((_QWORD *)*Z_envZ_memory, v13, (v12 ^ 0x30) &amp; 0xFF);
+    else
+      i32_store8((_QWORD *)*Z_envZ_memory, v13, (v12 ^ 0x25) &amp; 0xFF);
+  }
+</code></pre><p>注意这段代码  </p>
 <p>很明显是一段异或操作而且根据循环次数的奇偶做不同的异或。</p>
 <p>根据wasm特性 会在底部存储字符串 所以我们可以利用这一特性去查找我们需要的字符串</p>
-<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-c"><code class="language-c"><span class="token keyword">static</span> <span class="token keyword">const</span> u8 data_segment_data_0<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
-  <span class="token number">0x67</span><span class="token punctuation">,</span> <span class="token number">0x4a</span><span class="token punctuation">,</span> <span class="token number">0x47</span><span class="token punctuation">,</span> <span class="token number">0x7a</span><span class="token punctuation">,</span> <span class="token number">0x69</span><span class="token punctuation">,</span> <span class="token number">0x4a</span><span class="token punctuation">,</span> <span class="token number">0x45</span><span class="token punctuation">,</span> <span class="token number">0x7a</span><span class="token punctuation">,</span> <span class="token number">0x42</span><span class="token punctuation">,</span> <span class="token number">0x40</span><span class="token punctuation">,</span> <span class="token number">0x51</span><span class="token punctuation">,</span> <span class="token number">0x49</span><span class="token punctuation">,</span> 
-  <span class="token number">0x5c</span><span class="token punctuation">,</span> <span class="token number">0x5c</span><span class="token punctuation">,</span> <span class="token number">0x6f</span><span class="token punctuation">,</span> <span class="token number">0x6e</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x4b</span><span class="token punctuation">,</span> <span class="token number">0x47</span><span class="token punctuation">,</span> <span class="token number">0x7a</span><span class="token punctuation">,</span> <span class="token number">0x67</span><span class="token punctuation">,</span> <span class="token number">0x40</span><span class="token punctuation">,</span> <span class="token number">0x52</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> 
-  <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x02</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> 
-  <span class="token number">0x03</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> <span class="token number">0x04</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> <span class="token number">0x05</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> 
-  <span class="token number">0x06</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> <span class="token number">0x07</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> <span class="token number">0x08</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> 
-  <span class="token number">0x09</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> <span class="token number">0x0a</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> <span class="token number">0x0b</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> 
-  <span class="token number">0x0c</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> <span class="token number">0x0d</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> <span class="token number">0x0e</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> 
-  <span class="token number">0x0f</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> <span class="token number">0x10</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> <span class="token number">0x11</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> 
-<span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre>
-<p>这里截取了最前一部分的字符串 因为直接hex可以看到下部字符串为good wrong 而上部无法解析 根据他主逻辑做了异或操作可以猜测 这些不解析的字符串就是加密后的flag</p>
+<pre><code>static const u8 data_segment_data_0[] = {
+  0x67, 0x4a, 0x47, 0x7a, 0x69, 0x4a, 0x45, 0x7a, 0x42, 0x40, 0x51, 0x49, 
+  0x5c, 0x5c, 0x6f, 0x6e, 0x00, 0x4b, 0x47, 0x7a, 0x67, 0x40, 0x52, 0x00, 
+  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0xc0, 
+  0x03, 0x00, 0x00, 0xc0, 0x04, 0x00, 0x00, 0xc0, 0x05, 0x00, 0x00, 0xc0, 
+  0x06, 0x00, 0x00, 0xc0, 0x07, 0x00, 0x00, 0xc0, 0x08, 0x00, 0x00, 0xc0, 
+  0x09, 0x00, 0x00, 0xc0, 0x0a, 0x00, 0x00, 0xc0, 0x0b, 0x00, 0x00, 0xc0, 
+  0x0c, 0x00, 0x00, 0xc0, 0x0d, 0x00, 0x00, 0xc0, 0x0e, 0x00, 0x00, 0xc0, 
+  0x0f, 0x00, 0x00, 0xc0, 0x10, 0x00, 0x00, 0xc0, 0x11, 0x00, 0x00, 0xc0, 
+};
+</code></pre><p>这里截取了最前一部分的字符串 因为直接hex可以看到下部字符串为good wrong 而上部无法解析 根据他主逻辑做了异或操作可以猜测 这些不解析的字符串就是加密后的flag</p>
 <p>所以我们写出测试exp</p>
-<p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-python"><code class="language-python">a<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">0x67</span><span class="token punctuation">,</span> <span class="token number">0x4a</span><span class="token punctuation">,</span> <span class="token number">0x47</span><span class="token punctuation">,</span> <span class="token number">0x7a</span><span class="token punctuation">,</span> <span class="token number">0x69</span><span class="token punctuation">,</span> <span class="token number">0x4a</span><span class="token punctuation">,</span> <span class="token number">0x45</span><span class="token punctuation">,</span> <span class="token number">0x7a</span><span class="token punctuation">,</span> <span class="token number">0x42</span><span class="token punctuation">,</span> <span class="token number">0x40</span><span class="token punctuation">,</span> <span class="token number">0x51</span><span class="token punctuation">,</span> <span class="token number">0x49</span><span class="token punctuation">,</span> 
-  <span class="token number">0x5c</span><span class="token punctuation">,</span> <span class="token number">0x5c</span><span class="token punctuation">,</span> <span class="token number">0x6f</span><span class="token punctuation">,</span> <span class="token number">0x6e</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x4b</span><span class="token punctuation">,</span> <span class="token number">0x47</span><span class="token punctuation">,</span> <span class="token number">0x7a</span><span class="token punctuation">,</span> <span class="token number">0x67</span><span class="token punctuation">,</span> <span class="token number">0x40</span><span class="token punctuation">,</span> <span class="token number">0x52</span><span class="token punctuation">,</span><span class="token number">0x00</span><span class="token punctuation">,</span> 
-  <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x02</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> 
-  <span class="token number">0x03</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> <span class="token number">0x04</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> <span class="token number">0x05</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> 
-  <span class="token number">0x06</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> <span class="token number">0x07</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> <span class="token number">0x08</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> 
-  <span class="token number">0x09</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> <span class="token number">0x0a</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> <span class="token number">0x0b</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> 
-  <span class="token number">0x0c</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> <span class="token number">0x0d</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> <span class="token number">0x0e</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> 
-  <span class="token number">0x0f</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> <span class="token number">0x10</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> <span class="token number">0x11</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> 
-  <span class="token number">0x12</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> <span class="token number">0x13</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> <span class="token number">0x14</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> 
-  <span class="token number">0x15</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> <span class="token number">0x16</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> <span class="token number">0x17</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> 
-  <span class="token number">0x18</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> <span class="token number">0x19</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> <span class="token number">0x1a</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> 
-  <span class="token number">0x1b</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> <span class="token number">0x1c</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">,</span> <span class="token number">0x1d</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xc0</span><span class="token punctuation">]</span>
-flag<span class="token operator">=</span><span class="token string">''</span>
-i<span class="token operator">=</span><span class="token number">0</span>
-<span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">55</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-      <span class="token keyword">if</span> i<span class="token operator">%</span><span class="token number">2</span><span class="token operator">==</span><span class="token number">0</span><span class="token punctuation">:</span>
-          flag<span class="token operator">+=</span>chr<span class="token punctuation">(</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">^</span><span class="token number">0x30</span><span class="token punctuation">)</span><span class="token operator">&amp;</span> <span class="token number">0xFF</span><span class="token punctuation">)</span>
-      <span class="token keyword">else</span><span class="token punctuation">:</span>
-          flag<span class="token operator">+=</span>chr<span class="token punctuation">(</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">^</span><span class="token number">0x25</span><span class="token punctuation">)</span><span class="token operator">&amp;</span> <span class="token number">0xFF</span><span class="token punctuation">)</span>
-<span class="token keyword">print</span> flag
-</code></pre>
-<p>运行查看结果</p>
-<p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-python"><code class="language-python">└─<span class="token punctuation">[</span>$<span class="token punctuation">]</span> <span class="token operator">&lt;></span> python was<span class="token punctuation">.</span>py                
-Wow_You_really_K0nw_Web<span class="token operator">%</span><span class="token number">0</span><span class="token operator">%</span><span class="token number">0</span><span class="token operator">%</span><span class="token number">0</span><span class="token operator">%</span><span class="token number">0</span><span class="token operator">%</span><span class="token number">2</span><span class="token operator">%</span><span class="token number">0</span>?<span class="token number">3</span><span class="token operator">%</span><span class="token number">0</span>?<span class="token number">4</span><span class="token operator">%</span><span class="token number">0</span>?<span class="token number">5</span><span class="token operator">%</span><span class="token number">0</span>?<span class="token number">6</span><span class="token operator">%</span><span class="token number">0</span>?<span class="token number">7</span>
-</code></pre>
-<p>看到有明文字符串 这肯定就是flag了～</p>
+<pre><code>a=[0x67, 0x4a, 0x47, 0x7a, 0x69, 0x4a, 0x45, 0x7a, 0x42, 0x40, 0x51, 0x49, 
+  0x5c, 0x5c, 0x6f, 0x6e, 0x00, 0x4b, 0x47, 0x7a, 0x67, 0x40, 0x52,0x00, 
+  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0xc0, 
+  0x03, 0x00, 0x00, 0xc0, 0x04, 0x00, 0x00, 0xc0, 0x05, 0x00, 0x00, 0xc0, 
+  0x06, 0x00, 0x00, 0xc0, 0x07, 0x00, 0x00, 0xc0, 0x08, 0x00, 0x00, 0xc0, 
+  0x09, 0x00, 0x00, 0xc0, 0x0a, 0x00, 0x00, 0xc0, 0x0b, 0x00, 0x00, 0xc0, 
+  0x0c, 0x00, 0x00, 0xc0, 0x0d, 0x00, 0x00, 0xc0, 0x0e, 0x00, 0x00, 0xc0, 
+  0x0f, 0x00, 0x00, 0xc0, 0x10, 0x00, 0x00, 0xc0, 0x11, 0x00, 0x00, 0xc0, 
+  0x12, 0x00, 0x00, 0xc0, 0x13, 0x00, 0x00, 0xc0, 0x14, 0x00, 0x00, 0xc0, 
+  0x15, 0x00, 0x00, 0xc0, 0x16, 0x00, 0x00, 0xc0, 0x17, 0x00, 0x00, 0xc0, 
+  0x18, 0x00, 0x00, 0xc0, 0x19, 0x00, 0x00, 0xc0, 0x1a, 0x00, 0x00, 0xc0, 
+  0x1b, 0x00, 0x00, 0xc0, 0x1c, 0x00, 0x00, 0xc0, 0x1d, 0x00, 0x00, 0xc0]
+flag=&#39;&#39;
+i=0
+for i in range(0,55):
+      if i%2==0:
+          flag+=chr((a[i]^0x30)&amp; 0xFF)
+      else:
+          flag+=chr((a[i]^0x25)&amp; 0xFF)
+print flag
+</code></pre><p>运行查看结果</p>
+<pre><code>└─[$] &lt;&gt; python was.py                
+Wow_You_really_K0nw_Web%0%0%0%0%2%0?3%0?4%0?5%0?6%0?7
+</code></pre><p>看到有明文字符串 这肯定就是flag了～</p>
 <p>加入flag头提交即可</p>
 <p>最后flag{Wow_You_really_K0nw_Web}</p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;拿到题目&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/2019/07/25/wasm逆向-真的是web/Users/ios/ios/source/_posts/wasm逆向-真的是web/QQ20190725-105500@2x.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;给出三个文件
+      &lt;p&gt;title: wasm逆向-真的是web&lt;br&gt;date: 2019-07-25 10:52:55&lt;br&gt;tags:&lt;br&gt;    Revers&lt;/p&gt;
+&lt;p&gt;拿到题目&lt;br&gt;&lt;img src=&quot;https://s2.ax1x.com/2019/08/02/ewMcTA.p
     
     </summary>
     
-    
-      <category term="Revers" scheme="http://iosmosis.github.io/tags/Revers/"/>
     
   </entry>
   
