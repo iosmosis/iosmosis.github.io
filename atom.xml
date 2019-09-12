@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>iosmosis&#39;s blog</title>
+  <title>ios&#39;s blog</title>
   
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iosmosis.github.io/"/>
-  <updated>2019-08-02T06:43:21.183Z</updated>
+  <updated>2019-09-12T04:42:15.521Z</updated>
   <id>http://iosmosis.github.io/</id>
   
   <author>
-    <name>iosmosis</name>
+    <name>ios</name>
     
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
+    <title>wasm逆向-真的是web</title>
     <link href="http://iosmosis.github.io/2019/07/25/wasm%E9%80%86%E5%90%91-%E7%9C%9F%E7%9A%84%E6%98%AFweb/"/>
     <id>http://iosmosis.github.io/2019/07/25/wasm逆向-真的是web/</id>
-    <published>2019-07-25T02:52:55.964Z</published>
-    <updated>2019-08-02T06:43:21.183Z</updated>
+    <published>2019-07-25T02:52:55.000Z</published>
+    <updated>2019-09-12T04:42:15.521Z</updated>
     
-    <content type="html"><![CDATA[<p>title: wasm逆向-真的是web<br>date: 2019-07-25 10:52:55<br>tags:<br>    Revers</p>
-<p>拿到题目<br><img src="https://s2.ax1x.com/2019/08/02/ewMcTA.png" alt="ewMcTA.png"></p>
+    <content type="html"><![CDATA[<p>拿到题目<br><img src="https://s2.ax1x.com/2019/08/02/ewMcTA.png" alt="ewMcTA.png"></p>
 <p>给出三个文件</p>
 <p>先进行简单运行测试</p>
 <p><img src="https://s2.ax1x.com/2019/08/02/ewMyeH.png" alt="ewMyeH.png"></p>
@@ -99,11 +98,21 @@ Wow_You_really_K0nw_Web%0%0%0%0%2%0?3%0?4%0?5%0?6%0?7
     
     <summary type="html">
     
-      &lt;p&gt;title: wasm逆向-真的是web&lt;br&gt;date: 2019-07-25 10:52:55&lt;br&gt;tags:&lt;br&gt;    Revers&lt;/p&gt;
-&lt;p&gt;拿到题目&lt;br&gt;&lt;img src=&quot;https://s2.ax1x.com/2019/08/02/ewMcTA.p
+      &lt;p&gt;拿到题目&lt;br&gt;&lt;img src=&quot;https://s2.ax1x.com/2019/08/02/ewMcTA.png&quot; alt=&quot;ewMcTA.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;给出三个文件&lt;/p&gt;
+&lt;p&gt;先进行简单运行测试&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://s2
     
     </summary>
     
+    
+      <category term="Writeup" scheme="http://iosmosis.github.io/tags/Writeup/"/>
+    
+      <category term="Web" scheme="http://iosmosis.github.io/tags/Web/"/>
+    
+      <category term="RE" scheme="http://iosmosis.github.io/tags/RE/"/>
+    
+      <category term="wasm" scheme="http://iosmosis.github.io/tags/wasm/"/>
     
   </entry>
   
@@ -112,7 +121,7 @@ Wow_You_really_K0nw_Web%0%0%0%0%2%0?3%0?4%0?5%0?6%0?7
     <link href="http://iosmosis.github.io/2019/07/19/BCTF-2017-Monkey/"/>
     <id>http://iosmosis.github.io/2019/07/19/BCTF-2017-Monkey/</id>
     <published>2019-07-19T01:44:29.000Z</published>
-    <updated>2019-07-19T03:33:47.522Z</updated>
+    <updated>2019-09-12T04:43:31.853Z</updated>
     
     <content type="html"><![CDATA[<p>运行程序 发现是个沙箱</p>
 <p>利用dir()查看引用的函数</p>
@@ -188,6 +197,12 @@ js<span class="token operator">></span>
     </summary>
     
     
+      <category term="Writeup" scheme="http://iosmosis.github.io/tags/Writeup/"/>
+    
+      <category term="python" scheme="http://iosmosis.github.io/tags/python/"/>
+    
+      <category term="沙箱绕过" scheme="http://iosmosis.github.io/tags/%E6%B2%99%E7%AE%B1%E7%BB%95%E8%BF%87/"/>
+    
   </entry>
   
   <entry>
@@ -195,7 +210,7 @@ js<span class="token operator">></span>
     <link href="http://iosmosis.github.io/2019/07/18/Escape-From-Jail-50/"/>
     <id>http://iosmosis.github.io/2019/07/18/Escape-From-Jail-50/</id>
     <published>2019-07-18T09:50:39.000Z</published>
-    <updated>2019-07-18T10:13:14.317Z</updated>
+    <updated>2019-09-12T04:43:59.315Z</updated>
     
     <content type="html"><![CDATA[<p>python绕过题目</p>
 <p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
@@ -264,6 +279,10 @@ cat flag
     
     </summary>
     
+    
+      <category term="python" scheme="http://iosmosis.github.io/tags/python/"/>
+    
+      <category term="沙箱绕过" scheme="http://iosmosis.github.io/tags/%E6%B2%99%E7%AE%B1%E7%BB%95%E8%BF%87/"/>
     
   </entry>
   
@@ -3298,7 +3317,7 @@ str <span class="token operator">=</span><span class="token string">''</span>
 <p><img src="/2018/10/04/XJNUCTF-Writeup/5.png" alt="5"></p>
 <p>得到flag表 那我们dump出来看一下</p>
 <p>sqlmap.py -u “<a href="http://ctf.xjnu.edu.cn:9900/web10/index.php?id=1" target="_blank" rel="external">http://ctf.xjnu.edu.cn:9900/web10/index.php?id=1</a>“ –dump -T flag</p>
-<p><img src="/2018/10/04/XJNUCTF-Writeup/C:/Users\TTTR\ios\source\_posts\XJNUCTF-Writeup\6.png" alt="6"></p>
+<p><img src="/2018/10/04/XJNUCTF-Writeup/Users\TTTR\ios\source\_posts\XJNUCTF-Writeup\6.png" alt="6"></p>
 <h3 id="Web20"><a href="#Web20" class="headerlink" title="Web20"></a>Web20</h3><p><img src="/2018/10/04/XJNUCTF-Writeup/7.png" alt="7"></p>
 <p><img src="/2018/10/04/XJNUCTF-Writeup/8.png" alt="8"></p>
 <p>弹出提示 你不属于这里 </p>
@@ -3692,7 +3711,7 @@ picoCTF<span class="token punctuation">{</span>addr3ss3s_ar3_3asy65489706<span c
 <p>接着切换到main函数 即可成功F5反编译</p>
 <p><img src="/2018/10/02/picoctf-Writeup/7.jpg" alt="7"></p>
 <p>由于断电 这里先进行本地getflag</p>
-<p><img src="/2018/10/02/picoctf-Writeup/C:/Users\TTTR\ios\source\_posts\picoctf-Writeup\8.jpg" alt="8"></p>
+<p><img src="/2018/10/02/picoctf-Writeup/Users\TTTR\ios\source\_posts\picoctf-Writeup\8.jpg" alt="8"></p>
 <p>leak出本地password</p>
 <p>再次输入password即可获取到flag</p>
 <h3 id="shellcode"><a href="#shellcode" class="headerlink" title="shellcode"></a>shellcode</h3><p>检查保护</p>
@@ -3866,10 +3885,10 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
   
   <entry>
     <title>网鼎杯部分PWN-Writeup</title>
-    <link href="http://iosmosis.github.io/2018/08/22/%E2%95%90%C2%B0%E2%95%A2%D0%B6%E2%96%92%D0%BD%E2%96%93%E2%94%90%E2%95%96%E2%95%93PWN-Writeup/"/>
-    <id>http://iosmosis.github.io/2018/08/22/═°╢ж▒н▓┐╖╓PWN-Writeup/</id>
+    <link href="http://iosmosis.github.io/2018/08/22/%E7%BD%91%E9%BC%8E%E6%9D%AF%E9%83%A8%E5%88%86PWN-Writeup/"/>
+    <id>http://iosmosis.github.io/2018/08/22/网鼎杯部分PWN-Writeup/</id>
     <published>2018-08-22T04:58:03.000Z</published>
-    <updated>2018-08-22T09:56:36.000Z</updated>
+    <updated>2019-09-12T04:46:11.634Z</updated>
     
     <content type="html"><![CDATA[<h2 id="第一场"><a href="#第一场" class="headerlink" title="第一场"></a>第一场</h2><h3 id="GUESS"><a href="#GUESS" class="headerlink" title="GUESS"></a>GUESS</h3><p>SSP leak flag</p>
 <p>这次学到了一个知识点 environ存在栈地址</p>
@@ -3885,7 +3904,7 @@ puts <span class="token operator">=</span> u64<span class="token punctuation">(<
 <span class="token keyword">print</span> hex<span class="token punctuation">(</span>puts<span class="token punctuation">)</span>
 </code></pre>
 <p>通过 puts_addr 查找libc版本</p>
-<p><img src="/2018/08/22/═°╢ж▒н▓┐╖╓PWN-Writeup/网鼎杯部分PWN-Writeup/2.jpg" alt="2"></p>
+<p><img src="/2018/08/22/网鼎杯部分PWN-Writeup/2.jpg" alt="2"></p>
 <h4 id="第二次-leak-environ"><a href="#第二次-leak-environ" class="headerlink" title="第二次 leak environ"></a>第二次 leak environ</h4><p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-python"><code class="language-python">environ <span class="token operator">=</span> puts<span class="token operator">-</span>libc<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">'puts'</span><span class="token punctuation">]</span><span class="token operator">+</span>libc<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">'environ'</span><span class="token punctuation">]</span>
 payload <span class="token operator">=</span> p64<span class="token punctuation">(</span>environ<span class="token punctuation">)</span><span class="token operator">*</span><span class="token number">300</span>
@@ -3931,7 +3950,7 @@ p<span class="token punctuation">.</span>sendline<span class="token punctuation"
 <span class="token keyword">print</span> p<span class="token punctuation">.</span>recvall<span class="token punctuation">(</span>timeout<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
 </code></pre>
 <p>得到flag</p>
-<p><img src="/2018/08/22/═°╢ж▒н▓┐╖╓PWN-Writeup/网鼎杯部分PWN-Writeup/3.jpg" alt="3"></p>
+<p><img src="/2018/08/22/网鼎杯部分PWN-Writeup/3.jpg" alt="3"></p>
 <h2 id="第二场"><a href="#第二场" class="headerlink" title="第二场"></a>第二场</h2><h3 id="easyFMT"><a href="#easyFMT" class="headerlink" title="easyFMT"></a>easyFMT</h3><p>检查保护</p>
 <p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-bash"><code class="language-bash">ios@ubuntu:~$ checksec <span class="token function">fmt</span>
@@ -3989,7 +4008,7 @@ puts <span class="token operator">=</span> u32<span class="token punctuation">(<
 <span class="token keyword">print</span> hex<span class="token punctuation">(</span>puts<span class="token punctuation">)</span>
 </code></pre>
 <p>获取libc版本</p>
-<p><img src="/2018/08/22/═°╢ж▒н▓┐╖╓PWN-Writeup/网鼎杯部分PWN-Writeup/1.jpg" alt="1"></p>
+<p><img src="/2018/08/22/网鼎杯部分PWN-Writeup/1.jpg" alt="1"></p>
 <p>计算获得system_addr</p>
 <p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-python"><code class="language-python">system_addr<span class="token operator">=</span> puts<span class="token operator">-</span>libc<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">'puts'</span><span class="token punctuation">]</span><span class="token operator">+</span>libc<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">'system'</span><span class="token punctuation">]</span>
@@ -4045,12 +4064,16 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
     </summary>
     
     
+      <category term="Pwn" scheme="http://iosmosis.github.io/tags/Pwn/"/>
+    
+      <category term="Writeup" scheme="http://iosmosis.github.io/tags/Writeup/"/>
+    
   </entry>
   
   <entry>
     <title>西电线下赛PWN-writeup</title>
-    <link href="http://iosmosis.github.io/2018/07/23/%E2%95%AC%D1%9E%E2%95%A1%D1%87%E2%95%A7%E2%96%80%E2%95%A7%E2%94%AC%E2%95%9A%E2%84%96PWN-writeup/"/>
-    <id>http://iosmosis.github.io/2018/07/23/╬ў╡ч╧▀╧┬╚№PWN-writeup/</id>
+    <link href="http://iosmosis.github.io/2018/07/23/%E8%A5%BF%E7%94%B5%E7%BA%BF%E4%B8%8B%E8%B5%9BPWN-writeup/"/>
+    <id>http://iosmosis.github.io/2018/07/23/西电线下赛PWN-writeup/</id>
     <published>2018-07-22T18:25:32.000Z</published>
     <updated>2018-07-24T16:09:30.000Z</updated>
     
@@ -4118,7 +4141,7 @@ p<span class="token punctuation">.</span>sendline<span class="token punctuation"
 p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
 </code></pre>
 <p>尝试运行</p>
-<p><img src="/2018/07/23/╬ў╡ч╧▀╧┬╚№PWN-writeup/西电线下赛PWN-writeup/1.jpg" alt="1"></p>
+<p><img src="/2018/07/23/西电线下赛PWN-writeup/1.jpg" alt="1"></p>
 <h2 id="PWN2-stack-relro"><a href="#PWN2-stack-relro" class="headerlink" title="PWN2  stack-relro"></a>PWN2  stack-relro</h2><p>感谢因幡师傅 感谢去去去师傅~</p>
 <p>顺便推一下如果你也喜欢CTF真的很推荐来西电 学长们很友好也很愿意耐心解答问题</p>
 <p>那我们继续看题</p>
@@ -4239,7 +4262,7 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
 <p>看到如果读入输入成功就执行strncpy()函数将栈中刚输入的字符串复制到堆中 由于char src大小固定所以这里会造成栈溢出</p>
 <p>那我们可以来算一下偏移</p>
 <p>在strncpy()函数处下断</p>
-<p><img src="/2018/07/23/╬ў╡ч╧▀╧┬╚№PWN-writeup/西电线下赛PWN-writeup/2.jpg" alt="2"></p>
+<p><img src="/2018/07/23/西电线下赛PWN-writeup/2.jpg" alt="2"></p>
 <p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-bash"><code class="language-bash">gdb-peda$ <span class="token function">file</span> relro
 Reading symbols from relro<span class="token punctuation">..</span>.<span class="token punctuation">(</span>no debugging symbols found<span class="token punctuation">)</span><span class="token punctuation">..</span>.done.
@@ -4380,7 +4403,7 @@ p<span class="token punctuation">.</span>sendline<span class="token punctuation"
 p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
 </code></pre>
 <p>尝试运行</p>
-<p><img src="/2018/07/23/╬ў╡ч╧▀╧┬╚№PWN-writeup/西电线下赛PWN-writeup/3.jpg" alt="3"></p>
+<p><img src="/2018/07/23/西电线下赛PWN-writeup/3.jpg" alt="3"></p>
 ]]></content>
     
     <summary type="html">
@@ -4396,10 +4419,10 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
   
   <entry>
     <title>heap-学习</title>
-    <link href="http://iosmosis.github.io/2018/07/18/heap-%E2%95%A4%D0%B7%E2%95%A7%E2%96%91/"/>
-    <id>http://iosmosis.github.io/2018/07/18/heap-╤з╧░/</id>
+    <link href="http://iosmosis.github.io/2018/07/18/heap-%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://iosmosis.github.io/2018/07/18/heap-学习/</id>
     <published>2018-07-18T09:12:30.000Z</published>
-    <updated>2018-07-22T19:43:38.000Z</updated>
+    <updated>2019-09-12T04:47:59.392Z</updated>
     
     <content type="html"><![CDATA[<h2 id="heap0"><a href="#heap0" class="headerlink" title="heap0"></a>heap0</h2><p>源代码</p>
 <p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
@@ -4472,7 +4495,7 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
 </code></pre>
 <p>漏洞存在于strcpy函数</p>
 <h3 id="利用思路"><a href="#利用思路" class="headerlink" title="利用思路"></a>利用思路</h3><p>因为该程序堆是连续分配的所以在内存结构上也是连续的</p>
-<p> <img src="/2018/07/18/heap-╤з╧░/heap-学习/1.png" alt="1"></p>
+<p> <img src="/2018/07/18/heap-学习/1.png" alt="1"></p>
 <p>所以我们需要溢出dest覆盖到v4接着修改nowinner为winner函数地址</p>
 <p>填充量= malloc(0x80u) +第二个chunk头0x8=136</p>
 <p>或者gdb调试</p>
@@ -4594,6 +4617,10 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
     
     </summary>
     
+    
+      <category term="Pwn" scheme="http://iosmosis.github.io/tags/Pwn/"/>
+    
+      <category term="heap" scheme="http://iosmosis.github.io/tags/heap/"/>
     
   </entry>
   

