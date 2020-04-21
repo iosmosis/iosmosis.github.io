@@ -4,8 +4,38 @@
 
     
   <url>
+    <loc>http://iosmosis.github.io/2020/03/29/shellcode/</loc>
+    <lastmod>2020-03-29T12:33:24.600Z</lastmod>
+    <data>
+        <display>
+        <title>shellcode</title>
+        <pubTime>2020-03-29T12:14:01.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://iosmosis.github.io/2020/02/23/buuctf-Writeup/</loc>
+    <lastmod>2020-02-28T14:59:45.107Z</lastmod>
+    <data>
+        <display>
+        <title>buuctf-Writeup</title>
+        <pubTime>2020-02-23T08:41:30.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://iosmosis.github.io/2019/09/13/babyheap-0ctf-2017/</loc>
-    <lastmod>2019-09-13T10:55:07.084Z</lastmod>
+    <lastmod>2019-09-13T11:20:43.043Z</lastmod>
     <data>
         <display>
         <title>babyheap_0ctf_2017</title>
@@ -471,9 +501,9 @@
         
         <tag>writeup</tag>
          
-        <tag>WEB</tag>
-         
         <tag>RE</tag>
+         
+        <tag>WEB</tag>
          
         <tag>BUPT</tag>
          
