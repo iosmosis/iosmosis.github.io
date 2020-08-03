@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iosmosis.github.io/"/>
-  <updated>2020-08-03T17:11:49.157Z</updated>
+  <updated>2020-08-03T17:15:33.309Z</updated>
   <id>http://iosmosis.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://iosmosis.github.io/2020/08/01/ios%E9%80%86%E5%90%91%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0-HOOK-QQ%E7%99%BB%E5%BD%95/"/>
     <id>http://iosmosis.github.io/2020/08/01/ios逆向入门笔记-HOOK-QQ登录/</id>
     <published>2020-07-31T17:08:21.000Z</published>
-    <updated>2020-08-03T17:11:49.157Z</updated>
+    <updated>2020-08-03T17:15:33.309Z</updated>
     
     <content type="html"><![CDATA[<h2 id="选择目标"><a href="#选择目标" class="headerlink" title="选择目标"></a>选择目标</h2><p>在经过之前的配置，这次有点小改动= 我给小5升级到了10.3.3<br>本次测试机型：iphone5 32位 10.3.3 不完美越狱<br>测试目标：QQ</p>
 <h2 id="砸壳"><a href="#砸壳" class="headerlink" title="砸壳"></a>砸壳</h2><p>手机端下载好QQ后<br><img src="https://img-blog.csdnimg.cn/202007312221146.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lpbnh1YW53bA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>usb连接到mac上 使用 <a href="https://github.com/AloneMonkey/frida-ios-dump" target="_blank" rel="noopener">frida-ios-dump</a>进行砸壳</p>
@@ -96,6 +96,10 @@
     
     </summary>
     
+    
+      <category term="ios逆向" scheme="http://iosmosis.github.io/tags/ios%E9%80%86%E5%90%91/"/>
+    
+      <category term="hook" scheme="http://iosmosis.github.io/tags/hook/"/>
     
   </entry>
   
@@ -198,7 +202,7 @@ s<span class="token punctuation">.</span>close<span class="token punctuation">(<
     <link href="http://iosmosis.github.io/2020/02/29/ios%E9%80%86%E5%90%91%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0-%E5%9F%BA%E6%9C%AC%E5%B7%A5%E4%BD%9C/"/>
     <id>http://iosmosis.github.io/2020/02/29/ios逆向入门笔记-基本工作/</id>
     <published>2020-02-29T15:08:10.000Z</published>
-    <updated>2020-08-03T17:10:52.907Z</updated>
+    <updated>2020-08-03T17:15:00.942Z</updated>
     
     <content type="html"><![CDATA[<h1 id="ios逆向入门笔记"><a href="#ios逆向入门笔记" class="headerlink" title="ios逆向入门笔记"></a><strong>ios逆向入门笔记</strong></h1><h2 id="手机越狱"><a href="#手机越狱" class="headerlink" title="手机越狱"></a>手机越狱</h2><p>版本iphone5 ios8.4.1</p>
 <p>遇到问题</p>
@@ -342,7 +346,9 @@ s<span class="token punctuation">.</span>close<span class="token punctuation">(<
     </summary>
     
     
-      <category term="-ios逆向 -越狱" scheme="http://iosmosis.github.io/tags/ios%E9%80%86%E5%90%91-%E8%B6%8A%E7%8B%B1/"/>
+      <category term="ios逆向" scheme="http://iosmosis.github.io/tags/ios%E9%80%86%E5%90%91/"/>
+    
+      <category term="越狱问题" scheme="http://iosmosis.github.io/tags/%E8%B6%8A%E7%8B%B1%E9%97%AE%E9%A2%98/"/>
     
   </entry>
   
@@ -1175,7 +1181,7 @@ Program received signal SIGSEGV (fault address 0x0)
 gdb-peda$ pattern offset 0x41412d4141434141
 4702089244242559297 found at offset: 16
 gdb-peda$
-</0x41412d4141434141></vuln+44></code></pre>
+</code></pre>
 <p>得到存在溢出 偏移为16</p>
 <p></p><p class="code-caption" data-lang="assembly" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
 <pre class=" language-assembly"><code class="language-assembly">.text:00000000004004D6                 public gadgets
@@ -1408,7 +1414,7 @@ Found 292 results, display max 256 items:
       libc : 0x7ffff7b9af41 ("%s%s%s[%p] ")
       libc : 0x7ffff7b9af43 ("%s%s[%p] ")
 --More--(25/257)
-</_openchild+23></_nl_find_locale+768></code></pre>
+</code></pre>
 <p>发现程序中存在%s 那我们就利用%s获取</p>
 <p>接着需要传入格式化的值通过顺位第二个寄存器rsi存入read_got</p>
 <p>接着ret到printf_plt即可完成泄漏</p>
@@ -2344,9 +2350,9 @@ Wow_You_really_K0nw_Web%0%0%0%0%2%0?3%0?4%0?5%0?6%0?7
     
       <category term="Writeup" scheme="http://iosmosis.github.io/tags/Writeup/"/>
     
-      <category term="wasm" scheme="http://iosmosis.github.io/tags/wasm/"/>
-    
       <category term="RE" scheme="http://iosmosis.github.io/tags/RE/"/>
+    
+      <category term="wasm" scheme="http://iosmosis.github.io/tags/wasm/"/>
     
       <category term="Web" scheme="http://iosmosis.github.io/tags/Web/"/>
     
@@ -4245,10 +4251,10 @@ copy_to_user：
 <pre class=" language-C"><code class="language-C">#include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include <sys ioctl.h="">
+#include <sys/ioctl.h>
 #include <fcntl.h>
 #include <string.h>
-#include <sys mman.h="">
+#include <sys/mman.h>
 size_t commit_creds = 0, prepare_kernel_cred = 0;
 size_t raw_vmlinux_base = 0xffffffff81000000;
 size_t vmlinux_base = 0;
@@ -4307,7 +4313,7 @@ unsigned long long offset = vmlinux_base - raw_vmlinux_base;
 printf("{==dbg==} leak offset: %p\n",(void*)offset);
 }
 <p class="code-caption" data-lang="" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p>
-</sys></string.h></fcntl.h></sys></stdlib.h></unistd.h></stdio.h></code></pre>
+</code></pre>
 <h3 id="平衡堆栈"><a href="#平衡堆栈" class="headerlink" title="平衡堆栈"></a>平衡堆栈</h3><p>就像刚开始说的一样 内核态与用户态pwn的差别  内核态还需要稳定堆栈<br>在内核返回用户态的时候，会调用iretq，iretq会依次弹出 rip cs eflags rsp ss之后做一些判断，如果不能构造好这些参数，系统会崩溃<br>这里采取提前保存的方式来稳定堆栈</p>
 <pre class=" language-C"><code class="language-C">static void save_state() {
     asm(

